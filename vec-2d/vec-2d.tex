@@ -523,17 +523,41 @@ $L(v)=v_x*(s_x,0) + v_y*(0,s_y)
      = (s_x v_x,0)+(0,s_y v_y)= (s_x v_x, s_y v_y)$.
 \end{enumerate}
 
-Lastly, we define the product {\tt K*L} of two linear transformations
-{\tt K = ($\ell^K_x$,$\ell^K_y$)} and
-{\tt L = ($\ell^L_x$,$\ell^L_y$)} by the equation \\
-\centerline{{\tt (K*L)*v = K*(L*v)} for every vector {\tt v}}
-From this we get:
+Now suppose we have a scalar {\tt s}, vector {\tt v},
+and two linear transformations
+{\tt K = ($\ell^K_x$,$\ell^K_y$)},
+{\tt L = ($\ell^L_x$,$\ell^L_y$)}.  Then we can define:
 \begin{center}
 \tt
-(K*L)*$u_x$ = K*(L*$u_x$) = K*$\ell^L_x$ \\
-(K*L)*$u_y$ = K*(L*$u_y$) = K*$\ell^L_y$ \\
-(K*L) = (K*$\ell^L_x$,K*$\ell^L_y$)
+\begin{tabular}{l@{~so that~}l}
+s*L = (s*$\ell^L_x$,s*$\ell^L_y$)
+	 & (s*L)*v = s*(L*v) \\[0.3ex]
+K+L = ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)
+	 & (K+L)*v = K*v + L*v \\[0.3ex]
+K+L = ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)
+	 & (K+L)*v = K*v + L*v \\[0.3ex]
+K-L = ($\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$)
+	 & (K-L)*v = K*v - L*v \\[0.3ex]
+-L = (-$\ell^L_x$,-$\ell^L_y$)
+	 & (-L)*v = - L*v \\[0.3ex]
+K*L = (K*$\ell^L_x$,K*$\ell^L_y$)
+	 & (K*L)*v = K*(L*v)
+\end{tabular}
 \end{center}
+
+Note that {\tt *} and {\tt +} as defined here are bi-linear
+(letting {\tt J} be another linear transformation):
+\begin{center}
+\tt
+s*(K+L) = s*K + s*L \\
+(J+K)*L = J*L + K*L \\
+J*(K+L) = J*K + J*L
+\end{center}
+
+Also note that {\tt K*L} is in general \underline{not equal}
+to {\tt L*K}.
+
+
 
 \newpage
 
@@ -550,7 +574,9 @@ then: \\[1ex]
 \tt (v,w) & returns $(v,w)$ \\
 \tt L*v & returns {\tt ($v_x\ell^L_x$,$v_y\ell^L_y$)} \\
 \tt s*K & returns {\tt ($s\ell^L_x$,$s\ell^L_y$)} \\
-\tt K+L & returns {\tt ($\ell^K_x+\ell^L_x$,$\ell^K_y+\ell^L_y$)} \\
+\tt K+L & returns {\tt ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)} \\
+\tt K-L & returns {\tt ($\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$)} \\
+\tt -L & returns {\tt (-$\ell^L_x$,-$\ell^L_y$)} \\
 \tt K*L & returns {\tt (K*$\ell^L_x$,K*$\ell^L_y$)} \\
 \end{tabular}
 \end{center}
