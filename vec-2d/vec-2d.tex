@@ -637,28 +637,39 @@ does \underline{not} change $R^\phi$.
 \begin{wrapfigure}[5]{r}{0.5\textwidth}
 \begin{tikzpicture}[x=0.20in,y=0.20in]
 \begin{scope}[>=triangle 45,shorten >=0.01in]
-    \draw[black] (-1,0) -- (+5,0);
-    \draw[black] (0,-1) -- (0,+3);
+    \draw[black] (-1,0) -- (+1,0);
+    \draw[black] (0,-1) -- (0,+1);
 
     \fill[red] (0,0) circle(0.1);
 
     \fill[red] (3.464101615,2.0) circle(0.1);
     \draw[red,->] (0,0) -- (3.464101615,2.0);
-    \draw[black] (4.0,2.0) node{$v$};
+    \draw[black] (2.7,0.6) node{$v$};
 
     \fill[red] (4.0,4.0) circle(0.1);
-    \draw[red,->] (0,0) -- (4.0,4.0);
-    \draw[black] (4.5,4.5) node{$v+w$};
+    \draw[brown,->] (0,0) -- (4.0,4.0);
+    \draw[black] (1.4,2.8) node{$v+w$};
+
+    \draw[blue,->] (3.464101615,2.0) -- (4.0,4.0);
+    \draw[black] (4.2,3.0) node{$w$};
 
     \fill[red] (-3.464101615,2.0) circle(0.1);
     \draw[red,->] (0,0) -- (-3.464101615,2.0);
-    \draw[black] (-3.5,+2.8) node{$R^\phi(v)$};
+    \draw[black] (-1.4,+2.0) node{$R^\phi(v)$};
+
+    \fill[red] (-5.464101521,1.464101590) circle(0.1);
+    \draw[brown,->] (0,0) -- (-5.464101521,1.464101590);
+    \draw[black] (-4.2,+0.2) node{$R^\phi(v+w)$};
+
+    \draw[blue,->] (-3.464101615,2.0) -- (-5.464101521,1.464101590);
+    \draw[black] (-5.0,2.3) node{$R^\phi(w)$};
 
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-A rotation perserves vector addition, that is,
-$R^\phi(v+w)=R^\phi(v)+R^\phi(w)$, and therefore
+A rotation perserves side-lengths and angles of a triangle.
+Therefore, a rotation preserves vector addition, that is,
+$R^\phi(v+w)=R^\phi(v)+R^\phi(w)$, and thus
 satisfies Definition~\ref{LINEAR-TRANSFORMATION}
 and is a linear transformation.
 \end{minipage}
@@ -837,7 +848,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Oct 19 02:47:26 EDT 2020
+Date:         & Mon Oct 19 11:25:00 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
