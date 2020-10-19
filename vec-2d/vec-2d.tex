@@ -22,6 +22,7 @@
 \setlength{\parskip}{1ex}
 \newcommand{\key}[1]{{\bf #1}}
 \newcommand{\TT}[1]{{\tt \bfseries #1}}
+\newcommand{\EOL}{\penalty \exhyphenpenalty}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newenvironment{indpar}[1]%
@@ -371,10 +372,6 @@ then: \\[1ex]
 \tt l\textasciicircum t
           & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
 	  & the vector with length {\tt l} and azimuth {\tt t} \\
-\tt v\textasciicircum t
-          & returns $(\ell\cos(\phi+\theta),\ell\sin(\phi+\theta))$, \\
-	  & where {\tt $\phi$ = azm v} \\
-	  & i.e, {\tt v} rotated counter-clockwise by {\tt t} \\
 \end{tabular}
 \end{center}
 
@@ -414,7 +411,6 @@ vec zerov = { 0, 0 };
 double lenv ( vec v );
 double azmv ( vec v );
 vec polar ( double len, double azm );
-vec rotate ( vec v, double angle );
 \end{verbatim}
 \end{minipage}
 
@@ -432,7 +428,6 @@ vec zerov = { 0, 0 };
 double len ( vec v );
 double azm ( vec v );
 vec polar ( double len, double azm );
-vec rotate ( vec v, double angle );
 \end{verbatim}
 \end{minipage}
 
@@ -596,6 +591,79 @@ to the corresponding {\tt .sout} files.
 You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.
+
+\section{Rotations and Reflections}
+Rotations and reflections are the two kinds of linear transformations
+that preserve vector lengths (i.e., $||L(v)||=||v||$).
+
+\begin{minipage}{\textwidth}\raggedright
+\begin{wrapfigure}[5]{r}{0.4\textwidth}
+\begin{tikzpicture}[x=0.20in,y=0.20in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+    \draw[black] (-1,0) -- (+5,0);
+    \draw[black] (0,-1) -- (0,+3);
+
+    \fill[red] (0,0) circle(0.1);
+
+    \draw[brown,>=latex,->] (2.0,0) arc(0:30:2.0);
+    \draw[black] (3.2,+0.4) node{azm~$v$};
+
+    \draw[blue,>=latex,->] (1.7320508,1.0) arc(30:150:2.0);
+    \draw[black] (+0.5,+2.3) node{$\phi$};
+
+    \fill[red] (3.464101615,2.0) circle(0.1);
+    \draw[red,->] (0,0) -- (3.464101615,2.0);
+    \draw[black] (3.6,2.6) node{$v$};
+
+    \fill[red] (-3.464101615,2.0) circle(0.1);
+    \draw[red,->] (0,0) -- (-3.464101615,2.0);
+    \draw[black] (-3.6,+2.6) node{$R^\phi(v)$};
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+A rotation $R^\phi$ by $\phi$ degrees (counter-\EOL clockwise)
+is defined mathematically by
+\hspace*{0.2in}\begin{tabular}[t]{l}
+$||R^\phi(v)|| = ||v||$ \\
+$\mathrm{azm}~R^\phi(v) = \mathrm{azm}~v + \phi$ \\
+\end{tabular}
+\\[1ex]
+Note that adding integer multiples of 360 to $\phi$
+does \underline{not} change $R^\phi$.
+\end{minipage}
+
+\begin{minipage}{\textwidth}\raggedright
+\begin{wrapfigure}[5]{r}{0.5\textwidth}
+\begin{tikzpicture}[x=0.20in,y=0.20in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+    \draw[black] (-1,0) -- (+5,0);
+    \draw[black] (0,-1) -- (0,+3);
+
+    \fill[red] (0,0) circle(0.1);
+
+    \fill[red] (3.464101615,2.0) circle(0.1);
+    \draw[red,->] (0,0) -- (3.464101615,2.0);
+    \draw[black] (4.0,2.0) node{$v$};
+
+    \fill[red] (4.0,4.0) circle(0.1);
+    \draw[red,->] (0,0) -- (4.0,4.0);
+    \draw[black] (4.5,4.5) node{$v+w$};
+
+    \fill[red] (-3.464101615,2.0) circle(0.1);
+    \draw[red,->] (0,0) -- (-3.464101615,2.0);
+    \draw[black] (-3.5,+2.8) node{$R^\phi(v)$};
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+A rotation perserves vector addition, that is,
+$R^\phi(v+w)=R^\phi(v)+R^\phi(w)$, and therefore
+satisfies Definition~\ref{LINEAR-TRANSFORMATION}
+and is a linear transformation.
+\end{minipage}
+
+\newpage
 
 \section{Products, Rotations, and Reflections}
 There are two products of a pair of vectors that play a
@@ -769,7 +837,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Oct 16 19:42:34 EDT 2020
+Date:         & Mon Oct 19 02:47:26 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
