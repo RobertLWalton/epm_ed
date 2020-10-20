@@ -816,6 +816,22 @@ In order to calculate $L(u_x)$ from $\phi$ without using polar
 coordinates we need the notion of scalar product, developed in a
 following section.
 
+Both rotations and reflections preserve vector lengths
+and change vector angles according to a linear formula.
+Using the notation $R^\phi$ for rotation by angle $\phi$,
+and $F^\phi$ for reflection about the line at angle $\phi$,
+we get the following:
+\begin{center}
+$R^\phi*R^\omega=R^\omega*R^\phi=R^{\phi+\omega}$
+~~because~~
+    $(\mathrm{azm}~v + \omega) + \phi = \mathrm{azm}~v + (\phi+\omega)$ \\
+$F^\phi*F^\omega = R^{2(\phi-\omega)}$
+~~because~~
+    $2\phi - (2\omega - \mathrm{azm}~v) = \mathrm{azm}~v + 2(\phi-\omega)$
+\end{center}
+Note that while $R^\phi*R^\omega=R^\omega*R^\phi$,
+$F^\omega*F^\phi$ is the inverse rotation of $F^\phi*F^\omega$.
+
 \newpage
 
 \section{Products}
@@ -855,7 +871,7 @@ u\#(v+w) = u\#v + u\#w \\
 \end{lemma}
 
 Note that the scalar product is symmetric ({\tt v*w = w*v})
-while the cross produce is anti-symmetric ({\tt v\#w = -w\#v}).
+while the cross product is anti-symmetric ({\tt v\#w = -w\#v}).
 
 \begin{definition}
 A linear transformation {\tt L} is \key{unitary} if and only if
@@ -990,7 +1006,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Oct 20 03:48:07 EDT 2020
+Date:         & Tue Oct 20 12:30:35 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
