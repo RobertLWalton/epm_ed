@@ -802,6 +802,20 @@ But if $L(u_y)$ is $L(u_x)$ rotated clockwise
 by 90 degrees, $L$ is a reflection.  All unitary linear transformations
 in 2 dimensions must be either rotations or reflections.
 
+If $L$ is a rotation, the angle of rotation is: \\
+\centerline{$\phi = \mathrm{asm}~L(u_x) - \mathrm{asm}~u_x =
+             \mathrm{asm}~L(u_x)$}
+and we have: \begin{tabular}[t]{l}
+             $L(u_x)=(\cos\phi,\sin\phi)$ \\
+             $L(u_y)=(-\sin\phi,\cos\phi)$ \\
+	     \end{tabular}
+
+If $L$ is a reflection, the angle of the reflecting line is: \\
+\centerline{$\phi = (1/2)*(\mathrm{asm}~L(u_x) + \mathrm{asm}~u_x)$}
+In order to calculate $L(u_x)$ from $\phi$ without using polar
+coordinates we need the notion of scalar product, developed in a
+following section.
+
 \newpage
 
 \section{Products}
@@ -976,7 +990,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Oct 20 01:18:29 EDT 2020
+Date:         & Tue Oct 20 03:48:07 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
