@@ -138,8 +138,8 @@ value types and the
 {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l}
-Assume:	& {\tt x=}$x$ (a scalar) \\
-	& {\tt y=}$y$ (a scalar) \\
+Assume:	& {\tt x=}$x$, {\tt y=}$y$ (scalars) \\
+	& {\tt d=}$d$ (an integer scalar $\ge 0$) \\
 	& {\tt b=}$b$ (a boolean) \\
 then: \\[1ex]
 \tt x+y & returns $x + y$ \\
@@ -152,8 +152,10 @@ then: \\[1ex]
 \tt tan x & returns $\tan ( \pi/180 * x )$ \\
 \tt x<y & returns \TT{true} if $x<y$, else \TT{false} \\
 \tt x<=y & returns \TT{true} if $x\le y$, else \TT{false} \\
-\tt x==y & returns \TT{true} if $x=y$, else \TT{false} \\
-\tt x!=y & returns \TT{false} if $x=y$, else \TT{true} \\
+\tt x==y:d & returns \TT{true} if $|x-y|<0.5*10^{-d}$, else \TT{false} \\
+           & (means $x$ = $y$ assuming both really have exactly $d$
+	      decimal places \\
+	   & ~but have only been calculated to within $d+1$ decimal places) \\
 \tt x>y & returns \TT{true} if $x>y$, else \TT{false} \\
 \tt x>=y & returns \TT{true} if $x\ge y$, else \TT{false} \\
 \tt -x & returns $-x$ \\
@@ -360,9 +362,11 @@ value types and the {\em operators} and {\em functions}:
 Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
           {\tt l=$\ell$}, {\tt t=$\theta$}
           are scalars \\
+	& {\tt d=}$d$ (an integer scalar $\ge 0$) \\
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
 then: \\[1ex]
 \tt (x,y) & returns $(x,y)$ \\
+\tt v==w:d & returns $v_x==w_x:d$ AND $v_y==w_y:d$ \\
 \tt s*v & returns $(s v_x, s v_y )$ \\
 \tt -v & returns $( -v_x, -v_y )$, {\tt v} with direction reversed \\
 \tt v+w & returns $(v_x + w_x, v_y + w_y)$ \\
@@ -567,6 +571,7 @@ Assume: & {\tt s=}$s$ is a scalar \\
 	  {\tt L=($\ell^L_x$,$\ell^L_y$)} are linear transforms \\
 then: \\[1ex]
 \tt (v,w) & returns $(v,w)$ \\
+\tt K==L:d & returns $\ell^K_x==\ell^L_x:d$ AND $\ell^K_y==\ell^L_y:d$ \\
 \tt L*v & returns {\tt ($v_x\ell^L_x$,$v_y\ell^L_y$)} \\
 \tt s*K & returns {\tt ($s\ell^L_x$,$s\ell^L_y$)} \\
 \tt K+L & returns {\tt ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)} \\
@@ -832,156 +837,29 @@ $F^\phi*F^\omega = R^{2(\phi-\omega)}$
 Note that while $R^\phi*R^\omega=R^\omega*R^\phi$,
 $F^\omega*F^\phi$ is the inverse rotation of $F^\phi*F^\omega$.
 
-\newpage
-
-\section{Products}
-There are two products of a pair of vectors that play a
-very important role in 2D computational geometry:
-
-\begin{definition}
-The \key{scalar product} of two vectors \\
-\centerline{{\tt v = ($v_x$,$v_y$)} and {\tt w = ($w_x$,$w_y$)}} \\
-is \\
-\centerline{\tt v*w = $v_x w_x + v_y w_y$} \\
-The \key{cross product} of the two vectors is \\
-\centerline{\tt v\#w = $v_x(-w_y) + v_y w_x$}
-\end{definition}
-
-Above we denoted the length of a vector {\tt v} by {\tt ||v||}.
-Then \\
-\centerline{\tt ||v||$^2$ = v*v}
-
-Let us denote the vector {\tt w} rotated counter-clockwise by
-{\tt d} degrees by {\tt w\textasciicircum d}.  Then \\
-\centerline{\tt v\#w = v*(w\textasciicircum 90)}
-
-\begin{lemma}
-Both the scalar and cross product are \key{bi-linear}.  That is,
-if {\tt u}, {\tt v}, {\tt w} are vectors and {\tt s} is a scalar:
-\begin{center}
-\tt
-(u+v)*w = u*w + v*w \\
-u*(v+w) = u*v + u*w \\
-(s*u)*w = s*(u*w) = u*(s*w) \\
-(u+v)\#w = u\#w + v\#w \\
-u\#(v+w) = u\#v + u\#w \\
-(s*u)\#w = s*(u\#w) = u\#(s*w)
-\end{center}
-
-\end{lemma}
-
-Note that the scalar product is symmetric ({\tt v*w = w*v})
-while the cross product is anti-symmetric ({\tt v\#w = -w\#v}).
-
-\begin{definition}
-A linear transformation {\tt L} is \key{unitary} if and only if
-{\tt L(v)*L(w) = v*w} for every pair of vectors {\tt v} and {\tt w}
-({\tt L} preserves scalar products).
-
-A unitary transformation is a \key{rotation} if and only if
-{\tt L(v)\#L(w) = v\#w} for every pair of vectors {\tt v} and {\tt w}.
-
-A unitary transformation is a \key{reflection} if and only if
-{\tt L(v)\#L(w) = - v\#w} for every pair of vectors {\tt v} and {\tt w}.
-
-\end{definition}
-
-\begin{lemma}
-A linear transformation {\tt L = ($\ell_x$,$\ell_y$)} is unitary
-if and only if \\
-\centerline{{\tt ||$\ell_x$||=1}, {\tt ||$\ell_y$||=1}, and
-{\tt $\ell_x$*$\ell_y$=0}}
-
-{\tt L} is a rotation if and only if it is unitary and
-{\tt $\ell_x$\#$\ell_y$=-1}.
-
-{\tt L} is a reflection if and only if it is unitary and
-{\tt $\ell_x$\#$\ell_y$=1}.
-\end{lemma}
-\begin{indpar}{0.5in}
-Proof:  Let {\tt $u_x$ = (1,0)} and {\tt $u_y$ = (0,1)} so
-that {\tt $\ell_x$ = L($u_x$)} and {\tt $\ell_y$ = L($u_y$)}.
-Then {\tt $u_x$*$u_x$ = 1}, {\tt $u_y$*$u_y$ = 1}, {\tt $u_x$*$u_y$ = 0},
-and {\tt $u_x$\#$u_x$ = 0}, {\tt $u_y$\#$u_y$ = 0}, {\tt $u_x$\#$u_y$ = -1}.
-
-Then if {\tt L} is unitary, \\
-\hspace*{0.1in}
-{\tt L($u_x$)*L($u_x$) = 1}; {\tt L($u_y$)*L($u_y$) = 1};
-{\tt L($u_x$)*L($u_y$) = 0} \\
-If in addition it is a rotation, 
-{\tt L($u_x$)\#L($u_y$) = -1}, while if instead it is a reflection,
-{\tt L($u_x$)\#L($u_y$) = 1}.
-
-Conversely, if we assume {\tt ||$\ell_x$|| = 1}, etc., then the
-converse follows from:
-\begin{center}
-\tt
-\begin{tabular}{r@{~=~}l}
-L(v)*L(w) & L($v_x$*$u_x$+$v_y$*$u_y$)*L($w_x$*$u_x$+$w_y$*$u_y$) \\
-	  & $v_x w_x$*L($u_x$)*L($u_x$)
-	    \begin{tabular}[t]{@{}l}
-	    + $v_x w_y$*L($u_x$)*L($u_y$) \\
-	    + $v_y w_x$*L($u_y$)*L($u_x$) \\
-	    + $v_y w_y$*L($u_y$)*L($u_y$) \\
-	    \end{tabular} \\
-	  & $v_x w_x$ + 0 + 0 + $v_y w_y$ \\
-	  & v*w
-\\[1ex]
-L(v)\#L(w) & L($v_x$*$u_x$+$v_y$*$u_y$)\#L($w_x$*$u_x$+$w_y$*$u_y$) \\
-	  & $v_x w_x$*L($u_x$)\#L($u_x$)
-	    \begin{tabular}[t]{@{}l}
-	    + $v_x w_y$*L($u_x$)\#L($u_y$) \\
-	    + $v_y w_x$*L($u_y$)\#L($u_x$) \\
-	    + $v_y w_y$*L($u_y$)\#L($u_y$) \\
-	    \end{tabular} \\
-	  & 0 $\mp$ $v_x w_y$ $\pm$ $v_y w_x$ + 0 \\
-	  & $\pm$ v\#w
-\end{tabular}
-\end{center}
-\end{indpar}
-
-\begin{lemma}
-A unitary linear transformation (in 2 dimensions)
-is either a rotation or a reflection.
-\end{lemma}
-\begin{indpar}{0.5in}
-Proof: By laborious algebra we prove the {\tt v*w = 0} implies
-{\tt |v\#w| = ||v||*||w||} which for a unitary transformation
-{\tt ($\ell_x$,$\ell_y$)} implies that {\tt |$\ell_x$\#$\ell_y$| = 1},
-so by the last lemma we are done.  The laborious algebra is:
-\begin{center}
-\begin{tabular}{r@{~=~}l}
-\tt |v\#w|$^2$ & $(v_x(-w_y)+v_y w_x)^2$ \\
-               & $v_x^2 w_y^2 - 2 v_x v_y w_x w_y + v_y^2 w_x^2$ \\
-\tt (||v||*||w||)$^2$
-               & $(v_x^2+v_y^2)(w_x^2+w_y^2)$ \\
-               & $v_x^2 w_y^2 + v_x^2 w_x^2 + v_y^2 w_y^2 + v_y^2 w_x^2$ \\
-and using      & $v_x w_x + v_y w_y = 0$ \\
-$v_x^2 w_x^2$  & $v_x^2 w_x^2 - (v_x w_x + v_y w_y)v_x w_x$ \\
-	       & $-v_x v_y w_x w_y$ \\
-$v_y^2 w_y^2$  & $v_y^2 w_y^2 - (v_x w_x + v_y w_y)v_y w_y$ \\
-	       & $-v_x v_y w_x w_y$ \\
-\end{tabular}
-\end{center}
-\end{indpar}
+\bigskip
 
 \section{Unitary Transform Calculator}
-Add the linear transformation value to your calculator and implement
-the following {\em operators} and {\em functions}:
+Implement additions to the linear calculator for
+the {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
-Assume: & {\tt d=}$d$ (a scalar) \\
-	& {\tt v=}$(v_x,v_y)$ (a vector) \\
-	& {\tt w=}$(w_x,w_y)$ (a vector) \\
+\multicolumn{2}{l}{Assume:} \\
+        & {\tt p=}$p$ is a scalar \\
+	& {\tt v} is a vector \\
 then: \\[1ex]
-\tt v*w & returns $v_x w_x + w_y w_y$,
-          the scalar product of {\tt v} and {\tt w} \\
-\tt v\#w & returns $v_x(-w_y)+v_y w_x$,
-           the cross product of {\tt v} and {\tt w} \\
-\tt v\textasciicircum d & returns {\tt v} rotated counter-clockwise by
-			  $d$ degrees \\
-
-TBD
+\tt v\textasciicircum p & return {\tt w} such that {\tt ||w||=||v||} and
+	                  {\tt asm w = asm v + p}, \\
+			& {\tt v} rotated by {\tt p} degrees \\
+\tt v|p & return {\tt w} such that {\tt ||w||=||v||} and
+	                  {\tt asm w = 2*p\,-\,asm v}, \\
+			& {\tt v} reflected across the line with direction
+			  {\tt p} degrees \\
+\tt \textasciicircum p
+       & return {\tt ($u_x$\textasciicircum p,$u_y$\textasciicircum p)}, \\
+       & the rotation $R^p$ with angle $p$ degrees \\
+\tt |p & return {\tt ($u_x$|p,$u_y$|p)}, \\
+       & the reflection $F^p$ across the line with direction $p$ degrees \\
 \end{tabular}
 \end{center}
 
@@ -1001,12 +879,92 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.
 
+\newpage
+
+\section{Products}
+There are two products of a pair of vectors that play a
+very important role in 2D computational geometry:
+
+\begin{definition}
+The \key{scalar product} of two vectors \\
+\centerline{{\tt v = ($v_x$,$v_y$)} and {\tt w = ($w_x$,$w_y$)}} \\
+is \\
+\centerline{\tt v*w = $v_x w_x + v_y w_y$} \\
+The \key{cross product} of the two vectors is \\
+\centerline{\tt v\#w = $(-v_y)w_x + v_x w_y$}
+\end{definition}
+
+Note that {\tt ||v||$^2$ = v*v}.
+
+If we denote the vector {\tt v} rotated counter-clockwise by
+{\tt p} degrees by {\tt v\textasciicircum p}.  Then \\
+\centerline{\tt v\#w = (p\textasciicircum 90)*w}
+
+Both the scalar and cross product are \key{bi-linear}.  That is,
+if {\tt u}, {\tt v}, {\tt w} are vectors and {\tt s} is a scalar:
+\begin{center}
+\tt
+(u+v)*w = u*w + v*w \\
+u*(v+w) = u*v + u*w \\
+(s*u)*w = s*(u*w) = u*(s*w) \\
+(u+v)\#w = u\#w + v\#w \\
+u\#(v+w) = u\#v + u\#w \\
+(s*u)\#w = s*(u\#w) = u\#(s*w)
+\end{center}
+
+Note that the scalar product is symmetric ({\tt v*w = w*v})
+while the cross product is anti-symmetric ({\tt v\#w = -w\#v}).
+
+\begin{lemma}
+For a unitary transform {\tt L}:
+\begin{enumerate}
+\item {\tt L(v)*L(w) = v*w} for all vectors {\tt v} and {\tt w}.
+\item If {\tt L} is a rotation,
+         {\tt L(v)\#L(w) = v\#w} for all vectors {\tt v} and {\tt w}; \\
+      if {\tt L} is a reflection,
+         {\tt L(v)\#L(w) = - v\#w} for all vectors {\tt v} and {\tt w}.
+\end{enumerate}
+\end{lemma}
+
+\section{Product Calculator}
+Implement additions to the unitary calculator for
+the following {\em operators} and {\em functions}:
+\begin{center}
+\begin{tabular}{l@{~~~~~}l@{~~~~~}l}
+Assume: & {\tt d=}$d$ (a scalar) \\
+	& {\tt v=}$(v_x,v_y)$ (a vector) \\
+	& {\tt w=}$(w_x,w_y)$ (a vector) \\
+then: \\[1ex]
+\tt v*w & returns $v_x w_x + w_y w_y$,
+          the scalar product of {\tt v} and {\tt w} \\
+\tt v\#w & returns $(-v_y)w_x+v_x w_y$,
+           the cross product of {\tt v} and {\tt w} \\
+TBD
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{rl}
+Sample Input File: & \file{00-product-vec-2d.sin} \\
+Sample Output File: & \file{00-product-vec-2d.sout} \\
+or: & \file{00-product-vec-2d.ftest} \\
+Submit Run File: & \file{submit-product-vec-2d.run} \\
+\end{tabular}
+\end{center}
+
+Note that the {\tt .ftest} files for this problem are identical
+to the corresponding {\tt .sout} files.
+
+You can test your program using the indicated sample input and
+output and you can submit your program using the indicated submit
+run file.
+
 
 \bigskip
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Oct 20 12:30:35 EDT 2020
+Date:         & Tue Oct 20 15:52:22 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
