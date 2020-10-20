@@ -139,7 +139,7 @@ value types and the
 \begin{center}
 \begin{tabular}{l@{~~~~~}l}
 Assume:	& {\tt x=}$x$, {\tt y=}$y$ (scalars) \\
-	& {\tt d=}$d$ (an integer scalar $\ge 0$) \\
+	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
 	& {\tt b=}$b$ (a boolean) \\
 then: \\[1ex]
 \tt x+y & returns $x + y$ \\
@@ -147,22 +147,20 @@ then: \\[1ex]
 \tt x*y & returns $x \times y$ \\
 \tt x/y & returns $x / y$ \\
 \tt x\%y & returns $x~\mathrm{modulo}~y$ \\
+\tt -x & returns $-x$ \\
+\tt |x| & returns $|x|$, the absolute value of $x$ \\
 \tt cos x & returns $\cos ( \pi/180 * x )$ \\
 \tt sin x & returns $\sin ( \pi/180 * x )$ \\
 \tt tan x & returns $\tan ( \pi/180 * x )$ \\
-\tt x<y & returns \TT{true} if $x<y$, else \TT{false} \\
-\tt x<=y & returns \TT{true} if $x\le y$, else \TT{false} \\
+\tt x<y:d & returns \TT{true} if $x<y-0,5*10^{-d}$, else \TT{false} \\
+\tt x<=y:d & returns \TT{true} if $x<y+0,5*10^{-d}$, else \TT{false} \\
 \tt x==y:d & returns \TT{true} if $|x-y|<0.5*10^{-d}$, else \TT{false} \\
-           & (means $x$ = $y$ assuming both really have exactly $d$
-	      decimal places \\
-	   & ~but have only been calculated to within $d+1$ decimal places) \\
-\tt x>y & returns \TT{true} if $x>y$, else \TT{false} \\
-\tt x>=y & returns \TT{true} if $x\ge y$, else \TT{false} \\
-\tt -x & returns $-x$ \\
-\tt |x| & returns $|x|$, the absolute value of $x$ \\
-\tt b?x:y & returns $x$ if $b$ is \TT{true} else returns $y$ \\
 \end{tabular}
 \end{center}
+
+Comparisons assume the scalars being compared are approximations
+to precise numbers in units of $10^{-d}$, and therefore to test
+for equality the numbers should be (in effect) rounded to the nearest unit.
 
 \begin{center}
 \begin{tabular}{rl}
@@ -217,6 +215,9 @@ typedef struct {
     linear l;
     affine a;
 } var;
+double units[13] =  /* units[d] = 10**(-d) */
+    { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
+      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 );
 \end{verbatim}
 \end{minipage}
 
@@ -241,6 +242,9 @@ struct var {
     linear l;
     affine a;
 };
+double units[13] =  // units[d] = 10**(-d)
+    { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
+      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 );
 \end{verbatim}
 \end{minipage}
 
@@ -344,7 +348,9 @@ This is called the \key{azimuth} of $v$, and in computer
 languages may be computed (in radians) by the {\tt atan2} function as
 $\theta = \mathrm{atan2}(v_y,v_x)$ (note $v_y$ comes before $v_x$).
 \\[1ex]
-The vector with length $\ell$ and azimuth $\theta$ is
+For a vector {\tt v},~~{\tt asm v} and {\tt ||v||} are said to be
+the \key{polar coordinates} of {\tt v}.
+The vector with the polar coordinates $\theta$ (azimuth) and $\ell$ (length) is
 $(\ell \cos\theta,\ell \sin\theta)$.
 See the picture.
 \\[1ex]
@@ -362,7 +368,7 @@ value types and the {\em operators} and {\em functions}:
 Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
           {\tt l=$\ell$}, {\tt t=$\theta$}
           are scalars \\
-	& {\tt d=}$d$ (an integer scalar $\ge 0$) \\
+	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
 then: \\[1ex]
 \tt (x,y) & returns $(x,y)$ \\
@@ -566,6 +572,7 @@ value types and the {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
 Assume: & {\tt s=}$s$ is a scalar \\
+	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
 	& {\tt v=($v_x$,$v_y$)} and {\tt w=($w_x$,$w_y$)} are vectors \\
 	& {\tt K=($\ell^K_x$,$\ell^K_y$)} and
 	  {\tt L=($\ell^L_x$,$\ell^L_y$)} are linear transforms \\
@@ -964,7 +971,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Oct 20 15:52:22 EDT 2020
+Date:         & Tue Oct 20 19:20:10 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
