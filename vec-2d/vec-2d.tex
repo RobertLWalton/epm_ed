@@ -627,11 +627,16 @@ is defined mathematically by
 \hspace*{0.2in}\begin{tabular}[t]{l}
 $||R^\phi(v)|| = ||v||$ \\
 $\mathrm{azm}~R^\phi(v) = \mathrm{azm}~v + \phi$ \\
-\end{tabular}
-\\[1ex]
-Note that adding integer multiples of 360 to $\phi$
+\end{tabular} \\
+~\\
+A rotation preserves angles between vectors; that is: \\
+\hspace*{0.2in}$\mathrm{asm}~R^\phi(v)-\mathrm{asm}R^\phi(w)
+               = \mathrm{asm}~v-\mathrm{asm}~w$ \\
+Also, adding integer multiples of 360 to $\phi$
 does \underline{not} change $R^\phi$.
 \end{minipage}
+
+\bigskip
 
 \begin{minipage}{\textwidth}\raggedright
 \begin{wrapfigure}[5]{r}{0.5\textwidth}
@@ -674,6 +679,8 @@ satisfies Definition~\ref{LINEAR-TRANSFORMATION}
 and is a linear transformation.
 \end{minipage}
 
+\bigskip
+
 \begin{minipage}{\textwidth}\raggedright
 \begin{wrapfigure}[5]{r}{0.4\textwidth}
 \begin{tikzpicture}[x=0.20in,y=0.20in]
@@ -707,17 +714,53 @@ and is a linear transformation.
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-A \key{reflection} $F^\phi$ by $\phi$ degrees (counter-\EOL clockwise)
+A \key{reflection} $F^\phi$ by $\phi$ degrees
+is a reflection accross the line through the origin with
+direction $\phi$ and
 is defined mathematically by
 \hspace*{0.2in}\begin{tabular}[t]{l}
 $||R^\phi(v)|| = ||v||$ \\
 $\mathrm{azm}~F^\phi(v) = \phi - \alpha$ \\
-where $\alpha = \mathrm{azm}~v - \phi$ \\
-so $\mathrm{azm}~F^\phi(v) = 2*\phi - \mathrm{azm}~v$ \\
-\end{tabular}
-\\[1ex]
-Note that adding integer multiples of 360 to $\phi$
+where $\alpha = \mathrm{azm}~v - \phi$ so \\
+$\mathrm{azm}~F^\phi(v) = 2*\phi - \mathrm{azm}~v$ \\
+\end{tabular} \\
+~\\
+A reflection negates angles between vectors; that is: \\
+\hspace*{0.2in}$\mathrm{asm}~F^\phi(v)-\mathrm{asm}F^\phi(w)
+               = -(\mathrm{asm}~v-\mathrm{asm}~w)$ \\
+Also, adding integer multiples of 180 to $\phi$
 does \underline{not} change $F^\phi$.
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{\textwidth}\raggedright
+\begin{wrapfigure}[5]{r}{0.4\textwidth}
+\begin{tikzpicture}[x=0.20in,y=0.20in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+    \draw[black] (-1,0) -- (+1,0);
+    \draw[black] (0,-1) -- (0,+1);
+
+    \fill[red] (0,0) circle(0.1);
+
+    \draw[red] (-0.577350269,-1) -- (2.886751345,5);
+
+    \fill[red] (2.897777478,0.776457135) circle(0.1);
+    \draw[red,->] (0,0) -- (2.897777478,0.776457135);
+    \draw[black] (3.2,0.3) node{$v$};
+
+    \fill[red] (-0.776457135,2.897777478) circle(0.1);
+    \draw[red,->] (0,0) -- (-0.776457135,2.897777478);
+    \draw[black] (-1.3,+3.6) node{$F^\phi(v)$};
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+A reflection perserves side-lengths and negates angles of a triangle.
+Therefore, a reflection preserves vector addition, that is,
+$F^\phi(v+w)=F^\phi(v)+F^\phi(w)$, and thus
+satisfies Definition~\ref{LINEAR-TRANSFORMATION}
+and is a linear transformation.
 \end{minipage}
 
 \newpage
@@ -894,7 +937,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Oct 19 15:16:26 EDT 2020
+Date:         & Mon Oct 19 21:07:46 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
