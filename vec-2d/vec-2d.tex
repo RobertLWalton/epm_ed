@@ -217,7 +217,7 @@ typedef struct {
 } var;
 double units[13] =  /* units[d] = 10**(-d) */
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
-      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 );
+      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
 \end{verbatim}
 \end{minipage}
 
@@ -244,7 +244,7 @@ struct var {
 };
 double units[13] =  // units[d] = 10**(-d)
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
-      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 );
+      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
 \end{verbatim}
 \end{minipage}
 
@@ -839,7 +839,11 @@ $R^\phi*R^\omega=R^\omega*R^\phi=R^{\phi+\omega}$
     $(\mathrm{azm}~v + \omega) + \phi = \mathrm{azm}~v + (\phi+\omega)$ \\
 $F^\phi*F^\omega = R^{2(\phi-\omega)}$
 ~~because~~
-    $2\phi - (2\omega - \mathrm{azm}~v) = \mathrm{azm}~v + 2(\phi-\omega)$
+    $2\phi - (2\omega - \mathrm{azm}~v) = \mathrm{azm}~v + 2(\phi-\omega)$ \\
+$R^\phi*F^\omega = F^\omega*R^{-\phi}$
+~~because~~
+    $(2\omega - \mathrm{azm}~v) + \phi =
+      2\omega - (\mathrm{azm}~v + (-\phi))$
 \end{center}
 Note that while $R^\phi*R^\omega=R^\omega*R^\phi$,
 $F^\omega*F^\phi$ is the inverse rotation of $F^\phi*F^\omega$.
@@ -903,9 +907,9 @@ The \key{cross product} of the two vectors is \\
 
 Note that {\tt ||v||$^2$ = v*v}.
 
-If we denote the vector {\tt v} rotated counter-clockwise by
-{\tt p} degrees by {\tt v\textasciicircum p}.  Then \\
-\centerline{\tt v\#w = (p\textasciicircum 90)*w}
+If we denote the rotation counter-clockwise by 90 degrees by {\tt R}$^{90}$,
+then \\
+\centerline{\tt v\#w = (-$v_y$,$v_x$)*w = R$^{90}$(v)*w}
 
 Both the scalar and cross product are \key{bi-linear}.  That is,
 if {\tt u}, {\tt v}, {\tt w} are vectors and {\tt s} is a scalar:
@@ -932,6 +936,43 @@ For a unitary transform {\tt L}:
          {\tt L(v)\#L(w) = - v\#w} for all vectors {\tt v} and {\tt w}.
 \end{enumerate}
 \end{lemma}
+
+\begin{indpar}{0.3in}
+Proof: Since {\tt L} is unitary: \\
+{\small \tt
+\hspace*{0.05in}
+       \begin{tabular}[t]{rcl}
+       ||v+w||$^2$ & = & (v+w)*(v+w) = v*v + v*w + w*v + w*w \\
+		   & = & ||v||$^2$ + 2*v*w + ||w||$^2${\rm ,} \\
+       {\rm so} v*w & = & (1/2) \\
+                    & * & ( ||v+w||$^2$ - ||v||$^2$ - ||w||$^2$ ){\rm ,} \\
+       {\rm so} L(v)*L(w)
+         & = & (1/2) \\
+	 & * & (||L(v)+L(w)||$^2$-||L(v)||$^2$-||L(w)||$^2$) \\
+         & = & (1/2)*( ||v+w||$^2$ - ||v||$^2$ - ||w||$^2$ ) \\
+         & = & v*w
+       \end{tabular}
+} % \small \tt
+
+If $L$ is a rotation, {\tt R$^{90}$*L=L*R$^{90}$} so \\
+{\tt
+\hspace*{0.1in}
+       \begin{tabular}[t]{rcl}
+       L(v)\#L(w) & = & R$^{90}$(L(v))*L(w) = L(R$^{90}$(v))*L(w) \\
+                  & = & R$^{90}$(v)*w = v\#w \\
+       \end{tabular}
+} % \tt
+
+If $L$ is a reflection, {\tt R$^{90}$*L=L*R$^{-90}$}
+and {\tt R$^{-90}$ = - R$^{90}$} so \\
+{\tt
+\hspace*{0.1in}
+       \begin{tabular}[t]{rcl}
+       L(v)\#L(w) & = & R$^{90}$(L(v))*L(w) = L(R$^{-90}$(v))*L(w) \\
+                  & = & R$^{-90}$(v)*w = - R$^{90}$(v)*w = - v\#w
+       \end{tabular}
+} % \tt
+\end{indpar}
 
 \section{Product Calculator}
 Implement additions to the unitary calculator for
@@ -971,7 +1012,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Oct 20 19:20:10 EDT 2020
+Date:         & Wed Oct 21 09:55:57 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
