@@ -24,7 +24,7 @@
 \newcommand{\TT}[1]{{\tt \bfseries #1}}
 \newcommand{\EOL}{\penalty \exhyphenpenalty}
 \newtheorem{definition}{Definition}[section]
-\newtheorem{lemma}{Lemma}[section]
+\newtheorem{lemma}[definition]{Lemma}[section]
 \newenvironment{indpar}[1]%
     {\begin{list}{}{\setlength{\leftmargin}{#1}}\item[]}%
     {\end{list}}
@@ -974,6 +974,78 @@ and {\tt R$^{-90}$ = - R$^{90}$} so \\
 } % \tt
 \end{indpar}
 
+
+\bigskip
+
+\begin{minipage}{\textwidth}\raggedright
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{tikzpicture}[x=0.30in,y=0.30in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+    \draw[black] (-1,0) -- (+0,0);
+    \draw[black] (0,-1) -- (0,+3);
+
+    \fill[blue] (5.0,0) circle(0.1);
+    \draw[blue,->] (0,0) -- (+5.0,0);
+    \draw[black] (5.5,0) node{$v$};
+
+    \fill[red] (0,0) circle(0.1);
+    \draw[black] (2.0,-0.5) node{$||w||*\cos \theta$};
+
+    \draw[brown,>=latex,->] (2.0,0) arc(0:30:2.0);
+    \draw[black] (2.4,+0.4) node{$\theta$};
+
+    \fill[red] (3.464101615,2.0) circle(0.1);
+    \draw[red,->] (0,0) -- (3.464101615,2.0);
+    \draw[black] (1.3,+1.5) node{$||w||$};
+    \draw[black] (4.0,+2.0) node{$w$};
+
+    \draw[orange] (3.464101615,0) -- (3.464101615,2.0);
+    \draw[black] (3.464101615,1) + (0.1,0)
+                 node[right]{$||w||*\sin \theta$};
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+We can use this lemma to give a geometric characterization
+of our two products.  Let $v$ and $w$ be two vectors and let
+$\theta=\mathrm{asm}~w - \mathrm{asm}~v$ be the direction angle of $w$
+relative to $v$.  If we rotate both vectors by $R^{-\mathrm{asm}~v}$
+we line $v$ up with the positive X-axis, while not changing $\theta$,
+$||v||$, $||w||$, $v*w$, or $v\#w$.  So we have
+(see the picture): \\
+\hspace*{0.5in}
+    \begin{tabular}{l}
+    $v=(||v||,0)$ \\
+    $w=(||w||\cos\theta,||w||\sin\theta)$ \\
+    $v*w=||v||\times||w||\times\cos\theta$ \\
+    $v*w=||v||\times||w||\times\sin\theta$ \\
+    \end{tabular}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{\textwidth}\raggedright
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{tikzpicture}[x=0.30in,y=0.30in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+    \draw[black] (-1,0) -- (+5,0);
+    \draw[black] (0,-1) -- (0,+3);
+    \fill[red] (0,0) circle(0.1);
+
+    \fill[red] (3.464101615,2.0) circle(0.1);
+    \draw[red,->] (0,0) -- (3.464101615,2.0);
+    \draw[black] (4.0,+2.0) node{$w$};
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+We see that $v*w$ is just $||v||$ times the projection $||w||\cos\theta$ of
+$||w||$ onto the direction of $v$.  If $v$ is a unit vector, $u$ with
+$||u||=1$, this is just the projection of $||w||$ onto the direction of $u$.
+TBD
+\end{minipage}
+
+
+
 \section{Product Calculator}
 Implement additions to the unitary calculator for
 the following {\em operators} and {\em functions}:
@@ -1012,7 +1084,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Oct 21 09:55:57 EDT 2020
+Date:         & Thu Oct 22 02:09:24 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
