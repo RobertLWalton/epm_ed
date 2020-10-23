@@ -981,68 +981,74 @@ and {\tt R$^{-90}$ = - R$^{90}$} so \\
 \begin{wrapfigure}{r}{0.5\textwidth}
 \begin{tikzpicture}[x=0.30in,y=0.30in]
 \begin{scope}[>=triangle 45,shorten >=0.01in]
-    \draw[black] (-1,0) -- (+0,0);
-    \draw[black] (0,-1) -- (0,+3);
-
-    \fill[blue] (5.0,0) circle(0.1);
-    \draw[blue,->] (0,0) -- (+5.0,0);
-    \draw[black] (5.5,0) node{$v$};
-
-    \fill[red] (0,0) circle(0.1);
-    \draw[black] (2.0,-0.5) node{$||w||*\cos \theta$};
-
-    \draw[brown,>=latex,->] (2.0,0) arc(0:30:2.0);
-    \draw[black] (2.4,+0.4) node{$\theta$};
-
-    \fill[red] (3.464101615,2.0) circle(0.1);
-    \draw[red,->] (0,0) -- (3.464101615,2.0);
-    \draw[black] (1.3,+1.5) node{$||w||$};
-    \draw[black] (4.0,+2.0) node{$w$};
-
-    \draw[orange] (3.464101615,0) -- (3.464101615,2.0);
-    \draw[black] (3.464101615,1) + (0.1,0)
-                 node[right]{$||w||*\sin \theta$};
-\end{scope}
-\end{tikzpicture}
-\end{wrapfigure}
-We can use this lemma to give a geometric characterization
-of our two products.  Let $v$ and $w$ be two vectors and let
-$\theta=\mathrm{asm}~w - \mathrm{asm}~v$ be the direction angle of $w$
-relative to $v$.  If we rotate both vectors by $R^{-\mathrm{asm}~v}$
-we line $v$ up with the positive X-axis, while not changing $\theta$,
-$||v||$, $||w||$, $v*w$, or $v\#w$.  So we have
-(see the picture): \\
-\hspace*{0.5in}
-    \begin{tabular}{l}
-    $v=(||v||,0)$ \\
-    $w=(||w||\cos\theta,||w||\sin\theta)$ \\
-    $v*w=||v||\times||w||\times\cos\theta$ \\
-    $v*w=||v||\times||w||\times\sin\theta$ \\
-    \end{tabular}
-\end{minipage}
-
-\bigskip
-
-\begin{minipage}{\textwidth}\raggedright
-\begin{wrapfigure}{r}{0.5\textwidth}
-\begin{tikzpicture}[x=0.30in,y=0.30in]
-\begin{scope}[>=triangle 45,shorten >=0.01in]
     \draw[black] (-1,0) -- (+5,0);
     \draw[black] (0,-1) -- (0,+3);
     \fill[red] (0,0) circle(0.1);
 
-    \fill[red] (3.464101615,2.0) circle(0.1);
-    \draw[red,->] (0,0) -- (3.464101615,2.0);
-    \draw[black] (4.0,+2.0) node{$w$};
+    \fill[blue] (4.330127018,2.5) circle(0.1);
+    \draw[blue,->] (0,0) -- (4.330127018,2.5);
+    \draw[black] (4.5,2.0) node{$v$};
+
+    \fill[red] (2.0,3.464101615) circle(0.1);
+    \draw[red,->] (0,0) -- (2.0,3.464101615);
+    \draw[black] (0.6,+2.4) node{$||w||$};
+    \draw[black] (2.0,+4.0) node{$w$};
+
+    \draw[orange] (3.0,1.732050807) -- (2.0,3.464101615);
+    \draw[black] (2.3,3.0) node[right]{$||w||*\sin \theta$};
+
+    \draw[black] (3.4,0.7) node{$||w||*\cos \theta$};
+
+    \draw[brown,>=latex,->] (1.5,0) arc(0:30:1.5);
+    \draw[black] (1.0,+0.3) node{$\phi$};
+
+    \draw[brown,>=latex,->] (1.299038105,0.75) arc(30:60:1.5);
+    \draw[black] (1.3,+1.3) node{$\theta$};
 
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-We see that $v*w$ is just $||v||$ times the projection $||w||\cos\theta$ of
-$||w||$ onto the direction of $v$.  If $v$ is a unit vector, $u$ with
-$||u||=1$, this is just the projection of $||w||$ onto the direction of $u$.
-TBD
+We can use the fact that $*$ and $\#$ are invariant under
+rotations to give a geometric characterization
+of these two products.  Let $v$ and $w$ be two vectors, let
+$\theta=\mathrm{asm}~w - \mathrm{asm}~v$ be the direction angle of $w$
+relative to $v$, and let $\phi = \mathrm{asm}~v$ be the aszimuth of $v$
+(see the picture).
+If we rotate both vectors by $R^{-\phi}$
+we line $v$ up with the positive X-axis, while not changing $\theta$,
+$||v||$, $||w||$, $v*w$, or $v\#w$.  So after rotation we have
+\hspace*{0.5in}
+    \begin{tabular}{l@{~~~~~}l}
+    $v=(||v||,0)$ &
+    $w=(||w||\cos\theta,||w||\sin\theta)$ \\
+    $v*w=||v||\times||w||\times\cos\theta$ & 
+    $v\#w=||v||\times||w||\times\sin\theta$ \\
+    \end{tabular}
 \end{minipage}
+
+From this we deduce two things.  First, \\
+\hspace*{0.5in}
+    \begin{tabular}{l@{~~~~~}l}
+    $v*w=||v||\times||w||\times\cos\theta$ &
+    $v\#w=||v||\times||w||\times\sin\theta$ \\
+    \end{tabular} \\
+before rotation, as well as after rotation,
+which gives a geometric characterization of the products.
+
+Second,\hspace{0.5in}$||v||*R^{-\mathrm{azm}~v}*w=(v*w,v\#w)$,
+\\[1ex]
+which gives us a quick way to change coordinate systems
+by a rotation times scalar multiplication by $||v||$ so that
+$v$ has coordinates $(||v||^2,0)$ in the new coordinate system.
+Problems that might be hard to solve in the original
+coordinate system can be easly to solve in the new coordinate
+system.  For example, the end of $w$ is to the left of the infinite directed
+line extending $v$ if and only if $v\#w>0$.
+
+Note that a distance in
+the new coordinate system is $||v||$ times the corresponding
+distance in the old coordinate system.  If absolute distances are
+of importance, it may be best to choose $v$ so that $||v||=1$.
 
 
 
@@ -1084,7 +1090,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Oct 22 02:09:24 EDT 2020
+Date:         & Fri Oct 23 16:07:00 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
