@@ -1116,7 +1116,12 @@ then: \\[1ex]
           the scalar product of {\tt v} and {\tt w} \\
 \tt v\#w & returns $(-v_y)w_x+v_x w_y$,
            the cross product of {\tt v} and {\tt w} \\
-TBD
+\tt v:w & returns $||v||*R^{-\mathrm{asm}~v}*w = (v*w,v\#w)$ \\
+\tt v! & returns $(1/||v|)*v$, the unit vector in the same direction as $v$ \\
+\tt v!w & returns $R^{-\mathrm{asm}~v}*w = ((v!)*w,(v!)\#w)$ \\
+\tt area~pqr & returns $0.5*(r-p)\#(q-p)$, the area of triangle $pqr$, \\
+             & with positive sign if $pqr$ clockwise, \\
+	     & and negative sign if counter-clockwise \\
 \end{tabular}
 \end{center}
 
@@ -1141,7 +1146,7 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Oct 25 15:17:41 EDT 2020
+Date:         & Sun Oct 25 19:39:53 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
