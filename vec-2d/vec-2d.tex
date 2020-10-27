@@ -24,7 +24,7 @@
 \newcommand{\TT}[1]{{\tt \bfseries #1}}
 \newcommand{\EOL}{\penalty \exhyphenpenalty}
 \newtheorem{definition}{Definition}[section]
-\newtheorem{lemma}[definition]{Lemma}[section]
+\newtheorem{lemma}[definition]{Lemma}
 \newenvironment{indpar}[1]%
     {\begin{list}{}{\setlength{\leftmargin}{#1}}\item[]}%
     {\end{list}}
@@ -218,6 +218,9 @@ typedef struct {
 double units[13] =  /* units[d] = 10**(-d) */
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
       1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
+int lt ( double x, double y, int d );
+int leq ( double x, double y, int d );
+int eq ( double x, double y, int d );
 \end{verbatim}
 \end{minipage}
 
@@ -245,6 +248,9 @@ struct var {
 double units[13] =  // units[d] = 10**(-d)
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
       1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
+int lt ( double x, double y, int d );
+int leq ( double x, double y, int d );
+int eq ( double x, double y, int d );
 \end{verbatim}
 \end{minipage}
 
@@ -413,7 +419,10 @@ code, should that be important.
 \hspace*{0.5in}\begin{minipage}{4.0in}
 \begin{verbatim}
 /* C Vector Function Signatures */
-void printv ( vec );
+vec new_vec ( double x, double y );
+int eqv ( vec v, vec w, int d );
+void printv ( vec v );
+vec sprodv ( double s, vec v );
 vec addv ( vec v, vec w );
 vec subv ( vec v, vec w );
 vec negv ( vec v );
@@ -429,8 +438,11 @@ vec polar ( double len, double azm );
 \hspace*{0.5in}\begin{minipage}{4.0in}
 \begin{verbatim}
 // C++ Vector Function Signatures
+vec new_vec ( double x, double y );
+bool eq ( vec v, vec w, int d );
 std::ostream & operator <<
         ( std::ostream & s, vec v );
+vec operator * ( double s, vec v );
 vec operator + ( vec v, vec w );
 vec operator - ( vec v, vec w );
 vec operator - ( vec v );
@@ -574,17 +586,17 @@ value types and the {\em operators} and {\em functions}:
 Assume: & {\tt s=}$s$ is a scalar \\
 	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
 	& {\tt v=($v_x$,$v_y$)} and {\tt w=($w_x$,$w_y$)} are vectors \\
-	& {\tt K=($\ell^K_x$,$\ell^K_y$)} and
-	  {\tt L=($\ell^L_x$,$\ell^L_y$)} are linear transforms \\
+	& \multicolumn{2}{@{}l}{{\tt K=($\ell^K_x$,$\ell^K_y$)} and
+	  {\tt L=($\ell^L_x$,$\ell^L_y$)} are linear transforms} \\
 then: \\[1ex]
 \tt (v,w) & returns $(v,w)$ \\
 \tt K==L:d & returns $\ell^K_x==\ell^L_x:d$ AND $\ell^K_y==\ell^L_y:d$ \\
-\tt L*v & returns {\tt ($v_x\ell^L_x$,$v_y\ell^L_y$)} \\
+\tt L*v & returns {\tt ($v_x\ell^L_x$,$v_y\ell^L_y$)} & [application] \\
 \tt s*K & returns {\tt ($s\ell^L_x$,$s\ell^L_y$)} \\
 \tt K+L & returns {\tt ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)} \\
 \tt K-L & returns {\tt ($\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$)} \\
 \tt -L & returns {\tt (-$\ell^L_x$,-$\ell^L_y$)} \\
-\tt K*L & returns {\tt (K*$\ell^L_x$,K*$\ell^L_y$)} \\
+\tt K*L & returns {\tt (K*$\ell^L_x$,K*$\ell^L_y$)} & [composition] \\
 \end{tabular}
 \end{center}
 
@@ -605,6 +617,53 @@ output and you can submit your program using the indicated submit
 run file.
 
 \newpage
+
+\subsection{Linear Coding Hints}
+
+You should write functions to do things like linear transform
+application and composition,
+because later you will need to do these things in other
+statements and will want a function to call.  Using the following
+function signatures may make it easier
+for other people familiar with this problem to read your
+code, should that be important.
+
+\hspace*{0.3in}\begin{minipage}{5.0in}
+\begin{verbatim}
+/* C Vector Function Signatures */
+linear make_linear ( vec v, vec w );
+int eql ( linear L, linear K, int d );
+void printl ( linear L );
+vec apply ( linear L, vec v );
+    /* application */
+linear sprodl ( double s, linear L );
+linear addl ( linear K, linear L );
+linear subl ( linear K, linear L );
+linear negl ( linear L );
+linear compose ( linear K, linear L );
+    /* composition */
+\end{verbatim}
+\end{minipage}
+
+\bigskip
+
+\hspace*{0.3in}\begin{minipage}{5.0in}
+\begin{verbatim}
+// C++ Vector Function Signatures
+linear make_linear ( vec v, vec w );
+int eq ( linear L, linear K, int d );
+std::ostream & operator <<
+        ( std::ostream & s, linear L );
+vec operator * ( linear L, vec v );
+    // application
+linear operator * ( double s, linear L );
+linear operator + ( linear K, linear L );
+linear operator - ( linear K, linear L );
+linear operator - ( linear L );
+linear operator * ( linear K, linear L );
+    // composition
+\end{verbatim}
+\end{minipage}
 
 \section{Rotations and Reflections}
 Rotations and reflections are the two kinds of linear transformations
@@ -850,7 +909,7 @@ $F^\omega*F^\phi$ is the inverse rotation of $F^\phi*F^\omega$.
 
 \bigskip
 
-\section{Unitary Transform Calculator}
+\section{Rotations and Reflections Transform Calculator}
 Implement additions to the linear calculator for
 the {\em operators} and {\em functions}:
 \begin{center}
@@ -890,7 +949,37 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.
 
-\newpage
+\subsection{Rotations and Reflections Coding Hints}
+
+You should write functions to do things like compute rotations
+and reflections,
+because later you will need to do these things in other
+statements and will want a function to call.  Using the following
+function signatures may make it easier
+for other people familiar with this problem to read your
+code, should that be important.
+
+\hspace*{0.3in}\begin{minipage}{5.0in}
+\begin{verbatim}
+/* C Vector Function Signatures */
+vec rotate ( vec v, double p );
+vec reflect ( vec v, double p );
+linear rotation ( double p );
+linear reflection ( double p );
+\end{verbatim}
+\end{minipage}
+
+\bigskip
+
+\hspace*{0.3in}\begin{minipage}{5.0in}
+\begin{verbatim}
+// C++ Vector Function Signatures
+vec rotate ( vec v, double p );
+vec reflect ( vec v, double p );
+linear rotation ( double p );
+linear reflection ( double p );
+\end{verbatim}
+\end{minipage}
 
 \section{Products}
 There are two products of a pair of vectors that play a
@@ -1141,12 +1230,45 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.
 
+\subsection{Product Coding Hints}
+
+You should write functions to do things like compute the products,
+because later you will need to do these things in other
+statements and will want a function to call.  Using the following
+function signatures may make it easier
+for other people familiar with this problem to read your
+code, should that be important.
+
+\hspace*{0.3in}\begin{minipage}{5.0in}
+\begin{verbatim}
+/* C Vector Function Signatures */
+vec prod ( vec v, vec w );
+vec cross ( vec v, vec w );
+vec change ( vec v, vec w );
+vec unit ( vec v );
+vec uchange ( vec v, vec w );
+\end{verbatim}
+\end{minipage}
+
+\bigskip
+
+\hspace*{0.3in}\begin{minipage}{5.0in}
+\begin{verbatim}
+// C++ Vector Function Signatures
+vec operator * ( vec v, vec w );
+vec cross ( vec v, vec w );
+vec change ( vec v, vec w );
+vec unit ( vec v );
+vec uchange ( vec v, vec w );
+\end{verbatim}
+\end{minipage}
+
 
 \bigskip
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Oct 25 19:39:53 EDT 2020
+Date:         & Tue Oct 27 06:53:59 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
