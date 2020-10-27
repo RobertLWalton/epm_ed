@@ -218,9 +218,9 @@ typedef struct {
 double units[13] =  /* units[d] = 10**(-d) */
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
       1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
-int lt ( double x, double y, int d );
-int leq ( double x, double y, int d );
-int eq ( double x, double y, int d );
+int lt ( double x, double y, int d );   // x<y:d
+int leq ( double x, double y, int d );  // x<=y:d
+int eq ( double x, double y, int d );   // x==y:d
 \end{verbatim}
 \end{minipage}
 
@@ -248,9 +248,9 @@ struct var {
 double units[13] =  // units[d] = 10**(-d)
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
       1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
-int lt ( double x, double y, int d );
-int leq ( double x, double y, int d );
-int eq ( double x, double y, int d );
+int lt ( double x, double y, int d );   // x<y:d
+int leq ( double x, double y, int d );  // x<=y:d
+int eq ( double x, double y, int d );   // x==y:d
 \end{verbatim}
 \end{minipage}
 
@@ -416,40 +416,40 @@ function signatures may make it easier
 for other people familiar with this problem to read your
 code, should that be important.
 
-\hspace*{0.5in}\begin{minipage}{4.0in}
+\hspace*{0.3in}\begin{minipage}{5.0in}
 \begin{verbatim}
 /* C Vector Function Signatures */
-vec new_vec ( double x, double y );
-int eqv ( vec v, vec w, int d );
+vec new_vec ( double x, double y );      // (x,y)
+int eqv ( vec v, vec w, int d );         // v==w:d
 void printv ( vec v );
-vec sprodv ( double s, vec v );
-vec addv ( vec v, vec w );
-vec subv ( vec v, vec w );
-vec negv ( vec v );
-vec zerov = { 0, 0 };
-double lenv ( vec v );
-double azmv ( vec v );
-vec polar ( double len, double azm );
+vec sprodv ( double s, vec v );          // s*v
+vec addv ( vec v, vec w );               // v+w
+vec subv ( vec v, vec w );               // v-w
+vec negv ( vec v );                      // -v
+vec zerov = { 0, 0 };                    // (0,0)
+double lenv ( vec v );                   // ||v||
+double azmv ( vec v );                   // azm v
+vec polar ( double l, double t );        // l^t
 \end{verbatim}
 \end{minipage}
 
 \bigskip
 
-\hspace*{0.5in}\begin{minipage}{4.0in}
+\hspace*{0.3in}\begin{minipage}{5.0in}
 \begin{verbatim}
 // C++ Vector Function Signatures
-vec new_vec ( double x, double y );
-bool eq ( vec v, vec w, int d );
+vec new_vec ( double x, double y );      // (x,y)
+bool eq ( vec v, vec w, int d );         // v==w:d
 std::ostream & operator <<
         ( std::ostream & s, vec v );
-vec operator * ( double s, vec v );
-vec operator + ( vec v, vec w );
-vec operator - ( vec v, vec w );
-vec operator - ( vec v );
-vec zerov = { 0, 0 };
-double len ( vec v );
-double azm ( vec v );
-vec polar ( double len, double azm );
+vec operator * ( double s, vec v );      // s*v
+vec operator + ( vec v, vec w );         // v+w
+vec operator - ( vec v, vec w );         // v-w
+vec operator - ( vec v );                // -v
+vec zerov = { 0, 0 };                    // (0,0)
+double len ( vec v );                    // ||v||
+double azm ( vec v );                    // azm v
+vec polar ( double l, double t );        // l^t
 \end{verbatim}
 \end{minipage}
 
@@ -631,16 +631,16 @@ code, should that be important.
 \hspace*{0.3in}\begin{minipage}{5.0in}
 \begin{verbatim}
 /* C Vector Function Signatures */
-linear make_linear ( vec v, vec w );
-int eql ( linear L, linear K, int d );
+linear new_linear ( vec v, vec w );     // (v,w)
+int eql ( linear L, linear K, int d );  // L==K:d
 void printl ( linear L );
-vec apply ( linear L, vec v );
+vec apply ( linear L, vec v );            // L*v
     /* application */
-linear sprodl ( double s, linear L );
-linear addl ( linear K, linear L );
-linear subl ( linear K, linear L );
-linear negl ( linear L );
-linear compose ( linear K, linear L );
+linear sprodl ( double s, linear L );     // s*L
+linear addl ( linear K, linear L );       // K+L
+linear subl ( linear K, linear L );       // K-L
+linear negl ( linear L );                 // -L
+linear compose ( linear K, linear L );    // K*L
     /* composition */
 \end{verbatim}
 \end{minipage}
@@ -650,17 +650,17 @@ linear compose ( linear K, linear L );
 \hspace*{0.3in}\begin{minipage}{5.0in}
 \begin{verbatim}
 // C++ Vector Function Signatures
-linear make_linear ( vec v, vec w );
-int eq ( linear L, linear K, int d );
+linear new_linear ( vec v, vec w );     // (v,w)
+int eq ( linear L, linear K, int d );   // L==K:d
 std::ostream & operator <<
         ( std::ostream & s, linear L );
-vec operator * ( linear L, vec v );
+vec operator * ( linear L, vec v );       // L*v
     // application
-linear operator * ( double s, linear L );
-linear operator + ( linear K, linear L );
-linear operator - ( linear K, linear L );
-linear operator - ( linear L );
-linear operator * ( linear K, linear L );
+linear operator * ( double s, linear L ); // s*L
+linear operator + ( linear K, linear L ); // K+L
+linear operator - ( linear K, linear L ); // K-L
+linear operator - ( linear L );           // -L
+linear operator * ( linear K, linear L ); // K*L
     // composition
 \end{verbatim}
 \end{minipage}
@@ -962,10 +962,10 @@ code, should that be important.
 \hspace*{0.3in}\begin{minipage}{5.0in}
 \begin{verbatim}
 /* C Vector Function Signatures */
-vec rotate ( vec v, double p );
-vec reflect ( vec v, double p );
-linear rotation ( double p );
-linear reflection ( double p );
+vec rotate ( vec v, double p );     // v^p
+vec reflect ( vec v, double p );    // v|p
+linear rotation ( double p );       // ^p
+linear reflection ( double p );     // |p
 \end{verbatim}
 \end{minipage}
 
@@ -974,10 +974,10 @@ linear reflection ( double p );
 \hspace*{0.3in}\begin{minipage}{5.0in}
 \begin{verbatim}
 // C++ Vector Function Signatures
-vec rotate ( vec v, double p );
-vec reflect ( vec v, double p );
-linear rotation ( double p );
-linear reflection ( double p );
+vec rotate ( vec v, double p );     // v^p
+vec reflect ( vec v, double p );    // v|p
+linear rotation ( double p );       // ^p
+linear reflection ( double p );     // |p
 \end{verbatim}
 \end{minipage}
 
@@ -1200,6 +1200,7 @@ the following {\em operators} and {\em functions}:
 Assume: & {\tt d=}$d$ (a scalar) \\
 	& {\tt v=}$(v_x,v_y)$ (a vector) \\
 	& {\tt w=}$(w_x,w_y)$ (a vector) \\
+	& {\tt p=}$p$, {\tt q=}$q$, {\tt r=}$r$ (vectors representing points) \\
 then: \\[1ex]
 \tt v*w & returns $v_x w_x + w_y w_y$,
           the scalar product of {\tt v} and {\tt w} \\
@@ -1242,11 +1243,12 @@ code, should that be important.
 \hspace*{0.3in}\begin{minipage}{5.0in}
 \begin{verbatim}
 /* C Vector Function Signatures */
-vec prod ( vec v, vec w );
-vec cross ( vec v, vec w );
-vec change ( vec v, vec w );
-vec unit ( vec v );
-vec uchange ( vec v, vec w );
+vec prod ( vec v, vec w );            // v*w
+vec cross ( vec v, vec w );           // v#w
+vec change ( vec v, vec w );          // v:w
+vec unit ( vec v );                   // v!
+vec uchange ( vec v, vec w );         // v!w
+double area ( vec p, vec q, vec r );  // area pqr
 \end{verbatim}
 \end{minipage}
 
@@ -1255,11 +1257,12 @@ vec uchange ( vec v, vec w );
 \hspace*{0.3in}\begin{minipage}{5.0in}
 \begin{verbatim}
 // C++ Vector Function Signatures
-vec operator * ( vec v, vec w );
-vec cross ( vec v, vec w );
-vec change ( vec v, vec w );
-vec unit ( vec v );
-vec uchange ( vec v, vec w );
+vec operator * ( vec v, vec w );      // v*w
+vec cross ( vec v, vec w );           // v#w
+vec change ( vec v, vec w );          // v:w
+vec unit ( vec v );                   // v!
+vec uchange ( vec v, vec w );         // v!w
+double area ( vec p, vec q, vec r );  // area pqr
 \end{verbatim}
 \end{minipage}
 
@@ -1268,7 +1271,7 @@ vec uchange ( vec v, vec w );
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Oct 27 06:53:59 EDT 2020
+Date:         & Tue Oct 27 13:34:37 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
