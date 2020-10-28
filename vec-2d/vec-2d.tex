@@ -1266,12 +1266,116 @@ double area ( vec p, vec q, vec r );  // area pqr
 \end{verbatim}
 \end{minipage}
 
+\section{Point and Line}
+In this section we investigate the following questions:
+\begin{enumerate}
+\item Is a point on, to the left of, or to the right of
+an infinite directed line.  What is the distance from the
+point to the line.
+\item What is the general position of a point relative
+to a finite line segment.  What is the distance from the
+point to the line segment.
+\end{enumerate}
+
+We begin with a line {\tt pq} from point {\tt p} to point {\tt q}.
+We may take this line to be either infinite, or to be a finite
+line seqment with ends {\tt p} and {\tt q}.  We may take the
+line to be undirected, or to be directed from {\tt p} to {\tt q}.
+
+We then consider a third point {\tt r} and ask about its relation
+to {\tt pq}.
+
+The answers to our questions will not be changed if we perform
+a coordinate translation on all the points, so we begin by moving
+{\tt p} to the origin {\tt (0,0)} using a translation by {\tt -p}.
+Our points become:
+\begin{center} \tt
+p - p = (0,0) \\
+q - p \\
+r - p
+\end{center}
+Next we apply either the pure rotation $R^{\tt -azm(q-p)}$
+or this rotation followed by the dilation {\tt ||q-p||}.  We use
+the first if we want to preserve and measure distances, and the
+second if we want precise answers to questions like: is {\tt r} on the
+line {\tt pq}?
+
+If we apply the pure rotation $R^{\tt -azm(q-p)}$ after the translation
+{\tt -p}, we get:
+\begin{center} \tt
+P = (0,0) \\
+Q = ( ||q - p||, 0 ) \\
+R = ( (q-p)!*(r-p), (q-p)!\#(r-p) ) = (X,Y)
+\end{center}
+where we have defined {\tt X} and {\tt Y} to be the coordiates of {\tt R}
+
+If we want the distance from {\tt r} to the infinite line {\tt pq},
+then this is the same as the distance from {\tt R} to the infinite
+line {\tt PQ}, and the latter is the X-axis.  So the answer is
+{\tt |Y|}.
+
+\begin{minipage}{\textwidth}\raggedright
+\begin{wrapfigure}{r}{0.6\textwidth}
+\begin{tikzpicture}[x=0.25in,y=0.25in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+
+    \draw[black] (-1,0) -- (+9,0);
+    \draw[black] (0,-1) -- (0,+3);
+    \fill[red] (0,0) circle(0.1);
+    \fill[red] (6.0,0) circle(0.1);
+    \draw[brown] (6.0,-1) -- (6.0,+3);
+    \draw[black] (0.0,-0.5) node[right]{\small \tt P=(0,0)};
+    \draw[black] (6.0,-0.5) node[right]{\small \tt Q=(||q-p||,0)};
+    \draw[black] (0.0,+1.0) node[left]{\small \tt X<0};
+    \draw[black] (+6.0,+1.0) node[right]{\small \tt X>||q-p||};
+    \draw[black] (+3.0,+2.0) node{\small \tt 0<=X<=||q-p||};
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+If we want the distance from {\tt r} to the \underline{finite} line {\tt pq},
+then this is the same as the distance from {\tt R} to the finite
+line {\tt PQ}, and there are three cases.  If {\tt X<0}, the answer
+is {\tt ||R-P||}.  If {\tt X>||q-p||}, the answer is {\tt ||R-Q||}.
+Otherwise the answer is {\tt |Y|} as before.  See picture.
+\end{minipage}
+
+Now suppose we want a precise answer to the question: is {\tt r}
+on the line {\tt pq}?  The trouble with 
+$R^{\tt -azm(q-p)}$ is that its parameters are not precise rational
+numbers, or even approximations to precise rational numbers.
+We can remedy this by switching to the linear transformation
+{\tt ||q-p||*$R^{\tt -azm(q-p)}$}.  Then we get:
+\begin{center} \tt
+P = (0,0) \\
+Q = ( (q - p)*(q-p), 0 ) \\
+R = ( (q-p)*(r-p), (q-p)\#(r-p) ) = (X,Y)
+\end{center}
+If the coordinates of {\tt p}, {\tt q}, and {\tt r} have at
+most {\tt d} decimal places, they are rational numbers with
+denominator {\tt 10$^{\tt d}$}, and the products will be rational
+numbers with denominator {\tt 10$^{\tt 2d}$}.  Or more precisely,
+the products will be close approximations to such rational numbers.
+Therefore:
+\begin{enumerate}
+\item {\tt r} is to the left of the infinite directed line {\tt pq}
+if and only if {\tt 0<Y:(2d)}.
+\item {\tt r} is to the right of the infinite directed line {\tt pq}
+if and only if {\tt Y<0:(2d)}.
+\item {\tt r} is on the infinite directed line {\tt pq}
+if and only if {\tt Y==0:(2d)}.
+\item {\tt r} is on the finite line {\tt pq} if and only if \\
+\hspace*{0.3in}{\tt Y==0:(2d)},~~~{\tt 0<=X:(2d)},~~~and
+               {\tt X<=(p-q)*(p-q):(2d)}
+\end{enumerate}
+
+
 
 \bigskip
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Oct 27 13:34:37 EDT 2020
+Date:         & Wed Oct 28 03:36:13 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
