@@ -1270,12 +1270,12 @@ double area ( vec p, vec q, vec r );  // area pqr
 In this section we investigate the following questions:
 \begin{enumerate}
 \item Is a point on, to the left of, or to the right of
-an infinite directed line.  What is the distance from the
+an infinite directed line?  What is the distance from the
 point to the line and where is the closest point that is
-on the line.
+on the line?
 \item What is the general position of a point relative
-to a finite line segment.  What is the distance from the
-point to the line segment.
+to a finite line segment?  What is the distance from the
+point to the line segment?
 \end{enumerate}
 
 We begin with a line {\tt pq} from point {\tt p} to point {\tt q}.
@@ -1383,16 +1383,83 @@ if and only if {\tt Y==0:(2d)}.
                {\tt X<=(p-q)*(p-q):(2d)}
 \end{enumerate}
 
+\section{Line and Line}
+In this section we investigate the following questions:
+\begin{enumerate}
+\item Do two infinite lines intersect, and if so where?
+\item Do two finite lines intersect, and if so where?
+\item What is the distance between two finite lines?
+\end{enumerate}
+
+Let {\tt q} and {\tt r} be distinct points so that the set
+of points on the infinite line {\tt qr} is: \\
+\centerline{{\tt K} = \{ {\tt q + s*(r-q)}: {\tt s} any scalar \}} 
+
+Let {\tt m} and {\tt n} be more distinct points so that the set
+of points on the infinite line {\tt mn} is: \\
+\centerline{{\tt K} = \{ {\tt m + t*(n-m)}: {\tt t} any scalar \}} 
+
+If these two infinite lines intersect, there must exist values for
+{\tt s} and {\tt t} such that: \\
+\centerline{{\tt q + s*(r-q) = m + t*(n-m)}}
+
+The easy way to solve this is to take the cross product of both
+sides with {\tt n-m}, because
+{\tt (n-m)\#(t*(n-m)) = t*((n-m)\#(n-m)) = t*0 = 0}.
+So we end up with: \\
+\centerline{\tt s*(n-m)\#(r-q) = (n-m)\#(m-q)} \\
+which we can solve for {\tt s}.  Unless {\tt (n-m)\#(r-q) = 0}.
+
+What happens if {\tt (n-m)\#(r-q) = 0}? \\
+\hspace*{0.3in}\begin{tabular}{r@{~~}l}
+Then    & \tt (n-m)\#(r-q) = sin $\theta$*||n-m||*||r-q|| = 0 \\
+where   & \tt ||n-m|| $\neq$ 0 $\neq$ ||r-q|| \\
+and     & \tt $\theta$ = asm (r-q) - asm (n-m) \\
+so      & \tt sin $\theta$ = 0 \\
+so      & \tt $\theta$ = 0 or $\pm$180 \\
+so      & {\tt nm} and {\tt rq} are parallel \\
+        \end{tabular}
+
+The converse is also true.  If {\tt mn} and {\tt rq} are parallel, \\
+\hspace*{0.3in}\begin{tabular}{r@{~~}l}
+then    & {\tt ||n-m|| = s*||r-q||} for some scalar {\tt s} \\
+so      & \tt (n-m)\#(r-q) = s*((r-q)\#(r-q)) = 0 \\
+        \end{tabular}
+
+Of course, testing a product to see if it is {\tt 0} is subject to
+rounding errors.  So we assume that the coordinates of {\tt m},
+{\tt n}, {\tt q}, and {\tt r} have at most {\tt d} decimal places,
+and therefore {\tt mn} is parallel to {\tt qr} if and only if
+{\tt (n-m)\#(r-q)==0:(2d)}.
+
+The question of whether two finite lines intersect is made
+simpler by the following:
+\begin{lemma}
+Two \underline{non-parallel} finite lines intersect
+if and only if each intersects the infinite extension of the other.
+\end{lemma}
+\begin{indpar}{0.3in}
+Proof: Let the finite lines be $\ell_1$ and $\ell_2$ and let
+$\ell_i$ intersect the infinite extension of the other finite line
+at point $p_i$.  Then $p_1=p_2=$ the intersection of the infinite
+extensions of both lines, and as $p_i$ is on $\ell_i$, this point is
+on both finite lines.
+
+The converse is trivial.
+\end{indpar}
+
+
+
 \section{Point, Line, and Circle}
 In this section we investigate the following questions:
 \begin{enumerate}
-\item What is the distance between a point and a circle.
+\item What is the distance between a point and a circle?
 \item What are the lines tangent to a circle that pass through
 an external point, and where are the points that these lines contact the
-circle.
-\item Where does an infinite line intersect a circle.
+circle?
+\item Where does an infinite line intersect a circle?
 \item What is the distance between a finite line segment and
-a circle.  If zero, where are the intersections.  If not zero,
+a circle?  If zero, where are the intersections?  If not zero,
 where is the point on the finite line segment that is closest to the
 circle.
 \end{enumerate}
@@ -1462,7 +1529,7 @@ values for {\tt q}, one on either side of the line {\tt pc}.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Oct 28 09:55:43 EDT 2020
+Date:         & Thu Oct 29 12:49:19 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
