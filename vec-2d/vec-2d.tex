@@ -105,8 +105,10 @@ The syntax is:
 		 \end{tabular} \\
 {\em vector} ::= \TT{(} {\em scalar}\TT{,} {\em scalar} \TT{)} \\
 {\em linear-transform} ::= \TT{(} {\em vector}\TT{,} {\em vector} \TT{)} \\
-{\em operator} ::= one or more non-letter graphic characters
+{\em operator} ::= \begin{tabular}[t]{@{}l}
+                   one or more non-letter, non-digit graphic characters \\
                    (e.g. {\tt +} or {\tt <=})\\
+		   \end{tabular} \\
 {\em function} ::= three or more letters (e.g. {\tt sin} or {\tt length}) \\
 \end{tabular}
 
@@ -141,15 +143,15 @@ then: \\[1ex]
 \tt cos x & returns $\cos ( \pi/180 * x )$ \\
 \tt sin x & returns $\sin ( \pi/180 * x )$ \\
 \tt tan x & returns $\tan ( \pi/180 * x )$ \\
-\tt x<y:d & returns \TT{true} if $x<y-0,5*10^{-d}$, else \TT{false} \\
-\tt x<=y:d & returns \TT{true} if $x<y+0,5*10^{-d}$, else \TT{false} \\
+\tt x<y:d & returns \TT{true} if $x<y-0.5*10^{-d}$, else \TT{false} \\
+\tt x<=y:d & returns \TT{true} if $x<y+0.5*10^{-d}$, else \TT{false} \\
 \tt x==y:d & returns \TT{true} if $|x-y|<0.5*10^{-d}$, else \TT{false} \\
 \end{tabular}
 \end{center}
 
 Comparisons assume the scalars being compared are approximations
-to precise numbers in units of $10^{-d}$, and therefore to test
-for equality the numbers should be (in effect) rounded to the nearest unit.
+to precise numbers that are in units of $10^{-d}$, and therefore to test
+for equality the scalars should be (in effect) rounded to the nearest unit.
 
 \begin{center}
 \begin{tabular}{rl}
@@ -167,7 +169,7 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.  Only scalar functionality is tested.
 
-\subsection{Scalar Coding Hints}
+\subsection{Coding Hints}
 The calculator memory just maps each variable to a value.
 You can map each ASCII character to a value using a
 vector of 128 elements, and simply not use the elements
@@ -192,67 +194,24 @@ is a {\em boolean} value.
 \item Else if the rightside begins with two letters, it is a {\em function}
 followed optionally by {\em variables}.
 \item Else the rightside is an alternating sequence of {\em operators} and
-{\em variables} (beginning with a two-character {\em operator}).
+{\em variables}.
 \end{itemize}
 
-The following data structure definitions may be helpful.
-Also, using these definitions may make it easier
+Data structure and function prototype definitions that you may
+optionally use are given in the following files, which may be
+downloaded:
+\begin{center}
+\begin{tabular}{ll}
+\TT{c-defs-vec-2d.txt}	&  for C \\
+\TT{cc-defs-vec-2d.txt}	&  for C++ \\
+\TT{java-defs-vec-2d.txt}	&  for JAVA \\
+\TT{py-defs-vec-2d.txt}	&  for PYTHON \\
+\end{tabular}
+\end{center}
+
+Note that using these definitions may make it easier
 for other people familiar with this problem to read your
 code, should that be important.
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-/* C Data Structures
- */
-# include <math.h>    /* PI is M_PI */
-typedef struct { double x, y; } vec;
-typedef struct { vec lx, ly; } linear;
-enum boolean { TRUE = 1, FALSE = 0 };
-enum type { NONE = 0, BOOLEAN, SCALAR, VECTOR,
-                      LINEAR, AFFINE };
-typedef struct {
-    type t;
-    boolean b;
-    scalar s;
-    vector v;
-    linear l;
-} var;
-double units[13] =  /* units[d] = 10**(-d) */
-    { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
-      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
-int lt ( double x, double y, int d );   // x<y:d
-int leq ( double x, double y, int d );  // x<=y:d
-int eq ( double x, double y, int d );   // x==y:d
-\end{verbatim}
-\end{minipage}
-
-\bigskip
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-// C++ Data Structures
-//
-# include <cmath>    // PI is M_PI
-struct vec { double x, y; };
-struct linear { vec lx, ly; };
-enum boolean { TRUE = 1, FALSE = 0 };
-enum type { NONE = 0, BOOLEAN, SCALAR, VECTOR,
-            LINEAR, AFFINE };
-struct var {
-    type t;
-    boolean b;
-    scalar s;
-    vector v;
-    linear l;
-};
-double units[13] =  // units[d] = 10**(-d)
-    { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
-      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
-int lt ( double x, double y, int d );   // x<y:d
-int leq ( double x, double y, int d );  // x<=y:d
-int eq ( double x, double y, int d );   // x==y:d
-\end{verbatim}
-\end{minipage}
 
 \section{Operations on Vectors}
 \begin{minipage}{\textwidth}\raggedright
@@ -407,51 +366,7 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.
 
-\subsection{Vector Coding Hints}
-
-You should write functions to do things like vector addition,
-because later you will need to do these things in other
-statements and will want a function to call.  Using the following
-function signatures may make it easier
-for other people familiar with this problem to read your
-code, should that be important.
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-/* C Vector Function Signatures */
-vec new_vec ( double x, double y );      // (x,y)
-int eqv ( vec v, vec w, int d );         // v==w:d
-void printv ( vec v );
-vec sprodv ( double s, vec v );          // s*v
-vec addv ( vec v, vec w );               // v+w
-vec subv ( vec v, vec w );               // v-w
-vec negv ( vec v );                      // -v
-vec zerov = { 0, 0 };                    // (0,0)
-double lenv ( vec v );                   // ||v||
-double azmv ( vec v );                   // azm v
-vec polar ( double l, double t );        // l^t
-\end{verbatim}
-\end{minipage}
-
-\bigskip
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-// C++ Vector Function Signatures
-vec new_vec ( double x, double y );      // (x,y)
-bool eq ( vec v, vec w, int d );         // v==w:d
-std::ostream & operator <<
-        ( std::ostream & s, vec v );
-vec operator * ( double s, vec v );      // s*v
-vec operator + ( vec v, vec w );         // v+w
-vec operator - ( vec v, vec w );         // v-w
-vec operator - ( vec v );                // -v
-vec zerov = { 0, 0 };                    // (0,0)
-double len ( vec v );                    // ||v||
-double azm ( vec v );                    // azm v
-vec polar ( double l, double t );        // l^t
-\end{verbatim}
-\end{minipage}
+\newpage
 
 \section{Linear Transforms}
 If we let $\mathcal{R}$ denote the set of real numbers,
@@ -617,53 +532,6 @@ output and you can submit your program using the indicated submit
 run file.
 
 \newpage
-
-\subsection{Linear Coding Hints}
-
-You should write functions to do things like linear transform
-application and composition,
-because later you will need to do these things in other
-statements and will want a function to call.  Using the following
-function signatures may make it easier
-for other people familiar with this problem to read your
-code, should that be important.
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-/* C Vector Function Signatures */
-linear new_linear ( vec v, vec w );     // (v,w)
-int eql ( linear L, linear K, int d );  // L==K:d
-void printl ( linear L );
-vec apply ( linear L, vec v );            // L*v
-    /* application */
-linear sprodl ( double s, linear L );     // s*L
-linear addl ( linear K, linear L );       // K+L
-linear subl ( linear K, linear L );       // K-L
-linear negl ( linear L );                 // -L
-linear compose ( linear K, linear L );    // K*L
-    /* composition */
-\end{verbatim}
-\end{minipage}
-
-\bigskip
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-// C++ Vector Function Signatures
-linear new_linear ( vec v, vec w );     // (v,w)
-int eq ( linear L, linear K, int d );   // L==K:d
-std::ostream & operator <<
-        ( std::ostream & s, linear L );
-vec operator * ( linear L, vec v );       // L*v
-    // application
-linear operator * ( double s, linear L ); // s*L
-linear operator + ( linear K, linear L ); // K+L
-linear operator - ( linear K, linear L ); // K-L
-linear operator - ( linear L );           // -L
-linear operator * ( linear K, linear L ); // K*L
-    // composition
-\end{verbatim}
-\end{minipage}
 
 \section{Rotations and Reflections}
 Rotations and reflections are the two kinds of linear transformations
@@ -949,37 +817,7 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.
 
-\subsection{Rotations and Reflections Coding Hints}
-
-You should write functions to do things like compute rotations
-and reflections,
-because later you will need to do these things in other
-statements and will want a function to call.  Using the following
-function signatures may make it easier
-for other people familiar with this problem to read your
-code, should that be important.
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-/* C Vector Function Signatures */
-vec rotate ( vec v, double p );     // v^p
-vec reflect ( vec v, double p );    // v|p
-linear rotation ( double p );       // ^p
-linear reflection ( double p );     // |p
-\end{verbatim}
-\end{minipage}
-
-\bigskip
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-// C++ Vector Function Signatures
-vec rotate ( vec v, double p );     // v^p
-vec reflect ( vec v, double p );    // v|p
-linear rotation ( double p );       // ^p
-linear reflection ( double p );     // |p
-\end{verbatim}
-\end{minipage}
+\newpage
 
 \section{Products}
 There are two products of a pair of vectors that play a
@@ -1192,7 +1030,7 @@ $\theta$ is in the range $[-180,0]$.
 \newpage
 
 
-\section{Product Calculator}
+\section{Products Calculator}
 Implement additions to the unitary calculator for
 the following {\em operators} and {\em functions}:
 \begin{center}
@@ -1231,40 +1069,7 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.
 
-\subsection{Product Coding Hints}
-
-You should write functions to do things like compute the products,
-because later you will need to do these things in other
-statements and will want a function to call.  Using the following
-function signatures may make it easier
-for other people familiar with this problem to read your
-code, should that be important.
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-/* C Vector Function Signatures */
-vec prod ( vec v, vec w );            // v*w
-vec cross ( vec v, vec w );           // v#w
-vec change ( vec v, vec w );          // v:w
-vec unit ( vec v );                   // v!
-vec uchange ( vec v, vec w );         // v!w
-double area ( vec p, vec q, vec r );  // area pqr
-\end{verbatim}
-\end{minipage}
-
-\bigskip
-
-\hspace*{0.3in}\begin{minipage}{5.0in}
-\begin{verbatim}
-// C++ Vector Function Signatures
-vec operator * ( vec v, vec w );      // v*w
-vec cross ( vec v, vec w );           // v#w
-vec change ( vec v, vec w );          // v:w
-vec unit ( vec v );                   // v!
-vec uchange ( vec v, vec w );         // v!w
-double area ( vec p, vec q, vec r );  // area pqr
-\end{verbatim}
-\end{minipage}
+\newpage
 
 \section{Point and Line}\label{POINT-AND-LINE}
 In this section we investigate the following questions:
@@ -1563,7 +1368,7 @@ values for {\tt q}, one on either side of the line {\tt pc}.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Oct 31 06:05:59 EDT 2020
+Date:         & Sat Oct 31 12:50:46 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
