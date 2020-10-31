@@ -43,26 +43,19 @@ A \key{scalar} here is a double precision floating point number.
 A \key{vector} here is a pair $(x,y)$ of double precision floating point
 numbers, $x$ denoting an X-coordinate value, and $y$ denoting a
 Y-coordinate value.  Such a vector can denote a point $(p_x,p_y)$ in the
-XY-plane, or can denote a translation $v$ of the plane:
+XY-plane, or can denote a translation $(v_x,v_y)$ of the plane: \\
 \centerline{$(p_x,p_y) \longmapsto (p_x+v_x,p_y+v_y)$}
 
 The product of a scalar $s$ and a vector $v=(v_x,v_y)$ is represented using
-$*$ as $s*v == (sv_x,sv_y)$.
+$*$ as $s*v = (sv_x,sv_y)$.
+The sum of a vector $v=(v_x,v_y)$ and a vector $w=(w_x,w_y)$ is
+represented using $+$ as $v+w = (v_x+w_x,v_y+w_y)$.
 
 A \key{linear transformation} here is a pair of vectors, $(\ell_x,\ell_y)$
 representing the map:
 \centerline{$(v_x,v_y) \longmapsto v_x*\ell_x+v_y*\ell_y$}
 Application is represented using
 $*$ as $(\ell_x,\ell_y)*v=v_x*\ell_x+v_y*\ell_y$.
-
-An \key{affine transformation} here is a triple of vectors,
-$(\ell_x,\ell_y,\tau)$
-representing: \\
-\centerline{$(v_x,v_y) \longmapsto v_x*\ell_x+v_y*\ell_y+\tau$}
-Application is represented using
-$*$ as $(\ell_x,\ell_y,\tau)*v=v_x*\ell_x+v_y*\ell_y+\tau$. \\
-(An affine transformation is a linear transformation followed by
-a translation.)
 
 \newpage
 
@@ -88,34 +81,30 @@ The syntax is:
 {\em program} ::= {\em statement}$^\star$ \\
 {\em statement} ::= \\
 \hspace*{0.2in}\begin{tabular}[t]{cl}
-                    & {\em comment} \\
+                    & {\em comment} {\em eol} \\
                 $|$ & {\em variable} \TT{=} {\em value} {\em eol}\\
                 $|$ & {\em variable} \TT{=} {\em operator}
-		          {\em variable} 
+		          \{ {\em variable} {\em operator} \}$^\star$
+		          {\em variable}$^?$ {\em eol} \\
+                $|$ & {\em variable} \TT{=} {\em variable}
+		          \{ {\em operator} {\em variable} \}$^\star$
 		          {\em operator}$^?$ {\em eol} \\
-                $|$ & {\em variable} \TT{=} {\em variable} {\em operator}
-		          {\em variable}
-		          \{ {\em operator} {\em variable} \}$^?$
-			  {\em eol} \\
                 $|$ & {\em variable} \TT{=} {\em function}
 		          {\em variable}$^\star$ {\em eol} \\
 		\end{tabular}
 \\[1ex]
 {\em eol} ::= end-of-line (line-feed) \\
-{\em comment} ::= \TT{\#} {\em character-other-than-line-feed}$^\star$
-                  {\em eol} \\
+{\em comment} ::= \TT{\#} {\em character-other-than-line-feed}$^\star$ \\
 {\em variable} ::= a single letter (case matters) \\
-{\em value} \begin{tabular}[t]{cl}
-            ::= & {\em boolean} $|$ {\em scalar} $|$ {\em vector} \\
-	    $|$ & {\em linear-transform} $|$
-	          {\em affine-transform} \\
-	    \end{tabular} \\
+{\em value} ::= {\em boolean} $|$ {\em scalar} $|$ {\em vector}
+	    $|$ {\em linear-transform} \\
 {\em boolean} ::= \TT{true} $|$ \TT{false} \\
-{\em scalar} ::= double precision floating point number (e.g., 1.4142135) \\
+{\em scalar} ::= \begin{tabular}[t]{@{}l}
+                 double precision floating point number (e.g., 1.4142135) \\
+		 (must have a digit before any decimal point) \\
+		 \end{tabular} \\
 {\em vector} ::= \TT{(} {\em scalar}\TT{,} {\em scalar} \TT{)} \\
 {\em linear-transform} ::= \TT{(} {\em vector}\TT{,} {\em vector} \TT{)} \\
-{\em affine-transform} ::= \TT{(} {\em vector}\TT{,} {\em vector}\TT{,}
-                                  {\em vector} \TT{)} \\
 {\em operator} ::= one or more non-letter graphic characters
                    (e.g. {\tt +} or {\tt <=})\\
 {\em function} ::= three or more letters (e.g. {\tt sin} or {\tt length}) \\
@@ -184,12 +173,27 @@ You can map each ASCII character to a value using a
 vector of 128 elements, and simply not use the elements
 that do not correspond to letters.
 
-To parse a non-comment, remove its whitespace characters
-and look at the two characters following {\tt =}.  If they
-are both letters, they are part of a {\em function} or {\em boolean}.
-If one is a digit or `{\tt (}', they are part of a {\em value}.  
-If only one is a letter, any letters are {\em variables}
-and the non-letters are in {\em operators}.
+To parse a non-comment, remove its whitespace characters and
+then examine the rightside of the {\tt =} sign.  During this
+examination, characters are categorized as either letters,
+digits, or operator characters (not letters or digits).
+\begin{itemize}
+\item If the rightside is a single character, it is a {\em scalar} value
+if the character is a digit, a {\em variable} if it is a letter,
+and an {\em operator} (with no operands) otherwise.
+\item Else if the rightside begins with `{\tt ((}' it is {\em linear-transform}
+value.
+\item Else if the rightside begins with `{\tt (}' and the second character
+is not a letter, the rightside is {\em vector} value.
+\item Else if one of the first two characters of the rightside is a
+digit, the rightside is a {\em scalar} value.
+\item Else if the rightside is `{\tt true}' or `{\tt false}', it
+is a {\em boolean} value.
+\item Else if the rightside begins with two letters, it is a {\em function}
+followed optionally by {\em variables}.
+\item Else the rightside is an alternating sequence of {\em operators} and
+{\em variables} (beginning with a two-character {\em operator}).
+\end{itemize}
 
 The following data structure definitions may be helpful.
 Also, using these definitions may make it easier
@@ -203,7 +207,6 @@ code, should that be important.
 # include <math.h>    /* PI is M_PI */
 typedef struct { double x, y; } vec;
 typedef struct { vec lx, ly; } linear;
-typedef struct { vec lx, ly, tau; } affine;
 enum boolean { TRUE = 1, FALSE = 0 };
 enum type { NONE = 0, BOOLEAN, SCALAR, VECTOR,
                       LINEAR, AFFINE };
@@ -213,7 +216,6 @@ typedef struct {
     scalar s;
     vector v;
     linear l;
-    affine a;
 } var;
 double units[13] =  /* units[d] = 10**(-d) */
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
@@ -233,7 +235,6 @@ int eq ( double x, double y, int d );   // x==y:d
 # include <cmath>    // PI is M_PI
 struct vec { double x, y; };
 struct linear { vec lx, ly; };
-struct affine { vec lx, ly, tau; };
 enum boolean { TRUE = 1, FALSE = 0 };
 enum type { NONE = 0, BOOLEAN, SCALAR, VECTOR,
             LINEAR, AFFINE };
@@ -243,7 +244,6 @@ struct var {
     scalar s;
     vector v;
     linear l;
-    affine a;
 };
 double units[13] =  // units[d] = 10**(-d)
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
@@ -1563,7 +1563,7 @@ values for {\tt q}, one on either side of the line {\tt pc}.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Oct 30 05:29:32 EDT 2020
+Date:         & Sat Oct 31 06:05:59 EDT 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
