@@ -1,0 +1,70 @@
+/* C Data Structures */
+
+# include <math.h>    /* PI is M_PI */
+typedef struct { double x, y; } vec;
+typedef struct { vec lx, ly; } linear;
+enum boolean { TRUE = 1, FALSE = 0 };
+enum type { NONE = 0, BOOLEAN, SCALAR, VECTOR,
+                      LINEAR, AFFINE };
+typedef struct {
+    type t;
+    boolean b;
+    scalar s;
+    vector v;
+    linear l;
+} var;
+double units[13] =  /* units[d] = 10**(-d) */
+    { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
+      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
+
+/* C Vector Function Signatures */
+
+/* For Scalar Calculator */
+
+int lt ( double x, double y, int d );   // x<y:d
+int leq ( double x, double y, int d );  // x<=y:d
+int eq ( double x, double y, int d );   // x==y:d
+
+/* For Vector Calculator */
+
+vec new_vec ( double x, double y );      // (x,y)
+int eqv ( vec v, vec w, int d );         // v==w:d
+void printv ( vec v );
+vec sprodv ( double s, vec v );          // s*v
+vec addv ( vec v, vec w );               // v+w
+vec subv ( vec v, vec w );               // v-w
+vec negv ( vec v );                      // -v
+vec zerov = { 0, 0 };                    // (0,0)
+double lenv ( vec v );                   // ||v||
+double azmv ( vec v );                   // azm v
+vec polar ( double l, double t );        // l^t
+
+/* For Linear Calculator */
+
+linear new_linear ( vec v, vec w );     // (v,w)
+int eql ( linear L, linear K, int d );  // L==K:d
+void printl ( linear L );
+vec apply ( linear L, vec v );            // L*v
+    /* application */
+linear sprodl ( double s, linear L );     // s*L
+linear addl ( linear K, linear L );       // K+L
+linear subl ( linear K, linear L );       // K-L
+linear negl ( linear L );                 // -L
+linear compose ( linear K, linear L );    // K*L
+    /* composition */
+
+/* For Rotations and Reflections Calculator */
+
+vec rotate ( vec v, double p );     // v^p
+vec reflect ( vec v, double p );    // v|p
+linear rotation ( double p );       // ^p
+linear reflection ( double p );     // |p
+
+/* For Products Calculator */
+
+vec prod ( vec v, vec w );            // v*w
+vec cross ( vec v, vec w );           // v#w
+vec change ( vec v, vec w );          // v:w
+vec unit ( vec v );                   // v!
+vec uchange ( vec v, vec w );         // v!w
+double area ( vec p, vec q, vec r );  // area pqr
