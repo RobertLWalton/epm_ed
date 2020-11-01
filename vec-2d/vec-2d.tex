@@ -397,6 +397,9 @@ Some examples of linear transformations are (1) the identity map,
 (i.e., $(v_x,v_y)\longmapsto(s_x v_x,s_y v_y)$ for scalars $s_x$
 and $s_y$).
 
+(In vector algebra, linear transformations with domains and/or ranges
+that are vector spaces other than $\mathcal{R}^2$ are studied.)
+
 
 \begin{lemma}
 Let $L$ be a linear transformation, $v$ and $w$ be vectors,
@@ -497,8 +500,28 @@ s*(K+L) = s*K + s*L \\
 J*(K+L) = J*K + J*L
 \end{center}
 
-Also note that {\tt K*L} is in general \underline{not equal}
-to {\tt L*K}.
+In general {\tt K*L} is \underline{not equal} to {\tt L*K}.
+
+Let {\tt I} be the identity transform defined by
+{\tt I*v=v} for all vectors {\tt v}  (and therefore {\tt I=($u_x$,$u_y$)}).
+It is easy to check that {\tt K*I = K = I*K} for all linear transforms
+{\tt K}.
+
+A linear transform {\tt K} is defined to be the (two-sided) \key{inverse}
+of the linear transform {\tt L} if and only if {\tt K*L = I = L*K}.
+The inverse of {\tt L} might not exist, but if it does, it is unique
+since if there were two, {\tt K$_1$} and {\tt K$_2$}, then \\
+\centerline{\tt K$_1$ = K$_1$*I = K$_1$*(L*K$_2$)
+                      = (K$_1$*L)*K$_2$ = I*K$_2$ = K$_2$}
+The notation {\tt L$^{-1}$} is used for the inverse of {\tt L} if it
+exists.  For example, the inverse of a rotation by angle $\phi$ in the
+counter-clockwise direction is a rotation by angle $\phi$ in the
+clockwise direction.
+
+(One-sided inverses that are not two-sided inverses only exist for
+linear transformations whose domain and range are vector spaces of
+\underline{different} dimensions, unlike our linear transformations
+whose domain and range are both 2-dimensional.)
 
 
 
@@ -517,7 +540,7 @@ Assume: & {\tt s=}$s$ is a scalar \\
 then: \\[1ex]
 \tt (v,w) & returns $(v,w)$ \\
 \tt K==L:d & returns $\ell^K_x==\ell^L_x:d$ AND $\ell^K_y==\ell^L_y:d$ \\
-\tt L*v & returns {\tt ($v_x\ell^L_x$,$v_y\ell^L_y$)} & [application] \\
+\tt L*v & returns {\tt $v_x$*$\ell^L_x$+$v_y$*$\ell^L_y$} & [application] \\
 \tt s*K & returns {\tt ($s\ell^L_x$,$s\ell^L_y$)} \\
 \tt K+L & returns {\tt ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)} \\
 \tt K-L & returns {\tt ($\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$)} \\
@@ -672,7 +695,7 @@ is a reflection accross the line through the origin with
 direction $\phi$ and
 is defined mathematically by
 \hspace*{0.2in}\begin{tabular}[t]{l}
-$||R^\phi(v)|| = ||v||$ \\
+$||F^\phi(v)|| = ||v||$ \\
 $\mathrm{azm}~F^\phi(v) = \phi - \alpha$ \\
 where $\alpha = \mathrm{azm}~v - \phi$ so \\
 $\mathrm{azm}~F^\phi(v) = 2*\phi - \mathrm{azm}~v$ \\
@@ -762,10 +785,12 @@ and we have: \begin{tabular}[t]{l}
 	     \end{tabular}
 
 If $L$ is a reflection, the angle of the reflecting line is: \\
-\centerline{$\phi = (1/2)*(\mathrm{asm}~L(u_x) + \mathrm{asm}~u_x)$}
-In order to calculate $L(u_x)$ from $\phi$ without using polar
-coordinates we need the notion of scalar product, developed in a
-following section.
+\centerline{$\phi = (1/2)*(\mathrm{asm}~L(u_x) + \mathrm{asm}~u_x)
+                  = (1/2)*(\mathrm{asm}~L(u_x))$}
+and we have: \begin{tabular}[t]{l}
+             $L(u_x)=(\cos(2*\phi),\sin(2*\phi))$ \\
+             $L(u_y)=(\sin(2*\phi),-\cos(2*\phi))$ \\
+	     \end{tabular}
 
 Both rotations and reflections preserve vector lengths
 and change vector angles according to a linear formula.
@@ -784,12 +809,19 @@ $R^\phi*F^\omega = F^\omega*R^{-\phi}$
     $(2\omega - \mathrm{azm}~v) + \phi =
       2\omega - (\mathrm{azm}~v + (-\phi))$
 \end{center}
-Note that while $R^\phi*R^\omega=R^\omega*R^\phi$,
-$F^\omega*F^\phi$ is the inverse rotation of $F^\phi*F^\omega$.
+Note that:
+\begin{center}
+$R^\phi*R^\omega=R^{\omega+\phi}=R^\omega*R^\phi$ \\
+$R^\phi$ and $R^\omega$ commute \\
+$R^{-\phi}$ is the inverse of $R^\phi$ \\
+$F^\phi*F^\phi= I$ (the identity) so  $F^\phi$ is its own inverse \\
+$F^\omega*F^\phi$ is the inverse of $F^\phi*F^\omega$ \\
+in general $F^\phi$ and $F^\omega$ do \underline{not} commute\\
+\end{center}
 
 \bigskip
 
-\section{Rotations and Reflections Transform Calculator}
+\section{Rotations and Reflections Calculator}
 Implement additions to the linear calculator for
 the {\em operators} and {\em functions}:
 \begin{center}
@@ -798,17 +830,17 @@ the {\em operators} and {\em functions}:
         & {\tt p=}$p$ is a scalar \\
 	& {\tt v} is a vector \\
 then: \\[1ex]
-\tt v\textasciicircum p & return {\tt w} such that {\tt ||w||=||v||} and
+\tt v\textasciicircum p & returns {\tt w} such that {\tt ||w||=||v||} and
 	                  {\tt asm w = asm v + p}, \\
 			& {\tt v} rotated by {\tt p} degrees \\
-\tt v|p & return {\tt w} such that {\tt ||w||=||v||} and
+\tt v|p & returns {\tt w} such that {\tt ||w||=||v||} and
 	                  {\tt asm w = 2*p\,-\,asm v}, \\
 			& {\tt v} reflected across the line with direction
 			  {\tt p} degrees \\
 \tt \textasciicircum p
-       & return {\tt ($u_x$\textasciicircum p,$u_y$\textasciicircum p)}, \\
+       & returns {\tt ($u_x$\textasciicircum p,$u_y$\textasciicircum p)}, \\
        & the rotation $R^p$ with angle $p$ degrees \\
-\tt |p & return {\tt ($u_x$|p,$u_y$|p)}, \\
+\tt |p & returns {\tt ($u_x$|p,$u_y$|p)}, \\
        & the reflection $F^p$ across the line with direction $p$ degrees \\
 \end{tabular}
 \end{center}
@@ -1382,7 +1414,7 @@ values for {\tt q}, one on either side of the line {\tt pc}.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Nov  1 05:18:59 EST 2020
+Date:         & Sun Nov  1 09:49:10 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
