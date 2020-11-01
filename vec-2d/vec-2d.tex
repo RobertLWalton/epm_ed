@@ -1141,7 +1141,8 @@ to a finite line segment?  What is the distance from the
 point to the line segment?
 \end{enumerate}
 
-We begin with a line {\tt pq} from point {\tt p} to point {\tt q}.
+We begin with a line {\tt pq} from point {\tt p} to point {\tt q},
+{\tt p$\neq$q}.
 We may take this line to be either infinite, or to be a finite
 line seqment with ends {\tt p} and {\tt q}.  We may take the
 line to be undirected, or to be directed from {\tt p} to {\tt q}.
@@ -1159,7 +1160,7 @@ q - p \\
 r - p
 \end{center}
 Next we apply either the pure rotation $R^{\tt -azm(q-p)}$
-or this rotation followed by the dilation {\tt ||q-p||}.  We use
+or this rotation followed by multiplication by {\tt ||q-p||}.  We use
 the first if we want to preserve and measure distances, and the
 second if we want precise answers to questions like: is {\tt r} on the
 line {\tt pq}?
@@ -1171,12 +1172,12 @@ P = (0,0) \\
 Q = ( ||q - p||, 0 ) \\
 R = ( (q-p)!*(r-p), (q-p)!\#(r-p) ) = (X,Y)
 \end{center}
-where we have defined {\tt X} and {\tt Y} to be the coordiates of {\tt R}
+where we have defined {\tt X} and {\tt Y} to be the coordinates of {\tt R}
 
 If we want the distance from {\tt r} to the infinite line {\tt pq},
 then this is the same as the distance from {\tt R = (X,Y)} to the infinite
 line {\tt PQ}, and the latter is the X-axis.  So the answer is
-{\tt |Y|}.
+{\tt |Y| = (q-p)!\#(r-p) = (1/||q-p||)*(q-p)\#(r-p)}.
 
 Next we want to find the point {\tt t} on the infinite line {\tt pq}
 that is closest to {\tt r}.
@@ -1187,8 +1188,13 @@ we know that: \\
        & {\tt T = $R^{\tt -azm(q-p)}$*(t-p)} \\
    and & {\tt T = (X/||q-p||)*Q} \\
    and & {\tt $R^{\tt -azm(q-p)}$*(q-p) = Q} \\
+    so & {\tt $R^{\tt -azm(q-p)}$*(t-p) = (X/||q-p||)*Q} \\
+    so & {\tt $R^{\tt -azm(q-p)}$*(t-p) =
+        (X/||q-p||)*$R^{\tt -azm(q-p)}$*(q-p)} \\
+    so & {\tt $R^{\tt -azm(q-p)}$*(t-p) =
+        $R^{\tt -azm(q-p)}$*(X/||q-p||)*(q-p)} \\
     so & {\tt t-p = (X/||q-p||)*(q-p) = X*(q-p)!} \\ 
-   and & {\tt t = p + X*(q-p)!} \\ 
+   and & {\tt t = p + X*(q-p)!~= p + ((q-p!)*(r-p))*(q-p)!} \\
        \end{tabular}
 
 \begin{minipage}{\textwidth}\raggedright
@@ -1206,6 +1212,7 @@ we know that: \\
     \draw[black] (0.0,+1.0) node[left]{\small \tt X<0};
     \draw[black] (+6.0,+1.0) node[right]{\small \tt X>||q-p||};
     \draw[black] (+3.0,+2.0) node{\small \tt 0<=X<=||q-p||};
+    \draw[black] (+8.0,+3.0) node{\small \tt R=(X,Y)};
 
 \end{scope}
 \end{tikzpicture}
@@ -1213,7 +1220,8 @@ we know that: \\
 If we want the distance from {\tt r} to the \underline{finite} line {\tt pq},
 then this is the same as the distance from {\tt R} to the finite
 line {\tt PQ}, and there are three cases.  If {\tt X<0}, the answer
-is {\tt ||R-P||}.  If {\tt X>||q-p||}, the answer is {\tt ||R-Q||}.
+is {\tt ||R-P||=||r-p||}.  If {\tt X>||q-p||},
+the answer is {\tt ||R-Q||=||r-q||}.
 Otherwise the answer is {\tt |Y|} as before.  See picture.
 \end{minipage}
 
@@ -1225,7 +1233,7 @@ We can remedy this by switching to the linear transformation
 {\tt ||q-p||*$R^{\tt -azm(q-p)}$}.  Then we get:
 \begin{center} \tt
 P = (0,0) \\
-Q = ( (q - p)*(q-p), 0 ) \\
+Q = ( (q-p)*(q-p), 0 ) \\
 R = ( (q-p)*(r-p), (q-p)\#(r-p) ) = (X,Y)
 \end{center}
 If the coordinates of {\tt p}, {\tt q}, and {\tt r} have at
@@ -1242,8 +1250,11 @@ if and only if {\tt Y<0:(2d)}.
 \item {\tt r} is on the infinite directed line {\tt pq}
 if and only if {\tt Y==0:(2d)}.
 \item {\tt r} is on the finite line {\tt pq} if and only if \\
-\hspace*{0.3in}{\tt Y==0:(2d)},~~~{\tt 0<=X:(2d)},~~~and
-               {\tt X<=(p-q)*(p-q):(2d)}
+\hspace*{0.3in}\begin{tabular}[t]{@{}l}
+               {\tt Y==0:(2d)},~~~{\tt 0<=X:(2d)},~~~and
+	           {\tt X<=(p-q)*(p-q):(2d)} \\
+	       where {\tt X = (q-p)*(r-p) ~~~ Y = (q-p)\#(r-p)} \\
+	       \end{tabular}
 \end{enumerate}
 
 \section{Line and Line}
@@ -1426,7 +1437,7 @@ values for {\tt q}, one on either side of the line {\tt pc}.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Nov  1 14:28:04 EST 2020
+Date:         & Sun Nov  1 18:33:03 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
