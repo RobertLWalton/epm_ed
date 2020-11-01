@@ -156,6 +156,10 @@ Comparisons assume the scalars being compared are approximations
 to precise numbers that are in units of $10^{-d}$, and therefore to test
 for equality the scalars should be (in effect) rounded to the nearest unit.
 
+Division by {\tt 0} will produce results such as
+{\tt inf} (plus infinity), {\tt -inf} (minus infinity),
+and {\tt nan} (not a number; i.e., result could not be computed).
+
 \begin{center}
 \begin{tabular}{rl}
 Sample Input File: & \file{00-scalar-vec-2d.sin} \\
@@ -166,7 +170,7 @@ Submit Run File: & \file{submit-scalar-vec-2d.run} \\
 \end{tabular}
 \end{center}
 
-Note that the {\tt .ftest} files for this problem are identical
+The {\tt .ftest} files for this problem are identical
 to the corresponding {\tt .sout} files.
 
 You can test your program using the indicated sample input and
@@ -213,7 +217,7 @@ downloaded:
 \end{tabular}
 \end{center}
 
-Note that using these definitions may make it easier
+Using these definitions may make it easier
 for other people familiar with this problem to read your
 code, should that be important.
 
@@ -251,7 +255,7 @@ with the vector $v$ using the equation $\tau_v(p)=p+v$.  Then\\
 \hspace*{0.2in}$\tau_w(\tau_v(p)) = p+v+w = \tau_{v+w}(p)$ \\
 See the picture.
 \\[1ex]
-Note that vector sums are commutative, i.e.,  $v+w=w+v$, and associative,
+Vector sums are commutative, i.e.,  $v+w=w+v$, and associative,
 i.e., $u+(v+w)=(u+v)+w$.
 \end{minipage}
 
@@ -279,7 +283,7 @@ but multiplies the length of $v$ by $s$.  Multiplication of $v$ by
 $s<0$ reverses the direction of $v$ and multiplies its length
 by $|s|$.  See the picture.
 \\[1ex]
-Note that scalar products are associative in the sense that
+Scalar products are associative in the sense that
 $s_1*(s_2*v)=(s_1*s_2)*v$.
 \end{minipage}
 
@@ -330,7 +334,7 @@ The vector with the polar coordinates $\theta$ (azimuth) and $\ell$ (length) is
 $(\ell \cos\theta,\ell \sin\theta)$.
 See the picture.
 
-Note that adding integer multiples of 360 to a vector's
+Adding integer multiples of 360 to a vector's
 azimuth does \underline{not} change the vector.
 
 \newpage
@@ -360,6 +364,10 @@ then: \\[1ex]
 \end{tabular}
 \end{center}
 
+If {\tt ||v|| = 0} then {\tt azm~v} is undefined (you can do extra
+programming to make it defined as {\tt nan} if you like, but this
+is not necessary).
+
 \begin{center}
 \begin{tabular}{rl}
 Sample Input File: & \file{00-vector-vec-2d.sin} \\
@@ -370,7 +378,7 @@ Submit Run File: & \file{submit-vector-vec-2d.run} \\
 \end{tabular}
 \end{center}
 
-Note that the {\tt .ftest} files for this problem are identical
+The {\tt .ftest} files for this problem are identical
 to the corresponding {\tt .sout} files.
 
 You can test your program using the indicated sample input and
@@ -491,7 +499,7 @@ K*L = (K*$\ell^L_x$,K*$\ell^L_y$)
 \end{tabular}
 \end{center}
 
-Note that {\tt *} and {\tt +} as defined here are bi-linear
+{\tt *} and {\tt +} as defined here are bi-linear
 (letting {\tt J} be another linear transformation):
 \begin{center}
 \tt
@@ -559,7 +567,7 @@ Submit Run File: & \file{submit-linear-vec-2d.run} \\
 \end{tabular}
 \end{center}
 
-Note that the {\tt .ftest} files for this problem are identical
+The {\tt .ftest} files for this problem are identical
 to the corresponding {\tt .sout} files.
 
 You can test your program using the indicated sample input and
@@ -855,7 +863,7 @@ Submit Run File: & \file{submit-unitary-vec-2d.run} \\
 \end{tabular}
 \end{center}
 
-Note that the {\tt .ftest} files for this problem are identical
+The {\tt .ftest} files for this problem are identical
 to the corresponding {\tt .sout} files.
 
 You can test your program using the indicated sample input and
@@ -895,7 +903,7 @@ u\#(v+w) = u\#v + u\#w \\
 (s*u)\#w = s*(u\#w) = u\#(s*w)
 \end{center}
 
-Note that the scalar product is symmetric ({\tt v*w = w*v})
+The scalar product is symmetric ({\tt v*w = w*v})
 while the cross product is anti-symmetric ({\tt v\#w = -w\#v}).
 
 \begin{lemma}
@@ -1098,6 +1106,10 @@ then: \\[1ex]
 \end{tabular}
 \end{center}
 
+If {\tt ||v|| = 0} then {\tt v!} and {\tt v!w} will produce coordinates such as
+{\tt inf} (plus infinity), {\tt -inf} (minus infinity),
+and {\tt nan} (not a number; i.e., result could not be computed).
+
 \begin{center}
 \begin{tabular}{rl}
 Sample Input File: & \file{00-product-vec-2d.sin} \\
@@ -1108,7 +1120,7 @@ Submit Run File: & \file{submit-product-vec-2d.run} \\
 \end{tabular}
 \end{center}
 
-Note that the {\tt .ftest} files for this problem are identical
+The {\tt .ftest} files for this problem are identical
 to the corresponding {\tt .sout} files.
 
 You can test your program using the indicated sample input and
@@ -1414,7 +1426,7 @@ values for {\tt q}, one on either side of the line {\tt pc}.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Nov  1 09:49:10 EST 2020
+Date:         & Sun Nov  1 14:28:04 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
