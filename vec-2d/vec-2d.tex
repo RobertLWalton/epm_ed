@@ -155,6 +155,10 @@ and negative angles going clockwise.
 Comparisons assume the scalars being compared are approximations
 to precise numbers that are in units of $10^{-d}$, and therefore to test
 for equality the scalars should be (in effect) rounded to the nearest unit.
+In addition, the scalars have to be good enough approximations.  As
+double precision floating point numbers are accurate to at most one part
+in $10^{16}$, this means that if the units are $10^{-d}$ the scalar
+should not have absolute value above $10^{15-d}$.
 
 Division by {\tt 0} will produce results such as
 {\tt inf} (plus infinity), {\tt -inf} (minus infinity),
@@ -1322,7 +1326,7 @@ on both finite lines.
 The converse is trivial.
 \end{indpar}
 
-If we have a finite lines {\tt mn} and and infinite line extending
+If we have a finite line {\tt mn} and and infinite line extending
 {\tt qr}, then they intersect if and only if either {\tt m} or {\tt n}
 is on the infinite line or {\tt m} and {\tt n} are on opposite sides
 of the infinite line.  Then we know from the end of
@@ -1334,8 +1338,9 @@ there is an intersection if and only if:\\
 \centerline{{\tt (r-q)\#(n-q)<=0:(2d)} and {\tt 0<=(r-q)\#(m-q):(2d)}}
 
 (This could also be written as: \\
-\centerline{{\tt (r-q)\#(m-q)*(r-q)\#(n-q)<=0:(4d)}} \\
-but the change from {\tt 2d} to {\tt 4d} is offputting.)
+\centerline{{\tt ((r-q)\#(m-q))*((r-q)\#(n-q))<=0:(4d)}} \\
+but the change from {\tt 2d} to {\tt 4d} is worrisome: {\tt 4d} might
+be too large to be practical.)
 
 The case where {\tt mn} and {\tt qr} are parallel, that is, when: \\
 \centerline{{\tt (r-q)\#(n-m)==0:(2d)}} \\
@@ -1355,17 +1360,22 @@ true that \\
 \centerline{\tt (r-q)*n<(r-q)*q:(2d) ~ or ~ (r-q)*r<(r-q)*m:(2d)} \\
 If there is an overlap, the overlap interval will be: \\
 \centerline{\tt [ max\{(r-q)*m,(r-q)*q\}, min\{(r-q)*n,(r-q)*r\} ]} \\
-expressed in {\tt (r-p)*} coordinates.
+expressed in {\tt (r-q)*} coordinates.  Since the points on our
+line have the form {\tt q + s*(r-q)}, a point on the line with
+{\tt (r-q)*} coordinate {\tt S} would be such that \\
+\centerline{\tt (r-q)*q + s*(r-q)*(r-q) = S} \\
+and this can be solved for {\tt s}.
 
 
 \section{Point, Line, and Circle}
 In this section we investigate the following questions:
 \begin{enumerate}
 \item What is the distance between a point and a circle?
+\item Does an infinite line intersect a circle?  Is it
+tangent to the circle?  Where does it intersect?
 \item What are the lines tangent to a circle that pass through
 an external point, and where are the points that these lines contact the
 circle?
-\item Where does an infinite line intersect a circle?
 \item What is the distance between a finite line segment and
 a circle?  If zero, where are the intersections?  If not zero,
 where is the point on the finite line segment that is closest to the
@@ -1375,9 +1385,18 @@ circle.
 Suppose we have a point {\tt p} and a circle with center {\tt c}
 and radius {\tt r>0}.  Then the distance from {\tt p} to the circle
 (viewed as a closed line and \underline{not} an area) is
-{\tt | ||p-c|| - r |}.  Of course if {\tt ||p-c|| - r} is negative,
-then {\tt p} is inside the circle, while if it is positive, {\tt p}
-is outside the circle.
+{\tt | ||p-c|| - r |}.
+
+To precisely test whether {\tt p} is outside, on, or inside the
+circle, assuming that input coordinates and {\tt r} have at most
+{\tt d} decimal places, we can use the equations:
+\begin{center}
+\begin{tabular}{l@{~~~~~}l}
+\tt r$^2$ < (p-c)*(p-c):(2d) & outside the circle \\
+\tt (p-c)*(p-c) == r$^2$:(2d) & on the circle \\
+\tt (p-c)*(p-c) < r$^2$:(2d) & inside the circle \\
+\end{tabular}
+\end{center}
 
 \begin{minipage}{\textwidth}\raggedright
 \begin{wrapfigure}{r}{0.3\textwidth}
@@ -1437,7 +1456,7 @@ values for {\tt q}, one on either side of the line {\tt pc}.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Nov  1 18:33:03 EST 2020
+Date:         & Sun Nov  1 22:50:00 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
