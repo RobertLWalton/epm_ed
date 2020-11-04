@@ -1226,7 +1226,7 @@ If\label{DISTANCE-OF-LINE-TO-POINT}
 we want the distance from {\tt r} to the infinite line {\tt pq},
 then this is the same as the distance from {\tt R = (X,Y)} to the infinite
 line {\tt PQ}, and the latter is the X-axis.  So the answer is
-{\tt |Y| = (q-p)!\#(r-p) = (1/||q-p||)*(q-p)\#(r-p)}.
+{\tt |Y| = |(q-p)!\#(r-p)| = (1/||q-p||)*|(q-p)\#(r-p)|}.
 
 Next we want to find the point {\tt t} on the infinite line {\tt pq}
 that is closest to {\tt r}.
@@ -1426,7 +1426,9 @@ and this can be solved for {\tt s}.
 \section{Point, Line, and Circle}
 In this section we investigate the following questions:
 \begin{enumerate}
-\item What is the distance between a point and a circle?
+\item What is the distance between a point and a circle (viewed as
+a curving line and \underline{not} an area)?
+Is the point on the circle?
 \item What are the lines tangent to a circle that pass through
 an external point, and where are the points that these lines contact the
 circle?
@@ -1496,7 +1498,7 @@ We define {\tt b} to be the point on {\tt pc} such that
     so {\tt \small ||b-c|| = r$^2$/||p-c||} \\
     and using \\
     {\tt ||b-t|| = $\sqrt{{\tt r}^2 - {\tt ||b-c||}^2}$} \\
-    we can compute both {\tt ||b-c||} and {\tt ||b-t||} \\
+    we can compute both {\tt ||b-c||} and {\tt ||b-t||}; \\
     then if we define {\tt u = (p-c)!} we have \\
     {\tt b = c + ||b-c||*u} \\
     {\tt t = b $\pm$ ||b-q||*(u\textasciicircum 90)} \\
@@ -1513,7 +1515,7 @@ $\sqrt{\tt (p-c)*(p-c) - 1}$ being a factor while other factors are rational.
 It comes down the the question of whether if {\tt p-c = 10$^{-d}$*(x,y)}
 for integers {\tt x} and {\tt y}, then is
 {\tt x$^2$+y$^2$-(10$^d$)$^2$} a perfect square.
-For example, fact $101^2+201^2-100^2= 40602$ contains the factor $2$ only once
+For example, $101^2+201^2-100^2= 40602$ contains the factor $2$ only once
 and is therefore not a perfect square.
 Most of the time the sum will \underline{not}
 be a perfect square, and so most of the time at least one of the
@@ -1528,7 +1530,7 @@ circle is also the point on the line closest to {\tt c}.  By
 the argument on page \pageref{CLOSEST-IS-RATIONAL}, if
 {\tt p}, {\tt q}, and {\tt c} all have rational coordinates, then
 {\tt t} will have rational coordinates, but by the argument immediately
-above, it will ususally have irrational coordinates.  From this
+above, it will usually have irrational coordinates.  From this
 we conclude that {\tt pq} is usually not tangent to the circle
 if {\tt p}, {\tt q}, and {\tt c} all have rational coordinates.
 
@@ -1540,7 +1542,7 @@ if {\tt p}, {\tt q}, and {\tt c} all have rational coordinates.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Nov  3 23:43:38 EST 2020
+Date:         & Wed Nov  4 09:41:26 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
