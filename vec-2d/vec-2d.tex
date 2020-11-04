@@ -1225,8 +1225,8 @@ where we have defined {\tt X} and {\tt Y} to be the coordinates of {\tt R}
 If\label{DISTANCE-OF-LINE-TO-POINT}
 we want the distance from {\tt r} to the infinite line {\tt pq},
 then this is the same as the distance from {\tt R = (X,Y)} to the infinite
-line {\tt PQ}, and the latter is the X-axis.  So the answer is
-{\tt |Y| = |(q-p)!\#(r-p)| = (1/||q-p||)*|(q-p)\#(r-p)|}.
+line {\tt PQ}, and the latter is the X-axis.  So the answer is \\
+\centerline{\tt |Y| = |(q-p)!\#(r-p)| = (1/||q-p||)*|(q-p)\#(r-p)|}
 
 Next we want to find the point {\tt t} on the infinite line {\tt pq}
 that is closest to {\tt r}.
@@ -1532,7 +1532,62 @@ the argument on page \pageref{CLOSEST-IS-RATIONAL}, if
 {\tt t} will have rational coordinates, but by the argument immediately
 above, it will usually have irrational coordinates.  From this
 we conclude that {\tt pq} is usually not tangent to the circle
-if {\tt p}, {\tt q}, and {\tt c} all have rational coordinates.
+if {\tt p}, {\tt q}, and {\tt c} all have rational coordinates and
+{\tt r} is a rational number.
+
+\bigskip
+
+\begin{minipage}{\textwidth}\raggedright
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{tikzpicture}[x=0.25in,y=0.25in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+
+    \draw[black] (0,0) circle(3.0);
+    \fill[red] (0,0.0) circle(0.1);
+    \draw[black] (0,-0.4) node{\tt c};
+
+    \draw[black] (-5.0,2.0) -- (+5.0,2.0);
+    \fill[red] (-4.0,2.0) circle(0.1);
+    \fill[red] (+4.0,2.0) circle(0.1);
+    \draw[black] (-4.0,2.4) node{\tt p};
+    \draw[black] (+4.0,2.4) node{\tt q};
+
+    \fill[red] (0,2.0) circle(0.1);
+    \draw[black] (0,2.4) node{\tt t};
+
+    \draw[brown] (0,0) -- (0.0,2.0);
+
+    \fill[red] (2.236068,2.0) circle(0.1);
+    \draw[black] (2.5,2.4) node{\tt s};
+    \draw[brown] (0,0) -- (2.236068,2.0);
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+So let us just assume for the moment that the line intersects
+the circle, and locate the points of intersection (see picture).
+By section \ref{POINT-AND-LINE}, page \pageref{POINT-AND-LINE},
+we can find the point {\tt t} on the line that is closest to
+{\tt c}, and find the distance {\tt ||t-c||}.  Then the line {\tt tc} is
+perpendicular to {\tt pq} as if it were not sliding {\tt t}
+along the {\tt pq} line would reduce {\tt ||t-c||}.
+If {\tt s} is an intersection point of {\tt pq} and the circle, we have: \\
+\hspace*{0.2in}\begin{tabular}{@{}l}
+    {\tt ||s-c||$^2$ = r$^2$ = ||t-c||$^2$ + ||t-s||$^2$} \\
+    so {\tt ||t-s|| = $\sqrt{{\tt r}^2 - {\tt ||t-c||}^2}$} \\
+    and if we define {\tt u = (q-p)!} we have \\
+    {\tt s = t $\pm$ ||t-s||*u} \\
+    \end{tabular}
+\end{minipage}
+
+The reason for the $\pm$ is that we actually have two possible
+values for {\tt s}, one on either side of the line {\tt tc}.
+
+The distance {\tt ||t-s||} goes to zero as {\tt ||t-c||} approaches
+{\tt r}, and cannot be computed if {\tt ||t-c|| > r}, in which case
+the line is completely outside the circle and does not intersect the
+circle.
+
 
 
 
@@ -1542,7 +1597,7 @@ if {\tt p}, {\tt q}, and {\tt c} all have rational coordinates.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Nov  4 09:41:26 EST 2020
+Date:         & Wed Nov  4 12:09:48 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
