@@ -1408,7 +1408,7 @@ are on the same infinite line and may or may not overlap.
 We can use the {\tt (r-q)*} product to establish coordinates on this
 infinite line, getting: \\
 \centerline{\tt (r-q)*m ~~~ (r-q)*n ~~~ (r-q)*q ~~~ (r-q)*r} \\
-Then be exchanging {\tt m} with {\tt n} and {\tt q} with {\tt r}
+Then by exchanging {\tt m} with {\tt n} and {\tt q} with {\tt r}
 \underline{if necessary} we can arrange that: \\
 \centerline{\tt (r-q)*m<(r-q)*n:(2d) ~ and ~ (r-q)*q<(r-q)*r:(2d)} \\
 and there will be an overlap if and only if it is \underline{not}
@@ -1588,6 +1588,38 @@ The distance {\tt ||t-s||} goes to zero as {\tt ||t-c||} approaches
 the line is completely outside the circle and does not intersect the
 circle.
 
+We end this section by examining the case of a \underline{finite}
+line {\tt pq} and a circle with center {\tt c} and radius {\tt r}.
+Find the point {\tt t} on the infinite line {\tt pq} closest to
+{\tt c}, and the points {\tt s} that where the infinite line intersects
+the circle, if they exist.
+Then use the {\tt (q-p)*} product to establish coordinates on the
+infinite line: \\
+\centerline{\tt (q-p)*p ~~~ (q-p)*q ~~~ (q-p)*t ~~~ (q-p)*s} \\
+By exchanging {\tt p} with {\tt q}
+\underline{if necessary} we can arrange that \\
+\centerline{\tt (q-p)*p < (q-p)*q} \\
+so {\tt t} is in the finite line {\tt pq} if and only if
+{\tt (q-p)*p $\leq$ (q-p)*t $\leq$ (q-p)*q}.
+Similarly we can find out if an intersection point is on the finite
+line.
+
+The points on the infinite line can be represented as
+{\tt p+h*(q-p)} for scalars {\tt h}, and the square of the distance of such a
+point from {\tt c} is then \\
+\centerline{\tt (p+h*(q-p))*(p+h*(q-p))} \\
+which is a quadratic
+function of {\tt h}.  It has a minimum at {\tt p+h*(q-p) == t} and
+is increasing as the point moves away from {\tt t}.
+
+Therefore, if {\tt t} is on the finite line {\tt pq} it is the point on
+that line closest to {\tt c}, and if {\tt t} is not on the line, either
+{\tt p} or {\tt q} is the point closest to {\tt c}.  In either case
+either {\tt p} or {\tt q} is the point farthest from {\tt c}.  Using
+this information you can establish the minimum distance of the finite
+line {\tt pq} from the circle viewed as a curved line (and \underline{not}
+as an area).  You do not need to calculate intersection points {\tt s}
+to determine whether there is an intersection.
 
 
 
@@ -1597,7 +1629,7 @@ circle.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Nov  4 12:09:48 EST 2020
+Date:         & Wed Nov  4 13:10:22 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
