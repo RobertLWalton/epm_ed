@@ -157,6 +157,7 @@ Comparisons assume the scalars being compared are approximations
 to precise numbers that are in units of $10^{-d}$, and therefore to test
 for equality the scalars should be (in effect) rounded to the nearest unit.
 In addition, the scalars have to be good enough approximations.  As
+\label{DOUBLE-SIZE-LIMITS}
 double precision floating point numbers are accurate to at most one part
 in $10^{16}$, this means that if the units are $10^{-d}$ the scalar
 should not have absolute value above $10^{15-d}$.
@@ -1221,7 +1222,8 @@ R = ( (q-p)!*(r-p), (q-p)!\#(r-p) ) = (X,Y)
 \end{center}
 where we have defined {\tt X} and {\tt Y} to be the coordinates of {\tt R}
 
-If we want the distance from {\tt r} to the infinite line {\tt pq},
+If\label{DISTANCE-OF-LINE-TO-POINT}
+we want the distance from {\tt r} to the infinite line {\tt pq},
 then this is the same as the distance from {\tt R = (X,Y)} to the infinite
 line {\tt PQ}, and the latter is the X-axis.  So the answer is
 {\tt |Y| = (q-p)!\#(r-p) = (1/||q-p||)*(q-p)\#(r-p)}.
@@ -1242,7 +1244,18 @@ we know that: \\
         $R^{\tt -azm(q-p)}$*(X/||q-p||)*(q-p)} \\
     so & {\tt t-p = (X/||q-p||)*(q-p) = X*(q-p)!} \\ 
    and & {\tt t = p + X*(q-p)!~= p + ((q-p!)*(r-p))*(q-p)!} \\
+   or & {\tt t = p + (1/(q-p)*(q-p)) * ((q-p)*(r-p))*(q-p)} \\
        \end{tabular}
+
+Note that {\tt t} has rational\label{CLOSEST-IS-RATIONAL},
+and \underline{not} irrational,
+coordinates.  However the denominator may be very large.  If
+the input coordinates have at most {\tt d} decimal places,
+their denominator is at most $10^d$, and the denominator of {\tt t}
+may be as large as \\
+\centerline{\tt 10$^{\tt 3d}$*(numerator of (q-p)*(q-p))}
+
+\medskip
 
 \begin{minipage}{\textwidth}\raggedright
 \begin{wrapfigure}{r}{0.6\textwidth}
@@ -1414,11 +1427,11 @@ and this can be solved for {\tt s}.
 In this section we investigate the following questions:
 \begin{enumerate}
 \item What is the distance between a point and a circle?
-\item Does an infinite line intersect a circle?  Is it
-tangent to the circle?  Where does it intersect?
 \item What are the lines tangent to a circle that pass through
 an external point, and where are the points that these lines contact the
 circle?
+\item Does an infinite line intersect a circle?  Is it
+tangent to the circle?  Where does it intersect?
 \item What is the distance between a finite line segment and
 a circle?  If zero, where are the intersections?  If not zero,
 where is the point on the finite line segment that is closest to the
@@ -1427,8 +1440,9 @@ circle.
 
 Suppose we have a point {\tt p} and a circle with center {\tt c}
 and radius {\tt r>0}.  Then the distance from {\tt p} to the circle
-(viewed as a closed line and \underline{not} an area) is
-{\tt | ||p-c|| - r |}.
+is the absolute value of {\tt ||p-c|| - r},
+where we view the circle as a closed line
+and \underline{not} as an area.
 
 To precisely test whether {\tt p} is outside, on, or inside the
 circle, assuming that input coordinates and {\tt r} have at most
@@ -1441,6 +1455,7 @@ circle, assuming that input coordinates and {\tt r} have at most
 \end{tabular}
 \end{center}
 
+
 \begin{minipage}{\textwidth}\raggedright
 \begin{wrapfigure}{r}{0.3\textwidth}
 \begin{tikzpicture}[x=0.25in,y=0.25in]
@@ -1451,9 +1466,9 @@ circle, assuming that input coordinates and {\tt r} have at most
     \fill[red] (0,0) circle(0.1);
     \draw[black] (0,0) node[right]{\tt c};
     \fill[red] (0,1.5) circle(0.1);
-    \draw[black] (0,1.5) node[left]{\tt t};
+    \draw[black] (0,1.5) node[left]{\tt b};
     \fill[red] (2.598076,1.5) circle(0.1);
-    \draw[black] (2.598076,1.5) node[right]{\tt q};
+    \draw[black] (2.598076,1.5) node[right]{\tt t};
 
 
     \draw[black] (0,0) circle(3.0);
@@ -1467,29 +1482,55 @@ circle, assuming that input coordinates and {\tt r} have at most
 \end{tikzpicture}
 \end{wrapfigure}
 Now suppose that {\tt p} is outside the circle and we want to find
-a point {\tt q} on the circle such that {\tt pq} is tangent to the
+a point {\tt t} on the circle such that {\tt pt} is tangent to the
 circle.  See the picture. \\
 ~ \\
-We define {\tt t} to be the point on {\tt pc} such that
-{\tt qtp} is a right angle.  Then we have: \\
+We define {\tt b} to be the point on {\tt pc} such that
+{\tt tbp} is a right angle.  Then we have: \\
 \hspace*{0.2in}\begin{tabular}{@{}l} \\
-    {\tt pqc} is a right angle \\
+    {\tt ptc} is a right angle \\
     {\tt ||p-c||} is known \\
-    {\tt ||q-c||=r} \\
-    triangles {\tt pqc} and {\tt qtc} are congruent \\
-    so {\tt \small ||t-c||/||q-c|| = ||q-c||/||p-c||} \\
-    so {\tt \small ||t-c|| = r$^2$/||p-c||} \\
+    {\tt ||t-c||=r} \\
+    triangles {\tt ptc} and {\tt tbc} are congruent \\
+    so {\tt \small ||b-c||/||t-c|| = ||t-c||/||p-c||} \\
+    so {\tt \small ||b-c|| = r$^2$/||p-c||} \\
     and using \\
-    {\tt ||t-q|| = $\sqrt{{\tt r}^2 - {\tt ||t-c||}^2}$} \\
-    we can compute both {\tt ||t-c||} and {\tt ||t-q||} \\
+    {\tt ||b-t|| = $\sqrt{{\tt r}^2 - {\tt ||b-c||}^2}$} \\
+    we can compute both {\tt ||b-c||} and {\tt ||b-t||} \\
     then if we define {\tt u = (p-c)!} we have \\
-    {\tt t = c + ||t-c||*u} \\
-    {\tt q = t $\pm$ ||t-q||*(u\textasciicircum 90)} \\
+    {\tt b = c + ||b-c||*u} \\
+    {\tt t = b $\pm$ ||b-q||*(u\textasciicircum 90)} \\
     \end{tabular}
 \end{minipage}
 
 The reason for the $\pm$ is that we actually have two possible
-values for {\tt q}, one on either side of the line {\tt pc}.
+values for {\tt t}, one on either side of the line {\tt pc}.
+
+It turns out that the coordinates of {\tt b} are rational
+with denominator containing {\tt (p-c)*(p-c)}.  However, the
+coordinates of {\tt t} are irrational in general, due to
+$\sqrt{\tt (p-c)*(p-c) - 1}$ being a factor while other factors are rational.
+It comes down the the question of whether if {\tt p-c = 10$^{-d}$*(x,y)}
+for integers {\tt x} and {\tt y}, then is
+{\tt x$^2$+y$^2$-(10$^d$)$^2$} a perfect square.
+For example, fact $101^2+201^2-100^2= 40602$ contains the factor $2$ only once
+and is therefore not a perfect square.
+Most of the time the sum will \underline{not}
+be a perfect square, and so most of the time at least one of the
+coordinates of {\tt t} will be irrational.
+
+Now let {\tt p} and {\tt q} be points on an infinite line {\tt pq}
+and let {\tt c} be a circle of radius {\tt r}.  Does {\tt pq} intersect
+the circle, and is it tangent?
+
+If {\tt pq} is tangent, the point {\tt t} where it intersects the
+circle is also the point on the line closest to {\tt c}.  By
+the argument on page \pageref{CLOSEST-IS-RATIONAL}, if
+{\tt p}, {\tt q}, and {\tt c} all have rational coordinates, then
+{\tt t} will have rational coordinates, but by the argument immediately
+above, it will ususally have irrational coordinates.  From this
+we conclude that {\tt pq} is usually not tangent to the circle
+if {\tt p}, {\tt q}, and {\tt c} all have rational coordinates.
 
 
 
@@ -1499,7 +1540,7 @@ values for {\tt q}, one on either side of the line {\tt pc}.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Nov  2 10:22:06 EST 2020
+Date:         & Tue Nov  3 23:43:38 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
