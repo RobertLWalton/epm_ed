@@ -1336,7 +1336,7 @@ then: \\[1ex]
 \tt closef~pqr  & returns the point {\tt t} on the \underline{finite}
                   line {\tt pq} \\
 		& that is closest to the point {\tt r} \\
-\tt side~pqrd & returns {\tt +1} if {\tt r} is to the left of the
+\tt sidel~pqrd & returns {\tt +1} if {\tt r} is to the left of the
                 infinite line {\tt pq}, \\
 	      & zero if it on the line, and -1 if it is to the right, \\
 	      & assuming all coordinates have at most {\tt d} decimal places \\
@@ -1476,7 +1476,7 @@ the following {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l}
 Assume: & {\tt m}, {\tt n}, {\tt p}, {\tt q} are vectors representing points \\
-	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
+	& {\tt d} is an integer scalar with {\tt 0 $\leq$ d $\leq$ 12} \\
 then: \\[1ex]
 \tt intersecti mnpqd & returns {\tt true} if the infinite lines {\tt mn} and
                      {\tt pq} \\
@@ -1714,6 +1714,59 @@ as an area).  You do not need to calculate intersection points {\tt s}
 to determine whether there is an intersection.
 
 
+\newpage
+
+\section{Point, Line, and Circle Calculator}
+Implement additions to the line and line calculator for
+the following {\em operators} and {\em functions}:
+\begin{center}
+\begin{tabular}{l@{~~~~~}l}
+Assume: & {\tt c}, {\tt p}, {\tt q} are vectors representing points \\
+	& {\tt r} is a scalar with {\tt r > 0} \\
+	& below the circle has center {\tt c} and radius {\tt r} \\
+	& {\tt d} is an integer scalar with {\tt 0 $\leq$ d $\leq$ 12} \\
+then: \\[1ex]
+\tt sidec~crpd & returns {\tt -1} if {\tt p} is outside the circle, \\
+               & {\tt 0} if it is on the circle, {\tt +1} if it is \\
+	       & inside the circle, assuming all coordinates have \\
+	       & at most {\tt d} decimal places \\
+\tt distc crp  & returns the distance of the point {\tt p} to the  \\
+               & circle viewed as an arc and not an area \\
+\tt tangc crp  & returns a tangent point ({\tt t} in the picture) \\
+               & of a line through {\tt p} tangent to the circle; \\
+	       & of the two possibilities, the one to the right of \\
+	       & the directed line {\tt cp} must be returned \\
+\tt basec crp  & returns the base point ({\tt b} in the picture) \\
+               & of lines through {\tt p} tangent to the circle; \\
+	       & this is technically the point on {\tt cp} closest \\
+	       & to the tangent point {\tt t} \\
+\tt intersectc crpq  & returns the intersection point
+                       ({\tt s} in the picture) \\
+               & of the infinite line {\tt pq} and the circle; \\
+	       & of the two possibilities, the one to the right of \\
+	       & the directed line {\tt ct} must be returned, where \\
+	       & {\tt t} is the point on the line closest to {\tt c} \\
+\tt distc crpq  & returns the distance of the finite line {\tt pq} to the  \\
+               & circle viewed as an arc and not an area \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{rl}
+Sample Input File: & \file{00-line-vec-2d.sin} \\
+Sample Output File: & \file{00-line-vec-2d.sout} \\
+or: & \file{00-line-vec-2d.ftest} \\
+Sample Run File: & \file{sample-line-vec-2d.run} \\
+Submit Run File: & \file{submit-line-vec-2d.run} \\
+\end{tabular}
+\end{center}
+
+The {\tt .ftest} files for this problem are identical
+to the corresponding {\tt .sout} files.
+
+You can test your program using the indicated sample input and
+output and you can submit your program using the indicated submit
+run file.
 
 
 
@@ -1721,7 +1774,7 @@ to determine whether there is an intersection.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Nov  4 23:09:30 EST 2020
+Date:         & Thu Nov  5 05:57:20 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
