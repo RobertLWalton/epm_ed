@@ -883,7 +883,7 @@ the {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
 \multicolumn{2}{l}{Assume:} \\
-        & {\tt p=}$p$ is a scalar \\
+        & {\tt p} is a scalar \\
 	& {\tt v} is a vector \\
 then: \\[1ex]
 \tt v\textasciicircum p & returns {\tt w} such that {\tt ||w||=||v||} and
@@ -1136,8 +1136,7 @@ Implement additions to the unitary calculator for
 the following {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
-Assume: & {\tt d=}$d$ (a scalar) \\
-	& {\tt v=}$(v_x,v_y)$ (a vector) \\
+Assume: & {\tt v=}$(v_x,v_y)$ (a vector) \\
 	& {\tt w=}$(w_x,w_y)$ (a vector) \\
 	& {\tt p=}$p$, {\tt q=}$q$, {\tt r=}$r$ (vectors representing points) \\
 then: \\[1ex]
@@ -1317,6 +1316,53 @@ if and only if {\tt Y==0:(2d)}.
 	       \end{tabular}
 \end{enumerate}
 
+\newpage
+
+\section{Point and Line Calculator}
+Implement additions to the product calculator for
+the following {\em operators} and {\em functions}:
+\begin{center}
+\begin{tabular}{l@{~~~~~}l@{~~~~~}l}
+Assume: & {\tt p}, {\tt q}, {\tt r} are vectors representing points \\
+	& {\tt d} is an integer scalar with {\tt 0 $\leq$ d $\leq$ 12} \\
+then: \\[1ex]
+\tt disti~pqr  & returns the distance from point {\tt r} to the
+		\underline{infinite} line {\tt pq} \\
+\tt distf~pqr  & returns the distance from point {\tt r} to the
+		\underline{finite} line {\tt pq} \\
+\tt closei~pqr  & returns the point {\tt t} on the \underline{infinite}
+                  line {\tt pq} \\
+		& that is closest to the point {\tt r} \\
+\tt closef~pqr  & returns the point {\tt t} on the \underline{finite}
+                  line {\tt pq} \\
+		& that is closest to the point {\tt r} \\
+\tt side~pqrd & returns {\tt +1} if {\tt r} is to the left of the
+                infinite line {\tt pq}, \\
+	      & zero if it on the line, and -1 if it is to the right, \\
+	      & assuming all coordinates have at most {\tt d} decimal places \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{rl}
+Sample Input File: & \file{00-point-vec-2d.sin} \\
+Sample Output File: & \file{00-point-vec-2d.sout} \\
+or: & \file{00-point-vec-2d.ftest} \\
+Sample Run File: & \file{sample-point-vec-2d.run} \\
+Submit Run File: & \file{submit-point-vec-2d.run} \\
+\end{tabular}
+\end{center}
+
+The {\tt .ftest} files for this problem are identical
+to the corresponding {\tt .sout} files.
+
+You can test your program using the indicated sample input and
+output and you can submit your program using the indicated submit
+run file.
+
+\newpage
+
+
 \section{Line and Line}
 In this section we investigate the following questions:
 \begin{enumerate}
@@ -1421,6 +1467,52 @@ line have the form {\tt q + s*(r-q)}, a point on the line with
 {\tt (r-q)*} coordinate {\tt S} would be such that \\
 \centerline{\tt (r-q)*q + s*(r-q)*(r-q) = S} \\
 and this can be solved for {\tt s}.
+
+\newpage
+
+\section{Line and Line Calculator}
+Implement additions to the point and line calculator for
+the following {\em operators} and {\em functions}:
+\begin{center}
+\begin{tabular}{l@{~~~~~}l}
+Assume: & {\tt m}, {\tt n}, {\tt p}, {\tt q} are vectors representing points \\
+	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
+then: \\[1ex]
+\tt intersecti mnpqd & returns {\tt true} if the infinite lines {\tt mn} and
+                     {\tt pq} \\
+		   & intersect (including the case where the lines are \\
+		   & identical) and {\tt false} otherwise; assuming point \\
+		   & coordinates have at most {\tt d} decimal places \\
+\tt intersectf mnpqd & ditto but for finite lines {\tt mn} and {\tt pq} \\
+\tt overlap mnpq & returns the length of the overlap of finite lines {\tt mn} \\
+                 & and {\tt pq} assuming the infinite extensions of these \\
+		 & lines are identical \\
+\tt common mnpq & returns the common point of infinite lines {\tt mn} and \\
+                & {\tt pq} assuming these lines are not parallel \\
+\tt dist mnpq & returns the distance between finite lines {\tt mn} and
+                  {\tt pq} \\
+		& (may be zero if lines intersect) \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{rl}
+Sample Input File: & \file{00-line-vec-2d.sin} \\
+Sample Output File: & \file{00-line-vec-2d.sout} \\
+or: & \file{00-line-vec-2d.ftest} \\
+Sample Run File: & \file{sample-line-vec-2d.run} \\
+Submit Run File: & \file{submit-line-vec-2d.run} \\
+\end{tabular}
+\end{center}
+
+The {\tt .ftest} files for this problem are identical
+to the corresponding {\tt .sout} files.
+
+You can test your program using the indicated sample input and
+output and you can submit your program using the indicated submit
+run file.
+
+\newpage
 
 
 \section{Point, Line, and Circle}
@@ -1629,7 +1721,7 @@ to determine whether there is an intersection.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Nov  4 13:10:22 EST 2020
+Date:         & Wed Nov  4 23:09:30 EST 2020
 \end{tabular}
 
 The authors have placed this problem in the public domain;
