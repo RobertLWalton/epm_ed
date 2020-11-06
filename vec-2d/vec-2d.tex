@@ -1551,6 +1551,7 @@ circle, assuming that input coordinates and {\tt r} have at most
 
 
 \begin{minipage}{\textwidth}\raggedright
+\label{TANGENT-PICTURE}
 \begin{wrapfigure}{r}{0.3\textwidth}
 \begin{tikzpicture}[x=0.25in,y=0.25in]
 \begin{scope}[>=triangle 45,shorten >=0.01in]
@@ -1630,6 +1631,7 @@ if {\tt p}, {\tt q}, and {\tt c} all have rational coordinates and
 \bigskip
 
 \begin{minipage}{\textwidth}\raggedright
+\label{INTERSECTION-PICTURE}
 \begin{wrapfigure}{r}{0.5\textwidth}
 \begin{tikzpicture}[x=0.25in,y=0.25in]
 \begin{scope}[>=triangle 45,shorten >=0.01in]
@@ -1732,17 +1734,19 @@ then: \\[1ex]
 	       & at most {\tt d} decimal places \\
 \tt distc crp  & returns the distance of the point {\tt p} to the  \\
                & circle viewed as an arc and not an area \\
-\tt tangc crp  & returns a tangent point ({\tt t} in the picture) \\
+\tt tangc crp  & returns a tangent point ({\tt t} in the page
+                 \pageref{TANGENT-PICTURE} picture) \\
                & of a line through {\tt p} tangent to the circle; \\
 	       & of the two possibilities, the one to the right of \\
 	       & the directed line {\tt cp} must be returned \\
-\tt basec crp  & returns the base point ({\tt b} in the picture) \\
+\tt basec crp  & returns the base point ({\tt b} in the page
+                 \pageref{TANGENT-PICTURE} picture) \\
                & of lines through {\tt p} tangent to the circle; \\
 	       & this is technically the point on {\tt cp} closest \\
 	       & to the tangent point {\tt t} \\
 \tt intersectc crpq  & returns the intersection point
-                       ({\tt s} in the picture) \\
-               & of the infinite line {\tt pq} and the circle; \\
+                       ({\tt s} in the page \pageref{INTERSECTION-PICTURE} \\
+               & picture) of the infinite line {\tt pq} and the circle; \\
 	       & of the two possibilities, the one to the right of \\
 	       & the directed line {\tt ct} must be returned, where \\
 	       & {\tt t} is the point on the line closest to {\tt c} \\
@@ -1774,7 +1778,8 @@ run file.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Nov  5 05:57:20 EST 2020
+Date:         & Thu Nov  5 13:27:24 EST 2020
+
 \end{tabular}
 
 The authors have placed this problem in the public domain;
