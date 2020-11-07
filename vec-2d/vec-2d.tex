@@ -1521,8 +1521,8 @@ In this section we investigate the following questions:
 \item What is the distance between a point and a circle (viewed as
 a curving line and \underline{not} an area)?
 Is the point on the circle?
-\item What are the lines tangent to a circle that pass through
-an external point, and where are the points that these lines contact the
+\item Where do the lines tangent to a circle that pass through
+an external point contact the
 circle?
 \item Does an infinite line intersect a circle?  Is it
 tangent to the circle?  Where does it intersect?
@@ -1779,18 +1779,17 @@ run file.
 In this section we investigate the following questions:
 \begin{enumerate}
 \item How do you define an ellipse?
+\item Where do the lines tangent to an ellipse that pass through
+an external point contact the ellipse?
 \item What is the distance between a point and an ellipse (viewed as
 a curving line and \underline{not} an area)?
 Is the point on the ellipse?
-\item What are the lines tangent to an ellipse that pass through
-an external point, and where are the points that these lines contact the
-ellipse?
 \item Does an infinite line intersect an ellipse?  Is it
 tangent to the ellipse?  Where does it intersect?
 \item What is the distance between a finite line segment and
 a circle?  If zero, where are the intersections?  If not zero,
 where is the point on the finite line segment that is closest to the
-circle.
+ellipse.
 \end{enumerate}
 
 A circle with center at {\tt (0,0)} and radius {\tt r} is the set:
@@ -1799,10 +1798,6 @@ $\{ (x,y) : (\frac{x}{r})^2 + (\frac{y}{r})^2 = 1 \}
 =
 \{ (r\cos\theta,r\sin\theta): 0\leq\theta< 2\pi \}$
 \end{center}
-
-Lets call a circle with center {\tt (0,0)} a \key{reference circle}.
-Then an arbitrary circle is made by translating the reference circle
-so its center is moved to an arbitrary point.
 
 An \key{ellipse} with center at {\tt (0,0)}, \key{major axis} {\tt M}
 and \key{minor axis} {\tt m}, with the major axis in the X-axis direction
@@ -1813,15 +1808,57 @@ $\{ (x,y) : (\frac{x}{M})^2 + (\frac{y}{m})^2 = 1 \}
 \{ (M\cos\theta,m\sin\theta): 0\leq\theta< 2\pi \}$
 \end{center}
 
+
+\begin{minipage}{\textwidth}\raggedright
+\label{INTERSECTION-PICTURE}
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{tikzpicture}[x=0.25in,y=0.25in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+
+    \draw[black] (-3.0,0) -- (3.0,0);
+    \draw[black] (0,-3.0) -- (0,3.0);
+    \fill[red] (0,0.0) circle(0.1);
+    \draw[black] (-0.1,1.5) node[left]{$r$};
+    \draw[black] (1.5,-0.6) node{$r$};
+
+    \draw[black] (0,0) circle(3.0);
+    \fill[red] (2.598076,1.5) circle(0.1);
+    \draw[red,->] (0,0) -- (2.598076,1.5);
+    \draw[black] (2.7,1.5) node[right]{\small$(r\cos\theta,r\sin\theta)$};
+
+    \draw[brown,>=latex,->] (1.5,0) arc(0:30:1.5);
+    \draw[black] (1.0,+0.3) node{$\theta$};
+
+    \draw[black] (-3.0,-7.0) -- (3.0,-7.0);
+    \draw[black] (0,-9.0) -- (0,-5.0);
+    \fill[red] (0,-7.0) circle(0.1);
+    \draw[black] (0,-7.0) ellipse(3.0 and 2.0);
+    \draw[black] (-0.1,-6.0) node[left]{$m$};
+    \draw[black] (1.4,-7.6) node{$M$};
+
+    \fill[red] (2.598076,-6.0) circle(0.1);
+    \draw[red,->] (0,-7.0) -- (2.598076,-6.0);
+    \draw[black] (2.7,-6.0) node[right]{\small$(M\cos\theta,m\sin\theta)$};
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+Lets call a circle with center {\tt (0,0)} a \key{reference circle}.
+Then an arbitrary circle is made by translating the reference circle
+so its center is moved to an arbitrary point. \\
+~ \\
 Lets call an ellipse with center {\tt (0,0)} and major axis aligned with
 the X-axis a \key{reference ellipse}.
 Then an arbitrary ellipse is made by first rotating the reference ellipse
 to align its major axis in an arbitrary direction, and then
-translating it so its center is moved to an arbitrary point.
-
+translating it so its center is moved to an arbitrary point. \\
+~ \\
 Conversly, if you have an arbitrary ellipse, a translation followed
 by a rotation will turn it into a reference ellipse.  So we are only
 going to consider reference ellipses in this section.
+\end{minipage}
+
+\medskip
 
 The reference circle with unit radius is closely related to
 the reference ellipse by the linear transformation: \\
@@ -1833,12 +1870,16 @@ More explicitly, let $S$ be any set of points in ${\mathcal R}^2$
 and define $L * S = \{ L*p: p \in S \}$.
 Let $C$ be the reference circle of radius 1, which we will
 call the \key{reference unit circle}, and let $E$ be the reference
-ellipse with major axis $M$ and minor axis $m$.  Then
-$L*C = E$.
+ellipse with major axis $M$ and minor axis $m$.
+
+Then $L*C = E$.
 
 This is important because of the following.
 
-First, note that $L^{-1}$, the inverse of $L$, exists and is such that \\
+First, note that $L^{-1}$, the inverse of $L$, exists (where we assume
+$M,m>0$) and is such that \\
+\centerline{$L^{-1} = (M^{-1}*u_x,m^{-1}*u_y): (x,y)
+            \longmapsto (M^{-1}*x,m^{-1}*y)$} \\
 \centerline{$L^{-1}*(M*\cos\theta,m*\sin\theta) = (\cos\theta,\sin\theta)$} \\
 so $L^{-1}*E=C$.
 
@@ -1853,10 +1894,12 @@ line tangent to $C$.
 In general, for any linear transformation $\mathcal{L}$ and straight line
 $S$, $\mathcal{L}*S$ is a straight line.  This is because for some point
 $p$ and vector $v$, \\
-\centerline{$S = \{ p+s*v : s~\mathrm{is~a~scalar}\}$} \\
-\centerline{$\mathcal{L}*S
-    = \{ \mathcal{L}*(p+s*v) : s~\mathrm{is~a~scalar}\}
-    = \{ \mathcal{L}*p+s*(\mathcal{L}*v) : s~\mathrm{is~a~scalar}\}$} \\
+\hspace*{0.5in}\begin{tabular}{ll}
+$S$ & $= \{ p+s*v : s~\mathrm{is~a~scalar}\}$ \\
+$\mathcal{L}*S$
+    & $= \{ \mathcal{L}*(p+s*v) : s~\mathrm{is~a~scalar}\}$ \\
+    & $= \{ \mathcal{L}*p+s*(\mathcal{L}*v) : s~\mathrm{is~a~scalar}\}$ \\
+\end{tabular} \\
 That is, linear transformations `preserve' straight lines.
 
 Also, if $\mathcal{L}$ is a 1-1 map (as both $L$ and $L^{-1}$ are),
@@ -1872,7 +1915,7 @@ is preserved by $L$ and $L^{-1}$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Nov  7 00:32:55 EST 2020
+Date:         & Sat Nov  7 13:55:09 EST 2020
 
 \end{tabular}
 
