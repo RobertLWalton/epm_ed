@@ -1800,6 +1800,10 @@ $\{ (x,y) : (\frac{x}{r})^2 + (\frac{y}{r})^2 = 1 \}
 \{ (r\cos\theta,r\sin\theta): 0\leq\theta< 2\pi \}$
 \end{center}
 
+Lets call a circle with center {\tt (0,0)} a \key{reference circle}.
+Then an arbitrary circle is made by translating the reference circle
+so its center is moved to an arbitrary point.
+
 An \key{ellipse} with center at {\tt (0,0)}, \key{major axis} {\tt M}
 and \key{minor axis} {\tt m}, with the major axis in the X-axis direction
 (the minor axis is always perpendicular to the major axis) is the set:
@@ -1809,13 +1813,66 @@ $\{ (x,y) : (\frac{x}{M})^2 + (\frac{y}{m})^2 = 1 \}
 \{ (M\cos\theta,m\sin\theta): 0\leq\theta< 2\pi \}$
 \end{center}
 
+Lets call an ellipse with center {\tt (0,0)} and major axis aligned with
+the X-axis a \key{reference ellipse}.
+Then an arbitrary ellipse is made by first rotating the reference ellipse
+to align its major axis in an arbitrary direction, and then
+translating it so its center is moved to an arbitrary point.
+
+Conversly, if you have an arbitrary ellipse, a translation followed
+by a rotation will turn it into a reference ellipse.  So we are only
+going to consider reference ellipses in this section.
+
+The reference circle with unit radius is closely related to
+the reference ellipse by the linear transformation: \\
+\centerline{$L = (M*u_x,m*u_y): (x,y) \longmapsto (M*x,m*y)$} \\
+This is because: \\
+\centerline{$L*(\cos\theta,\sin\theta) = (M*\cos\theta,m*\sin\theta)$}
+
+More explicitly, let $S$ be any set of points in ${\mathcal R}^2$
+and define $L * S = \{ L*p: p \in S \}$.
+Let $C$ be the reference circle of radius 1, which we will
+call the \key{reference unit circle}, and let $E$ be the reference
+ellipse with major axis $M$ and minor axis $m$.  Then
+$L*C = E$.
+
+This is important because of the following.
+
+First, note that $L^{-1}$, the inverse of $L$, exists and is such that \\
+\centerline{$L^{-1}*(M*\cos\theta,m*\sin\theta) = (\cos\theta,\sin\theta)$} \\
+so $L^{-1}*E=C$.
+
+Then
+\begin{itemize}
+\item If $S$ is a straight line tangent to $C$, then $L*S$ is a straight
+line tangent to $E$.
+\item If $S$ is a straight line tangent to $E$, then $L^{-1}*S$ is a straight
+line tangent to $C$.
+\end{itemize}
+
+In general, for any linear transformation $\mathcal{L}$ and straight line
+$S$, $\mathcal{L}*S$ is a straight line.  This is because for some point
+$p$ and vector $v$, \\
+\centerline{$S = \{ p+s*v : s~\mathrm{is~a~scalar}\}$} \\
+\centerline{$\mathcal{L}*S
+    = \{ \mathcal{L}*(p+s*v) : s~\mathrm{is~a~scalar}\}
+    = \{ \mathcal{L}*p+s*(\mathcal{L}*v) : s~\mathrm{is~a~scalar}\}$} \\
+That is, linear transformations `preserve' straight lines.
+
+Also, if $\mathcal{L}$ is a 1-1 map (as both $L$ and $L^{-1}$ are),
+and if $S_1$ and $S_2$ are two sets of points, then
+$\mathcal{L}*(S_1\cap S_2) = (\mathcal{L}*S_1)\cap(\mathcal{L}*S_2)$.
+That is, intersections are `preserved'.  A straight line is tangent
+to an ellipse or circle if and only if the two intersect in a single
+point, and as intersections and straight lines are preserved, tangency
+is preserved by $L$ and $L^{-1}$.
 
 
 \bigskip
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Nov  6 18:05:34 EST 2020
+Date:         & Sat Nov  7 00:32:55 EST 2020
 
 \end{tabular}
 
