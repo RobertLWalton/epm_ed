@@ -1176,7 +1176,7 @@ run file.
 
 \newpage
 
-\section{Point and Line}\label{POINT-AND-LINE}
+\section{Line and Point}\label{LINE-AND-POINT}
 In this section we investigate the following questions:
 \begin{enumerate}
 \item Is a point on, to the left of, or to the right of
@@ -1318,7 +1318,7 @@ if and only if {\tt Y==0:(2d)}.
 
 \newpage
 
-\section{Point and Line Calculator}
+\section{Line and Point Calculator}
 Implement additions to the product calculator for
 the following {\em operators} and {\em functions}:
 \begin{center}
@@ -1432,7 +1432,7 @@ If we have a finite line {\tt mn} and and infinite line extending
 {\tt qr}, then they intersect if and only if either {\tt m} or {\tt n}
 is on the infinite line or {\tt m} and {\tt n} are on opposite sides
 of the infinite line.  Then we know from the end of
-section~\ref{POINT-AND-LINE} (p\pageref{POINT-AND-LINE}) that
+section~\ref{LINE-AND-POINT} (p\pageref{LINE-AND-POINT}) that
 if coordinates have at most {\tt d} decimal places, then
 there is an intersection if and only if:\\
 \centerline{{\tt (r-q)\#(m-q)<=0:(2d)} and {\tt 0<=(r-q)\#(n-q):(2d)}} \\
@@ -1515,7 +1515,7 @@ run file.
 \newpage
 
 
-\section{Point, Line, and Circle}
+\section{Circle, Line, and Point}
 In this section we investigate the following questions:
 \begin{enumerate}
 \item What is the distance between a point and a circle (viewed as
@@ -1660,7 +1660,7 @@ if {\tt p}, {\tt q}, and {\tt c} all have rational coordinates and
 \end{wrapfigure}
 So let us just assume for the moment that the line intersects
 the circle, and locate the points of intersection (see picture).
-By section \ref{POINT-AND-LINE}, page \pageref{POINT-AND-LINE},
+By section \ref{LINE-AND-POINT}, page \pageref{LINE-AND-POINT},
 we can find the point {\tt t} on the line that is closest to
 {\tt c}, and find the distance {\tt ||t-c||}.  Then the line {\tt tc} is
 perpendicular to {\tt pq} as if it were not sliding {\tt t}
@@ -1718,7 +1718,7 @@ to determine whether there is an intersection.
 
 \newpage
 
-\section{Point, Line, and Circle Calculator}
+\section{Circle, Line, and Point Calculator}
 Implement additions to the line and line calculator for
 the following {\em operators} and {\em functions}:
 \begin{center}
@@ -1772,13 +1772,50 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.
 
+\newpage
+
+
+\section{Ellipse, Line, and Point}
+In this section we investigate the following questions:
+\begin{enumerate}
+\item How do you define an ellipse?
+\item What is the distance between a point and an ellipse (viewed as
+a curving line and \underline{not} an area)?
+Is the point on the ellipse?
+\item What are the lines tangent to an ellipse that pass through
+an external point, and where are the points that these lines contact the
+ellipse?
+\item Does an infinite line intersect an ellipse?  Is it
+tangent to the ellipse?  Where does it intersect?
+\item What is the distance between a finite line segment and
+a circle?  If zero, where are the intersections?  If not zero,
+where is the point on the finite line segment that is closest to the
+circle.
+\end{enumerate}
+
+A circle with center at {\tt (0,0)} and radius {\tt r} is the set:
+\begin{center}
+$\{ (x,y) : (\frac{x}{r})^2 + (\frac{y}{r})^2 = 1 \}
+=
+\{ (r\cos\theta,r\sin\theta): 0\leq\theta< 2\pi \}$
+\end{center}
+
+An \key{ellipse} with center at {\tt (0,0)}, \key{major axis} {\tt M}
+and \key{minor axis} {\tt m}, with the major axis in the X-axis direction
+(the minor axis is always perpendicular to the major axis) is the set:
+\begin{center}
+$\{ (x,y) : (\frac{x}{M})^2 + (\frac{y}{m})^2 = 1 \}
+=
+\{ (M\cos\theta,m\sin\theta): 0\leq\theta< 2\pi \}$
+\end{center}
+
 
 
 \bigskip
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Nov  5 13:27:24 EST 2020
+Date:         & Fri Nov  6 18:05:34 EST 2020
 
 \end{tabular}
 
