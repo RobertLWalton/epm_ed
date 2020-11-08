@@ -1580,6 +1580,7 @@ Now suppose that {\tt p} is outside the circle and we want to find
 a point {\tt t} on the circle such that {\tt pt} is tangent to the
 circle.  See the picture. \\
 ~ \\
+\label{FINDING-TANGENT-POINT}
 We define {\tt b} to be the point on {\tt pc} such that
 {\tt tbp} is a right angle.  Then we have: \\
 \hspace*{0.2in}\begin{tabular}{@{}l} \\
@@ -1910,12 +1911,50 @@ to an ellipse or circle if and only if the two intersect in a single
 point, and as intersections and straight lines are preserved, tangency
 is preserved by $L$ and $L^{-1}$.
 
+Now consider the problem of finding the point $t$ on the reference ellipse
+where a straight line passing through a point $p$ external to the
+ellipse and tangent to the ellipse touches the ellipse.  Then
+$T=L^{-1}*t$ is the point on $C$ where a straight line passing through
+the point $P=L^{-1}*p$ and tangent to $C$ touches $C$.  Using the
+methods of page~\pageref{FINDING-TANGENT-POINT} we can find $T$ and
+therefore $t=L*T$.
+
+Now consider the problem of finding the point $q$ on the reference ellipse
+that is closest to $p$.  Let $t_1$ and $t_2$ be the two points on the
+reference ellipse where straight lines passing through $p$ and tangent
+to the ellipse touch the ellipse.  Let $P=L^{-1}*p$, $Q=L^{-1}*1$,
+$T_1=L^{-1}*t_1$, $T_2=L^{-1}*t_2$.
+Let $\theta=\mathrm{asm}~Q$,
+$\theta_1=\mathrm{asm}~T_1$,
+$\theta_2=\mathrm{asm}~T_2$.
+We know $\theta_1$ and $\theta_2$ and want to find $\theta$.
+See picture.
+
+The key fact is that the tangent to the ellipse at $q$ must be perpendicular
+to the line $pq$.  If it were not, sliding $q$ along the ellipse in one
+direction would decrease $||q-p||$.  Let the direction of the line tangent
+to the ellipse at \\
+\centerline{$q_\phi = (M*\cos\phi,m*\sin\phi)$} \\
+be given by a vector $v_\phi$.
+Then the function $F(\phi)=(q_\phi-p)!*v_\phi!$ is $0$ at $\phi=\theta$
+and monotonic between $\phi=\theta_1$ and $\phi=\theta_2$.  If we can compute
+$F(\phi)$ from $\phi$, we can use binary search to compute $\theta$.
+
+As $q_\phi = (M*\cos\phi,m*\sin\phi)$ the problem reduces to computing $v_\phi$.
+Let $Q_\phi = L^{-1}*q_\phi = (\cos\phi,\sin\phi)$ and
+$V_\phi=L^{-1}*v_\phi$.  Then this last is the direction of the tangent
+to $C$ at $Q_\phi$, and we can take this direction as
+$R^{90}*Q=(-\sin\phi,\cos\phi)$ so we can take
+$V_\phi=(-\sin\phi,\cos\phi)$ and therefore $v_\phi=(-M*\sin\phi,m*\cos\phi)$.
+Now doing the binary search finds $\theta$.
+
+
 
 \bigskip
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Nov  7 13:55:09 EST 2020
+Date:         & Sun Nov  8 01:33:45 EST 2020
 
 \end{tabular}
 
