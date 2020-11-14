@@ -25,6 +25,7 @@
 \newcommand{\EOL}{\penalty \exhyphenpenalty}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
 \newenvironment{indpar}[1]%
     {\begin{list}{}{\setlength{\leftmargin}{#1}}\item[]}%
     {\end{list}}
@@ -321,7 +322,7 @@ $s_1*(s_2*v)=(s_1*s_2)*v$.
 \end{wrapfigure}
 A vector $v=(v_x,v_y)$ has a length and a direction.
 The \key{length}, denoted by $||v||$, can be computed using
-Pythagoras's Theorm: $||v||=\sqrt{v_x^2+v_y^2}$.  The
+Pythagoras's Theorem: $||v||=\sqrt{v_x^2+v_y^2}$.  The
 direction is given by the counterclockwise angle $\theta$ from
 the positive X-axis direction to the vector direction.
 This is called the \key{azimuth} of $v$, and in computer
@@ -1699,6 +1700,109 @@ so {\tt t} is in the finite line {\tt pq} if and only if
 Similarly we can find out if an intersection point is on the finite
 line.
 
+So what point on the finite line {\tt pq} is closest to the circle?
+If there is an intersection, that is such a point and the distance is zero.
+Otherwise there are two cases: {\tt pq} is outside the circle and
+{\tt pq} is inside the circle.
+
+To make further progress, we are not going to use the fact that the
+circle is a circle, so that later we can use these arguments for
+an ellipse.  Instead we will use the fact that the circle, viewed
+as an area, is convex.
+
+\begin{definition}
+A subset $S$ of the points in a plane (i.e., $S\subset{\mathcal R}^2$)
+is \key{convex} if and only if for any two points $p$ and $q$ in $S$,
+the finite
+line segment $pq$ is in $S$ (i.e., for any scalar $0\le\alpha\le 1$,
+$\alpha*p+(1-\alpha)*q \in S$).
+\end{definition}
+
+Next note that for any two vectors $v_1$ and $v_2$,
+\begin{center}
+$|v_1*v_2|\le||v_1||*||v_2||$ \\
+because $v_1*v_2 = ||v_1||*||v_2||*\cos\theta$ and $|\cos\theta|\le 1$ \\
+where $\theta = \mathrm{asm}~v_2 - \mathrm{asm}~v_1$
+\end{center}
+
+Using this we prove:
+
+\begin{lemma}
+Let $S$ be a convex set and $pq$ be an infinite line.  For $r$ on $pq$,
+define $D(r)$ to be the distance from $r$ to $S$ (distance of
+$r$ to the point in $S$ closest to $r$).  Then $D(r)$ is a convex
+function, i.e., given two points $r_1$ and $r_2$ on $pq$ outside $S$ and
+$0\le\alpha\le 1$,
+$D(\alpha*r_1+(1-\alpha)*r_2)\le\alpha*D(r_1) + (1-\alpha)*D(r_2)$.
+\end{lemma}
+\begin{indpar}{0.2in}
+Proof: \\
+~\begin{tabular}[t]{l}
+let $s_i$ be a point in $S$ closest to $r_i$ \\
+let $r=\alpha*r_1+(1-\alpha)*r_2$
+and $s=\alpha*s_1+(1-\alpha)*s_2$ \\
+let $v_i=r_i-s_i$ and $v=r-s$ so $D(r_i)=||v_i||$ and $D(r)\le||v||$ \\
+then \\
+~$D(r)^2$\begin{tabular}[t]{@{}l}
+    $\le v*v = (\alpha*v_1+(1-\alpha)*v_2)*(\alpha*v_1+(1-\alpha)*v_2)$ \\
+    $= \alpha^2 v_1*v_1 + 2*\alpha*(1-\alpha)*v_1*v_2 + (1-\alpha)^2*v_2*v_2$ \\
+    $\le \alpha^2*||v_1||^2 + 2*\alpha*(1-\alpha)*||v_1||*||v_2||
+                           + (1-\alpha)^2*||v_2||^2$ \\
+    $= (\alpha*||v_1|| + (1-\alpha)*||v_2||)^2$ \\
+    $= (\alpha*D(r_1) + (1-\alpha)*D(r_2))^2$ \\
+    \end{tabular} \\
+so $D(r)\le\alpha*D(r_1)+(1-\alpha)*D(r_2)$
+\end{tabular}
+\end{indpar}
+
+Note that if $r$ is in $S$, $D(r) = 0$.
+
+\begin{lemma}
+Let $D(r)$ be a convex function on points $r$ on an infinite line
+and let $r_0$ be a point where $D$ is a minimum.  Then $D$ is
+(non-strictly) monotone increasing on either side of $r_0$ (i.e., as one moves
+away from $r_0$).
+\end{lemma}
+\begin{indpar}{0.2in}
+Proof by Contradiction:
+Suppose $r_1$ is to one side of $r_0$, $r_2$ if further to that
+side, and $D(r_1)>D(r_2)$.  Then for some $0\le\alpha\le 1$,
+$r_1=\alpha*r_0+(1-\alpha)*r_2$, so since $D$ is convex,
+$D(r_1)\le\alpha*D(r_0)+(1-\alpha)*D(r_2)
+\le \alpha*D(r_2)+(1-\alpha)*D(r_2)=D(r_2)$, contradiction.
+\end{indpar}
+
+Given the above we have:
+
+\begin{theorem}
+The distance from a finite line $pq$ to a convex set $S$ when
+$pq$ is outside of $S$ is one of:
+\begin{enumerate}
+\item The distance from the infinite line $pq$ to $S$ if
+a point on the infinite line closest to $S$ is in the finite line $pq$.
+\item The distance from $p$ to $S$.
+\item The distance from $q$ to $S$.
+\end{enumerate}
+\end{theorem}
+
+\begin{indpar}{0.2in}
+Proof: If (1) applies this is obvious.  Otherwise by the
+previous lemma $D$ is monotone on $pq$ and so must take
+its minimum at $p$ or $q$.
+\end{indpar}
+
+
+So now we have enough information to find the distance between
+a finite line {\tt pq} and a circle when {\tt pq} is outside the
+circle.
+We compute the point {\tt t} on the infinite line {\tt pq} that is
+closest to the center of the circle
+and check if that is in the finite line {\tt pq}.  If not, then the
+closest point is either {\tt p} or {\tt q}, by the Theorem.
+
+TBD
+
+
 The points on the infinite line can be represented as
 {\tt p+h*(q-p)} for scalars {\tt h}, and the square of the distance of such a
 point from {\tt c} is then \\
@@ -1954,7 +2058,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Nov  8 01:33:45 EST 2020
+Date:         & Sat Nov 14 00:45:46 EST 2020
 
 \end{tabular}
 
