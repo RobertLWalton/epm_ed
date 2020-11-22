@@ -1705,18 +1705,38 @@ If there is an intersection, that is such a point and the distance is zero.
 Otherwise there are two cases: {\tt pq} is outside the circle and
 {\tt pq} is inside the circle.
 
-To make further progress, we are not going to use the fact that the
+To make further progress, we are underline{not} going to use the fact that the
 circle is a circle, so that later we can use these arguments for
 an ellipse.  Instead we will use the fact that the circle, viewed
 as an area, is convex.
 
 \begin{definition}
-A subset $S$ of the points in a plane (i.e., $S\subset{\mathcal R}^2$)
+A set $S$ of the points in a plane (i.e., $S\subset{\mathcal R}^2$)
 is \key{convex} if and only if for any two points $p$ and $q$ in $S$,
 the finite
 line segment $pq$ is in $S$ (i.e., for any scalar $0\le\alpha\le 1$,
 $\alpha*p+(1-\alpha)*q \in S$).
+
+The \key{boundary} of a set $S$ of the points on a plane is the
+set of points $p$ such that every sufficiently small circle with
+center $p$ contains a point in $S$ and another point not in $S$.
+
+A set $S$ of the points on a plane is \key{closed} if every point
+of the boundary of $S$ is in $S$.
 \end{definition}
+
+We need $S$ to be closed in order to use the notion of
+closest point.
+
+\begin{lemma}
+Let $S$ be a close set and $p$ a point not in $S$.  Then there
+is some point $q$ in $S$ which is closest to $p$; that is,
+a $||q-p||\ge||r-p||$ for every $r$ in $S$.
+\end{lemma}
+
+We will \underline{not} give the proof of this,
+which involves the mathematics of compact
+sets (i.e., uses the fact that a circle is compact).
 
 Next note that for any two vectors $v_1$ and $v_2$,
 \begin{center}
@@ -1728,9 +1748,9 @@ where $\theta = \mathrm{asm}~v_2 - \mathrm{asm}~v_1$
 Using this we prove:
 
 \begin{lemma}
-Let $S$ be a convex set and $pq$ be an infinite line.  For $r$ on $pq$,
+Let $S$ be a closed convex set and $pq$ be an infinite line.  For $r$ on $pq$,
 define $D(r)$ to be the distance from $r$ to $S$ (distance of
-$r$ to the point in $S$ closest to $r$).  Then $D(r)$ is a convex
+$r$ to a point in $S$ closest to $r$).  Then $D(r)$ is a convex
 function, i.e., given two points $r_1$ and $r_2$ on $pq$ outside $S$ and
 $0\le\alpha\le 1$,
 $D(\alpha*r_1+(1-\alpha)*r_2)\le\alpha*D(r_1) + (1-\alpha)*D(r_2)$.
@@ -1792,13 +1812,17 @@ its minimum at $p$ or $q$.
 \end{indpar}
 
 
-So now we have enough information to find the distance between
-a finite line {\tt pq} and a circle when {\tt pq} is outside the
+Now we have enough information to find the distance between
+a finite line {\tt pq} and a circle when {\tt pq} is \underline{outside} the
 circle.
 We compute the point {\tt t} on the infinite line {\tt pq} that is
 closest to the center of the circle
 and check if that is in the finite line {\tt pq}.  If not, then the
 closest point is either {\tt p} or {\tt q}, by the Theorem.
+
+So next we turn to the case where {\tt pq} is \underline{inside} the
+circle.
+
 
 TBD
 
@@ -2058,7 +2082,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Nov 14 00:45:46 EST 2020
+Date:         & Sat Nov 21 23:22:27 EST 2020
 
 \end{tabular}
 
