@@ -1727,7 +1727,7 @@ there is a circle that includes $S$.
 We need $S$ to be closed in order to use the notion of
 closest point.
 
-\begin{lemma}
+\begin{lemma}\label{MINIMUM-DISTANCE}
 Let $S_1$ and $S_2$ be close sets one of which is bounded.
 Then there are points
 $p_1\in S_1$ and $p_2\in S_2$ such that $||p_1-p_2||$ is as
@@ -1800,17 +1800,6 @@ Note that if $r$ is in $S$, $D(r) = 0$.
 
 \begin{lemma}
 Let $D(r)$ be a convex function on points $r$ on an infinite line
-which is bounded from below: that is, there is a scalar $b$ such
-such that $D(r)\ge b$ for every $r$.  Then $D(r)$ has a minimum:
-that is, there is an $r_0$ such that $D(r)\ge D(r_0)$ for every $r$.
-\end{lemma}
-
-This is another lemma we will \underline{not} prove, as it
-involves using mathematics to prove convex functions are
-continuous.
-
-\begin{lemma}
-Let $D(r)$ be a convex function on points $r$ on an infinite line
 and let $r_0$ be a point where $D$ is a minimum.  Then $D$ is
 (non-strictly) monotone increasing on either side of $r_0$ (i.e., as one moves
 away from $r_0$).
@@ -1827,7 +1816,7 @@ $D(r_1)\le\alpha*D(r_0)+(1-\alpha)*D(r_2)
 Given the above we have:
 
 \begin{theorem}
-The distance from a finite line $pq$ to a convex set $S$ when
+The distance from a finite line $pq$ to a closed convex set $S$ when
 $pq$ is outside of $S$ is one of:
 \begin{enumerate}
 \item The distance from the infinite line $pq$ to $S$ if
@@ -1838,7 +1827,16 @@ a point on the infinite line closest to $S$ is in the finite line $pq$.
 \end{theorem}
 
 \begin{indpar}{0.2in}
-Proof: If (1) applies this is obvious.  Otherwise by the
+Proof: By Lemma~\ref{MINIMUM-DISTANCE} for each $r$ in $pq$ the
+distance $D(r)$ from $r$ to $S$ is well defined and $D(r)$ has
+a minimum, i.e., there is an $r_0$ in $pq$ such that $D(r)\ge D(r_0)$
+for every $r$ in $pq$.
+
+TBD
+Proof: If (1) applies this is obvious.  Otherwise
+there is a point 
+line $pq$ 
+by the
 previous lemma $D$ is monotone on $pq$ and so must take
 its minimum at $p$ or $q$.
 \end{indpar}
