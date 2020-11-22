@@ -1779,6 +1779,17 @@ Note that if $r$ is in $S$, $D(r) = 0$.
 
 \begin{lemma}
 Let $D(r)$ be a convex function on points $r$ on an infinite line
+which is bounded from below: that is, there is a scalar $b$ such
+such that $D(r)\ge b$ for every $r$.  Then $D(r)$ has a minimum:
+that is, there is an $r_0$ such that $D(r)\ge D(r_0)$ for every $r$.
+\end{lemma}
+
+This is another lemma we will \underline{not} prove, as it
+involves using mathematics to prove convex functions are
+continuous.
+
+\begin{lemma}
+Let $D(r)$ be a convex function on points $r$ on an infinite line
 and let $r_0$ be a point where $D$ is a minimum.  Then $D$ is
 (non-strictly) monotone increasing on either side of $r_0$ (i.e., as one moves
 away from $r_0$).
@@ -1822,6 +1833,18 @@ closest point is either {\tt p} or {\tt q}, by the Theorem.
 
 So next we turn to the case where {\tt pq} is \underline{inside} the
 circle.
+
+\begin{definition}
+For a set $S$ of points, the \key{convex hull} of $S$ is the
+smallest convex set containing $S$.
+\end{definition}
+
+The convex hull is obviously the union of all finite lines {\tt pq} for
+all pairs of points {\tt p} and {\tt q} in $S$.  The convex hull of
+a convex set $S$ is obviously $S$ itself.
+If $T$ is a subset of a convex set $S$,
+the convex hull of $T$ is obviously a subset of $S$.
+
 
 
 TBD
@@ -2082,7 +2105,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Nov 21 23:22:27 EST 2020
+Date:         & Sun Nov 22 01:48:05 EST 2020
 
 \end{tabular}
 
