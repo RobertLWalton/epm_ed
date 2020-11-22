@@ -1700,43 +1700,66 @@ so {\tt t} is in the finite line {\tt pq} if and only if
 Similarly we can find out if an intersection point is on the finite
 line.
 
-So what point on the finite line {\tt pq} is closest to the circle?
-If there is an intersection, that is such a point and the distance is zero.
+So what points on the finite line {\tt pq} are closest to the circle?
+If {\tt pq} intersects the circle these are the intersection points.
 Otherwise there are two cases: {\tt pq} is outside the circle and
 {\tt pq} is inside the circle.
 
 To make further progress, we are underline{not} going to use the fact that the
 circle is a circle, so that later we can use these arguments for
-an ellipse.  Instead we will use the fact that the circle, viewed
-as an area, is convex.
+an ellipse.  Instead we will use the fact that the circle viewed
+as an area is a closed convex set, and the circle viewed as an arc
+is the boundary of such a set.
 
 \begin{definition}
-A set $S$ of the points in a plane (i.e., $S\subset{\mathcal R}^2$)
-is \key{convex} if and only if for any two points $p$ and $q$ in $S$,
-the finite
-line segment $pq$ is in $S$ (i.e., for any scalar $0\le\alpha\le 1$,
-$\alpha*p+(1-\alpha)*q \in S$).
-
-The \key{boundary} of a set $S$ of the points on a plane is the
+The \key{boundary} of a set $S$ of the points in the plane
+(i.e., $S\subset\mathcal{R}^2$) is the
 set of points $p$ such that every sufficiently small circle with
 center $p$ contains a point in $S$ and another point not in $S$.
 
-A set $S$ of the points on a plane is \key{closed} if every point
+A set $S$ of points in the plane is \key{closed} if every point
 of the boundary of $S$ is in $S$.
+
+A set $S$ of points in a plane is a \key{bounded set} if and only if
+there is a circle that includes $S$.
 \end{definition}
 
 We need $S$ to be closed in order to use the notion of
 closest point.
 
 \begin{lemma}
-Let $S$ be a close set and $p$ a point not in $S$.  Then there
-is some point $q$ in $S$ which is closest to $p$; that is,
-a $||q-p||\ge||r-p||$ for every $r$ in $S$.
+Let $S_1$ and $S_2$ be close sets one of which is bounded.
+Then there are points
+$p_1\in S_1$ and $p_2\in S_2$ such that $||p_1-p_2||$ is as
+small as possible (i.e., for every $q_1\in S_1$ and $q_2\in S_2$,
+$||q_1-q_2||\ge||p_1-p_2||$).
 \end{lemma}
 
 We will \underline{not} give the proof of this,
 which involves the mathematics of compact
 sets (i.e., uses the fact that a circle is compact).
+
+Some easily proved facts about boundaries are:
+\begin{enumerate}
+\item The boundary of a set $S$ is also the boundary of the
+complement $\mathcal{R}^2-S$ of $S$.
+\item The boundary $B$ of a closed set $S$ is itself closed
+(i.e., $B$ is a closed set).
+\end{enumerate}
+
+\begin{definition}
+A set $S$ of the points in a plane
+is a \key{convex set} if and only if for any two points $p$ and $q$ in $S$
+and any scalar $0\le\alpha\le 1$,
+$\alpha*p+(1-\alpha)*q \in S$
+(i.e., the finite line segment $pq$ is in $S$).
+
+A function $F$ on a convex set of points $S$ is a \key{convex function}
+if and only if
+for any two points $p$ and $q$ in $S$ and
+$0\le\alpha\le 1$,
+$D(\alpha*p+(1-\alpha)*q)\le\alpha*F(p) + (1-\alpha)*F(q)$.
+\end{definition}
 
 Next note that for any two vectors $v_1$ and $v_2$,
 \begin{center}
@@ -1751,9 +1774,7 @@ Using this we prove:
 Let $S$ be a closed convex set and $pq$ be an infinite line.  For $r$ on $pq$,
 define $D(r)$ to be the distance from $r$ to $S$ (distance of
 $r$ to a point in $S$ closest to $r$).  Then $D(r)$ is a convex
-function, i.e., given two points $r_1$ and $r_2$ on $pq$ outside $S$ and
-$0\le\alpha\le 1$,
-$D(\alpha*r_1+(1-\alpha)*r_2)\le\alpha*D(r_1) + (1-\alpha)*D(r_2)$.
+function on the infinite line.
 \end{lemma}
 \begin{indpar}{0.2in}
 Proof: \\
@@ -2105,7 +2126,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Nov 22 01:48:05 EST 2020
+Date:         & Sun Nov 22 12:49:58 EST 2020
 
 \end{tabular}
 
