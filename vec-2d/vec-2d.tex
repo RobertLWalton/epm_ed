@@ -1748,6 +1748,28 @@ complement $\mathcal{R}^2-S$ of $S$.
 (i.e., $B$ is a closed set).
 \end{enumerate}
 
+Another important fact about closes sets and their boundaries is:
+
+\begin{lemma}\label{BOUNDARY-CROSSING}
+If $S$ is a closed set, $p$ is a point in $S$, and $q$ is a point
+outside of $S$, then the finite line $pq$ contains a point on the
+boundary of $S$.
+\end{lemma}
+\begin{indpar}{0.2in}
+Proof: Consider the points $r=p+\alpha*(q-p)$ for $0\le\alpha\le 1$.
+All circles with center $p$ contain a point of $S$ as $p$ is in $S$.
+All sufficiently small circles with center $q$ contain only points
+outside of $S$, as $q$ is outside of $S$ and not on the boundary of $S$
+(which is a subset of $S$).  Let $\alpha'$ be the smallest number such
+that $r=p+\alpha*(q-p)$ is outside $S$ for all $\alpha>\alpha'$ and
+let $r_0=p+\alpha'*(q-p)$.  Then $r_0$ is in $S$, for if it would not,
+a sufficiently small circle with center $r_0$ would be completely
+outside $S$, and $\alpha'$ would be smaller than it is.  But every
+circle with center $r_0$ includes a point $r=p+\alpha*(q-p)$,
+$\alpha>\alpha'$ which
+is outside of $S$.  So $r_0$ is on the boundary of $S$.
+\end{indpar}
+
 \begin{definition}
 A set $S$ of the points in a plane
 is a \key{convex set} if and only if for any two points $p$ and $q$ in $S$
@@ -1856,11 +1878,11 @@ For a set $S$ of points, the \key{convex hull} of $S$ is the
 smallest convex set containing $S$.
 \end{definition}
 
-The convex hull is obviously the union of all finite lines {\tt pq} for
+The convex hull is clearly the union of all finite lines {\tt pq} for
 all pairs of points {\tt p} and {\tt q} in $S$.  The convex hull of
-a convex set $S$ is obviously $S$ itself.
+a convex set $S$ is clearly $S$ itself.
 If $T$ is a subset of a convex set $S$,
-the convex hull of $T$ is obviously a subset of $S$.
+the convex hull of $T$ is clearly a subset of $S$.
 
 
 
@@ -2122,7 +2144,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Nov 22 18:30:51 EST 2020
+Date:         & Mon Nov 23 00:40:03 EST 2020
 
 \end{tabular}
 
