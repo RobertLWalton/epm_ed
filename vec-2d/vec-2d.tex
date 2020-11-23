@@ -25,6 +25,7 @@
 \newcommand{\EOL}{\penalty \exhyphenpenalty}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Corollary}
 \newtheorem{theorem}[definition]{Theorem}
 \newenvironment{indpar}[1]%
     {\begin{list}{}{\setlength{\leftmargin}{#1}}\item[]}%
@@ -1799,19 +1800,19 @@ so $D(r)\le\alpha*D(r_1)+(1-\alpha)*D(r_2)$
 Note that if $r$ is in $S$, $D(r) = 0$.
 
 \begin{lemma}
-Let $D(r)$ be a convex function on points $r$ on an infinite line
-and let $r_0$ be a point where $D$ is a minimum.  Then $D$ is
-(non-strictly) monotone increasing on either side of $r_0$ (i.e., as one moves
-away from $r_0$).
+Let $F$ be a convex function on an infinite line,
+let $p$ and $q$ be points on the line, and set $r=p+\alpha*(q-p)$
+for some scalar $\alpha\ge 1$.  Then $F(r)\ge(1-\alpha)*F(p)+\alpha*F(q)$.
 \end{lemma}
 \begin{indpar}{0.2in}
-Proof by Contradiction:
-Suppose $r_1$ is to one side of $r_0$, $r_2$ if further to that
-side, and $D(r_1)>D(r_2)$.  Then for some $0\le\alpha\le 1$,
-$r_1=\alpha*r_0+(1-\alpha)*r_2$, so since $D$ is convex,
-$D(r_1)\le\alpha*D(r_0)+(1-\alpha)*D(r_2)
-\le \alpha*D(r_2)+(1-\alpha)*D(r_2)=D(r_2)$, contradiction.
+Proof: $r-p = \alpha*(q-p)$ so $q-p=(1/\alpha)*(r-p)$ and as $F$ is convex,
+$F(q)\le(1-1/\alpha)*F(p)+(1/\alpha)*F(r)$ from which the result
+follows.
 \end{indpar}
+
+\begin{corollary}\label{CONVEX-EXTENSION}
+If $F(q)> F(p)$ and $\alpha>1$ then $F(r)> F(p)$.
+\end{corollary}
 
 Given the above we have:
 
@@ -1827,18 +1828,15 @@ a point on the infinite line closest to $S$ is in the finite line $pq$.
 \end{theorem}
 
 \begin{indpar}{0.2in}
-Proof: By Lemma~\ref{MINIMUM-DISTANCE} for each $r$ in $pq$ the
-distance $D(r)$ from $r$ to $S$ is well defined and $D(r)$ has
-a minimum, i.e., there is an $r_0$ in $pq$ such that $D(r)\ge D(r_0)$
-for every $r$ in $pq$.
-
-TBD
-Proof: If (1) applies this is obvious.  Otherwise
-there is a point 
-line $pq$ 
-by the
-previous lemma $D$ is monotone on $pq$ and so must take
-its minimum at $p$ or $q$.
+Proof: By Lemma~\ref{MINIMUM-DISTANCE} there are points $r$ on the
+finite line $pq$ that are closest to $S$.  If either $p$ or $q$ is
+one of these points, we are done.  Otherwise
+let $r_0$ be a point on the finite line $pq$ closest to $S$.
+If $D(r)$ is the distance from $r$ to $S$ for $r$ on the infinite line $pq$,
+we have $D(p)>D(r_0)<D(q)$ so from Corollary~\ref{CONVEX-EXTENSION}
+$D(r)>D(r_0)$ for all $r$ on the infinite line $pq$ but outside the
+finite line $pq$.  Therefore $r_0$ is a closest point to $S$ on the
+infinite line $pq$.
 \end{indpar}
 
 
@@ -2124,7 +2122,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Nov 22 12:49:58 EST 2020
+Date:         & Sun Nov 22 18:30:51 EST 2020
 
 \end{tabular}
 
