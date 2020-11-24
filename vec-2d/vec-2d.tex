@@ -54,11 +54,15 @@ $*$ as $s*v = (sv_x,sv_y)$.
 The sum of a vector $v=(v_x,v_y)$ and a vector $w=(w_x,w_y)$ is
 represented using $+$ as $v+w = (v_x+w_x,v_y+w_y)$.
 
-A \key{linear transformation} here is a pair of vectors, $(\ell_x,\ell_y)$
+A \key{linear transformation} here is a pair of vectors, $[\ell_x,\ell_y]$
 representing the map:
 \centerline{$(v_x,v_y) \longmapsto v_x*\ell_x+v_y*\ell_y$}
 Application is represented using
-$*$ as $(\ell_x,\ell_y)*v=v_x*\ell_x+v_y*\ell_y$.
+$*$ as $[\ell_x,\ell_y]*v=v_x*\ell_x+v_y*\ell_y$.
+
+A \key{vector list} here is a list of vectors
+$(v_1,v_2,\ldots)$.  This can be used to represent the list of vertices
+of a polygon or a list of points in the plot of a function.
 
 \newpage
 
@@ -100,29 +104,33 @@ The syntax is:
 {\em comment} ::= \TT{\#} {\em character-other-than-line-feed}$^\star$ \\
 {\em variable} ::= a single letter (case matters) \\
 {\em value} ::= {\em boolean} $|$ {\em scalar} $|$ {\em vector}
-	    $|$ {\em linear-transform} \\
+	    $|$ {\em linear-transform} $|$ {\em vector-list} \\
 {\em boolean} ::= \TT{true} $|$ \TT{false} \\
-{\em scalar} ::= \begin{tabular}[t]{@{}l}
+1{\em scalar} ::= \begin{tabular}[t]{@{}l}
                  double precision floating point number (e.g., 1.4142135) \\
 		 (must have a digit before any decimal point) \\
 		 \end{tabular} \\
 {\em vector} ::= \TT{(} {\em scalar}\TT{,} {\em scalar} \TT{)} \\
-{\em linear-transform} ::= \TT{(} {\em vector}\TT{,} {\em vector} \TT{)} \\
+{\em linear-transform} ::= \TT{[} {\em vector}\TT{,} {\em vector} \TT{]} \\
+{\em vector-list} ::= \TT{()} $|$
+                 \TT{(} {\em vector} \{ \TT{,} {\em vector} \}$^\star$ \TT{)} \\
 {\em operator} ::= \begin{tabular}[t]{@{}l}
                    one or more non-letter, non-digit graphic characters \\
                    (e.g. {\tt +} or {\tt <=})\\
 		   \end{tabular} \\
-{\em function} ::= three or more letters (e.g. {\tt sin} or {\tt length}) \\
+{\em function} ::= three or more letters (e.g. {\tt sin} or {\tt length})
 \end{tabular}
-
-\begin{center}
-Whitespace in {\em statements} is optional \\
-and is deleted before the {\em statements} are parsed.
+\\[1ex]
+\centerline{
+1\begin{tabular}{c}
+Whitespace in {\em statements} is optional and is deleted \\
+before the {\em statements} are parsed.
 \\[1ex]
 The output of a {\em statement} is a copy of the {\em statement}, \\
 which if the {\em statement} has an {\em operator} or {\em function} \\
 is followed by `{\em space} \TT{=} {\em space} {\em value}'.
-\end{center}
+\end{tabular}
+}
 
 \newpage
 
@@ -199,8 +207,12 @@ digits, or operator characters (not letters or digits).
 \item If the rightside is a single character, it is a {\em scalar} value
 if the character is a digit, a {\em variable} if it is a letter,
 and an {\em operator} (with no operands) otherwise.
-\item Else if the rightside begins with `{\tt ((}' it is {\em linear-transform}
+\item Else if the rightside begins with `{\tt [}' it is {\em linear-transform}
 value.
+\item Else if the rightside begins with `{\tt ()}' it is an empty
+{\em vector-list} value.
+\item Else if the rightside begins with `{\tt ((}' it is a non-empty
+{\em vector-list} value.
 \item Else if the rightside begins with `{\tt (}' and the second character
 is not a letter, the rightside is {\em vector} value.
 \item Else if one of the first two characters of the rightside is a
@@ -413,6 +425,10 @@ The display commands are:
                            & points {\tt p} and {\tt q}
 			     with arrow from {\tt p} to {\tt q} \\
 \tt \#!circle cr [color] & draws circle of radius {\tt r} and center {\tt c} \\
+\tt \#!line L  [color] & draws lines with endpoints that are \\
+                       & consecutive points in the list of points {\tt L} \\
+\tt \#!polygon L  [color] & draws the polygon whose vertices are \\
+                       & the points in the list of points {\tt L} \\
 \tt \#!label text... & `{\tt text...}' is used as a page label \\
 \end{tabular}
 \end{center}
@@ -512,16 +528,16 @@ and represent application of L to the vector {\tt v = ($v_x$,$v_y$)} by \\
 
 Examples:
 \begin{enumerate}
-\item {\tt L=((1,0),(0,1))} is the identity map.
+\item {\tt L=[(1,0),(0,1)]} is the identity map.
 $L(v)=v_x*(1,0) + v_y*(0,1) = (v_x,0)+(0,v_y) = (v_x,v_y) = v$.
-\item {\tt L=((0,1),(-1,0))} rotates vectors $90^\circ$.
+\item {\tt L=[(0,1),(-1,0)]} rotates vectors $90^\circ$.
 Specifically, $L(u_x)=u_y$ and $L(u_y)=-u_x$ and
 $L(v)=v_x*(0,1) + v_y*(-1,0) = (0,v_x)+(-v_y,0) = (-v_y,v_x)$.
-\item {\tt L=((-1,0),(0,-1))} reverses the direction of a vector.
+\item {\tt L=[(-1,0),(0,-1)]} reverses the direction of a vector.
 $L(v)=v_x*(-1,0) + v_y*(0,-1) = (-v_x,0)+(0,-v_y) = (-v_x,-v_y) = -v$.
-\item {\tt L=((-1,0),(0,1))} reflects vectors across the Y-axis.
+\item {\tt L=[(-1,0),(0,1)]} reflects vectors across the Y-axis.
 $L(v)=v_x*(-1,0) + v_y*(0,1) = (-v_x,0)+(0,v_y) = (-v_x,v_y)$.
-\item {\tt L=(($s_x$,0),(0,$s_y$))} scales the X-axis by $s_x$ and
+\item {\tt L=[($s_x$,0),(0,$s_y$)]} scales the X-axis by $s_x$ and
 the Y-axis by $s_y$. \\
 $L(v)=v_x*(s_x,0) + v_y*(0,s_y)
      = (s_x v_x,0)+(0,s_y v_y)= (s_x v_x, s_y v_y)$.
@@ -529,22 +545,22 @@ $L(v)=v_x*(s_x,0) + v_y*(0,s_y)
 
 Now suppose we have a scalar {\tt s}, vector {\tt v},
 and two linear transformations
-{\tt K = ($\ell^K_x$,$\ell^K_y$)},
-{\tt L = ($\ell^L_x$,$\ell^L_y$)}.  Then we can define:
+{\tt K = [$\ell^K_x$,$\ell^K_y$)},
+{\tt L = [$\ell^L_x$,$\ell^L_y$)}.  Then we can define:
 \begin{center}
 \tt
 \begin{tabular}{l@{~so that~}l}
-s*L = (s*$\ell^L_x$,s*$\ell^L_y$)
+s*L = [s*$\ell^L_x$,s*$\ell^L_y$]
 	 & (s*L)*v = s*(L*v) \\[0.3ex]
-K+L = ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)
+K+L = [$\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$]
 	 & (K+L)*v = K*v + L*v \\[0.3ex]
-K+L = ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)
+K+L = [$\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$]
 	 & (K+L)*v = K*v + L*v \\[0.3ex]
-K-L = ($\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$)
+K-L = [$\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$]
 	 & (K-L)*v = K*v - L*v \\[0.3ex]
--L = (-$\ell^L_x$,-$\ell^L_y$)
+-L = [-$\ell^L_x$,-$\ell^L_y$]
 	 & (-L)*v = - L*v \\[0.3ex]
-K*L = (K*$\ell^L_x$,K*$\ell^L_y$)
+K*L = [K*$\ell^L_x$,K*$\ell^L_y$]
 	 & (K*L)*v = K*(L*v)
 \end{tabular}
 \end{center}
@@ -561,7 +577,7 @@ J*(K+L) = J*K + J*L
 In general {\tt K*L} is \underline{not equal} to {\tt L*K}.
 
 Let {\tt I} be the identity transform defined by
-{\tt I*v=v} for all vectors {\tt v}  (and therefore {\tt I=($u_x$,$u_y$)}).
+{\tt I*v=v} for all vectors {\tt v}  (and therefore {\tt I=[$u_x$,$u_y$]}).
 It is easy to check that {\tt K*I = K = I*K} for all linear transforms
 {\tt K}.
 
@@ -593,17 +609,17 @@ value types and the {\em operators} and {\em functions}:
 Assume: & {\tt s=}$s$ is a scalar \\
 	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
 	& {\tt v=($v_x$,$v_y$)} and {\tt w=($w_x$,$w_y$)} are vectors \\
-	& \multicolumn{2}{@{}l}{{\tt K=($\ell^K_x$,$\ell^K_y$)} and
-	  {\tt L=($\ell^L_x$,$\ell^L_y$)} are linear transforms} \\
+	& \multicolumn{2}{@{}l}{{\tt K=[$\ell^K_x$,$\ell^K_y$]} and
+	  {\tt L=[$\ell^L_x$,$\ell^L_y$]} are linear transforms} \\
 then: \\[1ex]
 \tt (v,w) & returns $(v,w)$ \\
 \tt K==L:d & returns $\ell^K_x==\ell^L_x:d$ AND $\ell^K_y==\ell^L_y:d$ \\
 \tt L*v & returns {\tt $v_x$*$\ell^L_x$+$v_y$*$\ell^L_y$} & [application] \\
-\tt s*K & returns {\tt ($s\ell^L_x$,$s\ell^L_y$)} \\
-\tt K+L & returns {\tt ($\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$)} \\
-\tt K-L & returns {\tt ($\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$)} \\
-\tt -L & returns {\tt (-$\ell^L_x$,-$\ell^L_y$)} \\
-\tt K*L & returns {\tt (K*$\ell^L_x$,K*$\ell^L_y$)} & [composition] \\
+\tt s*K & returns {\tt [$s\ell^L_x$,$s\ell^L_y$]} \\
+\tt K+L & returns {\tt [$\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$]} \\
+\tt K-L & returns {\tt [$\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$]} \\
+\tt -L & returns {\tt [-$\ell^L_x$,-$\ell^L_y$]} \\
+\tt K*L & returns {\tt [K*$\ell^L_x$,K*$\ell^L_y$]} & [composition] \\
 \end{tabular}
 \end{center}
 
@@ -2171,7 +2187,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Nov 24 04:07:39 EST 2020
+Date:         & Tue Nov 24 05:27:19 EST 2020
 
 \end{tabular}
 
