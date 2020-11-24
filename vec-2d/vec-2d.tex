@@ -1706,11 +1706,13 @@ If {\tt pq} intersects the circle these are the intersection points.
 Otherwise there are two cases: {\tt pq} is outside the circle and
 {\tt pq} is inside the circle.
 
-To make further progress, we are underline{not} going to use the fact that the
-circle is a circle, so that later we can use these arguments for
-an ellipse.  Instead we will use the fact that the circle viewed
+To make further progress, we are \underline{not} going to use the fact that the
+circle is a circle.
+Instead we will use the fact that the circle viewed
 as an area is a closed convex set, and the circle viewed as an arc
-is the boundary of such a set.
+is the boundary of such a set.  This allows us to prove our results
+for closed convex sets, and apply the results to circles, ellipses,
+rectangles, and convex polygons.
 
 \begin{definition}
 The \key{boundary} of a set $S$ of the points in the plane
@@ -1738,17 +1740,20 @@ $||q_1-q_2||\ge||p_1-p_2||$).
 
 We will \underline{not} give the proof of this,
 which involves the mathematics of compact
-sets (i.e., uses the fact that a circle is compact).
+sets (i.e., uses the fact that a closed bounded set is compact).
 
 Some easily proved facts about boundaries are:
 \begin{enumerate}
 \item The boundary of a set $S$ is also the boundary of the
 complement $\mathcal{R}^2-S$ of $S$.
 \item The boundary $B$ of a closed set $S$ is itself closed
-(i.e., $B$ is a closed set).
+(i.e., $B$ is a closed set). \\
+(In fact, the boundary of any set $S$ is closed, but this is
+a bit harder to prove.)
+
 \end{enumerate}
 
-Another important fact about closes sets and their boundaries is:
+Another important fact about closed sets and their boundaries is:
 
 \begin{lemma}\label{BOUNDARY-CROSSING}
 If $S$ is a closed set, $p$ is a point in $S$, and $q$ is a point
@@ -1756,13 +1761,14 @@ outside of $S$, then the finite line $pq$ contains a point on the
 boundary of $S$.
 \end{lemma}
 \begin{indpar}{0.2in}
-Proof: Consider the points $r=p+\alpha*(q-p)$ for $0\le\alpha\le 1$.
+Proof: Consider the points $r=p+\alpha*(q-p)$ for $0\le\alpha\le 1$,
+that is, the points $r$ on the finite line $pq$.
 All circles with center $p$ contain a point of $S$ as $p$ is in $S$.
 All sufficiently small circles with center $q$ contain only points
 outside of $S$, as $q$ is outside of $S$ and not on the boundary of $S$
 (which is a subset of $S$).  Let $\alpha'$ be the smallest number such
 that $r=p+\alpha*(q-p)$ is outside $S$ for all $\alpha>\alpha'$ and
-let $r_0=p+\alpha'*(q-p)$.  Then $r_0$ is in $S$, for if it would not,
+let $r_0=p+\alpha'*(q-p)$.  Then $r_0$ is in $S$, for if it were not,
 a sufficiently small circle with center $r_0$ would be completely
 outside $S$, and $\alpha'$ would be smaller than it is.  But every
 circle with center $r_0$ includes a point $r=p+\alpha*(q-p)$,
@@ -1776,7 +1782,32 @@ is a \key{convex set} if and only if for any two points $p$ and $q$ in $S$
 and any scalar $0\le\alpha\le 1$,
 $\alpha*p+(1-\alpha)*q \in S$
 (i.e., the finite line segment $pq$ is in $S$).
+\end{definition}
 
+In order to deal with the case where the finite line $pq$ is outside
+the circle, we will prove:
+
+\begin{theorem}\label{POINT-OUTSIDE-THEOREM}
+The distance from a finite line $pq$ to a closed convex set $S$ when
+$pq$ is \underline{outside} of $S$ is one of:
+\begin{enumerate}
+\item The distance from the infinite line $pq$ to $S$ if
+a point on the infinite line closest to $S$ is in the finite line $pq$.
+\item The distance from $p$ to $S$.
+\item The distance from $q$ to $S$.
+\end{enumerate}
+\end{theorem}
+
+Given this and a finite line {\tt pq} \underline{outside} the
+circle,
+we compute the point {\tt t} on the infinite line {\tt pq} that is
+closest to the center of the circle
+and check if that is in the finite line {\tt pq}.  If not, then the
+closest point is either {\tt p} or {\tt q}, by the Theorem.
+
+To prove the theorem we need a definition and some lemmas.
+
+\begin{definition}
 A function $F$ on a convex set of points $S$ is a \key{convex function}
 if and only if
 for any two points $p$ and $q$ in $S$ and
@@ -1836,21 +1867,11 @@ follows.
 If $F(q)> F(p)$ and $\alpha>1$ then $F(r)> F(p)$.
 \end{corollary}
 
-Given the above we have:
-
-\begin{theorem}
-The distance from a finite line $pq$ to a closed convex set $S$ when
-$pq$ is outside of $S$ is one of:
-\begin{enumerate}
-\item The distance from the infinite line $pq$ to $S$ if
-a point on the infinite line closest to $S$ is in the finite line $pq$.
-\item The distance from $p$ to $S$.
-\item The distance from $q$ to $S$.
-\end{enumerate}
-\end{theorem}
+Now we can prove our theorem:
 
 \begin{indpar}{0.2in}
-Proof: By Lemma~\ref{MINIMUM-DISTANCE} there are points $r$ on the
+Proof of Theorem \ref{POINT-OUTSIDE-THEOREM}:
+By Lemma~\ref{MINIMUM-DISTANCE} there are points $r$ on the
 finite line $pq$ that are closest to $S$.  If either $p$ or $q$ is
 one of these points, we are done.  Otherwise
 let $r_0$ be a point on the finite line $pq$ closest to $S$.
@@ -1862,16 +1883,22 @@ infinite line $pq$.
 \end{indpar}
 
 
-Now we have enough information to find the distance between
-a finite line {\tt pq} and a circle when {\tt pq} is \underline{outside} the
-circle.
-We compute the point {\tt t} on the infinite line {\tt pq} that is
-closest to the center of the circle
-and check if that is in the finite line {\tt pq}.  If not, then the
-closest point is either {\tt p} or {\tt q}, by the Theorem.
-
 So next we turn to the case where {\tt pq} is \underline{inside} the
 circle.
+
+\begin{theorem}\label{POINT-INSIDE-THEOREM}
+The distance from a finite line $pq$ to the boundary of a
+closed convex set $S$ when
+$pq$ is \underline{inside} of $S$ is one of:
+\begin{enumerate}
+\item The distance from $p$ to the boundary of $S$.
+\item The distance from $q$ to the boundary of $S$.
+\end{enumerate}
+\end{theorem}
+
+The application of this theorem is obvious.
+
+To prove the theorem we need one definition and some lemmas.
 
 \begin{definition}
 For a set $S$ of points, the \key{convex hull} of $S$ is the
@@ -2144,7 +2171,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Nov 23 00:40:03 EST 2020
+Date:         & Tue Nov 24 04:07:39 EST 2020
 
 \end{tabular}
 
