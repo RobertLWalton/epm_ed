@@ -1927,6 +1927,48 @@ a convex set $S$ is clearly $S$ itself.
 If $T$ is a subset of a convex set $S$,
 the convex hull of $T$ is clearly a subset of $S$.
 
+\begin{lemma}
+Let $S$ be a closed convex set, let $p$ be a point in $S$, and
+let $r$ be the distance from $p$ to the boundary of $S$.  Then
+the circle of radius $r$ and center $p$ is completely within $S$.
+\end{lemma}
+
+\begin{indpar}{0.2in}
+Proof:  By contradiction.  Assume there is a point $q$ on the circle
+that is outside $S$.  Then by Lemma~\ref{BOUNDARY-CROSSING} there is
+a point $s$ on the finite line segment $pq$ that is on the boundary of
+$S$, and this cannot be $q$.  So $||s-p||<r$ which contradicts the
+definition of $r$.
+\end{indpar}
+
+\begin{lemma}
+Let $S$ be a closed convex set, let $p$ and $q$ be a points in $S$,
+let $s=\alpha*p+(1-\alpha)*q$ for $0\le\alpha\le 1$ be a point on the
+finite line $pq$, and let $r_p$, $r_q$, and $r_s$ be the distances
+of $p$, $q$, and $s$ respectively from the boundary of $S$.
+Then $r_s\ge\alpha*r_p+(1-\alpha)*r_q$.
+\end{lemma}
+
+\begin{indpar}{0.2in}
+Proof:  By construction.  Let $r_s'=\alpha*r_p+(1-\alpha)*r_q$.
+Let $C_p$ be the circle of center $p$ and
+radius $r_p$, and let $C_q$ and $C_s'$ be constructed similarly from
+$(q,r_q)$ and $(s,r_s')$.  Then we will prove $C_s'$ is a subset of
+the convex hull of $C_p\cup C_q$, and as by the previous lemma
+the latter is a subset of $S$, we get the conclusion $r_s\ge r_s'$.
+
+Let $t$ be a point on the boundary $C_s'$ and let $v=t-s$, so
+$||v||=r_s'$.  Let $v_p$ and $v_q$ be vectors
+with the same direction (azimuth) as $v$ and lengths $r_p$ and $r_q$
+respectively.  Then by hypothesis,
+$||v|| = \alpha*||v_p||+(1-\alpha)*||v_q||$, so
+$v = \alpha*v_p+(1-\alpha)*v_q$, and as
+$s = \alpha*p+(1-\alpha)*q$, we have
+$t=s+v=\alpha*(p+v_p)+(1-\alpha)*(q+v_q)$ and 
+$t$ is on the finite line from $p+v_p$ to $q+v_q$ and is therefore in the
+convex hull of $C_p\cup C_q$.
+\end{indpar}
+
 
 
 TBD
@@ -2187,7 +2229,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Nov 24 05:27:19 EST 2020
+Date:         & Thu Nov 26 00:59:33 EST 2020
 
 \end{tabular}
 
