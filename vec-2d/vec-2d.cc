@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Nov 27 05:08:41 EST 2020
+// Date:	Fri Nov 27 13:55:57 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -119,7 +119,7 @@ int main ( int argc, char * argv[] )
 	    // End of single operator rightsides here.
 
 	    else
-	        goto UNRECOGNIZED_OPERATOR;
+	        goto UNKNOWN_OPERATION;
 	}
 
 	else if ( p[0] == '[' )
@@ -208,9 +208,81 @@ int main ( int argc, char * argv[] )
 
 	// Put operator recognizers here.
 
+	if ( isalpha ( p[0] ) )
+	{
+	    // Non-prefix operators.
+
+	    var & op1 = vars[*p++];
+	    char * op = p; // q locates operator
+	    while ( ! isalpha ( * p ) && * p ) ++ p;
+	    if ( * p == 0 )
+	    {
+		// Postfix operators.
+	    }
+	    assert ( isalpha ( * p ) );
+	    var & op2 = vars[*p++];
+	    if ( * p == 0 )
+	    {
+		// Binary operators.
+
+		if (    op1.t == SCALAR
+		     && op2.t == SCALAR )
+		{
+		    switch ( * op )
+		    {
+		    case '+':
+		        result.s = op1.s + op2.s; break;
+		    case '-':
+		        result.s = op1.s - op2.s; break;
+		    case '*':
+		        result.s = op1.s * op2.s; break;
+		    case '/':
+		        result.s = op1.s / op2.s; break;
+		    case '%':
+		        result.s =
+			    fmod ( op1.s, op2.s );
+			break;
+		    default:
+		        goto UNKNOWN_OPERATION;
+		    }
+		    result.t = SCALAR;
+		    goto PRINT_RESULT;
+		}
+	    }
+	}
+	else
+	{
+	    // Prefix operators.
+
+	    char * op = p; // q locates operator
+	    while ( ! isalpha ( * p ) && * p ) ++ p;
+	    if ( * p == 0 )
+	    {
+	        // No-operand operators.
+
+		goto UNKNOWN_OPERATION;
+	    }
+	    var & op1 = vars[*p++];
+	    if ( op1.t == SCALAR )
+	    {
+		switch ( * op )
+		{
+		case '-': result.s = - op1.s; break;
+		case '|': result.s = fabs ( op1.s );
+		          assert ( * p ++ == '|' );
+			  break;
+		default:
+		    goto UNKNOWN_OPERATION;
+		}
+		result.t = SCALAR;
+		goto PRINT_RESULT;
+	    }
+
+	}
+
 	// End of operator recognizers.
 
-    UNRECOGNIZED_OPERATOR:
+    UNKNOWN_OPERATION:
 	{
 	    cout << "ERROR: unrecognized operator"
 	         << endl;
@@ -223,7 +295,8 @@ int main ( int argc, char * argv[] )
 	switch ( result.t )
 	{
 	case BOOLEAN:
-	    cout << ( result.b == TRUE ? "true" : "false" );
+	    cout << ( result.b == TRUE ? "true"
+	                               : "false" );
 	    break;
 	case SCALAR:
 	    cout << result.s; break;
