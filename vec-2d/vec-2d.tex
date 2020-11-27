@@ -106,7 +106,7 @@ The syntax is:
 {\em value} ::= {\em boolean} $|$ {\em scalar} $|$ {\em vector}
 	    $|$ {\em linear-transform} $|$ {\em vector-list} \\
 {\em boolean} ::= \TT{true} $|$ \TT{false} \\
-1{\em scalar} ::= \begin{tabular}[t]{@{}l}
+{\em scalar} ::= \begin{tabular}[t]{@{}l}
                  double precision floating point number (e.g., 1.4142135) \\
 		 (must have a digit before any decimal point) \\
 		 \end{tabular} \\
@@ -120,17 +120,39 @@ The syntax is:
 		   \end{tabular} \\
 {\em function} ::= three or more letters (e.g. {\tt sin} or {\tt length})
 \end{tabular}
-\\[1ex]
-\centerline{
-1\begin{tabular}{c}
-Whitespace in {\em statements} is optional and is deleted \\
+
+The Input/Output Rules are:
+\begin{indpar}{0.2in}\begin{itemize}
+
+\item Whitespace in {\em statements} is optional and should be deleted
 before the {\em statements} are parsed.
-\\[1ex]
-The output of a {\em statement} is a copy of the {\em statement}, \\
-which if the {\em statement} has an {\em operator} or {\em function} \\
-is followed by `{\em space} \TT{=} {\em space} {\em value}'.
-\end{tabular}
-}
+
+\item The output of a {\em statement} is a copy of the {\em statement}, \\
+which if the {\em statement} is neither a comment nor of the form
+`{\em variable} \TT{=} {\em value} {\em eol}', 
+is followed by `{\em space} \TT{=} {\em space} {\em value}', where
+the {\em value} is that assigned to the {\em variable} beginning the
+statement.
+
+\item Input lines have a maximum of 100,000 characters (long lines
+are only needed for inputting vector lists).  Output lines have
+no limit (vector lists output can be arbitrarily long).
+
+\item Each calculator version should be able to input and output
+values of the types being tested by that version (beginning with
+{\em boolean} and {\em scalar} values) and process comments
+and statements of the form `{\em variable} \TT{=} {\em variable}'.
+
+\item {\em Scalars} should be output with 6 digits of precision
+(which is the default for C/C++).
+
+\item  The total number of vector list elements that need to be
+allocated during one program execution will be small enough
+that these list elements do not need to be garbage collected
+(need not be freed when no longer needed).
+
+
+\end{itemize}\end{indpar}
 
 \newpage
 
@@ -2229,7 +2251,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Nov 26 00:59:33 EST 2020
+Date:         & Fri Nov 27 09:47:25 EST 2020
 
 \end{tabular}
 
