@@ -221,31 +221,34 @@ You can map each ASCII character to a value using a
 vector of 128 elements, and simply not use the elements
 that do not correspond to letters.
 
-To parse a non-comment, remove its whitespace characters and
-then examine the rightside of the {\tt =} sign.  During this
-examination, characters are categorized as either letters,
-digits, or operator characters (not letters or digits).
+To parse a non-comment, remove its whitespace characters.  Then
 \begin{itemize}
-\item If the rightside is a single character, it is a {\em scalar} value
-if the character is a digit, a {\em variable} if it is a letter,
-and an {\em operator} (with no operands) otherwise.
-\item Else if the rightside begins with `{\tt [}' it is {\em linear-transform}
-value.
-\item Else if the rightside begins with `{\tt ()}' it is an empty
-{\em vector-list} value.
-\item Else if the rightside begins with `{\tt ((}' it is a non-empty
-{\em vector-list} value.
-\item Else if the rightside begins with `{\tt (}' and the second character
-is not a letter, the rightside is {\em vector} value.
-\item Else if one of the first two characters of the rightside is a
-digit, the rightside is a {\em scalar} value.
-\item Else if the rightside is `{\tt true}' or `{\tt false}', it
-is a {\em boolean} value.
-\item Else if the rightside begins with two letters, it is a {\em function}
-followed optionally by {\em variables}.
-\item Else the rightside is an alternating sequence of {\em operators} and
-{\em variables}.
+\item If the line contains a digit, it has the form
+`{\em variable} \TT{=} {\em value}', where {\em value} is:
+\begin{itemize}
+\item A linear-transform if the `\TT{=}' is followed by `\TT{[}'.
+\item A vector list if the `\TT{=}' is followed by `\TT{((}'.
+\item A vector if the `\TT{=}' is followed by `\TT{(}' but not `\TT{((}'.
+\item A scalar otherwise.
 \end{itemize}
+\item If the line does \underline{not} contain a digit, match the
+line to a pattern using the rules:
+\begin{itemize}
+\item A pattern character other than `\TT{\$}' must match the line character
+exactly.
+\item The `\TT{\$}' pattern character must match a letter (which will
+be a {\em variable}).
+\end{itemize}
+\end{itemize}
+Examples: \begin{tabular}[t]{l@{~~~}l@{~~~}l}
+\underline{The Pattern} & \underline{Matches}
+\\[1ex]
+\tt \$=\$ & \tt x=y \\
+\tt \$=true & \tt t=true \\
+\tt \$=\$+\$ & \tt b=c+d \\
+\tt \$=sin\$ & {\tt x=sinA} & [Normally input as {\tt x=sin A}] \\
+\tt \$=\$<=\$:\$ & {\tt x=y<=z:d}  & [Normally input as {\tt x = y<=z:d}] \\
+\end{tabular}
 
 Data structure and function prototype definitions that you may
 optionally use are given in the following files, which may be
@@ -2251,7 +2254,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Nov 27 09:47:25 EST 2020
+Date:         & Sat Nov 28 17:47:04 EST 2020
 
 \end{tabular}
 
