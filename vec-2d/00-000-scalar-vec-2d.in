@@ -1,0 +1,14 @@
+# Test scalar and boolean input/output
+#
+x=1
+o=x
+x=1.23456
+o=x
+x=-1
+o=x
+x=-1.23456
+o=x
+x = true
+o=x
+x = false
+o = x
