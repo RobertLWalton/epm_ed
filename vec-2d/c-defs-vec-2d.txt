@@ -3,7 +3,7 @@
 # include <math.h>    /* PI is M_PI */
 typedef struct { double x, y; } vec;
 typedef struct { vec lx, ly; } linear;
-enum boolean { TRUE = 1, FALSE = 0 };
+enum boolean { true = 1, false = 0 };
 enum type { NONE = 0, BOOLEAN, SCALAR, VECTOR,
                       LINEAR, AFFINE };
 typedef struct {
