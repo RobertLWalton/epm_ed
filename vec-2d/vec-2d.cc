@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Nov 27 13:55:57 EST 2020
+// Date:	Sun Nov 29 02:04:41 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -61,6 +61,58 @@ ostream & operator << ( ostream & s, vec v )
     return s << "(" << v.x << "," << v.y << ")";
 }
 
+// Match a pattern to the squashed input line.  Returns
+// true iff successful.  Sets V[.] to variables matched
+// to $ in left-to-right order:
+// //
+var * V[4];
+# define R   (*V[0])    // Result
+# define OP1 (*V[1])    // First Operand
+# define OP2 (*V[2])    // Second Operand
+# define OP3 (*V[3])    // Third Operand
+bool match ( const char * pattern )
+{
+    const char * p = squashed, * q = pattern;
+    int i = 0;
+    while ( * p != 0 )
+    {
+        if ( * q == '$' )
+	{
+	    if ( ! isalpha ( * p ) ) return false;
+	    assert ( i < 4 );
+	    V[i++] = & vars[*p++];
+	    q ++;
+	}
+	else if ( * q ++ != * p ++ ) return false;
+    }
+    if ( * q != 0 ) return false;
+    else return true;
+}
+
+bool lt ( double x, double y, double d )
+{
+    assert ( 0 <= d && d <= 12 );
+    int i = int ( d );
+    assert ( i == d );
+    return x < y - 0.5 * units[i];
+}
+
+bool le ( double x, double y, double d )
+{
+    assert ( 0 <= d && d <= 12 );
+    int i = int ( d );
+    assert ( i == d );
+    return x < y + 0.5 * units[i];
+}
+
+bool eq ( double x, double y, double d )
+{
+    assert ( 0 <= d && d <= 12 );
+    int i = int ( d );
+    assert ( i == d );
+    return fabs ( x - y ) < 0.5 * units[i];
+}
+
 int main ( int argc, char * argv[] )
 {
     while ( cin.getline ( line, sizeof ( line ) ),
@@ -73,6 +125,8 @@ int main ( int argc, char * argv[] )
 	// characters deleted.
 	//
 	char * p = squashed, * q = line;
+	bool has_digit;
+	    // Must be before goto PRINT_LINE.
 	while ( true )
 	{ 
 	    * p = * q ++;
@@ -81,239 +135,265 @@ int main ( int argc, char * argv[] )
 	}
 
 	if ( squashed[0] == '#' )
-	{
-	    cout << line << endl;
-	    continue;
-	}
+	    goto PRINT_LINE;
 
 	p = squashed;
-	assert ( isalpha ( p[0] ) );
-	    // First line character is not variable.
-	assert ( p[1] == '=' );
-	    // Second line character is not '='.
-	assert ( p[2] != 0 );
-	    // Line has < 3 characters.
-	
-	var & result = vars[p[0]];
+	has_digit = false;
+	while ( * p && ! has_digit )
+	    has_digit = isdigit ( * p ++ );
 
-	p += 2;
-	// PRINT_{RESULT/LINE} asserts * p == 0.
-	if ( p[1] == 0 )
+	if ( has_digit )
 	{
-	    // Rightside (of =) has 1 character.
-	    //
-	    if ( isdigit ( p[0] ) )
+	    p = squashed;
+
+	    assert ( isalpha ( p[0] ) );
+		// First line character is not variable.
+	    assert ( p[1] == '=' );
+		// Second line character is not '='.
+	
+	    V[0] = & vars[p[0]];
+	    p += 2;
+
+	    if ( p[0] == '[' )
 	    {
-	        result.t = SCALAR;
-		result.s = read_scalar ( p );
+		R.t = LINEAR;
+		++ p;
+		R.l.lx = read_vector ( p );
+		assert ( * p ++ == ',' );
+		R.l.ly = read_vector ( p );
+		assert ( * p ++ == ']' );
+		assert ( * p == 0 );
 		goto PRINT_LINE;
 	    }
-	    else if ( isalpha ( p[0] ) )
+
+	    else if ( p[0] == '(' && p[1] == '(' )
 	    {
-	        result = vars[*p++];
-		goto PRINT_RESULT;
+		R.t = LIST;
+		element * last = NULL;
+		++ p;
+		while ( true )
+		{
+		    element & e = * new element;
+		    e.next = NULL;
+		    if ( last == NULL )
+			R.first = & e;
+		    else
+			last->next = & e;
+		    last = & e;
+		    e.v = read_vector ( p );
+		    if ( * p == ')' )
+		    {
+			++ p;
+			assert ( * p == 0 );
+			goto PRINT_LINE;
+		    }
+		    assert ( * p ++ == ',' );
+		}
 	    }
 
-	    // Put single operator rightsides here.
-
-	    // End of single operator rightsides here.
+	    else if ( p[0] == '(' )
+	    {
+		R.t = VECTOR;
+		R.v = read_vector ( p );
+		assert ( * p == 0 );
+		goto PRINT_LINE;
+	    }
 
 	    else
+	    {
+		R.t = SCALAR;
+		R.s = read_scalar ( p );
+		assert ( * p == 0 );
+		goto PRINT_LINE;
+	    }
+	}
+
+	// Has_digit is false from here on, and we
+	// use exclusively the `match' function to do
+	// the rest of the parsing.
+
+	if ( match ( "$=true" ) )
+	{
+	    R.t = BOOLEAN;
+	    R.b = true;
+	    goto PRINT_LINE;
+	}
+	if ( match ( "$=false" ) )
+	{
+	    R.t = BOOLEAN;
+	    R.b = false;
+	    goto PRINT_LINE;
+	}
+	if ( match ( "$=()" ) )
+	{
+	    R.t = LIST;
+	    R.first = NULL;
+	    goto PRINT_LINE;
+	}
+	if ( match ( "$=$" ) )
+	{
+	    R = OP1;
+	    goto PRINT_RESULT;
+	}
+	if ( match ( "$=$+$" ) )
+	{
+	    assert ( OP1.t == OP2.t );
+	    if ( OP1.t == SCALAR )
+	        R.s = OP1.s + OP2.s;
+	    else
 	        goto UNKNOWN_OPERATION;
+	    R.t = OP1.t;
+	    goto PRINT_RESULT;
 	}
-
-	else if ( p[0] == '[' )
+	if ( match ( "$=$-$" ) )
 	{
-	    result.t = LINEAR;
-	    ++ p;
-	    result.l.lx = read_vector ( p );
-	    assert ( * p ++ == ',' );
-	    result.l.ly = read_vector ( p );
-	    assert ( * p ++ == ']' );
-	    goto PRINT_LINE;
+	    assert ( OP1.t == OP2.t );
+	    if ( OP1.t == SCALAR )
+	        R.s = OP1.s - OP2.s;
+	    else
+	        goto UNKNOWN_OPERATION;
+	    R.t = OP1.t;
+	    goto PRINT_RESULT;
 	}
-
-	else if ( p[0] == '(' && p[1] == ')' )
+	if ( match ( "$=$*$" ) )
 	{
-	    result.t = LIST;
-	    result.first = NULL;
-	    p += 2;
-	    goto PRINT_LINE;
-	}
-
-	else if ( p[0] == '(' && p[1] == '(' )
-	{
-	    result.t = LIST;
-	    element * last = NULL;
-	    ++ p;
-	    while ( true )
+	    if ( OP2.t == SCALAR )
 	    {
-	        element & e = * new element;
-		e.next = NULL;
-		if ( last == NULL )
-		    result.first = & e;
-		else
-		    last->next = & e;
-		last = & e;
-		e.v = read_vector ( p );
-		if ( * p == ')' )
-		{
-		    ++ p;
-		    goto PRINT_LINE;
-		}
-		assert ( * p ++ == ',' );
+		assert ( OP1.t == SCALAR );
+		R.t = SCALAR;
+	        R.s = OP1.s * OP2.s;
 	    }
+	    else
+	        goto UNKNOWN_OPERATION;
+	    goto PRINT_RESULT;
 	}
-
-	else if ( p[0] == '(' && ! isalpha ( p[1] ) )
+	if ( match ( "$=$/$" ) )
 	{
-	    result.t = VECTOR;
-	    result.v = read_vector ( p );
-	    goto PRINT_LINE;
+	    assert ( OP1.t == SCALAR );
+	    assert ( OP2.t == SCALAR );
+	    R.t = SCALAR;
+	    R.s = OP1.s / OP2.s;
+	    goto PRINT_RESULT;
 	}
-
-	else if ( isdigit ( p[0]) || isdigit ( p[1] ) )
+	if ( match ( "$=$%$" ) )
 	{
-	    result.t = SCALAR;
-	    result.s = read_scalar ( p );
-	    goto PRINT_LINE;
+	    assert ( OP1.t == SCALAR );
+	    assert ( OP2.t == SCALAR );
+	    R.t = SCALAR;
+	    R.s = fmod ( OP1.s, OP2.s );
+	    goto PRINT_RESULT;
 	}
-
-	else if ( strcmp ( p, "true" ) == 0 )
+	if ( match ( "$=-$" ) )
 	{
-	    result.t = BOOLEAN;
-	    result.b = TRUE;
-	    p += 4;
-	    goto PRINT_LINE;
+	    if ( OP1.t == SCALAR )
+	        R.s = - OP1.s;
+	    else
+	        goto UNKNOWN_OPERATION;
+	    R.t = OP1.t;
+	    goto PRINT_RESULT;
 	}
-
-	else if ( strcmp ( p, "false" ) == 0 )
+	if ( match ( "$=|$|" ) )
 	{
-	    result.t = BOOLEAN;
-	    result.b = FALSE;
-	    p += 5;
-	    goto PRINT_LINE;
+	    assert ( OP1.t == SCALAR );
+	    R.t = SCALAR;
+	    R.s = fabs ( OP1.s );
+	    goto PRINT_RESULT;
 	}
-
-	// Put function recognizers here.
-
-	// End of function recognizers.
-
-	else if ( isalpha ( p[0]) && isalpha ( p[1] ) )
+	if ( match ( "$=sin$" ) )
 	{
-	    cout << "ERROR: unrecognized function"
-	         << endl;
-	    exit ( 1 );
+	    assert ( OP1.t == SCALAR );
+	    R.t = SCALAR;
+	    R.s = sin ( ( M_PI / 180 ) * OP1.s );
+	    goto PRINT_RESULT;
 	}
-
-	// Put operator recognizers here.
-
-	if ( isalpha ( p[0] ) )
+	if ( match ( "$=cos$" ) )
 	{
-	    // Non-prefix operators.
-
-	    var & op1 = vars[*p++];
-	    char * op = p; // q locates operator
-	    while ( ! isalpha ( * p ) && * p ) ++ p;
-	    if ( * p == 0 )
+	    assert ( OP1.t == SCALAR );
+	    R.t = SCALAR;
+	    R.s = cos ( ( M_PI / 180 ) * OP1.s );
+	    goto PRINT_RESULT;
+	}
+	if ( match ( "$=tan$" ) )
+	{
+	    assert ( OP1.t == SCALAR );
+	    R.t = SCALAR;
+	    R.s = tan ( ( M_PI / 180 ) * OP1.s );
+	    goto PRINT_RESULT;
+	}
+	if ( match ( "$=$<$:$" ) )
+	{
+	    assert ( OP3.t == SCALAR );
+	    if ( OP1.t == SCALAR )
 	    {
-		// Postfix operators.
+		assert ( OP2.t == SCALAR );
+		R.t = BOOLEAN;
+	        R.s = lt ( OP1.s, OP2.s, OP3.s );
 	    }
-	    assert ( isalpha ( * p ) );
-	    var & op2 = vars[*p++];
-	    if ( * p == 0 )
-	    {
-		// Binary operators.
-
-		if (    op1.t == SCALAR
-		     && op2.t == SCALAR )
-		{
-		    switch ( * op )
-		    {
-		    case '+':
-		        result.s = op1.s + op2.s; break;
-		    case '-':
-		        result.s = op1.s - op2.s; break;
-		    case '*':
-		        result.s = op1.s * op2.s; break;
-		    case '/':
-		        result.s = op1.s / op2.s; break;
-		    case '%':
-		        result.s =
-			    fmod ( op1.s, op2.s );
-			break;
-		    default:
-		        goto UNKNOWN_OPERATION;
-		    }
-		    result.t = SCALAR;
-		    goto PRINT_RESULT;
-		}
-	    }
+	    else
+	        goto UNKNOWN_OPERATION;
+	    goto PRINT_RESULT;
 	}
-	else
+	if ( match ( "$=$<=$:$" ) )
 	{
-	    // Prefix operators.
-
-	    char * op = p; // q locates operator
-	    while ( ! isalpha ( * p ) && * p ) ++ p;
-	    if ( * p == 0 )
+	    assert ( OP3.t == SCALAR );
+	    if ( OP1.t == SCALAR )
 	    {
-	        // No-operand operators.
-
-		goto UNKNOWN_OPERATION;
+		assert ( OP2.t == SCALAR );
+		R.t = BOOLEAN;
+	        R.s = le ( OP1.s, OP2.s, OP3.s );
 	    }
-	    var & op1 = vars[*p++];
-	    if ( op1.t == SCALAR )
+	    else
+	        goto UNKNOWN_OPERATION;
+	    goto PRINT_RESULT;
+	}
+	if ( match ( "$=$==$:$" ) )
+	{
+	    assert ( OP3.t == SCALAR );
+	    if ( OP1.t == SCALAR )
 	    {
-		switch ( * op )
-		{
-		case '-': result.s = - op1.s; break;
-		case '|': result.s = fabs ( op1.s );
-		          assert ( * p ++ == '|' );
-			  break;
-		default:
-		    goto UNKNOWN_OPERATION;
-		}
-		result.t = SCALAR;
-		goto PRINT_RESULT;
+		assert ( OP2.t == SCALAR );
+		R.t = BOOLEAN;
+	        R.s = eq ( OP1.s, OP2.s, OP3.s );
 	    }
-
+	    else
+	        goto UNKNOWN_OPERATION;
+	    goto PRINT_RESULT;
 	}
 
-	// End of operator recognizers.
 
     UNKNOWN_OPERATION:
 	{
-	    cout << "ERROR: unrecognized operator"
+	    cout << "ERROR: unrecognized operation"
 	         << endl;
 	    exit ( 1 );
 	}
 
+    PRINT_LINE:
+	cout << line << endl;
+	continue;
+
     PRINT_RESULT:
-	assert ( * p == 0 );
 	cout << line << " = ";
-	switch ( result.t )
+	switch ( R.t )
 	{
 	case BOOLEAN:
-	    cout << ( result.b == TRUE ? "true"
-	                               : "false" );
+	    cout << ( R.b ? "true" : "false" );
 	    break;
 	case SCALAR:
-	    cout << result.s; break;
+	    cout << R.s; break;
 	case VECTOR:
-	    cout << result.v; break;
+	    cout << R.v; break;
 	case LINEAR:
-	    cout << "[" << result.l.lx << ","
-	                << result.l.ly << "]";
+	    cout << "[" << R.l.lx << ","
+	                << R.l.ly << "]";
 	    break;
 	case LIST:
 	    cout << "(";
 	    {
-	        element * ep = result.first;
+	        element * ep = R.first;
 		while ( ep != NULL )
 		{
-		    if ( ep != result.first )
-		        cout << ",";
+		    if ( ep != R.first ) cout << ",";
 		    cout << ep->v;
 		    ep = ep->next;
 		}
@@ -322,15 +402,10 @@ int main ( int argc, char * argv[] )
 	    break;
 	default:
 	    cout << "ERROR: bad result type "
-	         << result.t << endl;
+	         << R.t << endl;
 	    exit ( 1 );
 	}
 	cout << endl;
-	continue;
-
-    PRINT_LINE:
-	assert ( * p == 0 );
-	cout << line << endl;
     }
 
     return 0;
