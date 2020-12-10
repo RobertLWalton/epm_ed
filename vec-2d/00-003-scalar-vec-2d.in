@@ -1,0 +1,41 @@
+# Test scalar comparison operators
+#
+x = 1.2345
+y = 1.2346
+d = 2
+t = x  < y :d
+t = x <= y :d
+t = x == y :d
+d = 3
+t = x  < y :d
+t = x <= y :d
+t = x == y :d
+d = 4
+t = x  < y :d
+t = x <= y :d
+t = x == y :d
+d = 5
+t = x  < y :d
+t = x <= y :d
+t = x == y :d
+d = 6
+t = x  < y :d
+t = x <= y :d
+t = x == y :d
+x = -1.23
+y = -1.24
+d = 1
+t = x  < y :d
+t = x <= y :d
+t = x == y :d
+t = y  < x :d
+d = 2
+t = x  < y :d
+t = x <= y :d
+t = x == y :d
+t = y  < x :d
+d = 3
+t = x  < y :d
+t = x <= y :d
+t = x == y :d
+t = y  < x :d
