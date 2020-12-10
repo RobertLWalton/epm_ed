@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Dec  9 18:42:24 EST 2020
+// Date:	Wed Dec  9 21:29:25 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -358,16 +358,15 @@ int main ( int argc, char * argv[] )
 		cout << ")";
 		break;
 	    default:
-		cout << "ERROR: bad result type "
-		     << R.t << endl;
-		exit ( 1 );
+		cout << "(BAD RESULT TYPE "
+		     << R.t << ")";
 	    }
 	    cout << endl;
 	}
         else
 	{
-	    cout << "ERROR: unrecognized operation"
-	         << endl;
+	    cout << "ERROR: unrecognized operation in:"
+	         << endl << "    " << line << endl;
 	    exit ( 1 );
 	}
     }
