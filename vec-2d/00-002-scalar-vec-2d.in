@@ -1,0 +1,91 @@
+# Test Scalar Functions
+#
+A = -360
+x = cos A
+y = sin A
+z = tan A
+#
+A = -270
+x = cos A
+y = sin A
+z = tan A
+#
+A = -180
+x = cos A
+y = sin A
+z = tan A
+#
+A = -90
+x = cos A
+y = sin A
+z = tan A
+#
+A = 0
+x = cos A
+y = sin A
+z = tan A
+#
+A = 90
+x = cos A
+y = sin A
+z = tan A
+#
+A = 180
+x = cos A
+y = sin A
+z = tan A
+#
+A = 270
+x = cos A
+y = sin A
+z = tan A
+#
+A = 360
+x = cos A
+y = sin A
+z = tan A
+#
+A = 45
+x = cos A
+y = sin A
+z = tan A
+#
+A = 135
+x = cos A
+y = sin A
+z = tan A
+#
+A = 225
+x = cos A
+y = sin A
+z = tan A
+#
+A = 315
+x = cos A
+y = sin A
+z = tan A
+#
+A = -45
+x = cos A
+y = sin A
+z = tan A
+#
+A = -120
+x = cos A
+y = sin A
+z = tan A
+#
+A = -30
+x = cos A
+y = sin A
+z = tan A
+#
+A = 30
+x = cos A
+y = sin A
+z = tan A
+#
+A = 120
+x = cos A
+y = sin A
+z = tan A
