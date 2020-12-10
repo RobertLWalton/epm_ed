@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sun Nov 29 02:04:41 EST 2020
+// Date:	Wed Dec  9 18:42:24 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -11,15 +11,96 @@
 // Assert failure is on input line after last line
 // printed.
 
+// C++ Data Structures
+//
+
 #include <iostream>
 #include <cstring>
 #include <cctype>
 #include <cassert>
-#include "cc-defs-vec-2d.txt"
+#include <cmath>    // PI is M_PI
+
 using std::cin;
 using std::cout;
 using std::endl;
 using std::ostream;
+
+struct vec { double x, y; };
+struct linear { vec lx, ly; };
+struct element { vec v; element * next; };
+enum type { NONE = 0, BOOLEAN, SCALAR, VECTOR,
+            LINEAR, LIST };
+struct var {
+    type t;
+    bool b;
+    double s; // scalar
+    vec v;
+    linear l;
+    element * first;
+        // First element of vector LIST.
+};
+double units[13] =  // units[d] = 10**(-d)
+    { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
+      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
+
+
+// C++ Vector Function Signatures
+// --- ------ -------- ----------
+//
+// For Scalar Calculator
+//
+int lt ( double x, double y, int d );   // x<y:d
+int leq ( double x, double y, int d );  // x<=y:d
+int eq ( double x, double y, int d );   // x==y:d
+
+// For Vector Calculator
+//
+vec new_vec ( double x, double y );      // (x,y)
+bool eq ( vec v, vec w, int d );         // v==w:d
+std::ostream & operator <<
+        ( std::ostream & s, vec v );
+vec operator * ( double s, vec v );      // s*v
+vec operator + ( vec v, vec w );         // v+w
+vec operator - ( vec v, vec w );         // v-w
+vec operator - ( vec v );                // -v
+vec zerov = { 0, 0 };                    // (0,0)
+double len ( vec v );                    // ||v||
+double azm ( vec v );                    // azm v
+vec polar ( double l, double t );        // l^t
+
+// For Linear Calculator
+//
+linear new_linear ( vec v, vec w );     // (v,w)
+int eq ( linear L, linear K, int d );   // L==K:d
+std::ostream & operator <<
+        ( std::ostream & s, linear L );
+vec operator * ( linear L, vec v );       // L*v
+    // application
+linear operator * ( double s, linear L ); // s*L
+linear operator + ( linear K, linear L ); // K+L
+linear operator - ( linear K, linear L ); // K-L
+linear operator - ( linear L );           // -L
+linear operator * ( linear K, linear L ); // K*L
+    // composition
+
+// For Rotations and Reflections Calculator
+//
+vec rotate ( vec v, double p );     // v^p
+vec reflect ( vec v, double p );    // v|p
+linear rotation ( double p );       // ^p
+linear reflection ( double p );     // |p
+
+// For Product Calculator
+//
+vec operator * ( vec v, vec w );      // v*w
+vec cross ( vec v, vec w );           // v#w
+vec change ( vec v, vec w );          // v:w
+vec unit ( vec v );                   // v!
+vec uchange ( vec v, vec w );         // v!w
+double area ( vec p, vec q, vec r );  // area pqr
+
+// C++ Main Program
+// --- ---- -------
 
 const int MAX_LINE = 100000;
 
@@ -113,6 +194,7 @@ bool eq ( double x, double y, double d )
     return fabs ( x - y ) < 0.5 * units[i];
 }
 
+bool compute_result ( void );  // See below.
 int main ( int argc, char * argv[] )
 {
     while ( cin.getline ( line, sizeof ( line ) ),
@@ -126,7 +208,6 @@ int main ( int argc, char * argv[] )
 	//
 	char * p = squashed, * q = line;
 	bool has_digit;
-	    // Must be before goto PRINT_LINE.
 	while ( true )
 	{ 
 	    * p = * q ++;
@@ -135,7 +216,10 @@ int main ( int argc, char * argv[] )
 	}
 
 	if ( squashed[0] == '#' )
-	    goto PRINT_LINE;
+	{
+	    cout << line << endl;
+	    continue;
+	}
 
 	p = squashed;
 	has_digit = false;
@@ -163,7 +247,8 @@ int main ( int argc, char * argv[] )
 		R.l.ly = read_vector ( p );
 		assert ( * p ++ == ']' );
 		assert ( * p == 0 );
-		goto PRINT_LINE;
+		cout << line << endl;
+		continue;
 	    }
 
 	    else if ( p[0] == '(' && p[1] == '(' )
@@ -185,10 +270,12 @@ int main ( int argc, char * argv[] )
 		    {
 			++ p;
 			assert ( * p == 0 );
-			goto PRINT_LINE;
+			break;
 		    }
 		    assert ( * p ++ == ',' );
 		}
+		cout << line << endl;
+		continue;
 	    }
 
 	    else if ( p[0] == '(' )
@@ -196,7 +283,8 @@ int main ( int argc, char * argv[] )
 		R.t = VECTOR;
 		R.v = read_vector ( p );
 		assert ( * p == 0 );
-		goto PRINT_LINE;
+		cout << line << endl;
+		continue;
 	    }
 
 	    else
@@ -204,7 +292,8 @@ int main ( int argc, char * argv[] )
 		R.t = SCALAR;
 		R.s = read_scalar ( p );
 		assert ( * p == 0 );
-		goto PRINT_LINE;
+		cout << line << endl;
+		continue;
 	    }
 	}
 
@@ -216,197 +305,207 @@ int main ( int argc, char * argv[] )
 	{
 	    R.t = BOOLEAN;
 	    R.b = true;
-	    goto PRINT_LINE;
+	    cout << line << endl;
+	    continue;
 	}
 	if ( match ( "$=false" ) )
 	{
 	    R.t = BOOLEAN;
 	    R.b = false;
-	    goto PRINT_LINE;
+	    cout << line << endl;
+	    continue;
 	}
 	if ( match ( "$=()" ) )
 	{
 	    R.t = LIST;
 	    R.first = NULL;
-	    goto PRINT_LINE;
-	}
-	if ( match ( "$=$" ) )
-	{
-	    R = OP1;
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=$+$" ) )
-	{
-	    assert ( OP1.t == OP2.t );
-	    if ( OP1.t == SCALAR )
-	        R.s = OP1.s + OP2.s;
-	    else
-	        goto UNKNOWN_OPERATION;
-	    R.t = OP1.t;
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=$-$" ) )
-	{
-	    assert ( OP1.t == OP2.t );
-	    if ( OP1.t == SCALAR )
-	        R.s = OP1.s - OP2.s;
-	    else
-	        goto UNKNOWN_OPERATION;
-	    R.t = OP1.t;
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=$*$" ) )
-	{
-	    if ( OP2.t == SCALAR )
-	    {
-		assert ( OP1.t == SCALAR );
-		R.t = SCALAR;
-	        R.s = OP1.s * OP2.s;
-	    }
-	    else
-	        goto UNKNOWN_OPERATION;
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=$/$" ) )
-	{
-	    assert ( OP1.t == SCALAR );
-	    assert ( OP2.t == SCALAR );
-	    R.t = SCALAR;
-	    R.s = OP1.s / OP2.s;
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=$%$" ) )
-	{
-	    assert ( OP1.t == SCALAR );
-	    assert ( OP2.t == SCALAR );
-	    R.t = SCALAR;
-	    R.s = fmod ( OP1.s, OP2.s );
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=-$" ) )
-	{
-	    if ( OP1.t == SCALAR )
-	        R.s = - OP1.s;
-	    else
-	        goto UNKNOWN_OPERATION;
-	    R.t = OP1.t;
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=|$|" ) )
-	{
-	    assert ( OP1.t == SCALAR );
-	    R.t = SCALAR;
-	    R.s = fabs ( OP1.s );
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=sin$" ) )
-	{
-	    assert ( OP1.t == SCALAR );
-	    R.t = SCALAR;
-	    R.s = sin ( ( M_PI / 180 ) * OP1.s );
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=cos$" ) )
-	{
-	    assert ( OP1.t == SCALAR );
-	    R.t = SCALAR;
-	    R.s = cos ( ( M_PI / 180 ) * OP1.s );
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=tan$" ) )
-	{
-	    assert ( OP1.t == SCALAR );
-	    R.t = SCALAR;
-	    R.s = tan ( ( M_PI / 180 ) * OP1.s );
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=$<$:$" ) )
-	{
-	    assert ( OP3.t == SCALAR );
-	    if ( OP1.t == SCALAR )
-	    {
-		assert ( OP2.t == SCALAR );
-		R.t = BOOLEAN;
-	        R.s = lt ( OP1.s, OP2.s, OP3.s );
-	    }
-	    else
-	        goto UNKNOWN_OPERATION;
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=$<=$:$" ) )
-	{
-	    assert ( OP3.t == SCALAR );
-	    if ( OP1.t == SCALAR )
-	    {
-		assert ( OP2.t == SCALAR );
-		R.t = BOOLEAN;
-	        R.s = le ( OP1.s, OP2.s, OP3.s );
-	    }
-	    else
-	        goto UNKNOWN_OPERATION;
-	    goto PRINT_RESULT;
-	}
-	if ( match ( "$=$==$:$" ) )
-	{
-	    assert ( OP3.t == SCALAR );
-	    if ( OP1.t == SCALAR )
-	    {
-		assert ( OP2.t == SCALAR );
-		R.t = BOOLEAN;
-	        R.s = eq ( OP1.s, OP2.s, OP3.s );
-	    }
-	    else
-	        goto UNKNOWN_OPERATION;
-	    goto PRINT_RESULT;
+	    cout << line << endl;
+	    continue;
 	}
 
-
-    UNKNOWN_OPERATION:
+	// Compute_result() does the rest of the calls
+	// to match an result computation.  Returns true
+	// on success and false if operation not
+	// recognized.
+	//
+	if ( compute_result() )
+	{
+	    cout << line << " = ";
+	    switch ( R.t )
+	    {
+	    case BOOLEAN:
+		cout << ( R.b ? "true" : "false" );
+		break;
+	    case SCALAR:
+		cout << R.s; break;
+	    case VECTOR:
+		cout << R.v; break;
+	    case LINEAR:
+		cout << "[" << R.l.lx << ","
+			    << R.l.ly << "]";
+		break;
+	    case LIST:
+		cout << "(";
+		{
+		    element * ep = R.first;
+		    while ( ep != NULL )
+		    {
+			if ( ep != R.first ) cout << ",";
+			cout << ep->v;
+			ep = ep->next;
+		    }
+		}
+		cout << ")";
+		break;
+	    default:
+		cout << "ERROR: bad result type "
+		     << R.t << endl;
+		exit ( 1 );
+	    }
+	    cout << endl;
+	}
+        else
 	{
 	    cout << "ERROR: unrecognized operation"
 	         << endl;
 	    exit ( 1 );
 	}
-
-    PRINT_LINE:
-	cout << line << endl;
-	continue;
-
-    PRINT_RESULT:
-	cout << line << " = ";
-	switch ( R.t )
-	{
-	case BOOLEAN:
-	    cout << ( R.b ? "true" : "false" );
-	    break;
-	case SCALAR:
-	    cout << R.s; break;
-	case VECTOR:
-	    cout << R.v; break;
-	case LINEAR:
-	    cout << "[" << R.l.lx << ","
-	                << R.l.ly << "]";
-	    break;
-	case LIST:
-	    cout << "(";
-	    {
-	        element * ep = R.first;
-		while ( ep != NULL )
-		{
-		    if ( ep != R.first ) cout << ",";
-		    cout << ep->v;
-		    ep = ep->next;
-		}
-	    }
-	    cout << ")";
-	    break;
-	default:
-	    cout << "ERROR: bad result type "
-	         << R.t << endl;
-	    exit ( 1 );
-	}
-	cout << endl;
     }
 
     return 0;
+}
+
+bool compute_result ( void )
+{
+    if ( match ( "$=$" ) )
+    {
+	R = OP1;
+	return true;
+    }
+    if ( match ( "$=$+$" ) )
+    {
+	assert ( OP1.t == OP2.t );
+	if ( OP1.t == SCALAR )
+	    R.s = OP1.s + OP2.s;
+	else
+	    return false;
+	R.t = OP1.t;
+	return true;
+    }
+    if ( match ( "$=$-$" ) )
+    {
+	assert ( OP1.t == OP2.t );
+	if ( OP1.t == SCALAR )
+	    R.s = OP1.s - OP2.s;
+	else
+	    return false;
+	R.t = OP1.t;
+	return true;
+    }
+    if ( match ( "$=$*$" ) )
+    {
+	if ( OP2.t == SCALAR )
+	{
+	    assert ( OP1.t == SCALAR );
+	    R.t = SCALAR;
+	    R.s = OP1.s * OP2.s;
+	}
+	else
+	    return false;
+	return true;
+    }
+    if ( match ( "$=$/$" ) )
+    {
+	assert ( OP1.t == SCALAR );
+	assert ( OP2.t == SCALAR );
+	R.t = SCALAR;
+	R.s = OP1.s / OP2.s;
+	return true;
+    }
+    if ( match ( "$=$%$" ) )
+    {
+	assert ( OP1.t == SCALAR );
+	assert ( OP2.t == SCALAR );
+	R.t = SCALAR;
+	R.s = fmod ( OP1.s, OP2.s );
+	return true;
+    }
+    if ( match ( "$=-$" ) )
+    {
+	if ( OP1.t == SCALAR )
+	    R.s = - OP1.s;
+	else
+	    return false;
+	R.t = OP1.t;
+	return true;
+    }
+    if ( match ( "$=|$|" ) )
+    {
+	assert ( OP1.t == SCALAR );
+	R.t = SCALAR;
+	R.s = fabs ( OP1.s );
+	return true;
+    }
+    if ( match ( "$=sin$" ) )
+    {
+	assert ( OP1.t == SCALAR );
+	R.t = SCALAR;
+	R.s = sin ( ( M_PI / 180 ) * OP1.s );
+	return true;
+    }
+    if ( match ( "$=cos$" ) )
+    {
+	assert ( OP1.t == SCALAR );
+	R.t = SCALAR;
+	R.s = cos ( ( M_PI / 180 ) * OP1.s );
+	return true;
+    }
+    if ( match ( "$=tan$" ) )
+    {
+	assert ( OP1.t == SCALAR );
+	R.t = SCALAR;
+	R.s = tan ( ( M_PI / 180 ) * OP1.s );
+	return true;
+    }
+    if ( match ( "$=$<$:$" ) )
+    {
+	assert ( OP3.t == SCALAR );
+	if ( OP1.t == SCALAR )
+	{
+	    assert ( OP2.t == SCALAR );
+	    R.t = BOOLEAN;
+	    R.s = lt ( OP1.s, OP2.s, OP3.s );
+	}
+	else
+	    return false;
+	return true;
+    }
+    if ( match ( "$=$<=$:$" ) )
+    {
+	assert ( OP3.t == SCALAR );
+	if ( OP1.t == SCALAR )
+	{
+	    assert ( OP2.t == SCALAR );
+	    R.t = BOOLEAN;
+	    R.s = le ( OP1.s, OP2.s, OP3.s );
+	}
+	else
+	    return false;
+	return true;
+    }
+    if ( match ( "$=$==$:$" ) )
+    {
+	assert ( OP3.t == SCALAR );
+	if ( OP1.t == SCALAR )
+	{
+	    assert ( OP2.t == SCALAR );
+	    R.t = BOOLEAN;
+	    R.s = eq ( OP1.s, OP2.s, OP3.s );
+	}
+	else
+	    return false;
+	return true;
+    }
+
+    return false;
 }
