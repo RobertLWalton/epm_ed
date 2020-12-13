@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Dec  9 21:29:25 EST 2020
+// Date:	Thu Dec 10 03:58:02 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -50,7 +50,7 @@ double units[13] =  // units[d] = 10**(-d)
 // For Scalar Calculator
 //
 int lt ( double x, double y, int d );   // x<y:d
-int leq ( double x, double y, int d );  // x<=y:d
+int le ( double x, double y, int d );   // x<=y:d
 int eq ( double x, double y, int d );   // x==y:d
 
 // For Vector Calculator
@@ -168,30 +168,6 @@ bool match ( const char * pattern )
     }
     if ( * q != 0 ) return false;
     else return true;
-}
-
-bool lt ( double x, double y, double d )
-{
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return x < y - 0.5 * units[i];
-}
-
-bool le ( double x, double y, double d )
-{
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return x < y + 0.5 * units[i];
-}
-
-bool eq ( double x, double y, double d )
-{
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return fabs ( x - y ) < 0.5 * units[i];
 }
 
 bool compute_result ( void );  // See below.
@@ -373,6 +349,85 @@ int main ( int argc, char * argv[] )
 
     return 0;
 }
+
+// C++ Computational Functions
+// --- ------------- ---------
+
+bool lt ( double x, double y, double d )
+{
+    assert ( 0 <= d && d <= 12 );
+    int i = int ( d );
+    assert ( i == d );
+    return x < y - 0.5 * units[i];
+}
+
+bool le ( double x, double y, double d )
+{
+    assert ( 0 <= d && d <= 12 );
+    int i = int ( d );
+    assert ( i == d );
+    return x < y + 0.5 * units[i];
+}
+
+bool eq ( double x, double y, double d )
+{
+    assert ( 0 <= d && d <= 12 );
+    int i = int ( d );
+    assert ( i == d );
+    return fabs ( x - y ) < 0.5 * units[i];
+}
+
+bool eq ( vec v, vec w, double d )
+{
+    return eq ( v.x, w.x, d ) && eq ( v.y, w.y, d );
+}
+
+vec operator * ( double s, vec v )
+{
+    vec r = { s*v.x, s*v.y };
+    return r;
+}
+
+vec operator - ( vec v )
+{
+    vec r = { - v.x, - v.y };
+    return r;
+}
+
+vec operator + ( vec v, vec w )
+{
+    vec r = { v.x + w.x, v.y + w.y };
+    return r;
+}
+
+vec operator - ( vec v, vec w )
+{
+    vec r = { v.x - w.x, v.y - w.y };
+    return r;
+}
+
+double length ( vec v )
+{
+    return sqrt ( v.x*v.x + v.y*v.y );
+}
+
+double azm ( vec v )
+{
+    assert ( v.x != 0 || v.y != 0 );
+        // Judge's assertion to be sure v == 0 does
+	// not happen.
+    return (180/M_PI) * atan2 ( v.y, v.x );
+}
+
+vec exp ( double l, double t )
+{
+    double theta = ( M_PI / 180 ) * t;
+    vec r = { l * cos(theta), l * sin(theta) };
+    return r;
+}
+
+// C++ Compute Result Function
+// --- ------- ------ --------
 
 bool compute_result ( void )
 {
@@ -385,20 +440,34 @@ bool compute_result ( void )
     {
 	assert ( OP1.t == OP2.t );
 	if ( OP1.t == SCALAR )
+	{
+	    R.t = SCALAR;
 	    R.s = OP1.s + OP2.s;
+	}
+	else if ( OP1.t == VECTOR )
+	{
+	    R.t = VECTOR;
+	    R.v = OP1.v + OP2.v;
+	}
 	else
 	    return false;
-	R.t = OP1.t;
 	return true;
     }
     if ( match ( "$=$-$" ) )
     {
 	assert ( OP1.t == OP2.t );
 	if ( OP1.t == SCALAR )
+	{
+	    R.t = SCALAR;
 	    R.s = OP1.s - OP2.s;
+	}
+	else if ( OP1.t == VECTOR )
+	{
+	    R.t = VECTOR;
+	    R.v = OP1.v - OP2.v;
+	}
 	else
 	    return false;
-	R.t = OP1.t;
 	return true;
     }
     if ( match ( "$=$*$" ) )
@@ -408,6 +477,12 @@ bool compute_result ( void )
 	    assert ( OP1.t == SCALAR );
 	    R.t = SCALAR;
 	    R.s = OP1.s * OP2.s;
+	}
+	else if ( OP2.t == VECTOR )
+	{
+	    assert ( OP1.t == SCALAR );
+	    R.t = VECTOR;
+	    R.v = OP1.s * OP2.v;
 	}
 	else
 	    return false;
@@ -432,10 +507,17 @@ bool compute_result ( void )
     if ( match ( "$=-$" ) )
     {
 	if ( OP1.t == SCALAR )
+	{
+	    R.t = SCALAR;
 	    R.s = - OP1.s;
+	}
+	else if ( OP1.t == VECTOR )
+	{
+	    R.t = VECTOR;
+	    R.v = - OP2.v;
+	}
 	else
 	    return false;
-	R.t = OP1.t;
 	return true;
     }
     if ( match ( "$=|$|" ) )
@@ -473,7 +555,7 @@ bool compute_result ( void )
 	{
 	    assert ( OP2.t == SCALAR );
 	    R.t = BOOLEAN;
-	    R.s = lt ( OP1.s, OP2.s, OP3.s );
+	    R.b = lt ( OP1.s, OP2.s, OP3.s );
 	}
 	else
 	    return false;
@@ -486,7 +568,7 @@ bool compute_result ( void )
 	{
 	    assert ( OP2.t == SCALAR );
 	    R.t = BOOLEAN;
-	    R.s = le ( OP1.s, OP2.s, OP3.s );
+	    R.b = le ( OP1.s, OP2.s, OP3.s );
 	}
 	else
 	    return false;
@@ -499,7 +581,63 @@ bool compute_result ( void )
 	{
 	    assert ( OP2.t == SCALAR );
 	    R.t = BOOLEAN;
-	    R.s = eq ( OP1.s, OP2.s, OP3.s );
+	    R.b = eq ( OP1.s, OP2.s, OP3.s );
+	}
+	else if ( OP1.t == VECTOR )
+	{
+	    assert ( OP2.t == VECTOR );
+	    R.t = BOOLEAN;
+	    R.b = eq ( OP1.v, OP2.v, OP3.s );
+	}
+	else
+	    return false;
+	return true;
+    }
+
+    if ( match ( "$=($,$)" ) )
+    {
+	if ( OP1.t == SCALAR )
+	{
+	    assert ( OP2.t == SCALAR );
+	    R.t = VECTOR;
+	    R.v.x = OP1.s;
+	    R.v.y = OP2.s;
+	}
+	else
+	    return false;
+	return true;
+    }
+    if ( match ( "$=$^$" ) )
+    {
+	assert ( OP2.t == SCALAR );
+        if ( OP1.t == SCALAR )
+	{
+	    R.t = VECTOR;
+	    R.v = exp ( OP1.s, OP2.s );
+	}
+	else
+	    return false;
+	return true;
+    }
+
+    if ( match ( "$=||$||" ) )
+    {
+	if ( OP1.t == VECTOR )
+	{
+	    R.t = SCALAR;
+	    R.s = length ( OP1.v );
+	}
+	else
+	    return false;
+	return true;
+    }
+
+    if ( match ( "$=azm$" ) )
+    {
+	if ( OP1.t == VECTOR )
+	{
+	    R.t = SCALAR;
+	    R.s = azm ( OP1.v );
 	}
 	else
 	    return false;
