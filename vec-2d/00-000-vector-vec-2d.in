@@ -8,3 +8,12 @@ y = ( 0, 1 )
 y = y
 v = ( -1.234, +5.678 )
 v = v
+v = ( 1, 1 )
+#
+#!point z red
+#!point x red
+#!point y red
+#!point v red
+#!arrow zx blue
+#!arrow zy blue
+#!arrow zv blue
