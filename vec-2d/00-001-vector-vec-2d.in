@@ -17,3 +17,15 @@ w=s*w
 u=-v
 u=v+w
 u=v-w
+#
+v = (1.234,-5.678)
+w = (8.765,4.321)
+p = ( 4, 8 )
+q = p+v
+r = q+w
+#!point p red
+#!point q red
+#!point r red
+#!arrow pq blue v
+#!arrow qr blue w
+#!arrow pr brown v+w
