@@ -1,0 +1,19 @@
+# Test Vector Valued Vector Calculator Operations
+#
+x = -1.2345
+y = +6.7890
+v = (x,y)
+w=(1,-1)
+s=5.5
+u=s*w
+w=-w
+v=u+w
+v=u-w
+#
+s=37.82
+v=s*v
+s=-2.56
+w=s*w
+u=-v
+u=v+w
+u=v-w
