@@ -1,0 +1,10 @@
+# Test vector input/output
+#
+z = ( 0, 0 )
+z = z
+x = ( 1, 0 )
+x = x
+y = ( 0, 1 )
+y = y
+v = ( -1.234, +5.678 )
+v = v
