@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Dec 10 03:58:02 EST 2020
+// Date:	Tue Dec 15 03:38:09 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -514,7 +514,7 @@ bool compute_result ( void )
 	else if ( OP1.t == VECTOR )
 	{
 	    R.t = VECTOR;
-	    R.v = - OP2.v;
+	    R.v = - OP1.v;
 	}
 	else
 	    return false;
