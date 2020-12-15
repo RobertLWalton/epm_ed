@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Dec 15 03:38:09 EST 2020
+// Date:	Tue Dec 15 03:58:20 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -642,6 +642,20 @@ bool compute_result ( void )
 	else
 	    return false;
 	return true;
+    }
+
+    if ( match ( "$=X:$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	R.t = SCALAR;
+	R.s = OP1.v.x;
+    }
+
+    if ( match ( "$=Y:$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	R.t = SCALAR;
+	R.s = OP1.v.y;
     }
 
     return false;
