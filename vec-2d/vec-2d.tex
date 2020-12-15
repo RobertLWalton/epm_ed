@@ -151,6 +151,9 @@ allocated during one program execution will be small enough
 that these list elements do not need to be garbage collected
 (need not be freed when no longer needed).
 
+\item Input will \underline{not} contain the character `{\tt \$}',
+which can then be used as per Coding Hints below.
+
 
 \end{itemize}\end{indpar}
 
@@ -396,7 +399,6 @@ Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
 then: \\[1ex]
 \tt (x,y) & returns $(x,y)$ \\
-\tt v==w:d & returns $v_x==w_x:d$ AND $v_y==w_y:d$ \\
 \tt s*v & returns $(s v_x, s v_y )$ \\
 \tt -v & returns $( -v_x, -v_y )$, {\tt v} with direction reversed \\
 \tt v+w & returns $(v_x + w_x, v_y + w_y)$ \\
@@ -406,6 +408,9 @@ then: \\[1ex]
 \tt l\textasciicircum t
           & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
 	  & the vector with length {\tt l} and azimuth {\tt t} degrees \\
+\tt X:v & returns $v_x$ ({\tt X} is \underline{not} a variable here) \\
+\tt Y:v & returns $v_y$ ({\tt Y} is \underline{not} a variable here) \\
+\tt v==w:d & returns $v_x==w_x:d$ AND $v_y==w_y:d$ \\
 \end{tabular}
 \end{center}
 
@@ -2274,7 +2279,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Dec 13 20:41:59 EST 2020
+Date:         & Tue Dec 15 03:52:42 EST 2020
 
 \end{tabular}
 
