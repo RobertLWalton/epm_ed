@@ -457,21 +457,32 @@ The drawing commands are:
 \tt \#!infarrow pq [color] [label] & infinite directed line \\
                            & through points {\tt p} and {\tt q} \\
 			   & with arrow from {\tt p} to {\tt q} \\
-\tt \#!circle cr [color] [label] & circle of radius {\tt r} and center {\tt c} \\
-\tt \#!line L  [color] & lines with endpoints that are \\
-                       & consecutive points in the \\
-		       & list of points {\tt L} \\
+\tt \#!circle cr [color] [label] & circle of center {\tt c}
+                                   and radius {\tt r} \\
+				 & (this must be strictly \\
+				 & positive) \\
+\tt \#!ellipse cRA [color] [label] & ellipse with center {\tt c}, radii \\
+                                   & {\tt R.x} and {\tt R.y} (these \\
+				   & must be strictly positive), \\
+                                   & rotated by angle A about its \\
+				   & center \\
+\tt \#!points L  [color] & points in the list of points {\tt L} \\
+\tt \#!lines L  [color] & lines with endpoints that are \\
+                        & consecutive points in the \\
+		        & list of points {\tt L} \\
 \tt \#!polygon L  [color] & the polygon whose vertices are \\
                        & the points in the list of points {\tt L} \\
 \end{tabular}
 \end{center}
 
-In the above {\tt p}, {\tt q}, {\tt c} are arbitrary {\em variables} whose
-values must be vectors denoting points; {\tt r} is an arbitrary
-{\em variable} whose value must be a strictly positive scalar;
-{\tt L} is a {\em variable} whose value must be a list of points.
+In the above {\tt p}, {\tt q}, {\tt c}, {\tt R}
+are arbitrary {\em variables} whose
+values must be vectors denoting points; {\tt r}, {\tt A} are arbitrary
+{\em variables} whose values must be scalars;
+{\tt L} is an arbitrary {\em variable} whose value must be a list of points.
 A `{\tt label}' is text used to label a point, line, arrow, or
-center of a circle.
+center of a circle or ellipse.  Spaces are as indicated, and may consist
+of one or more horizonal space characters.
 
 The possible colors
 are `{\tt red}', `{\tt blue}', `{\tt brown}', and `{\tt black}'.  Black is
@@ -2279,7 +2290,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Dec 15 04:02:23 EST 2020
+Date:         & Wed Dec 16 13:39:45 EST 2020
 
 \end{tabular}
 
