@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Dec 16 02:05:28 EST 2020
+// Date:	Wed Dec 16 09:55:17 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -231,7 +231,27 @@ void read_value ( const char * line )
     }
 }
 
+// Output layout.
+//
+bool layout_output = false;
+int page_command_count = 0;
+void output_layout ( int R, int C )
+{
+    if ( page_command_count > 0 )
+    {
+        cout << "*" << endl;
+	page_command_count = 0;
+    }
+    layout_output = true;
+    cout << "layout " << R << " " << C << endl;
+    cout << "stroke solid 0pt s" << endl;
+    cout << "stroke line 1pt" << endl;
+    cout << "stroke arrow 1pt e" << endl;
+    cout << "*" << endl;
+}
+
 // Get the operands, color, and label of a command.
+// Call output_layout if no commands output yet.
 //
 var * V[4];
 # define OP1 (*V[0])    // First Operand
@@ -244,8 +264,11 @@ const char * colors[5] = {
     "red", "blue", "brown", "black", NULL };
 
 
-void get_operands ( const char * & p )
+void get_operands
+	( const char * & p, int number_operands )
 {
+    if ( ! layout_output ) output_layout ( 1, 1 );
+
     while ( isspace ( * p ) ) ++ p;
     int i = 0;
     while ( isalpha ( * p ) )
@@ -255,6 +278,11 @@ void get_operands ( const char * & p )
 	            " command" );
         V[i++] = & vars[*p++];
     }
+    if ( i < number_operands )
+	error ( "too few operands in display command" );
+    else if ( i > number_operands )
+	error ( "too many operands in display"
+	        " command" );
     while ( isspace ( * p ) ) ++ p;
     strcpy ( color, "black" );
     for ( const char ** q = colors; * q != NULL; ++ q )
@@ -282,7 +310,44 @@ void execute ( const char * p )
     if ( strncmp ( p, "point", 5 ) == 0 )
     {
 	p += 5;
-	get_operands ( p );
+	get_operands ( p, 1 );
+	if ( OP1.t != VECTOR )
+	    error ( "operand is not a vector" );
+	cout << "arc solid " << color
+	     << " " << OP1.v.x << " " << OP1.v.y
+	     << " 6pt" << endl;
+    }
+    else if ( strncmp ( p, "line", 4 ) == 0 )
+    {
+	p += 4;
+	get_operands ( p, 2 );
+	if ( OP1.t != VECTOR )
+	    error ( "first operand is not a vector" );
+	if ( OP2.t != VECTOR )
+	    error ( "second operand is not a vector" );
+	cout << "start line" << color
+	     << " " << OP1.v.x << " " << OP1.v.y
+	     << endl;
+	cout << "line"
+	     << " " << OP2.v.x << " " << OP2.v.y
+	     << endl;
+	cout << "end" << endl;
+    }
+    else if ( strncmp ( p, "arrow", 5 ) == 0 )
+    {
+	p += 5;
+	get_operands ( p, 2 );
+	if ( OP1.t != VECTOR )
+	    error ( "first operand is not a vector" );
+	if ( OP2.t != VECTOR )
+	    error ( "second operand is not a vector" );
+	cout << "start arrow" << color
+	     << " " << OP1.v.x << " " << OP1.v.y
+	     << endl;
+	cout << "line"
+	     << " " << OP2.v.x << " " << OP2.v.y
+	     << endl;
+	cout << "end" << endl;
     }
 }
 
