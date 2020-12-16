@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Dec 15 12:15:10 EST 2020
+// Date:	Wed Dec 16 02:05:28 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -31,6 +31,7 @@ using std::ws;
 bool debug = false;
 # define dout if ( debug ) cout
 
+string line;
 int line_number = 0;
 void error ( const char * format... )
 {
@@ -40,6 +41,7 @@ void error ( const char * format... )
     vfprintf ( stderr, format, args );
     va_end ( args );
     cerr << endl;
+    cerr << "    " << line << endl;
     exit ( 1 );
 }
 
@@ -229,15 +231,62 @@ void read_value ( const char * line )
     }
 }
 
+// Get the operands, color, and label of a command.
+//
+var * V[4];
+# define OP1 (*V[0])    // First Operand
+# define OP2 (*V[1])    // Second Operand
+# define OP3 (*V[2])    // Third Operand
+# define OP4 (*V[4])    // Fourth Operand
+char color[100];
+char label[1000];
+const char * colors[5] = {
+    "red", "blue", "brown", "black", NULL };
+
+
+void get_operands ( const char * & p )
+{
+    while ( isspace ( * p ) ) ++ p;
+    int i = 0;
+    while ( isalpha ( * p ) )
+    {
+	if ( i >= 4 )
+	    error ( "too many operands in display"
+	            " command" );
+        V[i++] = & vars[*p++];
+    }
+    while ( isspace ( * p ) ) ++ p;
+    strcpy ( color, "black" );
+    for ( const char ** q = colors; * q != NULL; ++ q )
+    {
+        size_t s = strlen ( * q );
+	if ( strncmp ( p, * q, s ) != 0 )
+	    continue;
+	p += s;
+	strcpy ( color, * q );
+	break;
+    }
+    while ( isspace ( * p ) ) ++ p;
+    if ( strlen ( p ) >= 1000 )
+        error ( "text too long in display command" );
+    strcpy ( label, p );
+}
+
 // Execute display command.
 //
 void execute ( const char * p )
 {
+    p += 2;
+    while ( isspace ( * p ) ) ++ p;
+
+    if ( strncmp ( p, "point", 5 ) == 0 )
+    {
+	p += 5;
+	get_operands ( p );
+    }
 }
 
 // Main program.
-//
-string line;
 //
 int main ( int argc, char ** argv )
 {
