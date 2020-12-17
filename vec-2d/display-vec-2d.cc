@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Dec 16 09:55:17 EST 2020
+// Date:	Thu Dec 17 00:18:25 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -250,7 +250,7 @@ void output_layout ( int R, int C )
     cout << "*" << endl;
 }
 
-// Get the operands, color, and label of a command.
+// Get the operands, color, and options of a command.
 // Call output_layout if no commands output yet.
 //
 var * V[4];
@@ -258,31 +258,37 @@ var * V[4];
 # define OP2 (*V[1])    // Second Operand
 # define OP3 (*V[2])    // Third Operand
 # define OP4 (*V[4])    // Fourth Operand
+int number_of_operands;
 char color[100];
-char label[1000];
+char options[100];
 const char * colors[5] = {
     "red", "blue", "brown", "black", NULL };
 
 
+// Get operands into OP1, OP2, ....  Set number_of_
+// operands to number gotten, and check that this
+// is in the range [min_operands,max_operands].
+//
+// Also output layout command if no commands have
+// been output so far.
+//
 void get_operands
-	( const char * & p, int number_operands )
+	( const char * & p,
+	  int min_operands, int max_operands )
 {
     if ( ! layout_output ) output_layout ( 1, 1 );
 
     while ( isspace ( * p ) ) ++ p;
-    int i = 0;
+    number_of_operands = 0;
     while ( isalpha ( * p ) )
     {
-	if ( i >= 4 )
+	if ( number_of_operands >= max_operands )
 	    error ( "too many operands in display"
 	            " command" );
-        V[i++] = & vars[*p++];
+        V[number_of_operands++] = & vars[*p++];
     }
-    if ( i < number_operands )
+    if ( number_of_operands < min_operands )
 	error ( "too few operands in display command" );
-    else if ( i > number_operands )
-	error ( "too many operands in display"
-	        " command" );
     while ( isspace ( * p ) ) ++ p;
     strcpy ( color, "black" );
     for ( const char ** q = colors; * q != NULL; ++ q )
@@ -296,8 +302,8 @@ void get_operands
     }
     while ( isspace ( * p ) ) ++ p;
     if ( strlen ( p ) >= 1000 )
-        error ( "text too long in display command" );
-    strcpy ( label, p );
+        error ( "bad options in display command" );
+    strcpy ( options, p );
 }
 
 // Execute display command.
@@ -310,44 +316,60 @@ void execute ( const char * p )
     if ( strncmp ( p, "point", 5 ) == 0 )
     {
 	p += 5;
-	get_operands ( p, 1 );
-	if ( OP1.t != VECTOR )
-	    error ( "operand is not a vector" );
-	cout << "arc solid " << color
-	     << " " << OP1.v.x << " " << OP1.v.y
-	     << " 6pt" << endl;
+	get_operands ( p, 1, 1 );
+	if ( OP1.t == VECTOR )
+	    cout << "arc solid " << color
+		 << " " << OP1.v.x << " " << OP1.v.y
+		 << " 6pt" << endl;
+	else if ( OP1.t == LIST )
+	{
+	    for ( element * e = OP1.first;
+	          e != NULL; e = e->next )
+		cout << "arc solid " << color
+		     << " " << e->v.x << " " << e->v.y
+		     << " 6pt" << endl;
+	}
+	else
+	    error ( "operand is not a point or list of"
+	            " points" );
     }
     else if ( strncmp ( p, "line", 4 ) == 0 )
     {
 	p += 4;
-	get_operands ( p, 2 );
-	if ( OP1.t != VECTOR )
-	    error ( "first operand is not a vector" );
-	if ( OP2.t != VECTOR )
-	    error ( "second operand is not a vector" );
-	cout << "start line" << color
-	     << " " << OP1.v.x << " " << OP1.v.y
-	     << endl;
-	cout << "line"
-	     << " " << OP2.v.x << " " << OP2.v.y
-	     << endl;
-	cout << "end" << endl;
-    }
-    else if ( strncmp ( p, "arrow", 5 ) == 0 )
-    {
-	p += 5;
-	get_operands ( p, 2 );
-	if ( OP1.t != VECTOR )
-	    error ( "first operand is not a vector" );
-	if ( OP2.t != VECTOR )
-	    error ( "second operand is not a vector" );
-	cout << "start arrow" << color
-	     << " " << OP1.v.x << " " << OP1.v.y
-	     << endl;
-	cout << "line"
-	     << " " << OP2.v.x << " " << OP2.v.y
-	     << endl;
-	cout << "end" << endl;
+	get_operands ( p, 1, 2 );
+	if ( number_of_operands == 2
+	     &&
+	     ( OP1.t != VECTOR
+	       ||
+	       OP2.t != VECTOR ) )
+	    error ( "operand is not a point" );
+	else if ( number_of_operands == 1
+	          &&
+	          OP1.t != LIST )
+	    error ( "operand is not a list of points" );
+	else if ( number_of_operands == 2 )
+	    cout << "start line " << color
+	         << " " << options
+		 << " " << OP1.v.x << " " << OP1.v.y
+		 << endl
+		 << "line"
+		 << " " << OP2.v.x << " " << OP2.v.y
+		 << endl
+		 << "end" << endl;
+	else if ( OP1.first != NULL )
+	{
+	    element * e = OP1.first;
+	    cout << "start line " << color
+		 << " " << options
+		 << " " << e->v.x << " " << e->v.y
+		 << endl;
+	    for ( e = e->next; e != NULL;
+			       e = e->next )
+		 cout << "line"
+		      << " " << e->v.x
+		      << " " << e->v.y << endl;
+	    cout << "end" << endl;
+	}
     }
 }
 
