@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Dec 17 00:18:25 EST 2020
+// Date:	Thu Dec 17 01:12:33 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -245,8 +245,7 @@ void output_layout ( int R, int C )
     layout_output = true;
     cout << "layout " << R << " " << C << endl;
     cout << "stroke solid 0pt s" << endl;
-    cout << "stroke line 1pt" << endl;
-    cout << "stroke arrow 1pt e" << endl;
+    cout << "stroke line" << endl;
     cout << "*" << endl;
 }
 
