@@ -443,66 +443,85 @@ by making a {\tt .pdf} file from an {\tt .in} or {\tt .fout}
 file.  The display commands are embedded in `{\tt \#}' comment
 lines, so your program does not have to deal with them.
 
-The drawing commands are:
-\begin{center}
+The line/area drawing commands are:
+\\[1ex]
 \begin{tabular}{@{}l@{~~~~~}l@{~~~~~}l@{}}
 \underline{Command} & \underline{Draws}
 \\[1ex]
-\tt \#!point p [color] & point {\tt p} \\
-\tt \#!line pq [color] & line from point {\tt p}
+\tt \#!point p [color] [size] & point {\tt p} \\
+\tt \#!point L [color] [size] & points in the point list {\tt L} \\
+\tt \#!line pq [color] [opt] & line from point {\tt p}
                                  to point {\tt q} \\
-\tt \#!arrow pq [color] & arrow from point {\tt p} to point {\tt q} \\
-\tt \#!infline pq [color] & infinite line through points \\
-                          & {\tt p} and {\tt q} \\
-\tt \#!infarrow pq [color] & infinite directed line \\
-                           & through points {\tt p} and {\tt q} \\
-			   & with arrow from {\tt p} to {\tt q} \\
-\tt \#!circle cr [color] & circle of center {\tt c}
+\tt \#!line L  [color] [opt] & lines with endpoints that are \\
+                             & consecutive points in the \\
+		             & list of points {\tt L} \\
+\tt \#!rectangle pq [color] [opt] & rectangle with opposing corners \\
+                                  & point {\tt p} and point {\tt q} \\
+\tt \#!circle cr [color] [opt] & circle of center {\tt c}
                                    and radius {\tt r} \\
-				 & (this must be strictly \\
-				 & positive) \\
-\tt \#!ellipse cRA [color] & ellipse with center {\tt c}, radii \\
-                                   & {\tt R.x} and {\tt R.y} (these \\
-				   & must be strictly positive), \\
-                                   & rotated by angle A about its \\
-				   & center \\
-\tt \#!points L  [color] & points in the list of points {\tt L} \\
-\tt \#!lines L  [color] & lines with endpoints that are \\
-                        & consecutive points in the \\
-		        & list of points {\tt L} \\
-\tt \#!polygon L  [color] & the polygon whose vertices are \\
-                       & the points in the list of points {\tt L} \\
-\tt \#!text p [color] D text... & the text, positioned at point {\tt p} with \\
-                       & displacement as per {\tt D} (see below) \\
+\tt \#!ellipse cRA [color] [opt] & ellipse with center {\tt c}, radii \\
+                                   & {\tt R.x} and {\tt R.y}, rotated \\
+                                   & by angle A about its center \\
 \end{tabular}
-\end{center}
 
 In the above {\tt p}, {\tt q}, {\tt c}, {\tt R}
 are arbitrary {\em variables} whose
 values must be vectors denoting points; {\tt r}, {\tt A} are arbitrary
 {\em variables} whose values must be scalars;
 {\tt L} is an arbitrary {\em variable} whose value must be a list of points.
+Circle and ellipse radii must be strictly positive.
 Spaces are as indicated, and may consist
 of one or more horizonal space characters.
-
-For text {\tt D} is one or two letters displacing text from the point
-{\tt p = ($x$,$y$)} as follows:
-\begin{indpar}{0.5in}\begin{tabular}{l}
-`{\tt l}' or `{\tt r}' to place text horizontally
-    to the left or right of $x$; \\
-~~~ if neither, text is horizontally centered on $x$ \\
-`{\tt t}' or `{\tt b}' to place text vertically
-    on top of or on the bottom of $y$; \\
-~~~ if neither, text is vertically centered on $y$ \\
-`{\tt x}' if none of the above letters are given,
-    to center text on {\tt p} \\
-\end{tabular}\end{indpar}
 
 The possible colors
 are `{\tt red}', `{\tt blue}', `{\tt brown}', and `{\tt black}'.  Black is
 the default, and also the color of labels.
 (Green does not show up when the page is printed in black-and-white, and
 so is not provided.)
+
+For points, {\tt size} is an integer in the range [1,18] giving the size
+of each point in units of 1/72'nd inch (1pt).  The default is 6pt.
+
+For non-points {\tt opt} is zero or more of: \\
+\hspace*{0.5in}\begin{tabular}{rl}
+    \tt . & dotted line \\
+    \tt - & dashed line \\
+          & ~~ ({\tt .} and {\tt -} conflict, if neither line is solid) \\
+    \tt c & close path (for {\tt \#!line}) \\
+    \tt m & add arrow head in middle of each line segment (for {\tt \#!line}) \\
+    \tt e & add arrow head at end of each line segment (for {\tt \#!line}) \\
+    \tt s & fill with solid color \\
+    \tt d & fill with dots \\
+    \tt h & fill with horizontal bars \\
+    \tt v & fill with vertical bars \\
+          & ~~ ({\tt s}, {\tt d}, {\tt h}, and {\tt v} conflict) \\
+    \end{tabular}
+
+The text drawing command is:
+\\[1ex]
+\begin{tabular}{@{}l@{~~~~~}l@{~~~~~}l@{}}
+\underline{Command} & \underline{Draws}
+\\[1ex]
+\tt \#!text p [color] opt text... &
+    the text, positioned at point {\tt p} \\
+\end{tabular}
+
+Here {\tt opt} is `{\tt -}' for no options, or given that point
+{\tt p = ($x$,$y$)}, is one or more of: \\
+\hspace*{0.5in}\begin{tabular}{rl}
+    \tt t & display about 0.5em below $y$ \\
+    \tt b & display about 0.5em above $y$ \\
+          & ~~ ({\tt t} and {\tt b} conflict, if neither center on $y$) \\
+    \tt l & display about 0.5em left of $x$ \\
+    \tt r & display about 0.5em right of $x$ \\
+          & ~~ ({\tt l} and {\tt r} conflict, if neither center on $x$) \\
+    \tt x & make the bounding box of text white \\
+    \tt c & make the bounding circle of text white \\
+          & ~~ ({\tt x} and {\tt c} conflict) \\
+    \tt o & outline any bounding box or circle with \\
+          & a black line of width 1pt \\
+    \end{tabular}
+
 
 The page commands are:
 \begin{center}
@@ -2304,7 +2323,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Dec 16 23:45:06 EST 2020
+Date:         & Thu Dec 17 07:06:39 EST 2020
 
 \end{tabular}
 
