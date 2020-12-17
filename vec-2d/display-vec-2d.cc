@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Dec 17 01:12:33 EST 2020
+// Date:	Thu Dec 17 12:42:13 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -268,8 +268,8 @@ const char * colors[5] = {
 // operands to number gotten, and check that this
 // is in the range [min_operands,max_operands].
 //
-// Also output layout command if no commands have
-// been output so far.
+// Also get color and options, and output layout
+// command if no commands have been output so far.
 //
 void get_operands
 	( const char * & p,
@@ -305,6 +305,44 @@ void get_operands
     strcpy ( options, p );
 }
 
+// Check that all option characters are in `legal'
+// and no options character appears twice.
+//
+void check_legal ( const char * legal )
+{
+    const char * p = options;
+    while ( * p )
+    {
+        if ( strchr ( legal, * p ) == NULL )
+	    error ( "bad option character `%c'", * p );
+        if ( strchr ( options, * p ) == p )
+	    error ( "duplcated option character `%c'",
+	            * p );
+	++ p;
+    }
+}
+
+// Check that at most one of the conflict characters
+// appears in options.
+//
+void check_conflict ( const char * conflict )
+{
+    const char * p = options;
+    char c = 0;
+    while ( * p )
+    {
+        if ( strchr ( conflict, * p ) != NULL )
+	{
+	    if ( c != 0 )
+		error ( "option characters `%c' and"
+		        " `%c' conflict", c, * p );
+	    else
+	        c = * p;
+	}
+	++ p;
+    }
+}
+
 // Execute display command.
 //
 void execute ( const char * p )
@@ -336,6 +374,9 @@ void execute ( const char * p )
     {
 	p += 4;
 	get_operands ( p, 1, 2 );
+	check_legal ( ".-cmesdhv" );
+	check_conflict ( ".-" );
+	check_conflict ( "sdhv" );
 	if ( number_of_operands == 2
 	     &&
 	     ( OP1.t != VECTOR
