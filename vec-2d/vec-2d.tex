@@ -448,20 +448,20 @@ The drawing commands are:
 \begin{tabular}{@{}l@{~~~~~}l@{~~~~~}l@{}}
 \underline{Command} & \underline{Draws}
 \\[1ex]
-\tt \#!point p [color] [label] & point {\tt p} \\
-\tt \#!line pq [color] [label] & line from point {\tt p}
+\tt \#!point p [color] & point {\tt p} \\
+\tt \#!line pq [color] & line from point {\tt p}
                                  to point {\tt q} \\
-\tt \#!arrow pq [color] [label] & arrow from point {\tt p} to point {\tt q} \\
-\tt \#!infline pq [color] [label] & infinite line through points \\
+\tt \#!arrow pq [color] & arrow from point {\tt p} to point {\tt q} \\
+\tt \#!infline pq [color] & infinite line through points \\
                           & {\tt p} and {\tt q} \\
-\tt \#!infarrow pq [color] [label] & infinite directed line \\
+\tt \#!infarrow pq [color] & infinite directed line \\
                            & through points {\tt p} and {\tt q} \\
 			   & with arrow from {\tt p} to {\tt q} \\
-\tt \#!circle cr [color] [label] & circle of center {\tt c}
+\tt \#!circle cr [color] & circle of center {\tt c}
                                    and radius {\tt r} \\
 				 & (this must be strictly \\
 				 & positive) \\
-\tt \#!ellipse cRA [color] [label] & ellipse with center {\tt c}, radii \\
+\tt \#!ellipse cRA [color] & ellipse with center {\tt c}, radii \\
                                    & {\tt R.x} and {\tt R.y} (these \\
 				   & must be strictly positive), \\
                                    & rotated by angle A about its \\
@@ -472,6 +472,8 @@ The drawing commands are:
 		        & list of points {\tt L} \\
 \tt \#!polygon L  [color] & the polygon whose vertices are \\
                        & the points in the list of points {\tt L} \\
+\tt \#!text p [color] D text... & the text, positioned at point {\tt p} with \\
+                       & displacement as per {\tt D} (see below) \\
 \end{tabular}
 \end{center}
 
@@ -480,9 +482,21 @@ are arbitrary {\em variables} whose
 values must be vectors denoting points; {\tt r}, {\tt A} are arbitrary
 {\em variables} whose values must be scalars;
 {\tt L} is an arbitrary {\em variable} whose value must be a list of points.
-A `{\tt label}' is text used to label a point, line, arrow, or
-center of a circle or ellipse.  Spaces are as indicated, and may consist
+Spaces are as indicated, and may consist
 of one or more horizonal space characters.
+
+For text {\tt D} is one or two letters displacing text from the point
+{\tt p = ($x$,$y$)} as follows:
+\begin{indpar}{0.5in}\begin{tabular}{l}
+`{\tt l}' or `{\tt r}' to place text horizontally
+    to the left or right of $x$; \\
+~~~ if neither, text is horizontally centered on $x$ \\
+`{\tt t}' or `{\tt b}' to place text vertically
+    on top of or on the bottom of $y$; \\
+~~~ if neither, text is vertically centered on $y$ \\
+`{\tt x}' if none of the above letters are given,
+    to center text on {\tt p} \\
+\end{tabular}\end{indpar}
 
 The possible colors
 are `{\tt red}', `{\tt blue}', `{\tt brown}', and `{\tt black}'.  Black is
@@ -497,16 +511,16 @@ The page commands are:
 \\[1ex]
 \tt \#!layout R C   & Starts new physical page with \\
                     & R rows and C columns of logical pages \\
-\tt \#!newpage [label] & Starts new logical page \\
-                       & with label in page header \\
-\tt \#!header label & Adds label to current page header \\
+\tt \#!newpage [text...] & Starts new logical page \\
+                       & with text line in page header \\
+\tt \#!header text... & Adds text line to current page header \\
 \end{tabular}
 \end{center}
 
 The output from on test case is one or more physical pages
 each containing one or more logical pages.  The physical
 pages are numbered and labelled with the test case name
-(e.g., {\tt 00-000-vec-2d}).  Each `{\tt label}' adds one
+(e.g., {\tt 00-000-vec-2d}).  Each `{\tt text...}' adds one
 line to the logical page header.  If the first command is
 not a `{\tt \#!layout}' command, then `{\tt \#!layout 1 1}'
 is assumed.  A `{\tt \#!newpage}' command immediately after a
@@ -2290,7 +2304,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Dec 16 13:39:45 EST 2020
+Date:         & Wed Dec 16 23:45:06 EST 2020
 
 \end{tabular}
 
