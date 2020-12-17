@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Dec 17 12:42:13 EST 2020
+// Date:	Thu Dec 17 18:22:38 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -260,6 +260,7 @@ var * V[4];
 int number_of_operands;
 char color[100];
 char options[100];
+    // Point size is stored here as an `option'.
 const char * colors[5] = {
     "red", "blue", "brown", "black", NULL };
 
@@ -354,17 +355,23 @@ void execute ( const char * p )
     {
 	p += 5;
 	get_operands ( p, 1, 1 );
+	if ( options[0] == 0 )
+	    strcpy ( options, "6" );
+	char * endp;
+	long size = strtol ( options, & endp, 10 );
+	if ( * endp != 0 || size < 1 || size > 18 )
+	    error ( "bad size in point command" );
 	if ( OP1.t == VECTOR )
 	    cout << "arc solid " << color
 		 << " " << OP1.v.x << " " << OP1.v.y
-		 << " 6pt" << endl;
+		 << " " << size << "pt" << endl;
 	else if ( OP1.t == LIST )
 	{
 	    for ( element * e = OP1.first;
 	          e != NULL; e = e->next )
 		cout << "arc solid " << color
 		     << " " << e->v.x << " " << e->v.y
-		     << " 6pt" << endl;
+		     << " " << size << "pt" << endl;
 	}
 	else
 	    error ( "operand is not a point or list of"
