@@ -443,9 +443,10 @@ by making a {\tt .pdf} file from an {\tt .in} or {\tt .fout}
 file.  The display commands are embedded in `{\tt \#}' comment
 lines, so your program does not have to deal with them.
 
+\begin{minipage}{\textwidth}
 The line/area drawing commands are:
 \\[1ex]
-\begin{tabular}{@{}l@{~~~~~}l@{~~~~~}l@{}}
+\begin{tabular}{@{}l@{~~~~~}l@{}}
 \underline{Command} & \underline{Draws}
 \\[1ex]
 \tt \#!point p [color] [size] & point {\tt p} \\
@@ -463,6 +464,7 @@ The line/area drawing commands are:
                                    & {\tt R.x} and {\tt R.y}, rotated \\
                                    & by angle A about its center \\
 \end{tabular}
+\end{minipage}
 
 In the above {\tt p}, {\tt q}, {\tt c}, {\tt R}
 are arbitrary {\em variables} whose
@@ -482,7 +484,9 @@ so is not provided.)
 For points, {\tt size} is an integer in the range [1,18] giving the size
 of each point in units of 1/72'nd inch (1pt).  The default is 6pt.
 
-For non-points {\tt opt} is zero or more of: \\
+\begin{minipage}{\textwidth}
+For non-points {\tt opt} is zero or more of:
+\\[1ex]
 \hspace*{0.5in}\begin{tabular}{rl}
     \tt . & dotted line \\
     \tt - & dashed line \\
@@ -496,18 +500,26 @@ For non-points {\tt opt} is zero or more of: \\
     \tt v & fill with vertical bars \\
           & ~~ ({\tt s}, {\tt d}, {\tt h}, and {\tt v} conflict) \\
     \end{tabular}
+\end{minipage}
 
-The text drawing command is:
+\begin{minipage}{\textwidth}
+The text drawing commands are:
 \\[1ex]
-\begin{tabular}{@{}l@{~~~~~}l@{~~~~~}l@{}}
+\begin{tabular}{@{}l@{~~~~~}l@{}}
 \underline{Command} & \underline{Draws}
 \\[1ex]
 \tt \#!text p [color] opt text... &
-    the text, positioned at point {\tt p} \\
+    the text, place at/near point {\tt p} \\
+\tt \#!text pq [color] opt text... &
+    ditto but the text is placed at/near \\
+    & the midpoint of the line {\tt pq}
 \end{tabular}
+\end{minipage}
 
+\begin{minipage}{\textwidth}
 Here {\tt opt} is `{\tt -}' for no options, or given that point
-{\tt p = ($x$,$y$)}, is one or more of: \\
+of text placement is {\tt ($x$,$y$)}, is one or more of:
+\\[1ex]
 \hspace*{0.5in}\begin{tabular}{rl}
     \tt t & display about 0.5em below $y$ \\
     \tt b & display about 0.5em above $y$ \\
@@ -521,10 +533,12 @@ Here {\tt opt} is `{\tt -}' for no options, or given that point
     \tt o & outline any bounding box or circle with \\
           & a black line of width 1pt \\
     \end{tabular}
+\end{minipage}
 
 
+\begin{minipage}{\textwidth}
 The page commands are:
-\begin{center}
+\\[1ex]
 \begin{tabular}{@{}l@{~~~~~}l@{~~~~~}l@{}}
 \underline{Command} & \underline{Action}
 \\[1ex]
@@ -534,7 +548,7 @@ The page commands are:
                        & with text line in page header \\
 \tt \#!header text... & Adds text line to current page header \\
 \end{tabular}
-\end{center}
+\end{minipage}
 
 The output from on test case is one or more physical pages
 each containing one or more logical pages.  The physical
@@ -2323,7 +2337,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Dec 17 07:06:39 EST 2020
+Date:         & Thu Dec 17 11:39:35 EST 2020
 
 \end{tabular}
 
