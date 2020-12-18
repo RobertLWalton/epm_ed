@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Dec 18 00:36:57 EST 2020
+// Date:	Fri Dec 18 05:22:56 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -230,17 +230,28 @@ void read_value ( const char * line )
     }
 }
 
+// End page if necessary.
+//
+bool page_non_empty = false;
+bool page_has_head = false;
+void end_page ( void )
+{
+    if ( ! page_non_empty ) return;
+    if ( page_has_head )
+        cout << "head" << endl
+	     << "space 10pt" << endl;
+    cout << "*" << endl;
+    page_non_empty = false;
+    page_has_head = false;
+}
+
 // Output layout.
 //
 bool layout_output = false;
-int page_command_count = 0;
 void output_layout ( int R, int C )
 {
-    if ( page_command_count > 0 )
-    {
-        cout << "*" << endl;
-	page_command_count = 0;
-    }
+    end_page();
+
     layout_output = true;
     cout << "layout " << R << " " << C << endl;
     cout << "stroke solid 0pt s" << endl;
@@ -278,12 +289,16 @@ const char * colors[5] = {
 // operands to number gotten, and check that this
 // is in the range [min_operands,max_operands].
 //
-// Also get color, options, and text, and executed
-// output_layout if no commands have been output so far.
+// Also get color, options, and text.
+//
+// Also executes output_layout if no commands have
+// been output so far, and ends by setting page
+// non-empty.
 //
 void get_operands
 	( const char * & p,
-	  int min_operands, int max_operands )
+	  int min_operands, int max_operands,
+	  bool text_allowed = false )
 {
     if ( ! layout_output ) output_layout ( 1, 1 );
 
@@ -323,6 +338,12 @@ void get_operands
     if ( strlen ( p ) >= sizeof ( text ) - 1 )
 	error ( "too long text in display command" );
     strcpy ( text, p );
+
+    if ( ! text_allowed && text[0] != 0 )
+        error ( "extra stuff after options in display"
+	        " command" );
+
+    page_non_empty = true;
 }
 
 // Check that all option characters are in `legal'
@@ -398,7 +419,53 @@ void execute ( const char * p )
     p += 2;
     while ( isspace ( * p ) ) ++ p;
 
-    if ( strncmp ( p, "point", 5 ) == 0 )
+    if ( strncmp ( p, "layout", 6 ) == 0 )
+    {
+	p += 6;
+	skip_space ( p );
+	int R = * p ++ - '0';
+	if ( R < 1 || R > 5 )
+	    error ( "R not in [1,5] in"
+	            " display command" );
+	skip_space ( p );
+	int C = * p ++ - '0';
+	if ( C < 1 || C > 3 )
+	    error ( "C not in [1,3] in"
+	            " display command" );
+	skip_space ( p );
+	if ( * p != 0 )
+	    error ( "extra stuff after numbers in"
+	            " display command" );
+	output_layout ( R, C );
+    }
+    else if ( strncmp ( p, "newpage", 7 ) == 0 )
+    {
+	p += 7;
+	skip_space ( p );
+	end_page();
+	if ( * p != 0 )
+	{
+	    cout << "head" << endl
+	         << "text font " << p << endl
+		 << "level" << endl;
+	    page_non_empty = true;
+	    page_has_head = true;
+	}
+    }
+    else if ( strncmp ( p, "header", 6 ) == 0 )
+    {
+	p += 6;
+	skip_space ( p );
+	if ( * p != 0 )
+	{
+	    cout << "head" << endl
+	         << "text font " << p << endl
+		 << "level" << endl;
+	    page_non_empty = true;
+	    page_has_head = true;
+	}
+    }
+    else if ( strncmp ( p, "point", 5 ) == 0 )
     {
 	p += 5;
 	get_operands ( p, 1, 1 );
@@ -484,7 +551,7 @@ void execute ( const char * p )
     else if ( strncmp ( p, "text", 4 ) == 0 )
     {
 	p += 4;
-	get_operands ( p, 1, 2 );
+	get_operands ( p, 1, 2, true );
 	if ( strcmp ( options, "-" ) == 0 )
 	    options[0] = 0;
 	else
