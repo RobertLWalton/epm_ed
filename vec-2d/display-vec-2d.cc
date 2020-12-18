@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Dec 18 05:22:56 EST 2020
+// Date:	Fri Dec 18 07:24:57 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -426,16 +426,16 @@ void execute ( const char * p )
 	int R = * p ++ - '0';
 	if ( R < 1 || R > 5 )
 	    error ( "R not in [1,5] in"
-	            " display command" );
+	            " layout command" );
 	skip_space ( p );
 	int C = * p ++ - '0';
 	if ( C < 1 || C > 3 )
 	    error ( "C not in [1,3] in"
-	            " display command" );
+	            " layout command" );
 	skip_space ( p );
 	if ( * p != 0 )
 	    error ( "extra stuff after numbers in"
-	            " display command" );
+	            " layout command" );
 	output_layout ( R, C );
     }
     else if ( strncmp ( p, "newpage", 7 ) == 0 )
@@ -548,6 +548,67 @@ void execute ( const char * p )
 	    cout << "end" << endl;
 	}
     }
+    else if ( strncmp ( p, "rectangle", 9 ) == 0 )
+    {
+	p += 9;
+	get_operands ( p, 2, 2 );
+	if ( OP1.t != VECTOR )
+	    error ( "first operand is not vector" );
+	check_vector ( OP1.v );
+	if ( OP2.t != VECTOR )
+	    error ( "second operand is not vector" );
+	check_vector ( OP2.v );
+	vec c = { ( OP1.v.x + OP2.v.x ) / 2,
+	          ( OP1.v.y + OP2.v.y ) / 2 };
+	double width = fabs ( OP1.v.x - OP2.v.x );
+	double height = fabs ( OP1.v.y - OP2.v.y );
+	cout << "rectangle line " << color
+	     << " " << options
+	     << " " << c.x << " " << c.y
+	     << endl;
+    }
+    else if ( strncmp ( p, "circle", 6 ) == 0 )
+    {
+	p += 6;
+	get_operands ( p, 2, 2 );
+	if ( OP1.t != VECTOR )
+	    error ( "first operand is not vector" );
+	check_vector ( OP1.v );
+	if ( OP2.t != SCALAR )
+	    error ( "second operand is not scalar" );
+	check_scalar ( OP2.s );
+	if ( OP2.s <= 0 )
+	    error ( "radius is <= 0" );
+	cout << "circle line " << color
+	     << " " << options
+	     << " " << OP1.v.x << " " << OP1.v.y
+	     << " " << OP2.s
+	     << endl;
+    }
+    else if ( strncmp ( p, "ellipse", 7 ) == 0 )
+    {
+	p += 7;
+	get_operands ( p, 3, 3 );
+	if ( OP1.t != VECTOR )
+	    error ( "first operand is not vector" );
+	check_vector ( OP1.v );
+	if ( OP2.t != VECTOR )
+	    error ( "second operand is not vector" );
+	check_vector ( OP2.v );
+	if ( OP3.t != SCALAR )
+	    error ( "third operand is not scalar" );
+	check_scalar ( OP3.s );
+	if ( OP2.v.x <= 0 )
+	    error ( "x-radius is <= 0" );
+	if ( OP2.v.y <= 0 )
+	    error ( "y-radius is <= 0" );
+	cout << "arc line " << color
+	     << " " << options
+	     << " " << OP1.v.x << " " << OP1.v.y
+	     << " " << OP2.v.x << " " << OP2.v.y
+	     << " " << OP3.s
+	     << endl;
+    }
     else if ( strncmp ( p, "text", 4 ) == 0 )
     {
 	p += 4;
@@ -569,8 +630,7 @@ void execute ( const char * p )
 		        " `x' or `c'" );
 	}
 	if ( text[0] == 0 )
-	    error ( "no text... in text display"
-	            " command" );
+	    error ( "no text... in text command" );
 
 	if ( OP1.t != VECTOR )
 	    error ( "first operand is not vector" );
