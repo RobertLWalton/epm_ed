@@ -2,26 +2,25 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Dec 17 18:22:38 EST 2020
+// Date:	Fri Dec 18 00:36:57 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
 // for this program.
-
-// C++ Data Structures
-//
 
 #include <iostream>
 #include <string>
 #include <cstring>
 #include <cstdlib>
 #include <cstdarg>
+#include <cmath>
 using std::cin;
 using std::cout;
 using std::cerr;
 using std::endl;
 using std::ostream;
 using std::string;
+using std::fpclassify;
 
 #include <sstream>
 #include <iomanip>
@@ -249,6 +248,15 @@ void output_layout ( int R, int C )
     cout << "*" << endl;
 }
 
+void skip_space ( const char * & p )
+{
+    if ( * p == 0 ) return;
+    if ( ! isspace ( * p ++ ) )
+        error ( "missing whitespace in"
+	        " display command" );
+    while ( isspace ( * p ) ) ++ p;
+}
+
 // Get the operands, color, and options of a command.
 // Call output_layout if no commands output yet.
 //
@@ -261,6 +269,7 @@ int number_of_operands;
 char color[100];
 char options[100];
     // Point size is stored here as an `option'.
+char text[4097];
 const char * colors[5] = {
     "red", "blue", "brown", "black", NULL };
 
@@ -269,8 +278,8 @@ const char * colors[5] = {
 // operands to number gotten, and check that this
 // is in the range [min_operands,max_operands].
 //
-// Also get color and options, and output layout
-// command if no commands have been output so far.
+// Also get color, options, and text, and executed
+// output_layout if no commands have been output so far.
 //
 void get_operands
 	( const char * & p,
@@ -278,7 +287,7 @@ void get_operands
 {
     if ( ! layout_output ) output_layout ( 1, 1 );
 
-    while ( isspace ( * p ) ) ++ p;
+    skip_space ( p );
     number_of_operands = 0;
     while ( isalpha ( * p ) )
     {
@@ -289,7 +298,7 @@ void get_operands
     }
     if ( number_of_operands < min_operands )
 	error ( "too few operands in display command" );
-    while ( isspace ( * p ) ) ++ p;
+    skip_space ( p );
     strcpy ( color, "black" );
     for ( const char ** q = colors; * q != NULL; ++ q )
     {
@@ -300,10 +309,20 @@ void get_operands
 	strcpy ( color, * q );
 	break;
     }
-    while ( isspace ( * p ) ) ++ p;
-    if ( strlen ( p ) >= 1000 )
-        error ( "bad options in display command" );
-    strcpy ( options, p );
+    skip_space ( p );
+    char * q;
+    for ( q = options;
+          * p && ! isspace ( *p ); )
+    {
+	if ( q - options >= sizeof ( options ) - 1 )
+	    error ( "bad options in display command" );
+	* q ++ = * p ++;
+    }
+    * q = 0;
+    skip_space ( p );
+    if ( strlen ( p ) >= sizeof ( text ) - 1 )
+	error ( "too long text in display command" );
+    strcpy ( text, p );
 }
 
 // Check that all option characters are in `legal'
@@ -344,6 +363,34 @@ void check_conflict ( const char * conflict )
     }
 }
 
+void check_scalar ( double x )
+{
+    int c = fpclassify ( x );
+    if ( c == FP_NAN )
+        error ( "scalar operand is NAN" );
+    if ( c == FP_INFINITE )
+        error ( "scalar operand is infinite" );
+}
+
+void check_vector ( vec v )
+{
+    int c = fpclassify ( v.x );
+    if ( c == FP_NAN )
+        error ( "vector (in) operand has NAN"
+	        " X-coordinate" );
+    if ( c == FP_INFINITE )
+        error ( "vector (in) operand has infinite"
+	        " X-coordinate" );
+    c = fpclassify ( v.y );
+    if ( c == FP_NAN )
+        error ( "vector (in) operand has NAN"
+	        " Y-coordinate" );
+    if ( c == FP_INFINITE )
+        error ( "vector (in) operand has infinite"
+	        " Y-coordinate" );
+}
+
+
 // Execute display command.
 //
 void execute ( const char * p )
@@ -362,16 +409,22 @@ void execute ( const char * p )
 	if ( * endp != 0 || size < 1 || size > 18 )
 	    error ( "bad size in point command" );
 	if ( OP1.t == VECTOR )
+	{
+	    check_vector ( OP1.v );
 	    cout << "arc solid " << color
 		 << " " << OP1.v.x << " " << OP1.v.y
 		 << " " << size << "pt" << endl;
+	}
 	else if ( OP1.t == LIST )
 	{
 	    for ( element * e = OP1.first;
 	          e != NULL; e = e->next )
+	    {
+		check_vector ( e->v );
 		cout << "arc solid " << color
 		     << " " << e->v.x << " " << e->v.y
 		     << " " << size << "pt" << endl;
+	    }
 	}
 	else
 	    error ( "operand is not a point or list of"
@@ -384,6 +437,7 @@ void execute ( const char * p )
 	check_legal ( ".-cmesdhv" );
 	check_conflict ( ".-" );
 	check_conflict ( "sdhv" );
+
 	if ( number_of_operands == 2
 	     &&
 	     ( OP1.t != VECTOR
@@ -395,6 +449,8 @@ void execute ( const char * p )
 	          OP1.t != LIST )
 	    error ( "operand is not a list of points" );
 	else if ( number_of_operands == 2 )
+	{
+	    check_vector ( OP1.v );
 	    cout << "start line " << color
 	         << " " << options
 		 << " " << OP1.v.x << " " << OP1.v.y
@@ -403,20 +459,73 @@ void execute ( const char * p )
 		 << " " << OP2.v.x << " " << OP2.v.y
 		 << endl
 		 << "end" << endl;
-	else if ( OP1.first != NULL )
+	}
+	else if ( OP1.first != NULL
+	          &&
+		  OP1.first->next != NULL )
 	{
 	    element * e = OP1.first;
+	    check_vector ( e->v );
 	    cout << "start line " << color
 		 << " " << options
 		 << " " << e->v.x << " " << e->v.y
 		 << endl;
 	    for ( e = e->next; e != NULL;
 			       e = e->next )
-		 cout << "line"
-		      << " " << e->v.x
-		      << " " << e->v.y << endl;
+	    {
+		check_vector ( e->v );
+		cout << "line"
+		     << " " << e->v.x
+		     << " " << e->v.y << endl;
+	    }
 	    cout << "end" << endl;
 	}
+    }
+    else if ( strncmp ( p, "text", 4 ) == 0 )
+    {
+	p += 4;
+	get_operands ( p, 1, 2 );
+	if ( strcmp ( options, "-" ) == 0 )
+	    options[0] = 0;
+	else
+	{
+	    check_legal ( "tblrxco" );
+	    check_conflict ( "tb" );
+	    check_conflict ( "lr" );
+	    check_conflict ( "xc" );
+	    if ( strchr ( options, 'o' ) != NULL
+	         &&
+		 strchr ( options, 'x' ) == NULL
+	         &&
+		 strchr ( options, 'c' ) == NULL )
+	        error ( "options contain `o' but not"
+		        " `x' or `c'" );
+	}
+	if ( text[0] == 0 )
+	    error ( "no text... in text display"
+	            " command" );
+
+	if ( OP1.t != VECTOR )
+	    error ( "first operand is not vector" );
+	check_vector ( OP1.v );
+	vec p = OP1.v;
+	if ( number_of_operands == 2 )
+	{
+	    if ( OP2.t != VECTOR )
+		error ( "second operand is not"
+		        " vector" );
+	    check_vector ( OP2.v );
+	    vec r = { ( OP1.v.x + OP2.v.x ) / 2,
+	              ( OP1.v.y + OP2.v.y ) / 2 };
+	    p = r;
+	}
+
+	cout << "level 100" << endl
+	     << "text text " << color
+	     << " " << options
+	     << " " << p.x << " " << p.y
+	     << " " << text << endl
+	     << "level" << endl;
     }
 }
 
