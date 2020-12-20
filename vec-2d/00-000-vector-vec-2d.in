@@ -14,6 +14,6 @@ v = ( 1, 1 )
 #!point x red
 #!point y red
 #!point v red
-#!arrow zx blue
-#!arrow zy blue
-#!arrow zv blue
+#!line zx blue e
+#!line zy blue e
+#!line zv blue e

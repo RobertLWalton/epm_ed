@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Dec 18 07:24:57 EST 2020
+// Date:	Sun Dec 20 04:18:52 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -96,7 +96,7 @@ var vars[128];
 //
 void read_char ( char * & p, char c )
 {
-    if ( * p ++ = c ) return;
+    if ( * p ++ == c ) return;
     if ( c != 0 )
 	error ( "expected `%c' and found `%c'",
 	        c, p[-1] );
@@ -123,6 +123,7 @@ vec read_vector ( char * & p )
 {
     vec r;
     read_char ( p, '(' );
+    r.x = read_scalar ( p );
     read_char ( p, ',' );
     r.y = read_scalar ( p );
     read_char ( p, ')' );
@@ -356,8 +357,8 @@ void check_legal ( const char * legal )
     {
         if ( strchr ( legal, * p ) == NULL )
 	    error ( "bad option character `%c'", * p );
-        if ( strchr ( options, * p ) == p )
-	    error ( "duplcated option character `%c'",
+        if ( strchr ( options, * p ) != p )
+	    error ( "duplicated option character `%c'",
 	            * p );
 	++ p;
     }
@@ -470,7 +471,7 @@ void execute ( const char * p )
 	p += 5;
 	get_operands ( p, 1, 1 );
 	if ( options[0] == 0 )
-	    strcpy ( options, "6" );
+	    strcpy ( options, "2" );
 	char * endp;
 	long size = strtol ( options, & endp, 10 );
 	if ( * endp != 0 || size < 1 || size > 18 )
