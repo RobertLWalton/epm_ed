@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sun Dec 20 04:18:52 EST 2020
+// Date:	Sun Dec 20 18:09:04 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -32,6 +32,7 @@ bool debug = false;
 
 string line;
 int line_number = 0;
+struct line_error {} thrown_line_error;
 void error ( const char * format... )
 {
     va_list args;
@@ -41,7 +42,7 @@ void error ( const char * format... )
     va_end ( args );
     cerr << endl;
     cerr << "    " << line << endl;
-    exit ( 1 );
+    throw thrown_line_error;
 }
 
 char documentation [] =
@@ -257,6 +258,7 @@ void output_layout ( int R, int C )
     cout << "layout " << R << " " << C << endl;
     cout << "stroke solid 0pt s" << endl;
     cout << "stroke line" << endl;
+    cout << "font text 10pt" << endl;
     cout << "*" << endl;
 }
 
@@ -315,7 +317,7 @@ void get_operands
     if ( number_of_operands < min_operands )
 	error ( "too few operands in display command" );
     skip_space ( p );
-    strcpy ( color, "black" );
+    color[0] = 0;
     for ( const char ** q = colors; * q != NULL; ++ q )
     {
         size_t s = strlen ( * q );
@@ -325,7 +327,10 @@ void get_operands
 	strcpy ( color, * q );
 	break;
     }
-    skip_space ( p );
+    if ( color[0] == 0 )
+        strcpy ( color, "black" );
+    else
+	skip_space ( p );
     char * q;
     for ( q = options;
           * p && ! isspace ( *p ); )
@@ -678,16 +683,19 @@ int main ( int argc, char ** argv )
 
     while ( getline ( cin, line ) )
     {
-        ++ line_number;
-	const char * p = line.c_str();
-	if ( strncmp ( p, "!!", 2 ) == 0 )
-	    continue;
-	else if ( strncmp ( p, "#!", 2 ) == 0 )
-	    execute ( p );
-	else if ( * p == '#' )
-	    continue;
-	else
-	    read_value ( p );
+        try {
+	    ++ line_number;
+	    const char * p = line.c_str();
+	    if ( strncmp ( p, "!!", 2 ) == 0 )
+		continue;
+	    else if ( strncmp ( p, "#!", 2 ) == 0 )
+		execute ( p );
+	    else if ( * p == '#' )
+		continue;
+	    else
+		read_value ( p );
+	}
+	catch ( line_error e ){};
     }
 
     return 0;
