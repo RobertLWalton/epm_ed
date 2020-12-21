@@ -1,0 +1,168 @@
+% File:		makepass.tex
+% Author:	See Below
+% Date:	        See Below
+%
+% The authors have placed this file in the public domain;
+% they make no warranty and accept no liability for this file.
+
+\documentclass[12pt]{article}
+\usepackage{times}
+\begin{document}
+\newcommand{\problem}[1]{\underline{\Large \bf #1}}
+\renewcommand{\section}[1]{\bigskip\underline{\bf #1}\\}
+\newcommand{\header}[1]{\underline{\bf #1}}
+\newcommand{\file}[1]{{\bf #1}}
+\newcommand{\blankpage}{\newpage\vspace*{3.5in}%
+    \centerline{\Large This Page is Intentionally Left Blank}}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{1ex}
+
+\problem{Make Passwords}
+
+Ideally a password would be a string of 10 (or more)
+randomly chosen decimal digits.  But this tends to be hard
+to remember or type.
+
+You are being asked to convert strings of decimal digits
+into a more typeable and perhaps more memorable form using a 1-1 encoding.
+In this encoding, groups of more than 3 digits are encoded
+as 3-letter word randomly chosen from a dictionary.
+
+Some examples are:\hspace{0.2in}
+\begin{tabular}[t]{r@{~~~~~{\em is encoded as}~~~~~}l}
+161954595198532 & 88bem06fis \\
+174570539285673 & 5bid012loq \\
+417744241130258 & dav034zeq9 \\
+566373677809620 & sah9qub784 \\
+270281313141987 & 4dud456niz \\
+\end{tabular}
+
+The encoding algorithm uses a dictionary of all words
+of the form: \\
+\hspace*{1in}$<consonant><vowel><consonant>$ \\
+sorted in
+lexical order, with {\tt y} treated as a consonant.
+Dictionary word $0$ is {\tt "bab"} and word
+$21*5*21-1=2204$ is {\tt "zuz"}.
+
+Then the encoding algorithm with input number $N$ is as follows:
+\begin{enumerate}
+\item Divide $N$ by 6 and use the remainder to select the
+encoding format thus:
+\begin{tabular}{r@{~~~~~{\em selects}~~~~~}l}
+0 & \tt "WWWDWWWDDD" \\
+1 & \tt "WWWDDWWWDD" \\
+2 & \tt "WWWDDDWWWD" \\
+\end{tabular}
+\hspace{0.3in}
+\begin{tabular}{r@{~~~~~{\em selects}~~~~~}l}
+3 & \tt "DWWWDDDWWW" \\
+4 & \tt "DDWWWDDWWW" \\
+5 & \tt "DDDWWWDWWW" \\
+\end{tabular}
+\item Process the format left to right.  If the next
+character is {\tt D}, divide $N$ by 10 and output the
+remainder.  If the next character is {\tt W}, divide $N$
+by $21*5*21 = 2205$, use the remainder to look up
+a word in the dictionary, output the word, and skip to
+after the 3 {\tt W}'s in the format.
+\end{enumerate}
+
+For example, $0+6*(0+2205*(1+10*(2204+2205*(2+10*(3+10*4)))))= 126315290430$
+is encoded as {\tt bab1zuz234}.  Note you must use `{\tt long}'
+integers for C, C++, and JAVA, and that numbers input are treated
+module $6*(21*5*21)^2*10^4=291721500000$.
+
+
+\section{Input}
+One more lines each containing a non-negative integer
+with at most 12 digits.  Input ends with an end of line.
+
+
+\section{Output}
+For each input line, output one line containing the
+encoded input integer.
+
+\bigskip
+
+\begin{center}
+\begin{tabular}{ll}
+\begin{minipage}[t]{2.5in}
+\header{Sample Input}
+\\[1ex]
+\file{00-000-makepass.sin:}
+\begin{verbatim}
+0
+6
+13230
+132300
+291721500
+2917215000
+29172150000
+\end{verbatim}
+\file{00-001-makepass.sin:}
+\begin{verbatim}
+0
+1
+2
+3
+4
+5
+\end{verbatim}
+\file{00-002-makepass.sin:}
+\begin{verbatim}
+126315290430
+854595198532
+870539285673
+144241130258
+273677809620
+281313141987
+\end{verbatim}
+\end{minipage}
+&
+\begin{minipage}[t]{2.5in}
+\header{Sample Output}
+\\[1ex]
+\file{00-000-makepass.sout:}
+\begin{verbatim}
+bab0bab000
+bac0bab000
+bab1bab000
+bab0bac000
+bab0bab100
+bab0bab010
+bab0bab001
+\end{verbatim}
+\file{00-001-makepass.sout:}
+\begin{verbatim}
+bab0bab000
+bab00bab00
+bab000bab0
+0bab000bab
+00bab00bab
+000bab0bab
+\end{verbatim}
+\file{00-002-makepass.sout:}
+\begin{verbatim}
+bab1zuz234
+88pat25yiq
+5yuz930zok
+vac975yuf4
+lod3fan839
+4qol723zeh
+\end{verbatim}
+\end{minipage}
+\end{tabular}
+\end{center}
+
+\bigskip
+
+\begin{tabular}{ll}
+Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
+Date:         & Thu Oct  8 06:35:04 EDT 2020
+\end{tabular}
+
+The authors have placed this problem in the public domain;
+they make no warranty and accept no liability for this problem.
+
+\end{document}
