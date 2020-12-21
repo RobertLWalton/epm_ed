@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sun Dec 20 18:09:04 EST 2020
+// Date:	Mon Dec 21 01:42:46 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -256,6 +256,7 @@ void output_layout ( int R, int C )
 
     layout_output = true;
     cout << "layout " << R << " " << C << endl;
+    cout << "margins 0.25in" << endl;
     cout << "stroke solid 0pt s" << endl;
     cout << "stroke line" << endl;
     cout << "font text 10pt" << endl;
@@ -660,6 +661,8 @@ void execute ( const char * p )
 	     << " " << text << endl
 	     << "level" << endl;
     }
+    else
+        error ( "undefined command name" );
 }
 
 // Main program.
@@ -697,6 +700,7 @@ int main ( int argc, char ** argv )
 	}
 	catch ( line_error e ){};
     }
+    end_page();
 
     return 0;
 }
