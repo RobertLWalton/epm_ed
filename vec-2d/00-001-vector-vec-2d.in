@@ -1,15 +1,25 @@
 # Test Vector Valued Vector Calculator Operations
 #
-x = -1.2345
+#!layout 3 2
+x = +1.2345
 y = +6.7890
 v = (x,y)
 w=(1,-1)
 s=5.5
 u=s*w
 w=-w
-v=u+w
-v=u-w
+w=u+v
+w=u-v
+z=(0,0)
+#!point z black
+#!line zu red m
+#!text zu tr u
+#!line zv red m
+#!text zv br v
+#!line vu brown m
+#!text vu tr u-v
 #
+#!newpage
 s=37.82
 v=s*v
 s=-2.56
@@ -24,8 +34,12 @@ p = ( 4, 8 )
 q = p+v
 r = q+w
 #!point p red
+#!text p tl p
 #!point q red
 #!point r red
-#!arrow pq blue v
-#!arrow qr blue w
-#!arrow pr brown v+w
+#!line pq blue m
+#!text pq bl v
+#!line qr blue m
+#!text qr br w
+#!line pr brown m
+#!text pr tr v+w
