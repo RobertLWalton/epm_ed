@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Mon Dec 21 01:42:46 EST 2020
+// Date:	Wed Dec 23 16:14:50 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -249,6 +249,7 @@ void end_page ( void )
 
 // Output layout.
 //
+const char * title = NULL;
 bool layout_output = false;
 void output_layout ( int R, int C )
 {
@@ -260,6 +261,10 @@ void output_layout ( int R, int C )
     cout << "stroke solid 0pt s" << endl;
     cout << "stroke line" << endl;
     cout << "font text 10pt" << endl;
+    if ( title != NULL )
+        cout << "text large-bold " << title
+	     << "\\\\page ###" << endl
+	     << "space 10pt" << endl;
     cout << "*" << endl;
 }
 
@@ -683,6 +688,7 @@ int main ( int argc, char ** argv )
 	pclose ( out );
 	return 0;
     }
+    if ( argc > 1 ) title = argv[1];
 
     while ( getline ( cin, line ) )
     {
