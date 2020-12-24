@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Dec 24 05:43:01 EST 2020
+// Date:	Thu Dec 24 11:42:16 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -505,6 +505,11 @@ bool compute_result ( void )
 	    R.t = VECTOR;
 	    R.v = OP1.v + OP2.v;
 	}
+	else if ( OP1.t == LINEAR )
+	{
+	    R.t = LINEAR;
+	    R.l = OP1.l + OP2.l;
+	}
 	else
 	    return false;
 	return true;
@@ -522,23 +527,51 @@ bool compute_result ( void )
 	    R.t = VECTOR;
 	    R.v = OP1.v - OP2.v;
 	}
+	else if ( OP1.t == LINEAR )
+	{
+	    R.t = LINEAR;
+	    R.l = OP1.l - OP2.l;
+	}
 	else
 	    return false;
 	return true;
     }
     if ( match ( "$=$*$" ) )
     {
-	if ( OP2.t == SCALAR )
+	if ( OP1.t == SCALAR 
+	     &&
+	     OP2.t == SCALAR )
 	{
-	    assert ( OP1.t == SCALAR );
 	    R.t = SCALAR;
 	    R.s = OP1.s * OP2.s;
 	}
-	else if ( OP2.t == VECTOR )
+	else if ( OP1.t == SCALAR 
+		  &&
+		  OP2.t == VECTOR )
 	{
-	    assert ( OP1.t == SCALAR );
 	    R.t = VECTOR;
 	    R.v = OP1.s * OP2.v;
+	}
+	else if ( OP1.t == SCALAR 
+		  &&
+		  OP2.t == LINEAR )
+	{
+	    R.t = LINEAR;
+	    R.l = OP1.s * OP2.l;
+	}
+	else if ( OP1.t == LINEAR 
+		  &&
+		  OP2.t == VECTOR )
+	{
+	    R.t = VECTOR;
+	    R.v = OP1.l * OP2.v;
+	}
+	else if ( OP1.t == LINEAR 
+		  &&
+		  OP2.t == LINEAR )
+	{
+	    R.t = LINEAR;
+	    R.l = OP1.l * OP2.l;
 	}
 	else
 	    return false;
@@ -571,6 +604,11 @@ bool compute_result ( void )
 	{
 	    R.t = VECTOR;
 	    R.v = - OP1.v;
+	}
+	else if ( OP1.t == LINEAR )
+	{
+	    R.t = LINEAR;
+	    R.l = - OP1.l;
 	}
 	else
 	    return false;
@@ -645,6 +683,12 @@ bool compute_result ( void )
 	    R.t = BOOLEAN;
 	    R.b = eq ( OP1.v, OP2.v, OP3.s );
 	}
+	else if ( OP1.t == LINEAR )
+	{
+	    assert ( OP2.t == LINEAR );
+	    R.t = BOOLEAN;
+	    R.b = eq ( OP1.l, OP2.l, OP3.s );
+	}
 	else
 	    return false;
 	return true;
@@ -657,6 +701,12 @@ bool compute_result ( void )
 	    assert ( OP2.t == SCALAR );
 	    R.t = VECTOR;
 	    R.v = new_vec ( OP1.s, OP2.s );
+	}
+	else if ( OP1.t == VECTOR )
+	{
+	    assert ( OP2.t == VECTOR );
+	    R.t = LINEAR;
+	    R.l = new_linear ( OP1.v, OP2.v );
 	}
 	else
 	    return false;
@@ -701,17 +751,35 @@ bool compute_result ( void )
 
     if ( match ( "$=$.x" ) )
     {
-	assert ( OP1.t == VECTOR );
-	R.t = SCALAR;
-	R.s = OP1.v.x;
+	if ( OP1.t == VECTOR )
+	{
+	    R.t = SCALAR;
+	    R.s = OP1.v.x;
+	}
+	else if ( OP1.t == LINEAR )
+	{
+	    R.t = VECTOR;
+	    R.v = OP1.l.lx;
+	}
+	else
+	    return false;
 	return true;
     }
 
     if ( match ( "$=$.y" ) )
     {
-	assert ( OP1.t == VECTOR );
-	R.t = SCALAR;
-	R.s = OP1.v.y;
+	if ( OP1.t == VECTOR )
+	{
+	    R.t = SCALAR;
+	    R.s = OP1.v.y;
+	}
+	else if ( OP1.t == LINEAR )
+	{
+	    R.t = VECTOR;
+	    R.v = OP1.l.ly;
+	}
+	else
+	    return false;
 	return true;
     }
 

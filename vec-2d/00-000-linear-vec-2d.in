@@ -1,0 +1,29 @@
+# Test Linear Transform Calculator Operations
+#
+v=(1,0)
+u=(0,1)
+K=(v,u)
+L=[(1,0),(0,1)]
+d=8
+Q = K==L:d
+#
+v = L.x
+w = L.y
+v = (1,-1)
+w = L*v
+#
+s = 2.5
+K = s*L
+K = K + L
+K = K - L
+K = - K
+#
+L = [(1,1),(-1,1)]
+K = L*L
+K = L*K
+K = L*K
+v=(3,4)
+v=L*v
+v=L*v
+v=L*v
+v=L*v

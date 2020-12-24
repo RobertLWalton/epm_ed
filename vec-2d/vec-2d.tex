@@ -399,6 +399,9 @@ Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
 then: \\[1ex]
 \tt (x,y) & returns $(x,y)$ \\
+\tt v.x & returns $v_x$ ({\tt x} is \underline{not} a variable here) \\
+\tt v.y & returns $v_y$ ({\tt y} is \underline{not} a variable here) \\
+\tt v==w:d & returns $v_x==w_x:d$ AND $v_y==w_y:d$ \\
 \tt s*v & returns $(s v_x, s v_y )$ \\
 \tt -v & returns $( -v_x, -v_y )$, {\tt v} with direction reversed \\
 \tt v+w & returns $(v_x + w_x, v_y + w_y)$ \\
@@ -408,9 +411,6 @@ then: \\[1ex]
 \tt l\textasciicircum t
           & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
 	  & the vector with length {\tt l} and azimuth {\tt t} degrees \\
-\tt v.x & returns $v_x$ ({\tt x} is \underline{not} a variable here) \\
-\tt v.y & returns $v_y$ ({\tt y} is \underline{not} a variable here) \\
-\tt v==w:d & returns $v_x==w_x:d$ AND $v_y==w_y:d$ \\
 \end{tabular}
 \end{center}
 
@@ -722,8 +722,10 @@ Assume: & {\tt s=}$s$ is a scalar \\
 then: \\[1ex]
 \tt (v,w) & returns $(v,w)$ \\
 \tt K==L:d & returns $\ell^K_x==\ell^L_x:d$ AND $\ell^K_y==\ell^L_y:d$ \\
+\tt L.x & returns {\tt $\ell^L_x$} \\
+\tt L.y & returns {\tt $\ell^L_y$} \\
 \tt L*v & returns {\tt $v_x$*$\ell^L_x$+$v_y$*$\ell^L_y$} & [application] \\
-\tt s*K & returns {\tt [$s\ell^L_x$,$s\ell^L_y$]} \\
+\tt s*L & returns {\tt [$s\ell^L_x$,$s\ell^L_y$]} \\
 \tt K+L & returns {\tt [$\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$]} \\
 \tt K-L & returns {\tt [$\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$]} \\
 \tt -L & returns {\tt [-$\ell^L_x$,-$\ell^L_y$]} \\
@@ -2337,7 +2339,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Dec 21 01:38:26 EST 2020
+Date:         & Thu Dec 24 12:03:00 EST 2020
 
 \end{tabular}
 
