@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Dec 15 04:01:32 EST 2020
+// Date:	Wed Dec 23 21:21:30 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
