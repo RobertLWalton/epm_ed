@@ -1,0 +1,19 @@
+# Test vector input/output
+#
+z = ( 0, 0 )
+z = z = (0,0)
+x = ( 1, 0 )
+x = x = (1,0)
+y = ( 0, 1 )
+y = y = (0,1)
+v = ( -1.234, +5.678 )
+v = v = (-1.234,5.678)
+v = ( 1, 1 )
+#
+#!point z red
+#!point x red
+#!point y red
+#!point v red
+#!line zx blue e
+#!line zy blue e
+#!line zv blue e

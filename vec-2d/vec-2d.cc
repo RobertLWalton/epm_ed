@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Dec 23 23:04:24 EST 2020
+// Date:	Thu Dec 24 05:43:01 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -456,16 +456,19 @@ linear operator * ( double s, linear K )
 {
     linear r = { s * K.lx, s * K.ly };
     return r;
+}
 
 linear operator + ( linear K, linear L )
 {
     linear r = { K.lx + L.lx, K.ly + L.ly };
     return r;
+}
 
 linear operator - ( linear K, linear L )
 {
     linear r = { K.lx - L.lx, K.ly - L.ly };
     return r;
+}
 
 linear operator - ( linear L )
 {
@@ -477,6 +480,7 @@ linear operator * ( linear K, linear L )
 {
     linear r = { K * L.lx, K * L.ly };
     return r;
+}
 
 // C++ Compute Result Function
 // --- ------- ------ --------

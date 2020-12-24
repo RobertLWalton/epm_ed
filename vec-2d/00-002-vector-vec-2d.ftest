@@ -1,0 +1,19 @@
+# Test Scalar Valued Vector Calculator Calculations
+#
+l=1
+d=30
+v=l^d = (0.866025,0.5)
+x=v.x = 0.866025
+y=v.y = 0.5
+d=azm v = 30
+l=||v|| = 1
+d=210
+w=l^d = (-0.866025,-0.5)
+w=-w = (0.866025,0.5)
+d=8
+q=v==w:d = true
+d=211
+w=l^d = (-0.857167,-0.515038)
+w=-w = (0.857167,0.515038)
+d=2
+q=v==w:d = false

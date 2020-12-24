@@ -1,0 +1,91 @@
+# Test Scalar Functions
+#
+A = -360
+x = cos A = 1
+y = sin A = 2.44929e-16
+z = tan A = 2.44929e-16
+#
+A = -270
+x = cos A = -1.83697e-16
+y = sin A = 1
+z = tan A = -5.44375e+15
+#
+A = -180
+x = cos A = -1
+y = sin A = -1.22465e-16
+z = tan A = 1.22465e-16
+#
+A = -90
+x = cos A = 6.12323e-17
+y = sin A = -1
+z = tan A = -1.63312e+16
+#
+A = 0
+x = cos A = 1
+y = sin A = 0
+z = tan A = 0
+#
+A = 90
+x = cos A = 6.12323e-17
+y = sin A = 1
+z = tan A = 1.63312e+16
+#
+A = 180
+x = cos A = -1
+y = sin A = 1.22465e-16
+z = tan A = -1.22465e-16
+#
+A = 270
+x = cos A = -1.83697e-16
+y = sin A = -1
+z = tan A = 5.44375e+15
+#
+A = 360
+x = cos A = 1
+y = sin A = -2.44929e-16
+z = tan A = -2.44929e-16
+#
+A = 45
+x = cos A = 0.707107
+y = sin A = 0.707107
+z = tan A = 1
+#
+A = 135
+x = cos A = -0.707107
+y = sin A = 0.707107
+z = tan A = -1
+#
+A = 225
+x = cos A = -0.707107
+y = sin A = -0.707107
+z = tan A = 1
+#
+A = 315
+x = cos A = 0.707107
+y = sin A = -0.707107
+z = tan A = -1
+#
+A = -45
+x = cos A = 0.707107
+y = sin A = -0.707107
+z = tan A = -1
+#
+A = -120
+x = cos A = -0.5
+y = sin A = -0.866025
+z = tan A = 1.73205
+#
+A = -30
+x = cos A = 0.866025
+y = sin A = -0.5
+z = tan A = -0.57735
+#
+A = 30
+x = cos A = 0.866025
+y = sin A = 0.5
+z = tan A = 0.57735
+#
+A = 120
+x = cos A = -0.5
+y = sin A = 0.866025
+z = tan A = -1.73205
