@@ -1,0 +1,19 @@
+# Test Scalar Valued Vector Calculator Calculations
+#
+l=1
+d=30
+v=l^d
+x=v.x
+y=v.y
+d=azm v
+l=||v||
+d=210
+w=l^d
+w=-w
+d=8
+q=v==w:d
+d=211
+w=l^d
+w=-w
+d=2
+q=v==w:d

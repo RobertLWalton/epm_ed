@@ -649,6 +649,7 @@ bool compute_result ( void )
 	assert ( OP1.t == VECTOR );
 	R.t = SCALAR;
 	R.s = OP1.v.x;
+	return true;
     }
 
     if ( match ( "$=$.y" ) )
@@ -656,6 +657,7 @@ bool compute_result ( void )
 	assert ( OP1.t == VECTOR );
 	R.t = SCALAR;
 	R.s = OP1.v.y;
+	return true;
     }
 
     return false;
