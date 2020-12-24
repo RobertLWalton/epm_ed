@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Dec 23 21:21:30 EST 2020
+// Date:	Wed Dec 23 23:04:24 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -49,16 +49,15 @@ double units[13] =  // units[d] = 10**(-d)
 //
 // For Scalar Calculator
 //
-int lt ( double x, double y, int d );   // x<y:d
-int le ( double x, double y, int d );   // x<=y:d
-int eq ( double x, double y, int d );   // x==y:d
+bool lt ( double x, double y, int d );   // x<y:d
+bool le ( double x, double y, int d );   // x<=y:d
+bool eq ( double x, double y, int d );   // x==y:d
 
 // For Vector Calculator
 //
 vec new_vec ( double x, double y );      // (x,y)
 bool eq ( vec v, vec w, int d );         // v==w:d
-std::ostream & operator <<
-        ( std::ostream & s, vec v );
+ostream & operator << ( ostream & s, vec v );
 vec operator * ( double s, vec v );      // s*v
 vec operator + ( vec v, vec w );         // v+w
 vec operator - ( vec v, vec w );         // v-w
@@ -72,8 +71,7 @@ vec polar ( double l, double t );        // l^t
 //
 linear new_linear ( vec v, vec w );     // (v,w)
 int eq ( linear L, linear K, int d );   // L==K:d
-std::ostream & operator <<
-        ( std::ostream & s, linear L );
+ostream & operator << ( ostream & s, linear L );
 vec operator * ( linear L, vec v );       // L*v
     // application
 linear operator * ( double s, linear L ); // s*L
@@ -350,8 +348,8 @@ int main ( int argc, char * argv[] )
     return 0;
 }
 
-// C++ Computational Functions
-// --- ------------- ---------
+// Scalar Calculator Functions
+// ------ ---------- ---------
 
 bool lt ( double x, double y, double d )
 {
@@ -375,6 +373,15 @@ bool eq ( double x, double y, double d )
     int i = int ( d );
     assert ( i == d );
     return fabs ( x - y ) < 0.5 * units[i];
+}
+
+// Vector Calculator Functions
+// ------ ---------- ---------
+
+vec new_vec ( double x, double y )
+{
+    vec r = { x, y };
+    return r;
 }
 
 bool eq ( vec v, vec w, double d )
@@ -406,7 +413,7 @@ vec operator - ( vec v, vec w )
     return r;
 }
 
-double length ( vec v )
+double len ( vec v )
 {
     return sqrt ( v.x*v.x + v.y*v.y );
 }
@@ -419,12 +426,57 @@ double azm ( vec v )
     return (180/M_PI) * atan2 ( v.y, v.x );
 }
 
-vec exp ( double l, double t )
+vec polar ( double l, double t )
 {
     double theta = ( M_PI / 180 ) * t;
     vec r = { l * cos(theta), l * sin(theta) };
     return r;
 }
+
+// Linear Transform Calculator Functions
+// ------ --------- ---------- ---------
+
+linear new_linear ( vec lx, vec ly )
+{
+    linear r = { lx, ly };
+    return r;
+}
+
+bool eq ( linear K, linear L, double d )
+{
+    return eq ( K.lx, L.lx, d ) && eq ( K.ly, L.ly, d );
+}
+
+vec operator * ( linear L, vec v )
+{
+    return v.x * L.lx + v.y * L.ly; 
+}
+
+linear operator * ( double s, linear K )
+{
+    linear r = { s * K.lx, s * K.ly };
+    return r;
+
+linear operator + ( linear K, linear L )
+{
+    linear r = { K.lx + L.lx, K.ly + L.ly };
+    return r;
+
+linear operator - ( linear K, linear L )
+{
+    linear r = { K.lx - L.lx, K.ly - L.ly };
+    return r;
+
+linear operator - ( linear L )
+{
+    linear r = { - L.lx, - L.ly };
+    return r;
+}
+
+linear operator * ( linear K, linear L )
+{
+    linear r = { K * L.lx, K * L.ly };
+    return r;
 
 // C++ Compute Result Function
 // --- ------- ------ --------
@@ -600,8 +652,7 @@ bool compute_result ( void )
 	{
 	    assert ( OP2.t == SCALAR );
 	    R.t = VECTOR;
-	    R.v.x = OP1.s;
-	    R.v.y = OP2.s;
+	    R.v = new_vec ( OP1.s, OP2.s );
 	}
 	else
 	    return false;
@@ -613,7 +664,7 @@ bool compute_result ( void )
         if ( OP1.t == SCALAR )
 	{
 	    R.t = VECTOR;
-	    R.v = exp ( OP1.s, OP2.s );
+	    R.v = polar ( OP1.s, OP2.s );
 	}
 	else
 	    return false;
@@ -625,7 +676,7 @@ bool compute_result ( void )
 	if ( OP1.t == VECTOR )
 	{
 	    R.t = SCALAR;
-	    R.s = length ( OP1.v );
+	    R.s = len ( OP1.v );
 	}
 	else
 	    return false;
