@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Dec 24 18:29:57 EST 2020
+// Date:	Fri Dec 25 06:57:15 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -63,6 +63,8 @@ vec operator + ( vec v, vec w );         // v+w
 vec operator - ( vec v, vec w );         // v-w
 vec operator - ( vec v );                // -v
 vec zerov = { 0, 0 };                    // (0,0)
+vec uxv = { 1, 0 };                      // (1,0)
+vec uyv = { 0, 1 };                      // (0,1)
 double len ( vec v );                    // ||v||
 double azm ( vec v );                    // azm v
 vec polar ( double l, double t );        // l^t
@@ -480,6 +482,28 @@ linear operator * ( linear K, linear L )
 {
     linear r = { K * L.lx, K * L.ly };
     return r;
+}
+
+// Rotations and Reflections Calculator Functions
+// --------- --- ----------- ---------- ---------
+
+vec rotate ( vec v, double p )
+{
+    return polar ( len ( v ), azm ( v ) + p );
+}
+vec reflect ( vec v, double p )
+{
+    return polar ( len ( v ), 2 * p - azm ( v ) );
+}
+linear rotation ( double p )
+{
+    return new_linear ( rotate ( uxv, p ),
+                        rotate ( uyv, p ) );
+}
+linear reflection ( double p )
+{
+    return new_linear ( reflect ( uxv, p ),
+                        reflect ( uyv, p ) );
 }
 
 // C++ Compute Result Function

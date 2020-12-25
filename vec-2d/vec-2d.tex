@@ -376,7 +376,7 @@ to radians, multiply by $\pi/180$, and to convert radians to degrees,
 multiply by $180/\pi$.  Positive angles are counter-clockwise, and
 negative angles are clockwise.
 
-For a vector {\tt v},~~{\tt asm v} and {\tt ||v||} are said to be
+For a vector {\tt v},~~{\tt azm v} and {\tt ||v||} are said to be
 the \key{polar coordinates} of {\tt v}.
 The vector with the polar coordinates $\theta$ (azimuth) and $\ell$ (length) is
 $(\ell \cos\theta,\ell \sin\theta)$.
@@ -790,8 +790,8 @@ $\mathrm{azm}~R^\phi(v) = \mathrm{azm}~v + \phi$ \\
 \end{tabular} \\
 ~\\
 A rotation preserves angles between vectors; that is: \\
-\hspace*{0.2in}$\mathrm{asm}~R^\phi(v)-\mathrm{asm}R^\phi(w)
-               = \mathrm{asm}~v-\mathrm{asm}~w$ \\
+\hspace*{0.2in}$\mathrm{azm}~R^\phi(v)-\mathrm{azm}R^\phi(w)
+               = \mathrm{azm}~v-\mathrm{azm}~w$ \\
 Also, adding integer multiples of 360 to $\phi$
 does \underline{not} change $R^\phi$.
 \end{minipage}
@@ -886,8 +886,8 @@ $\mathrm{azm}~F^\phi(v) = 2*\phi - \mathrm{azm}~v$ \\
 \end{tabular} \\
 ~\\
 A reflection negates angles between vectors; that is: \\
-\hspace*{0.2in}$\mathrm{asm}~F^\phi(v)-\mathrm{asm}F^\phi(w)
-               = -(\mathrm{asm}~v-\mathrm{asm}~w)$ \\
+\hspace*{0.2in}$\mathrm{azm}~F^\phi(v)-\mathrm{azm}F^\phi(w)
+               = -(\mathrm{azm}~v-\mathrm{azm}~w)$ \\
 Also, adding integer multiples of 180 to $\phi$
 does \underline{not} change $F^\phi$.
 \end{minipage}
@@ -961,16 +961,16 @@ by 90 degrees, $L$ is a reflection.  All unitary linear transformations
 in 2 dimensions must be either rotations or reflections.
 
 If $L$ is a rotation, the angle of rotation is: \\
-\centerline{$\phi = \mathrm{asm}~L(u_x) - \mathrm{asm}~u_x =
-             \mathrm{asm}~L(u_x)$}
+\centerline{$\phi = \mathrm{azm}~L(u_x) - \mathrm{azm}~u_x =
+             \mathrm{azm}~L(u_x)$}
 and we have: \begin{tabular}[t]{l}
              $L(u_x)=(\cos\phi,\sin\phi)$ \\
              $L(u_y)=(-\sin\phi,\cos\phi)$ \\
 	     \end{tabular}
 
 If $L$ is a reflection, the angle of the reflecting line is: \\
-\centerline{$\phi = (1/2)*(\mathrm{asm}~L(u_x) + \mathrm{asm}~u_x)
-                  = (1/2)*(\mathrm{asm}~L(u_x))$}
+\centerline{$\phi = (1/2)*(\mathrm{azm}~L(u_x) + \mathrm{azm}~u_x)
+                  = (1/2)*(\mathrm{azm}~L(u_x))$}
 and we have: \begin{tabular}[t]{l}
              $L(u_x)=(\cos(2*\phi),\sin(2*\phi))$ \\
              $L(u_y)=(\sin(2*\phi),-\cos(2*\phi))$ \\
@@ -1015,10 +1015,10 @@ the {\em operators} and {\em functions}:
 	& {\tt v} is a vector \\
 then: \\[1ex]
 \tt v\textasciicircum p & returns {\tt w} such that {\tt ||w||=||v||} and
-	                  {\tt asm w = asm v + p}, \\
+	                  {\tt azm w = azm v + p}, \\
 			& {\tt v} rotated by {\tt p} degrees \\
 \tt v|p & returns {\tt w} such that {\tt ||w||=||v||} and
-	                  {\tt asm w = 2*p\,-\,asm v}, \\
+	                  {\tt azm w = 2*p\,-\,azm v}, \\
 			& {\tt v} reflected across the line with direction
 			  {\tt p} degrees \\
 \tt \textasciicircum p
@@ -1167,8 +1167,8 @@ and {\tt R$^{-90}$ = - R$^{90}$} so \\
 We can use the fact that $*$ and $\#$ are invariant under
 rotations to give a geometric characterization
 of these two products.  Let $v$ and $w$ be two vectors, let
-$\theta=\mathrm{asm}~w - \mathrm{asm}~v$ be the direction angle of $w$
-relative to $v$, and let $\phi = \mathrm{asm}~v$ be the aszimuth of $v$
+$\theta=\mathrm{azm}~w - \mathrm{azm}~v$ be the direction angle of $w$
+relative to $v$, and let $\phi = \mathrm{azm}~v$ be the aszimuth of $v$
 (see the picture).
 If we rotate both vectors by $R^{-\phi}$
 we line $v$ up with the positive X-axis, while not changing $\theta$,
@@ -1272,9 +1272,9 @@ then: \\[1ex]
           the scalar product of {\tt v} and {\tt w} \\
 \tt v\#w & returns $(-v_y)w_x+v_x w_y$,
            the cross product of {\tt v} and {\tt w} \\
-\tt v:w & returns $||v||*R^{-\mathrm{asm}~v}*w = (v*w,v\#w)$ \\
+\tt v:w & returns $||v||*R^{-\mathrm{azm}~v}*w = (v*w,v\#w)$ \\
 \tt v! & returns $(1/||v|)*v$, the unit vector in the same direction as $v$ \\
-\tt v!w & returns $R^{-\mathrm{asm}~v}*w = ((v!)*w,(v!)\#w)$ \\
+\tt v!w & returns $R^{-\mathrm{azm}~v}*w = ((v!)*w,(v!)\#w)$ \\
 \tt area~pqr & returns $0.5*(r-p)\#(q-p)$, the area of triangle $pqr$, \\
              & with positive sign if $pqr$ clockwise, \\
 	     & and negative sign if counter-clockwise \\
@@ -1522,7 +1522,7 @@ What happens if {\tt (n-m)\#(r-q) = 0}? \\
 \hspace*{0.3in}\begin{tabular}{r@{~~}l}
 Then    & \tt (n-m)\#(r-q) = sin $\theta$*||n-m||*||r-q|| = 0 \\
 where   & \tt ||n-m|| $\neq$ 0 $\neq$ ||r-q|| \\
-and     & \tt $\theta$ = asm (r-q) - asm (n-m) \\
+and     & \tt $\theta$ = azm (r-q) - azm (n-m) \\
 so      & \tt sin $\theta$ = 0 \\
 so      & \tt $\theta$ = 0 or $\pm$180 \\
 so      & {\tt nm} and {\tt rq} are parallel \\
@@ -1945,7 +1945,7 @@ Next note that for any two vectors $v_1$ and $v_2$,
 \begin{center}
 $|v_1*v_2|\le||v_1||*||v_2||$ \\
 because $v_1*v_2 = ||v_1||*||v_2||*\cos\theta$ and $|\cos\theta|\le 1$ \\
-where $\theta = \mathrm{asm}~v_2 - \mathrm{asm}~v_1$
+where $\theta = \mathrm{azm}~v_2 - \mathrm{azm}~v_1$
 \end{center}
 
 Using this we prove:
@@ -2309,9 +2309,9 @@ that is closest to $p$.  Let $t_1$ and $t_2$ be the two points on the
 reference ellipse where straight lines passing through $p$ and tangent
 to the ellipse touch the ellipse.  Let $P=L^{-1}*p$, $Q=L^{-1}*1$,
 $T_1=L^{-1}*t_1$, $T_2=L^{-1}*t_2$.
-Let $\theta=\mathrm{asm}~Q$,
-$\theta_1=\mathrm{asm}~T_1$,
-$\theta_2=\mathrm{asm}~T_2$.
+Let $\theta=\mathrm{azm}~Q$,
+$\theta_1=\mathrm{azm}~T_1$,
+$\theta_2=\mathrm{azm}~T_2$.
 We know $\theta_1$ and $\theta_2$ and want to find $\theta$.
 See picture.
 
@@ -2339,7 +2339,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Dec 24 12:03:00 EST 2020
+Date:         & Fri Dec 25 07:06:24 EST 2020
 
 \end{tabular}
 
