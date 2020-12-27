@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Dec 25 06:57:15 EST 2020
+// Date:	Sat Dec 26 12:15:16 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -754,8 +754,38 @@ bool compute_result ( void )
 	    R.t = VECTOR;
 	    R.v = polar ( OP1.s, OP2.s );
 	}
+        else if ( OP1.t == VECTOR )
+	{
+	    R.t = VECTOR;
+	    R.v = rotate ( OP1.v, OP2.s );
+	}
 	else
 	    return false;
+	return true;
+    }
+
+    if ( match ( "$=$|$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == SCALAR );
+	R.t = VECTOR;
+	R.v = reflect ( OP1.v, OP2.s );
+	return true;
+    }
+
+    if ( match ( "$=^$" ) )
+    {
+	assert ( OP1.t == SCALAR );
+	R.t = LINEAR;
+	R.l = rotation ( OP1.s );
+	return true;
+    }
+
+    if ( match ( "$=|$" ) )
+    {
+	assert ( OP1.t == SCALAR );
+	R.t = LINEAR;
+	R.l = reflection ( OP1.s );
 	return true;
     }
 
