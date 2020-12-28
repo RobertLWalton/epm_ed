@@ -1,0 +1,55 @@
+# Test Rotations and Reflections Calculator Operations
+#
+#!layout 3 2
+z=(0,0)
+d=0
+#!infline zd
+d=90
+#!infline zd
+u=(1,0)
+#!line zu red e
+#!text u r u
+p=30
+v=u^p
+#!line zv red e
+#!text v r u^30
+p=60
+v=u^p
+#!line zv red e
+#!text v tr u^60
+p=90
+v=u^p
+#!line zv red e
+#!text v t u^90
+p=120
+v=u^p
+#!line zv red e
+#!text v tl u^120
+p=150
+v=u^p
+#!line zv red e
+#!text v l u^150
+p=180
+v=u^p
+#!line zv red e
+#!text v l u^180
+p=210
+v=u^p
+#!line zv red e
+#!text v l u^210
+p=240
+v=u^p
+#!line zv red e
+#!text v bl u^240
+p=270
+v=u^p
+#!line zv red e
+#!text v b u^270
+p=300
+v=u^p
+#!line zv red e
+#!text v br u^300
+p=330
+v=u^p
+#!line zv red e
+#!text v r u^330
