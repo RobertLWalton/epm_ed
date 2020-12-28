@@ -1,6 +1,6 @@
 # Test Rotations and Reflections Calculator Operations
 #
-#!layout 3 2
+#!layout 3 2 36
 z=(0,0)
 #
 #
@@ -71,3 +71,11 @@ v=u^d
 r=v|p
 #!line zr blue e
 #!text r l v|60
+#
+d=-30
+w=u^d
+#!line zw red e
+#!text w r w
+r=w|p
+#!line zr blue e
+#!text r l w|60

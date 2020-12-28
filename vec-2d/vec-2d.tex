@@ -549,10 +549,12 @@ The page commands are:
 \begin{tabular}{@{}l@{~~~~~}l@{~~~~~}l@{}}
 \underline{Command} & \underline{Action}
 \\[1ex]
-\tt \#!layout R C   & Starts new physical page with \\
-                    & R rows and C columns of logical pages \\
+\tt \#!layout R C [margin]   & Starts new physical page with R rows and \\
+                             & C columns of logical pages, each logical \\
+			     & page with margins as given in pt (1/72") \\
+			     & (margin defaults to 18 or 0.25") \\
 \tt \#!newpage [text...] & Starts new logical page \\
-                       & with text line in page header \\
+                         & with text line in page header \\
 \tt \#!header text... & Adds text line to current page header \\
 \end{tabular}
 \end{minipage}

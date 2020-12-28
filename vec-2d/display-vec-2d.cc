@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Mon Dec 28 04:30:59 EST 2020
+// Date:	Mon Dec 28 05:42:21 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -263,13 +263,13 @@ void end_page ( void )
 //
 const char * title = NULL;
 bool layout_output = false;
-void output_layout ( int R, int C )
+void output_layout ( int R, int C, long margin = 18 )
 {
     end_page();
 
     layout_output = true;
     cout << "layout " << R << " " << C << endl;
-    cout << "margins 0.25in" << endl;
+    cout << "margins " << margin << "pt" << endl;
     cout << "scale 1" << endl;
     cout << "stroke solid 0pt s" << endl;
     cout << "stroke line" << endl;
@@ -458,10 +458,22 @@ void execute ( const char * p )
 	    error ( "C not in [1,3] in"
 	            " layout command" );
 	skip_space ( p );
+	long margin = 18;
+	if ( * p != 0 )
+	{
+	    char * endp;
+	    margin = strtol ( p, & endp, 10 );
+	    if ( endp == p || margin < 0
+	                   || margin > 108 ) // 1.5in
+		error
+		    ( "bad margin in layout command" );
+	    p = endp;
+	    skip_space ( p );
+	}
 	if ( * p != 0 )
 	    error ( "extra stuff after numbers in"
 	            " layout command" );
-	output_layout ( R, C );
+	output_layout ( R, C, margin );
     }
     else if ( strncmp ( p, "newpage", 7 ) == 0 )
     {
