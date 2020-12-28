@@ -2,10 +2,8 @@
 #
 #!layout 3 2
 z=(0,0)
-d=0
-#!infline zd
-d=90
-#!infline zd
+#
+#
 u=(1,0)
 #!line zu red e
 #!text u r u
@@ -53,3 +51,23 @@ p=330
 v=u^p
 #!line zv red e
 #!text v r u^330
+#
+#
+#!newpage
+p=60
+#!infline zp brown
+#
+u=(1,0)
+#!line zu red e
+#!text u r u
+r=u|p
+#!line zr blue e
+#!text r l u|60
+#
+d=30
+v=u^d
+#!line zv red e
+#!text v r v
+r=v|p
+#!line zr blue e
+#!text r l v|60
