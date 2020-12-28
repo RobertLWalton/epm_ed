@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sun Dec 27 21:12:41 EST 2020
+// Date:	Mon Dec 28 04:30:59 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -28,7 +28,7 @@ using std::istringstream;
 using std::ws;
 
 bool debug = false;
-# define dout if ( debug ) cout
+# define dout if ( debug ) cerr
 
 string line;
 int line_number = 0;
@@ -161,7 +161,8 @@ void read_value ( const char * line )
     p = strrchr ( squashed, '=' );
     ++ p;
 
-    var & R = vars[squashed[0]];
+    char v = squashed[0];
+    var & R = vars[v];
 
     if ( p[0] == '[' )
     {
@@ -172,6 +173,8 @@ void read_value ( const char * line )
 	R.l.ly = read_vector ( p );
 	read_char ( p, ']' );
 	read_char ( p, 0 );
+	dout << v << "=[" << R.l.lx << "," << R.l.ly
+	     << "]" << endl;
     }
 
     else if ( p[0] == '(' && p[1] == '(' )
@@ -179,6 +182,7 @@ void read_value ( const char * line )
 	R.t = LIST;
 	element * last = NULL;
 	++ p;
+	dout << v << "=(";
 	while ( true )
 	{
 	    element & e = * new element;
@@ -189,6 +193,7 @@ void read_value ( const char * line )
 		last->next = & e;
 	    last = & e;
 	    e.v = read_vector ( p );
+	    dout << e.v;
 	    if ( * p == ')' )
 	    {
 		++ p;
@@ -196,7 +201,9 @@ void read_value ( const char * line )
 		break;
 	    }
 	    read_char ( p, ',' );
+	    dout << ",";
 	}
+	dout << ")" << endl;
     }
 
     else if ( p[0] == '(' )
@@ -204,24 +211,28 @@ void read_value ( const char * line )
 	R.t = VECTOR;
 	R.v = read_vector ( p );
 	read_char ( p, 0 );
+	dout << v << "=" << R.v << endl;
     }
 
-    else if ( strcmp ( p, "()" ) )
+    else if ( strcmp ( p, "()" ) == 0 )
     {
     	R.t = LIST;
 	R.first = NULL;
+	dout << v << "=()" << endl;
     }
 
-    else if ( strcmp ( p, "true" ) )
+    else if ( strcmp ( p, "true" ) == 0 )
     {
     	R.t = BOOLEAN;
 	R.b = true;
+	dout << v << "=true" << endl;
     }
 
-    else if ( strcmp ( p, "false" ) )
+    else if ( strcmp ( p, "false" ) == 0 )
     {
     	R.t = BOOLEAN;
 	R.b = false;
+	dout << v << "=false" << endl;
     }
 
     else
@@ -229,6 +240,7 @@ void read_value ( const char * line )
 	R.t = SCALAR;
 	R.s = read_scalar ( p );
 	read_char ( p, 0 );
+	dout << v << "=" << R.s << endl;
     }
 }
 
