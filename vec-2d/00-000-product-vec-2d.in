@@ -1,0 +1,58 @@
+# Test Products Calculator Operations
+#
+v=(1,0)
+w=(0,1)
+r=v*w
+r=v#w
+#
+p=60
+w=w^p
+r=v*w
+r=v#w
+#
+p=142
+v=v^p
+w=w^p
+r=v*w
+r=v#w
+#
+u=(1,0)
+v=(4.5,-9.3)
+p=90
+w=v^p
+r=v*w
+r=v#w
+V=u:v
+W=u:w
+r=V*W
+r=V#W
+p=302
+u=u^p
+V=u:v
+W=u:w
+r=V*W
+r=V#W
+#
+s=45.87
+u=s*u
+r=!u
+V=u!v
+W=u!w
+r=V*W
+r=V#W
+#
+p=(0,0)
+q=(1,0)
+r=(0,1)
+s=area pqr
+s=area prq
+k=2
+r=k*r
+s=area pqr
+k=5
+q=k*q
+s=area pqr
+j=271
+q=q^j
+r=r^j
+s=area pqr
