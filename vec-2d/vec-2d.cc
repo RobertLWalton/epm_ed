@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sat Dec 26 12:15:16 EST 2020
+// Date:	Tue Dec 29 01:59:41 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -49,55 +49,55 @@ double units[13] =  // units[d] = 10**(-d)
 //
 // For Scalar Calculator
 //
-bool lt ( double x, double y, int d );   // x<y:d
-bool le ( double x, double y, int d );   // x<=y:d
-bool eq ( double x, double y, int d );   // x==y:d
+bool lt ( double x, double y, int d );	// x<y:d
+bool le ( double x, double y, int d );	// x<=y:d
+bool eq ( double x, double y, int d );	// x==y:d
 
 // For Vector Calculator
 //
-vec new_vec ( double x, double y );      // (x,y)
-bool eq ( vec v, vec w, int d );         // v==w:d
+vec new_vec ( double x, double y );	// (x,y)
+bool eq ( vec v, vec w, int d );	// v==w:d
 ostream & operator << ( ostream & s, vec v );
-vec operator * ( double s, vec v );      // s*v
-vec operator + ( vec v, vec w );         // v+w
-vec operator - ( vec v, vec w );         // v-w
-vec operator - ( vec v );                // -v
-vec zerov = { 0, 0 };                    // (0,0)
-vec uxv = { 1, 0 };                      // (1,0)
-vec uyv = { 0, 1 };                      // (0,1)
-double len ( vec v );                    // ||v||
-double azm ( vec v );                    // azm v
-vec polar ( double l, double t );        // l^t
+vec operator * ( double s, vec v );	// s*v
+vec operator + ( vec v, vec w );	// v+w
+vec operator - ( vec v, vec w );	// v-w
+vec operator - ( vec v );		// -v
+vec zerov = { 0, 0 };			// (0,0)
+vec uxv = { 1, 0 };			// (1,0)
+vec uyv = { 0, 1 };			// (0,1)
+double len ( vec v );			// ||v||
+double azm ( vec v );			// azm v
+vec polar ( double l, double t );	// l^t
 
 // For Linear Calculator
 //
-linear new_linear ( vec v, vec w );     // (v,w)
-int eq ( linear L, linear K, int d );   // L==K:d
+linear new_linear ( vec v, vec w );	    // (v,w)
+int eq ( linear L, linear K, int d );	    // L==K:d
 ostream & operator << ( ostream & s, linear L );
-vec operator * ( linear L, vec v );       // L*v
+vec operator * ( linear L, vec v );	    // L*v
     // application
-linear operator * ( double s, linear L ); // s*L
-linear operator + ( linear K, linear L ); // K+L
-linear operator - ( linear K, linear L ); // K-L
-linear operator - ( linear L );           // -L
-linear operator * ( linear K, linear L ); // K*L
+linear operator * ( double s, linear L );    // s*L
+linear operator + ( linear K, linear L );    // K+L
+linear operator - ( linear K, linear L );    // K-L
+linear operator - ( linear L );		     // -L
+linear operator * ( linear K, linear L );    // K*L
     // composition
 
 // For Rotations and Reflections Calculator
 //
-vec rotate ( vec v, double p );     // v^p
-vec reflect ( vec v, double p );    // v|p
-linear rotation ( double p );       // ^p
-linear reflection ( double p );     // |p
+vec rotate ( vec v, double p );		// v^p
+vec reflect ( vec v, double p );	// v|p
+linear rotation ( double p );		// ^p
+linear reflection ( double p );		// |p
 
 // For Product Calculator
 //
-vec operator * ( vec v, vec w );      // v*w
-vec cross ( vec v, vec w );           // v#w
-vec change ( vec v, vec w );          // v:w
-vec unit ( vec v );                   // v!
-vec uchange ( vec v, vec w );         // v!w
-double area ( vec p, vec q, vec r );  // area pqr
+double operator * ( vec v, vec w );	// v*w
+double cross ( vec v, vec w );		// v#w
+vec change ( vec v, vec w );		// v:w
+vec unit ( vec v );			// v!
+vec uchange ( vec v, vec w );		// v!w
+double area ( vec p, vec q, vec r );	// area pqr
 
 // C++ Main Program
 // --- ---- -------
@@ -438,47 +438,47 @@ vec polar ( double l, double t )
 // Linear Transform Calculator Functions
 // ------ --------- ---------- ---------
 
-linear new_linear ( vec lx, vec ly )
+linear new_linear ( vec lx, vec ly )	    // [lx,ly]
 {
     linear r = { lx, ly };
     return r;
 }
 
-bool eq ( linear K, linear L, double d )
+bool eq ( linear K, linear L, double d )    // K==L:d
 {
     return eq ( K.lx, L.lx, d ) && eq ( K.ly, L.ly, d );
 }
 
-vec operator * ( linear L, vec v )
+vec operator * ( linear L, vec v )	    // L*v
 {
     return v.x * L.lx + v.y * L.ly; 
 }
 
-linear operator * ( double s, linear K )
+linear operator * ( double s, linear K )    // s*K
 {
     linear r = { s * K.lx, s * K.ly };
     return r;
 }
 
-linear operator + ( linear K, linear L )
+linear operator + ( linear K, linear L )    // K+L
 {
     linear r = { K.lx + L.lx, K.ly + L.ly };
     return r;
 }
 
-linear operator - ( linear K, linear L )
+linear operator - ( linear K, linear L )    // K-L
 {
     linear r = { K.lx - L.lx, K.ly - L.ly };
     return r;
 }
 
-linear operator - ( linear L )
+linear operator - ( linear L )		    // -L
 {
     linear r = { - L.lx, - L.ly };
     return r;
 }
 
-linear operator * ( linear K, linear L )
+linear operator * ( linear K, linear L )    // K*L
 {
     linear r = { K * L.lx, K * L.ly };
     return r;
@@ -487,23 +487,53 @@ linear operator * ( linear K, linear L )
 // Rotations and Reflections Calculator Functions
 // --------- --- ----------- ---------- ---------
 
-vec rotate ( vec v, double p )
+vec rotate ( vec v, double p )		// v^p
 {
     return polar ( len ( v ), azm ( v ) + p );
 }
-vec reflect ( vec v, double p )
+vec reflect ( vec v, double p )		// v|p
 {
     return polar ( len ( v ), 2 * p - azm ( v ) );
 }
-linear rotation ( double p )
+linear rotation ( double p )		// ^p
 {
     return new_linear ( rotate ( uxv, p ),
                         rotate ( uyv, p ) );
 }
-linear reflection ( double p )
+linear reflection ( double p )		// |p
 {
     return new_linear ( reflect ( uxv, p ),
                         reflect ( uyv, p ) );
+}
+
+// Product Calculator Functions
+// ------- ---------- ---------
+//
+double operator * ( vec v, vec w )	// v*w
+{
+    return v.x * w.x + v.y * w.y;
+}
+double cross ( vec v, vec w )		// v#w
+{
+    return - v.y * w.x + v.x * w.y;
+}
+vec change ( vec v, vec w )		// v:w
+{
+    return new_vec ( v*w, cross ( v, w ) );
+}
+vec unit ( vec v )			// v!
+{
+    double length = len ( v );
+    return ( 1 / length ) * v;
+}
+vec uchange ( vec v, vec w )		// v!w
+{
+    vec u = unit ( v );
+    return change ( u, w );
+}
+double area ( vec p, vec q, vec r )	// area pqr
+{
+    return 0.5 * cross ( r - p, q - p );
 }
 
 // C++ Compute Result Function
@@ -597,8 +627,39 @@ bool compute_result ( void )
 	    R.t = LINEAR;
 	    R.l = OP1.l * OP2.l;
 	}
+	else if ( OP1.t == VECTOR 
+		  &&
+		  OP2.t == VECTOR )
+	{
+	    R.t = SCALAR;
+	    R.s = OP1.v * OP2.v;
+	}
 	else
 	    return false;
+	return true;
+    }
+    if ( match ( "$=$#$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	R.t = SCALAR;
+	R.s = cross ( OP1.v, OP2.v );
+	return true;
+    }
+    if ( match ( "$=$:$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	R.t = VECTOR;
+	R.v = change ( OP1.v, OP2.v );
+	return true;
+    }
+    if ( match ( "$=$!$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	R.t = VECTOR;
+	R.v = uchange ( OP1.v, OP2.v );
 	return true;
     }
     if ( match ( "$=$/$" ) )
@@ -638,6 +699,13 @@ bool compute_result ( void )
 	    return false;
 	return true;
     }
+    if ( match ( "$=!$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	R.t = VECTOR;
+	R.v = unit ( OP1.v );
+	return true;
+    }
     if ( match ( "$=|$|" ) )
     {
 	assert ( OP1.t == SCALAR );
@@ -664,6 +732,15 @@ bool compute_result ( void )
 	assert ( OP1.t == SCALAR );
 	R.t = SCALAR;
 	R.s = tan ( ( M_PI / 180 ) * OP1.s );
+	return true;
+    }
+    if ( match ( "$=area$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	R.t = SCALAR;
+	R.s = area ( OP1.v, OP2.v, OP3.v );
 	return true;
     }
     if ( match ( "$=$<$:$" ) )
