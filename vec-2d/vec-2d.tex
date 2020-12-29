@@ -1332,11 +1332,12 @@ line {\tt pq}?
 If we apply the pure rotation $R^{\tt -azm(q-p)}$ after the translation
 {\tt -p}, we get:
 \begin{center} \tt
-P = (0,0) \\
-Q = ( ||q - p||, 0 ) \\
-R = ( (q-p)!*(r-p), (q-p)!\#(r-p) ) = (X,Y)
+P = (q-p)!(p-p) = (0,0) \\
+Q = (q-p)!(q-p) = ( ||q-p||, 0 ) \\
+R = (q-p)!(r-p) = ( (q-p)!*(r-p), (q-p)!\#(r-p) )
 \end{center}
-where we have defined {\tt X} and {\tt Y} to be the coordinates of {\tt R}
+and we define {\tt X} and {\tt Y} to be the coordinates of {\tt R}
+so {\tt R = (X,Y)}.
 
 If\label{DISTANCE-OF-LINE-TO-POINT}
 we want the distance from {\tt r} to the infinite line {\tt pq},
@@ -2316,7 +2317,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Dec 29 01:36:45 EST 2020
+Date:         & Tue Dec 29 03:50:45 EST 2020
 
 \end{tabular}
 

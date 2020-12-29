@@ -98,6 +98,19 @@ vec change ( vec v, vec w );		// v:w
 vec unit ( vec v );			// v!
 vec uchange ( vec v, vec w );		// v!w
 double area ( vec p, vec q, vec r );	// area pqr
+
+// For Line and Point Calculator
+//
+double disti				//disti pqr
+    ( vec p, vec q, vec r );
+double distf				//distf pqr
+    ( vec p, vec q, vec r );
+vec closei				//closei pqr
+    ( vec p, vec q, vec r );
+vec closef				//closef pqr
+    ( vec p, vec q, vec r );
+double sidel				//sidel pqr
+    ( vec p, vec q, vec r, double d );
 
 // C++ Main Program
 // --- ---- -------
@@ -147,7 +160,7 @@ ostream & operator << ( ostream & s, vec v )
 // to $ in left-to-right order:
 // //
 var * V[4];
-# define R   (*V[0])    // Result
+# define RES (*V[0])    // Result
 # define OP1 (*V[1])    // First Operand
 # define OP2 (*V[2])    // Second Operand
 # define OP3 (*V[3])    // Third Operand
@@ -216,11 +229,11 @@ int main ( int argc, char * argv[] )
 
 	    if ( p[0] == '[' )
 	    {
-		R.t = LINEAR;
+		RES.t = LINEAR;
 		++ p;
-		R.l.lx = read_vector ( p );
+		RES.l.lx = read_vector ( p );
 		assert ( * p ++ == ',' );
-		R.l.ly = read_vector ( p );
+		RES.l.ly = read_vector ( p );
 		assert ( * p ++ == ']' );
 		assert ( * p == 0 );
 		cout << line << endl;
@@ -229,7 +242,7 @@ int main ( int argc, char * argv[] )
 
 	    else if ( p[0] == '(' && p[1] == '(' )
 	    {
-		R.t = LIST;
+		RES.t = LIST;
 		element * last = NULL;
 		++ p;
 		while ( true )
@@ -237,7 +250,7 @@ int main ( int argc, char * argv[] )
 		    element & e = * new element;
 		    e.next = NULL;
 		    if ( last == NULL )
-			R.first = & e;
+			RES.first = & e;
 		    else
 			last->next = & e;
 		    last = & e;
@@ -256,8 +269,8 @@ int main ( int argc, char * argv[] )
 
 	    else if ( p[0] == '(' )
 	    {
-		R.t = VECTOR;
-		R.v = read_vector ( p );
+		RES.t = VECTOR;
+		RES.v = read_vector ( p );
 		assert ( * p == 0 );
 		cout << line << endl;
 		continue;
@@ -265,8 +278,8 @@ int main ( int argc, char * argv[] )
 
 	    else
 	    {
-		R.t = SCALAR;
-		R.s = read_scalar ( p );
+		RES.t = SCALAR;
+		RES.s = read_scalar ( p );
 		assert ( * p == 0 );
 		cout << line << endl;
 		continue;
@@ -279,22 +292,22 @@ int main ( int argc, char * argv[] )
 
 	if ( match ( "$=true" ) )
 	{
-	    R.t = BOOLEAN;
-	    R.b = true;
+	    RES.t = BOOLEAN;
+	    RES.b = true;
 	    cout << line << endl;
 	    continue;
 	}
 	if ( match ( "$=false" ) )
 	{
-	    R.t = BOOLEAN;
-	    R.b = false;
+	    RES.t = BOOLEAN;
+	    RES.b = false;
 	    cout << line << endl;
 	    continue;
 	}
 	if ( match ( "$=()" ) )
 	{
-	    R.t = LIST;
-	    R.first = NULL;
+	    RES.t = LIST;
+	    RES.first = NULL;
 	    cout << line << endl;
 	    continue;
 	}
@@ -307,26 +320,27 @@ int main ( int argc, char * argv[] )
 	if ( compute_result() )
 	{
 	    cout << line << " = ";
-	    switch ( R.t )
+	    switch ( RES.t )
 	    {
 	    case BOOLEAN:
-		cout << ( R.b ? "true" : "false" );
+		cout << ( RES.b ? "true" : "false" );
 		break;
 	    case SCALAR:
-		cout << R.s; break;
+		cout << RES.s; break;
 	    case VECTOR:
-		cout << R.v; break;
+		cout << RES.v; break;
 	    case LINEAR:
-		cout << "[" << R.l.lx << ","
-			    << R.l.ly << "]";
+		cout << "[" << RES.l.lx << ","
+			    << RES.l.ly << "]";
 		break;
 	    case LIST:
 		cout << "(";
 		{
-		    element * ep = R.first;
+		    element * ep = RES.first;
 		    while ( ep != NULL )
 		    {
-			if ( ep != R.first ) cout << ",";
+			if ( ep != RES.first )
+			    cout << ",";
 			cout << ep->v;
 			ep = ep->next;
 		    }
@@ -335,7 +349,7 @@ int main ( int argc, char * argv[] )
 		break;
 	    default:
 		cout << "(BAD RESULT TYPE "
-		     << R.t << ")";
+		     << RES.t << ")";
 	    }
 	    cout << endl;
 	}
@@ -535,6 +549,32 @@ double area ( vec p, vec q, vec r )	// area pqr
 {
     return 0.5 * cross ( r - p, q - p );
 }
+
+// Line and Point Calculator Functions
+//
+double disti				//disti pqr
+    ( vec p, vec q, vec r )
+{
+    double length = len ( q - p );
+    return   ( 1 / length )
+           * fabs ( cross ( q - p, r - p ) );
+}
+double distf				//distf pqr
+    ( vec p, vec q, vec r )
+{
+    vec Q = uchange ( q - p, q - p );
+    vec R = uchange ( q - p, r - p );
+    if ( R.x < 0 ) return len ( r - p );
+    else if ( R.x > Q.x ) return len ( r - q );
+    else return fabs ( R.y );
+}
+    
+vec closei				//closei pqr
+    ( vec p, vec q, vec r );
+vec closef				//closef pqr
+    ( vec p, vec q, vec r );
+double sidel				//sidel pqr
+    ( vec p, vec q, vec r, double d );
 
 // C++ Compute Result Function
 // --- ------- ------ --------
@@ -543,7 +583,7 @@ bool compute_result ( void )
 {
     if ( match ( "$=$" ) )
     {
-	R = OP1;
+	RES = OP1;
 	return true;
     }
     if ( match ( "$=$+$" ) )
@@ -551,18 +591,18 @@ bool compute_result ( void )
 	assert ( OP1.t == OP2.t );
 	if ( OP1.t == SCALAR )
 	{
-	    R.t = SCALAR;
-	    R.s = OP1.s + OP2.s;
+	    RES.t = SCALAR;
+	    RES.s = OP1.s + OP2.s;
 	}
 	else if ( OP1.t == VECTOR )
 	{
-	    R.t = VECTOR;
-	    R.v = OP1.v + OP2.v;
+	    RES.t = VECTOR;
+	    RES.v = OP1.v + OP2.v;
 	}
 	else if ( OP1.t == LINEAR )
 	{
-	    R.t = LINEAR;
-	    R.l = OP1.l + OP2.l;
+	    RES.t = LINEAR;
+	    RES.l = OP1.l + OP2.l;
 	}
 	else
 	    return false;
@@ -573,18 +613,18 @@ bool compute_result ( void )
 	assert ( OP1.t == OP2.t );
 	if ( OP1.t == SCALAR )
 	{
-	    R.t = SCALAR;
-	    R.s = OP1.s - OP2.s;
+	    RES.t = SCALAR;
+	    RES.s = OP1.s - OP2.s;
 	}
 	else if ( OP1.t == VECTOR )
 	{
-	    R.t = VECTOR;
-	    R.v = OP1.v - OP2.v;
+	    RES.t = VECTOR;
+	    RES.v = OP1.v - OP2.v;
 	}
 	else if ( OP1.t == LINEAR )
 	{
-	    R.t = LINEAR;
-	    R.l = OP1.l - OP2.l;
+	    RES.t = LINEAR;
+	    RES.l = OP1.l - OP2.l;
 	}
 	else
 	    return false;
@@ -596,43 +636,43 @@ bool compute_result ( void )
 	     &&
 	     OP2.t == SCALAR )
 	{
-	    R.t = SCALAR;
-	    R.s = OP1.s * OP2.s;
+	    RES.t = SCALAR;
+	    RES.s = OP1.s * OP2.s;
 	}
 	else if ( OP1.t == SCALAR 
 		  &&
 		  OP2.t == VECTOR )
 	{
-	    R.t = VECTOR;
-	    R.v = OP1.s * OP2.v;
+	    RES.t = VECTOR;
+	    RES.v = OP1.s * OP2.v;
 	}
 	else if ( OP1.t == SCALAR 
 		  &&
 		  OP2.t == LINEAR )
 	{
-	    R.t = LINEAR;
-	    R.l = OP1.s * OP2.l;
+	    RES.t = LINEAR;
+	    RES.l = OP1.s * OP2.l;
 	}
 	else if ( OP1.t == LINEAR 
 		  &&
 		  OP2.t == VECTOR )
 	{
-	    R.t = VECTOR;
-	    R.v = OP1.l * OP2.v;
+	    RES.t = VECTOR;
+	    RES.v = OP1.l * OP2.v;
 	}
 	else if ( OP1.t == LINEAR 
 		  &&
 		  OP2.t == LINEAR )
 	{
-	    R.t = LINEAR;
-	    R.l = OP1.l * OP2.l;
+	    RES.t = LINEAR;
+	    RES.l = OP1.l * OP2.l;
 	}
 	else if ( OP1.t == VECTOR 
 		  &&
 		  OP2.t == VECTOR )
 	{
-	    R.t = SCALAR;
-	    R.s = OP1.v * OP2.v;
+	    RES.t = SCALAR;
+	    RES.s = OP1.v * OP2.v;
 	}
 	else
 	    return false;
@@ -642,58 +682,58 @@ bool compute_result ( void )
     {
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == VECTOR );
-	R.t = SCALAR;
-	R.s = cross ( OP1.v, OP2.v );
+	RES.t = SCALAR;
+	RES.s = cross ( OP1.v, OP2.v );
 	return true;
     }
     if ( match ( "$=$:$" ) )
     {
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == VECTOR );
-	R.t = VECTOR;
-	R.v = change ( OP1.v, OP2.v );
+	RES.t = VECTOR;
+	RES.v = change ( OP1.v, OP2.v );
 	return true;
     }
     if ( match ( "$=$!$" ) )
     {
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == VECTOR );
-	R.t = VECTOR;
-	R.v = uchange ( OP1.v, OP2.v );
+	RES.t = VECTOR;
+	RES.v = uchange ( OP1.v, OP2.v );
 	return true;
     }
     if ( match ( "$=$/$" ) )
     {
 	assert ( OP1.t == SCALAR );
 	assert ( OP2.t == SCALAR );
-	R.t = SCALAR;
-	R.s = OP1.s / OP2.s;
+	RES.t = SCALAR;
+	RES.s = OP1.s / OP2.s;
 	return true;
     }
     if ( match ( "$=$%$" ) )
     {
 	assert ( OP1.t == SCALAR );
 	assert ( OP2.t == SCALAR );
-	R.t = SCALAR;
-	R.s = fmod ( OP1.s, OP2.s );
+	RES.t = SCALAR;
+	RES.s = fmod ( OP1.s, OP2.s );
 	return true;
     }
     if ( match ( "$=-$" ) )
     {
 	if ( OP1.t == SCALAR )
 	{
-	    R.t = SCALAR;
-	    R.s = - OP1.s;
+	    RES.t = SCALAR;
+	    RES.s = - OP1.s;
 	}
 	else if ( OP1.t == VECTOR )
 	{
-	    R.t = VECTOR;
-	    R.v = - OP1.v;
+	    RES.t = VECTOR;
+	    RES.v = - OP1.v;
 	}
 	else if ( OP1.t == LINEAR )
 	{
-	    R.t = LINEAR;
-	    R.l = - OP1.l;
+	    RES.t = LINEAR;
+	    RES.l = - OP1.l;
 	}
 	else
 	    return false;
@@ -702,36 +742,36 @@ bool compute_result ( void )
     if ( match ( "$=!$" ) )
     {
 	assert ( OP1.t == VECTOR );
-	R.t = VECTOR;
-	R.v = unit ( OP1.v );
+	RES.t = VECTOR;
+	RES.v = unit ( OP1.v );
 	return true;
     }
     if ( match ( "$=|$|" ) )
     {
 	assert ( OP1.t == SCALAR );
-	R.t = SCALAR;
-	R.s = fabs ( OP1.s );
+	RES.t = SCALAR;
+	RES.s = fabs ( OP1.s );
 	return true;
     }
     if ( match ( "$=sin$" ) )
     {
 	assert ( OP1.t == SCALAR );
-	R.t = SCALAR;
-	R.s = sin ( ( M_PI / 180 ) * OP1.s );
+	RES.t = SCALAR;
+	RES.s = sin ( ( M_PI / 180 ) * OP1.s );
 	return true;
     }
     if ( match ( "$=cos$" ) )
     {
 	assert ( OP1.t == SCALAR );
-	R.t = SCALAR;
-	R.s = cos ( ( M_PI / 180 ) * OP1.s );
+	RES.t = SCALAR;
+	RES.s = cos ( ( M_PI / 180 ) * OP1.s );
 	return true;
     }
     if ( match ( "$=tan$" ) )
     {
 	assert ( OP1.t == SCALAR );
-	R.t = SCALAR;
-	R.s = tan ( ( M_PI / 180 ) * OP1.s );
+	RES.t = SCALAR;
+	RES.s = tan ( ( M_PI / 180 ) * OP1.s );
 	return true;
     }
     if ( match ( "$=area$$$" ) )
@@ -739,8 +779,8 @@ bool compute_result ( void )
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == VECTOR );
 	assert ( OP3.t == VECTOR );
-	R.t = SCALAR;
-	R.s = area ( OP1.v, OP2.v, OP3.v );
+	RES.t = SCALAR;
+	RES.s = area ( OP1.v, OP2.v, OP3.v );
 	return true;
     }
     if ( match ( "$=$<$:$" ) )
@@ -749,8 +789,8 @@ bool compute_result ( void )
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
-	    R.t = BOOLEAN;
-	    R.b = lt ( OP1.s, OP2.s, OP3.s );
+	    RES.t = BOOLEAN;
+	    RES.b = lt ( OP1.s, OP2.s, OP3.s );
 	}
 	else
 	    return false;
@@ -762,8 +802,8 @@ bool compute_result ( void )
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
-	    R.t = BOOLEAN;
-	    R.b = le ( OP1.s, OP2.s, OP3.s );
+	    RES.t = BOOLEAN;
+	    RES.b = le ( OP1.s, OP2.s, OP3.s );
 	}
 	else
 	    return false;
@@ -775,20 +815,20 @@ bool compute_result ( void )
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
-	    R.t = BOOLEAN;
-	    R.b = eq ( OP1.s, OP2.s, OP3.s );
+	    RES.t = BOOLEAN;
+	    RES.b = eq ( OP1.s, OP2.s, OP3.s );
 	}
 	else if ( OP1.t == VECTOR )
 	{
 	    assert ( OP2.t == VECTOR );
-	    R.t = BOOLEAN;
-	    R.b = eq ( OP1.v, OP2.v, OP3.s );
+	    RES.t = BOOLEAN;
+	    RES.b = eq ( OP1.v, OP2.v, OP3.s );
 	}
 	else if ( OP1.t == LINEAR )
 	{
 	    assert ( OP2.t == LINEAR );
-	    R.t = BOOLEAN;
-	    R.b = eq ( OP1.l, OP2.l, OP3.s );
+	    RES.t = BOOLEAN;
+	    RES.b = eq ( OP1.l, OP2.l, OP3.s );
 	}
 	else
 	    return false;
@@ -800,14 +840,14 @@ bool compute_result ( void )
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
-	    R.t = VECTOR;
-	    R.v = new_vec ( OP1.s, OP2.s );
+	    RES.t = VECTOR;
+	    RES.v = new_vec ( OP1.s, OP2.s );
 	}
 	else if ( OP1.t == VECTOR )
 	{
 	    assert ( OP2.t == VECTOR );
-	    R.t = LINEAR;
-	    R.l = new_linear ( OP1.v, OP2.v );
+	    RES.t = LINEAR;
+	    RES.l = new_linear ( OP1.v, OP2.v );
 	}
 	else
 	    return false;
@@ -818,8 +858,8 @@ bool compute_result ( void )
     {
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == VECTOR );
-	R.t = LINEAR;
-	R.l = new_linear ( OP1.v, OP2.v );
+	RES.t = LINEAR;
+	RES.l = new_linear ( OP1.v, OP2.v );
 	return true;
     }
 
@@ -828,13 +868,13 @@ bool compute_result ( void )
 	assert ( OP2.t == SCALAR );
         if ( OP1.t == SCALAR )
 	{
-	    R.t = VECTOR;
-	    R.v = polar ( OP1.s, OP2.s );
+	    RES.t = VECTOR;
+	    RES.v = polar ( OP1.s, OP2.s );
 	}
         else if ( OP1.t == VECTOR )
 	{
-	    R.t = VECTOR;
-	    R.v = rotate ( OP1.v, OP2.s );
+	    RES.t = VECTOR;
+	    RES.v = rotate ( OP1.v, OP2.s );
 	}
 	else
 	    return false;
@@ -845,24 +885,24 @@ bool compute_result ( void )
     {
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == SCALAR );
-	R.t = VECTOR;
-	R.v = reflect ( OP1.v, OP2.s );
+	RES.t = VECTOR;
+	RES.v = reflect ( OP1.v, OP2.s );
 	return true;
     }
 
     if ( match ( "$=^$" ) )
     {
 	assert ( OP1.t == SCALAR );
-	R.t = LINEAR;
-	R.l = rotation ( OP1.s );
+	RES.t = LINEAR;
+	RES.l = rotation ( OP1.s );
 	return true;
     }
 
     if ( match ( "$=|$" ) )
     {
 	assert ( OP1.t == SCALAR );
-	R.t = LINEAR;
-	R.l = reflection ( OP1.s );
+	RES.t = LINEAR;
+	RES.l = reflection ( OP1.s );
 	return true;
     }
 
@@ -870,8 +910,8 @@ bool compute_result ( void )
     {
 	if ( OP1.t == VECTOR )
 	{
-	    R.t = SCALAR;
-	    R.s = len ( OP1.v );
+	    RES.t = SCALAR;
+	    RES.s = len ( OP1.v );
 	}
 	else
 	    return false;
@@ -882,8 +922,8 @@ bool compute_result ( void )
     {
 	if ( OP1.t == VECTOR )
 	{
-	    R.t = SCALAR;
-	    R.s = azm ( OP1.v );
+	    RES.t = SCALAR;
+	    RES.s = azm ( OP1.v );
 	}
 	else
 	    return false;
@@ -894,13 +934,13 @@ bool compute_result ( void )
     {
 	if ( OP1.t == VECTOR )
 	{
-	    R.t = SCALAR;
-	    R.s = OP1.v.x;
+	    RES.t = SCALAR;
+	    RES.s = OP1.v.x;
 	}
 	else if ( OP1.t == LINEAR )
 	{
-	    R.t = VECTOR;
-	    R.v = OP1.l.lx;
+	    RES.t = VECTOR;
+	    RES.v = OP1.l.lx;
 	}
 	else
 	    return false;
@@ -911,13 +951,13 @@ bool compute_result ( void )
     {
 	if ( OP1.t == VECTOR )
 	{
-	    R.t = SCALAR;
-	    R.s = OP1.v.y;
+	    RES.t = SCALAR;
+	    RES.s = OP1.v.y;
 	}
 	else if ( OP1.t == LINEAR )
 	{
-	    R.t = VECTOR;
-	    R.v = OP1.l.ly;
+	    RES.t = VECTOR;
+	    RES.v = OP1.l.ly;
 	}
 	else
 	    return false;
