@@ -55,14 +55,18 @@ v=u^p
 #
 #!newpage
 p=60
-#!infline zp brown
+v=(1.5,0)
+v=v^p
+w=-v
+#!line wv brown
+#!text v t 60°
 #
 u=(1,0)
 #!line zu red e
 #!text u r u
 r=u|p
 #!line zr blue e
-#!text r l u|60
+#!text r tl u|60
 #
 d=30
 v=u^d
@@ -70,7 +74,7 @@ v=u^d
 #!text v r v
 r=v|p
 #!line zr blue e
-#!text r l v|60
+#!text r t v|60
 #
 d=-30
 w=u^d
@@ -79,3 +83,74 @@ w=u^d
 r=w|p
 #!line zr blue e
 #!text r l w|60
+#
+d=-60
+t=u^d
+#!line zt red e
+#!text t br t
+r=t|p
+#!line zr blue e
+#!text r l t|60
+#
+d=-90
+s=u^d
+#!line zs red e
+#!text s b s
+r=s|p
+#!line zr blue e
+#!text r bl s|60
+#
+#
+#!newpage
+p=0
+L=^p
+x=L.x
+y=L.y
+#!line zx red e
+#!text x r ux
+#!line zy blue e
+#!text y t uy
+p=30
+L=^p
+x=L.x
+y=L.y
+#!line zx red e.
+#!text x tr (^30)*ux
+#!line zy blue e.
+#!text y tl (^30)*uy
+p=60
+L=^p
+x=L.x
+y=L.y
+#!line zx red e-
+#!text x tr (^60)*ux
+#!line zy blue e-
+#!text y tl (^60)*uy
+#
+#
+#!newpage
+p=0
+L=|p
+x=L.x
+y=L.y
+y=-y
+#!line zx red e
+#!text x r ux
+#!line zy blue e
+#!text y t uy
+p=30
+L=|p
+x=L.x
+y=L.y
+#!line zx red e.
+#!text x tr (|30)*ux
+#!line zy blue e.
+#!text y br (|30)*uy
+p=60
+L=|p
+x=L.x
+y=L.y
+#!line zx red e-
+#!text x tl (|60)*ux
+#!line zy blue e-
+#!text y tr (|60)*uy
