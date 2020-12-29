@@ -1366,11 +1366,11 @@ we know that: \\
 
 Note that {\tt t} has rational\label{CLOSEST-IS-RATIONAL},
 and \underline{not} irrational,
-coordinates.  However the denominator may be very large.  If
+coordinates.  However the denominator may be large.  If
 the input coordinates have at most {\tt d} decimal places,
 their denominator is at most $10^d$, and the denominator of {\tt t}
 may be as large as \\
-\centerline{\tt 10$^{\tt 3d}$*(numerator of (q-p)*(q-p))}
+\centerline{\tt 10$^{\tt d}$*(numerator of (q-p)*(q-p))}
 
 \medskip
 
@@ -1454,9 +1454,12 @@ then: \\[1ex]
 \tt closef~pqr  & returns the point {\tt t} on the \underline{finite}
                   line {\tt pq} \\
 		& that is closest to the point {\tt r} \\
-\tt sidel~pqrd & returns {\tt +1} if {\tt r} is to the left of the
+\tt sidei~pqrd & returns {\tt +1} if {\tt r} is to the left of the
                 infinite line {\tt pq}, \\
 	      & zero if it on the line, and -1 if it is to the right, \\
+	      & assuming all coordinates have at most {\tt d} decimal places \\
+\tt onf~pqrd & returns {\tt true} if and only if {\tt r} is on the
+                finite line {\tt pq}, \\
 	      & assuming all coordinates have at most {\tt d} decimal places \\
 \end{tabular}
 \end{center}
@@ -2317,7 +2320,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Dec 29 03:50:45 EST 2020
+Date:         & Tue Dec 29 04:21:44 EST 2020
 
 \end{tabular}
 

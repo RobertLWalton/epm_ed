@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Dec 29 01:59:41 EST 2020
+// Date:	Tue Dec 29 04:22:13 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -109,7 +109,9 @@ vec closei				//closei pqr
     ( vec p, vec q, vec r );
 vec closef				//closef pqr
     ( vec p, vec q, vec r );
-double sidel				//sidel pqr
+double sidei				//sidei pqr
+    ( vec p, vec q, vec r, double d );
+bool onf				//onf pqr
     ( vec p, vec q, vec r, double d );
 
 // C++ Main Program
@@ -570,11 +572,38 @@ double distf				//distf pqr
 }
     
 vec closei				//closei pqr
-    ( vec p, vec q, vec r );
+    ( vec p, vec q, vec r )
+{
+    return p + ( ((q-p)*(r-p)) / ((q-p)*(q-p)) )
+             * (q-p);
+}
 vec closef				//closef pqr
-    ( vec p, vec q, vec r );
-double sidel				//sidel pqr
-    ( vec p, vec q, vec r, double d );
+    ( vec p, vec q, vec r )
+{
+    vec Q = uchange ( q - p, q - p );
+    vec R = uchange ( q - p, r - p );
+    if ( R.x < 0 ) return p;
+    else if ( R.x > Q.x ) return q;
+    else return closei ( p, q, r );
+}
+double sidei				//sidei pqr
+    ( vec p, vec q, vec r, double d )
+{
+    vec R = change ( q - p, r - p );
+    if ( eq ( 0, R.y, 2*d ) ) return 0;
+    else if ( R.y < 0 ) return +1;
+    else return -1;
+}
+bool onf				//onf pqr
+    ( vec p, vec q, vec r, double d )
+{
+    vec Q = change ( q - p, q - p );
+    vec R = change ( q - p, r - p );
+    if ( ! eq ( 0, R.y, 2*d ) ) return false;
+    else if ( lt ( R.y, 0, 2*d ) ) return false;
+    else if ( lt ( Q.y, R.y, 2*d ) ) return false;
+    else return true;
+}
 
 // C++ Compute Result Function
 // --- ------- ------ --------
