@@ -1192,7 +1192,10 @@ $v$ has coordinates $(||v||^2,0)$ in the new coordinate system.
 Problems that might be hard to solve in the original
 coordinate system can be easly to solve in the new coordinate
 system.  For example, the end of $w$ is to the left of the infinite directed
-line extending $v$ if and only if $v\#w>0$.
+line extending $v$ if and only if $v\#w>0$.  One can also solve
+distance problems in the original coordinate system by solving them
+in the new coordinate system while remembering that the new system distances
+are $||v||$ times the old system distances.
 
 Note that a distance in
 the new coordinate system is $||v||$ times the corresponding
@@ -1257,8 +1260,9 @@ Implement additions to the unitary calculator for
 the following {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
-Assume: & {\tt v=}$(v_x,v_y)$ (a vector) \\
-	& {\tt w=}$(w_x,w_y)$ (a vector) \\
+Assume: & {\tt v=$v$=}$(v_x,v_y)$ (a vector)
+          ~~~ {\tt w=$w$=}$(w_x,w_y)$ (a vector) \\
+	& $u_x=(1,0)$ and $u_y=(0,1)$ \\
 	& {\tt p=}$p$, {\tt q=}$q$, {\tt r=}$r$ (vectors representing points) \\
 then: \\[1ex]
 \tt v*w & returns $v_x w_x + w_y w_y$,
@@ -1266,15 +1270,17 @@ then: \\[1ex]
 \tt v\#w & returns $(-v_y)w_x+v_x w_y$,
            the cross product of {\tt v} and {\tt w} \\
 \tt v:w & returns $||v||*R^{-\mathrm{azm}~v}*w = (v*w,v\#w)$ \\
-\tt v! & returns $(1/||v|)*v$, the unit vector in the same direction as $v$ \\
-\tt v!w & returns $R^{-\mathrm{azm}~v}*w = ((v!)*w,(v!)\#w)$ \\
+\tt <v> & returns $(1/||v|)*v$, the unit vector in the same direction as $v$ \\
+\tt v!w & returns $R^{-\mathrm{azm}~v}*w = (<v>*w,<v>\#w)$ \\
+\tt v:  & returns {\tt [$v$:$u_x$,$v$:$u_y$]} ~~~ (so {\tt (v:)*w = v:w}) \\
+\tt v!  & returns {\tt [$v$!$u_x$,$v$!$u_y$]} ~~~ (so {\tt (v!)*w = v!w}) \\
 \tt area~pqr & returns $0.5*(r-p)\#(q-p)$, the area of triangle $pqr$, \\
              & with positive sign if $pqr$ clockwise, \\
 	     & and negative sign if counter-clockwise \\
 \end{tabular}
 \end{center}
 
-If {\tt ||v|| = 0} then {\tt v!} and {\tt v!w} will produce coordinates such as
+If {\tt ||v|| = 0} then {\tt <v>} and {\tt v!w} will produce coordinates such as
 {\tt inf} (plus infinity), {\tt -inf} (minus infinity),
 and {\tt nan} (not a number; i.e., result could not be computed).
 
@@ -2320,7 +2326,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Dec 29 04:21:44 EST 2020
+Date:         & Tue Dec 29 18:51:24 EST 2020
 
 \end{tabular}
 
