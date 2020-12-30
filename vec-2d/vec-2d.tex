@@ -1330,45 +1330,39 @@ q - p \\
 r - p
 \end{center}
 Next we apply either the pure rotation $R^{\tt -azm(q-p)}$
-or this rotation followed by multiplication by {\tt ||q-p||}.  We use
-the first if we want to preserve and measure distances, and the
-second if we want precise answers to questions like: is {\tt r} on the
-line {\tt pq}?
+followed by multiplication by {\tt ||q-p||}.  This was computed
+in the last section as the linear transform \\
+\centerline{\tt (q-p): = ||q-p||*$R^{\tt -azm(q-p)}$}
+It preserves angles and multiplies distances by {\tt ||q-p||}.
 
-If we apply the pure rotation $R^{\tt -azm(q-p)}$ after the translation
-{\tt -p}, we get:
+If we apply {\tt (q-p):} after the translation {\tt -p}, we get:
 \begin{center} \tt
-P = (q-p)!(p-p) = (0,0) \\
-Q = (q-p)!(q-p) = ( ||q-p||, 0 ) \\
-R = (q-p)!(r-p) = ( (q-p)!*(r-p), (q-p)!\#(r-p) )
+P = (q-p):(p-p) = (0,0) \\
+Q = (q-p):(q-p) = ( (q-p)*(q-p), 0 ) \\
+R = (q-p):(r-p) = ( (q-p)*(r-p), (q-p)\#(r-p) )
 \end{center}
 and we define {\tt X} and {\tt Y} to be the coordinates of {\tt R}
 so {\tt R = (X,Y)}.
 
 If\label{DISTANCE-OF-LINE-TO-POINT}
 we want the distance from {\tt r} to the infinite line {\tt pq},
-then this is the same as the distance from {\tt R = (X,Y)} to the infinite
+then this is the same as {\tt 1/||q-p||} times
+the distance from {\tt R = (X,Y)} to the infinite
 line {\tt PQ}, and the latter is the X-axis.  So the answer is \\
-\centerline{\tt |Y| = |(q-p)!\#(r-p)| = (1/||q-p||)*|(q-p)\#(r-p)|}
+\centerline{\tt (1/||q-p||)*|Y| = (1/||q-p||)*|(q-p)\#(r-p)|}
 
 Next we want to find the point {\tt t} on the infinite line {\tt pq}
-that is closest to {\tt r}.
-The point on the X-axis {\tt PQ} that is closest to {\tt R = (X,Y)}
-is {\tt T=(X,0)} and
-we know that: \\
+that is closest to {\tt r}.  Represent {\tt t} as {\tt t = p + s*(q-p)}
+for the appropriate scalar {\tt s}.  Then
+{\tt T = P + s*(Q-P)} will be the closest point on the infinite
+line {\tt PQ} to the point {\tt R}.  But
+{\tt PQ} is the X-axis and {\tt P = (0,0)} so \\
 \hspace*{0.3in}\begin{tabular}{rl}
-       & {\tt T = $R^{\tt -azm(q-p)}$*(t-p)} \\
-   and & {\tt T = (X/||q-p||)*Q} \\
-   and & {\tt $R^{\tt -azm(q-p)}$*(q-p) = Q} \\
-    so & {\tt $R^{\tt -azm(q-p)}$*(t-p) = (X/||q-p||)*Q} \\
-    so & {\tt $R^{\tt -azm(q-p)}$*(t-p) =
-        (X/||q-p||)*$R^{\tt -azm(q-p)}$*(q-p)} \\
-    so & {\tt $R^{\tt -azm(q-p)}$*(t-p) =
-        $R^{\tt -azm(q-p)}$*(X/||q-p||)*(q-p)} \\
-    so & {\tt t-p = (X/||q-p||)*(q-p) = X*(q-p)!} \\ 
-   and & {\tt t = p + X*(q-p)!~= p + ((q-p!)*(r-p))*(q-p)!} \\
-   or & {\tt t = p + (1/(q-p)*(q-p)) * ((q-p)*(r-p))*(q-p)} \\
-       \end{tabular}
+	& \tt T = ( R.x, 0 ) = ( (q-p)*(r-p), 0 ) \\
+and	& \tt T = s * (Q-P) = x * Q = s * ( (q-p)*q-p), 0) \\
+so	& \tt s = (1/(q-p)*(q-p)) * (q-p)*(r-p)) \\
+and	& \tt t = p + (1/(q-p)*(q-p)) * (q-p)*(r-p) * (q-p) \\
+\end{tabular}
 
 Note that {\tt t} has rational\label{CLOSEST-IS-RATIONAL},
 and \underline{not} irrational,
@@ -1381,7 +1375,7 @@ may be as large as \\
 \medskip
 
 \begin{minipage}{\textwidth}\raggedright
-\begin{wrapfigure}{r}{0.6\textwidth}
+\begin{wrapfigure}{r}{0.53\textwidth}
 \begin{tikzpicture}[x=0.25in,y=0.25in]
 \begin{scope}[>=triangle 45,shorten >=0.01in]
 
@@ -1391,40 +1385,38 @@ may be as large as \\
     \fill[red] (6.0,0) circle(0.1);
     \draw[brown] (6.0,-1) -- (6.0,+3);
     \draw[black] (0.0,-0.5) node[right]{\small \tt P=(0,0)};
-    \draw[black] (6.0,-0.5) node[right]{\small \tt Q=(||q-p||,0)};
+    \draw[black] (6.0,-0.5) node[right]{\small \tt Q=(L,0)};
     \draw[black] (0.0,+1.0) node[left]{\small \tt X<0};
-    \draw[black] (+6.0,+1.0) node[right]{\small \tt X>||q-p||};
-    \draw[black] (+3.0,+2.0) node{\small \tt 0<=X<=||q-p||};
+    \draw[black] (+6.0,+1.0) node[right]{\small \tt X>L};
+    \draw[black] (+3.0,+2.0) node{\small \tt 0<=X<=L};
     \draw[black] (+8.0,+3.0) node{\small \tt R=(X,Y)};
+    \draw[black] (+3.0,-2.0) node{\small \tt L = (p-q)*(p-q)};
 
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
 If we want the distance from {\tt r} to the \underline{finite} line {\tt pq},
-then this is the same as the distance from {\tt R} to the finite
-line {\tt PQ}, and there are three cases.  If {\tt X<0}, the answer
-is {\tt ||R-P||=||r-p||}.  If {\tt X>||q-p||},
-the answer is {\tt ||R-Q||=||r-q||}.
-Otherwise the answer is {\tt |Y|} as before.  See picture.
+then this is the same as {\tt 1/||q-p||} times
+the distance from {\tt R} to the finite
+line {\tt PQ}, and there are three cases.
+If {\tt X<0}, the answer
+is {\small \tt ||R-P||/||q-p||=||r-p||}.  If {\tt X>||q-p||},
+the answer is {\small \tt ||R-Q||/||q-p||=||r-q||}.
+Otherwise the answer is {\small \tt |Y|/||q-p||} as before.
+See picture.
 \end{minipage}
 
 Now suppose we want a precise answer to the question: is {\tt r}
-on the line {\tt pq}?  The trouble with 
-$R^{\tt -azm(q-p)}$ is that its parameters are not precise rational
-numbers, or even approximations to precise rational numbers.
-We can remedy this by switching to the linear transformation
-{\tt ||q-p||*$R^{\tt -azm(q-p)}$}.  Then we get:
-\begin{center} \tt
-P = (0,0) \\
-Q = ( (q-p)*(q-p), 0 ) \\
-R = ( (q-p)*(r-p), (q-p)\#(r-p) ) = (X,Y)
-\end{center}
+on the infinite or finite line {\tt pq}?  This is the same as the question:
+is {\tt R} on the infinite or finite line {\tt PQ}?
 If the coordinates of {\tt p}, {\tt q}, and {\tt r} have at
 most {\tt d} decimal places, they are rational numbers with
 denominator {\tt 10$^{\tt d}$}, and the products will be rational
-numbers with denominator {\tt 10$^{\tt 2d}$}.  Or more precisely,
+numbers with denominator {\tt 10$^{\tt 2d}$}, so the corrdinates of
+{\tt R} and {\tt Q} will have denominator {\tt 10$^{\tt 2d}$}.
+Or more precisely,
 the products will be close approximations to such rational numbers.
-Therefore:
+Therefore given that {\tt X = (q-p)*(r-p)} and {\tt Y = (q-p)\#(r-p)}
 \begin{enumerate}
 \item {\tt r} is to the left of the infinite directed line {\tt pq}
 if and only if {\tt 0<Y:(2d)}.
@@ -1433,11 +1425,8 @@ if and only if {\tt Y<0:(2d)}.
 \item {\tt r} is on the infinite directed line {\tt pq}
 if and only if {\tt Y==0:(2d)}.
 \item {\tt r} is on the finite line {\tt pq} if and only if \\
-\hspace*{0.3in}\begin{tabular}[t]{@{}l}
-               {\tt Y==0:(2d)},~~~{\tt 0<=X:(2d)},~~~and
-	           {\tt X<=(p-q)*(p-q):(2d)} \\
-	       where {\tt X = (q-p)*(r-p) ~~~ Y = (q-p)\#(r-p)} \\
-	       \end{tabular}
+\hspace*{0.3in}{\tt Y==0:(2d)},~~{\tt 0<=X:(2d)},~~and~~%
+	           {\tt X<=(p-q)*(p-q):(2d)}
 \end{enumerate}
 
 \newpage
@@ -2326,7 +2315,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Dec 29 18:51:24 EST 2020
+Date:         & Wed Dec 30 02:43:36 EST 2020
 
 \end{tabular}
 
