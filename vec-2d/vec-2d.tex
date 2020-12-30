@@ -1329,11 +1329,11 @@ p - p = (0,0) \\
 q - p \\
 r - p
 \end{center}
-Next we apply either the pure rotation $R^{\tt -azm(q-p)}$
+Next we apply the rotation $R^{\tt -azm(q-p)}$
 followed by multiplication by {\tt ||q-p||}.  This was computed
 in the last section as the linear transform \\
 \centerline{\tt (q-p): = ||q-p||*$R^{\tt -azm(q-p)}$}
-It preserves angles and multiplies distances by {\tt ||q-p||}.
+This transformation preserves angles and multiplies distances by {\tt ||q-p||}.
 
 If we apply {\tt (q-p):} after the translation {\tt -p}, we get:
 \begin{center} \tt
@@ -1341,27 +1341,31 @@ P = (q-p):(p-p) = (0,0) \\
 Q = (q-p):(q-p) = ( (q-p)*(q-p), 0 ) \\
 R = (q-p):(r-p) = ( (q-p)*(r-p), (q-p)\#(r-p) )
 \end{center}
-and we define {\tt X} and {\tt Y} to be the coordinates of {\tt R}
-so {\tt R = (X,Y)}.
+where we use the facts that {\tt p - p = (0,0)} and
+{\tt (q-p)\#(q-p) = 0}.
+
+Next we define {\tt X} and {\tt Y} to be the coordinates of {\tt R}
+so {\tt R = (X,Y)}, and {\tt L} to be the X coordinate of {\tt Q}
+so {\tt Q = (L,0)}.
 
 If\label{DISTANCE-OF-LINE-TO-POINT}
 we want the distance from {\tt r} to the infinite line {\tt pq},
 then this is the same as {\tt 1/||q-p||} times
 the distance from {\tt R = (X,Y)} to the infinite
 line {\tt PQ}, and the latter is the X-axis.  So the answer is \\
-\centerline{\tt (1/||q-p||)*|Y| = (1/||q-p||)*|(q-p)\#(r-p)|}
+\centerline{\tt |Y|/||q-p|| = |(q-p)\#(r-p)|/||q-p||}
 
 Next we want to find the point {\tt t} on the infinite line {\tt pq}
-that is closest to {\tt r}.  Represent {\tt t} as {\tt t = p + s*(q-p)}
+that is closest to {\tt r}.  We will represent {\tt t} as {\tt t = p + s*(q-p)}
 for the appropriate scalar {\tt s}.  Then
 {\tt T = P + s*(Q-P)} will be the closest point on the infinite
 line {\tt PQ} to the point {\tt R}.  But
-{\tt PQ} is the X-axis and {\tt P = (0,0)} so \\
+{\tt PQ} is the X-axis and {\tt P = (0,0)}, \\
 \hspace*{0.3in}\begin{tabular}{rl}
-	& \tt T = ( R.x, 0 ) = ( (q-p)*(r-p), 0 ) \\
-and	& \tt T = s * (Q-P) = x * Q = s * ( (q-p)*q-p), 0) \\
-so	& \tt s = (1/(q-p)*(q-p)) * (q-p)*(r-p)) \\
-and	& \tt t = p + (1/(q-p)*(q-p)) * (q-p)*(r-p) * (q-p) \\
+so	& \tt T = (X,0) = P + s*(Q-P) = s*Q = s*(L,0) \\
+so	& \tt s = X/L \\
+and     & \tt t = p + (X/L)*(q-p) \\
+or	& \tt t = p + ((q-p)*(r-p)/(q-p)*(q-p)) * (q-p) \\
 \end{tabular}
 
 Note that {\tt t} has rational\label{CLOSEST-IS-RATIONAL},
@@ -1370,7 +1374,10 @@ coordinates.  However the denominator may be large.  If
 the input coordinates have at most {\tt d} decimal places,
 their denominator is at most $10^d$, and the denominator of {\tt t}
 may be as large as \\
-\centerline{\tt 10$^{\tt d}$*(numerator of (q-p)*(q-p))}
+\centerline{\tt 10$^{\tt d}$*(numerator of L = (q-p)*(q-p))}
+where we use the fact that the denomiators of {\tt X} and {\tt L}
+which are $10^{2d}$ cancel each other out in {\tt X/L}.
+
 
 \medskip
 
@@ -1390,7 +1397,6 @@ may be as large as \\
     \draw[black] (+6.0,+1.0) node[right]{\small \tt X>L};
     \draw[black] (+3.0,+2.0) node{\small \tt 0<=X<=L};
     \draw[black] (+8.0,+3.0) node{\small \tt R=(X,Y)};
-    \draw[black] (+3.0,-2.0) node{\small \tt L = (p-q)*(p-q)};
 
 \end{scope}
 \end{tikzpicture}
@@ -1400,7 +1406,7 @@ then this is the same as {\tt 1/||q-p||} times
 the distance from {\tt R} to the finite
 line {\tt PQ}, and there are three cases.
 If {\tt X<0}, the answer
-is {\small \tt ||R-P||/||q-p||=||r-p||}.  If {\tt X>||q-p||},
+is {\small \tt ||R-P||/||q-p||=||r-p||}.  If {\tt X>L},
 the answer is {\small \tt ||R-Q||/||q-p||=||r-q||}.
 Otherwise the answer is {\small \tt |Y|/||q-p||} as before.
 See picture.
@@ -1412,11 +1418,11 @@ is {\tt R} on the infinite or finite line {\tt PQ}?
 If the coordinates of {\tt p}, {\tt q}, and {\tt r} have at
 most {\tt d} decimal places, they are rational numbers with
 denominator {\tt 10$^{\tt d}$}, and the products will be rational
-numbers with denominator {\tt 10$^{\tt 2d}$}, so the corrdinates of
+numbers with denominator {\tt 10$^{\tt 2d}$}, so the coordinates of
 {\tt R} and {\tt Q} will have denominator {\tt 10$^{\tt 2d}$}.
 Or more precisely,
-the products will be close approximations to such rational numbers.
-Therefore given that {\tt X = (q-p)*(r-p)} and {\tt Y = (q-p)\#(r-p)}
+the coordinates will be close approximations to such rational numbers.
+Therefore
 \begin{enumerate}
 \item {\tt r} is to the left of the infinite directed line {\tt pq}
 if and only if {\tt 0<Y:(2d)}.
@@ -1425,8 +1431,7 @@ if and only if {\tt Y<0:(2d)}.
 \item {\tt r} is on the infinite directed line {\tt pq}
 if and only if {\tt Y==0:(2d)}.
 \item {\tt r} is on the finite line {\tt pq} if and only if \\
-\hspace*{0.3in}{\tt Y==0:(2d)},~~{\tt 0<=X:(2d)},~~and~~%
-	           {\tt X<=(p-q)*(p-q):(2d)}
+\hspace*{0.3in}{\tt Y==0:(2d)},~~{\tt 0<=X:(2d)},~~and~~{\tt X<=L:(2d)}
 \end{enumerate}
 
 \newpage
@@ -2315,7 +2320,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Dec 30 02:43:36 EST 2020
+Date:         & Wed Dec 30 04:58:13 EST 2020
 
 \end{tabular}
 
