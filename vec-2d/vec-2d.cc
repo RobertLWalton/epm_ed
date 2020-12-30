@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Dec 29 19:15:23 EST 2020
+// Date:	Wed Dec 30 05:35:52 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -576,11 +576,11 @@ double disti				//disti pqr
 double distf				//distf pqr
     ( vec p, vec q, vec r )
 {
-    vec Q = uchange ( q - p, q - p );
-    vec R = uchange ( q - p, r - p );
+    vec Q = change ( q - p, q - p );
+    vec R = change ( q - p, r - p );
     if ( R.x < 0 ) return len ( r - p );
     else if ( R.x > Q.x ) return len ( r - q );
-    else return fabs ( R.y );
+    else return fabs ( R.y ) / len ( q - p );
 }
     
 vec closei				//closei pqr
@@ -592,8 +592,8 @@ vec closei				//closei pqr
 vec closef				//closef pqr
     ( vec p, vec q, vec r )
 {
-    vec Q = uchange ( q - p, q - p );
-    vec R = uchange ( q - p, r - p );
+    vec Q = change ( q - p, q - p );
+    vec R = change ( q - p, r - p );
     if ( R.x < 0 ) return p;
     else if ( R.x > Q.x ) return q;
     else return closei ( p, q, r );

@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Mon Dec 28 05:42:21 EST 2020
+// Date:	Wed Dec 30 05:43:00 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -747,6 +747,10 @@ int main ( int argc, char ** argv )
 	catch ( line_error e ){};
     }
     end_page();
+
+    if ( ! layout_output )
+        cerr << "Empty Input: there were no display"
+	        " commands in the input" << endl;
 
     return 0;
 }
