@@ -30,6 +30,9 @@ p=302
 u=u^p
 V=u:v
 W=u:w
+U=u:
+V=U*v
+W=U*w
 r=V*W
 r=V#W
 #
@@ -38,6 +41,9 @@ u=s*u
 r=<u>
 V=u!v
 W=u!w
+U=u!
+V=U*v
+W=U*w
 r=V*W
 r=V#W
 #
