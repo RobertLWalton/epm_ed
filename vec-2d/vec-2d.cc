@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Dec 29 04:22:13 EST 2020
+// Date:	Tue Dec 29 19:15:23 EST 2020
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -95,8 +95,10 @@ linear reflection ( double p );		// |p
 double operator * ( vec v, vec w );	// v*w
 double cross ( vec v, vec w );		// v#w
 vec change ( vec v, vec w );		// v:w
-vec unit ( vec v );			// v!
+vec unit ( vec v );			// <v>
 vec uchange ( vec v, vec w );		// v!w
+linear changel ( vec v );		// v:
+linear uchangel ( vec v );		// v!
 double area ( vec p, vec q, vec r );	// area pqr
 
 // For Line and Point Calculator
@@ -537,7 +539,7 @@ vec change ( vec v, vec w )		// v:w
 {
     return new_vec ( v*w, cross ( v, w ) );
 }
-vec unit ( vec v )			// v!
+vec unit ( vec v )			// <v>
 {
     double length = len ( v );
     return ( 1 / length ) * v;
@@ -546,6 +548,16 @@ vec uchange ( vec v, vec w )		// v!w
 {
     vec u = unit ( v );
     return change ( u, w );
+}
+linear changel ( vec v )		// v:
+{
+    return new_linear ( change ( v, uxv ),
+                        change ( v, uyv ) );
+}
+linear uchangel ( vec v )		// v!
+{
+    return new_linear ( uchange ( v, uxv ),
+                        uchange ( v, uyv ) );
 }
 double area ( vec p, vec q, vec r )	// area pqr
 {
@@ -768,11 +780,25 @@ bool compute_result ( void )
 	    return false;
 	return true;
     }
-    if ( match ( "$=!$" ) )
+    if ( match ( "$=<$>" ) )
     {
 	assert ( OP1.t == VECTOR );
 	RES.t = VECTOR;
 	RES.v = unit ( OP1.v );
+	return true;
+    }
+    if ( match ( "$=$:" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	RES.t = LINEAR;
+	RES.l = changel ( OP1.v );
+	return true;
+    }
+    if ( match ( "$=$!" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	RES.t = LINEAR;
+	RES.l = uchangel ( OP1.v );
 	return true;
     }
     if ( match ( "$=|$|" ) )

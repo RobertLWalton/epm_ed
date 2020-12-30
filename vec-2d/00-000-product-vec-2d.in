@@ -35,7 +35,7 @@ r=V#W
 #
 s=45.87
 u=s*u
-r=!u
+r=<u>
 V=u!v
 W=u!w
 r=V*W
