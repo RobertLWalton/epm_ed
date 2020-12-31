@@ -1407,7 +1407,7 @@ the distance from {\tt R} to the finite
 line {\tt PQ}, and there are three cases.
 If {\tt X<0}, the answer
 is {\small \tt ||R-P||/||q-p||=||r-p||}.  If {\tt X>L},
-the answer is {\small \tt ||R-Q||/||q-p||=||r-q||}.
+the answer is {\small \tt ||R-Q||/||q-p||=||q-p||}.
 Otherwise the answer is {\small \tt |Y|/||q-p||} as before.
 See picture.
 \end{minipage}
@@ -1488,46 +1488,52 @@ In this section we investigate the following questions:
 \item What is the distance between two finite lines?
 \end{enumerate}
 
-Let {\tt q} and {\tt r} be distinct points so that the set
-of points on the infinite line {\tt qr} is: \\
-\centerline{{\tt K} = \{ {\tt q + s*(r-q)}: {\tt s} any scalar \}} 
+Let {\tt p} and {\tt q} be a pair of distinct points so that the set
+of points on the infinite line {\tt pq} is: \\
+\centerline{{\tt K} = \{ {\tt p + s*(q-p)}: {\tt s} any scalar \}} 
 
-Let {\tt m} and {\tt n} be more distinct points so that the set
+Let {\tt m} and {\tt n} be another pair of distinct points so that the set
 of points on the infinite line {\tt mn} is: \\
 \centerline{{\tt K} = \{ {\tt m + t*(n-m)}: {\tt t} any scalar \}} 
 
 If these two infinite lines intersect, there must exist values for
 {\tt s} and {\tt t} such that: \\
-\centerline{{\tt q + s*(r-q) = m + t*(n-m)}}
+\centerline{{\tt p + s*(q-p) = m + t*(n-m)}}
 
 The easy way to solve this is to take the cross product of both
 sides with {\tt n-m}, because
 {\tt (n-m)\#(t*(n-m)) = t*((n-m)\#(n-m)) = t*0 = 0}.
 So we end up with: \\
-\centerline{\tt s*(n-m)\#(r-q) = (n-m)\#(m-q)} \\
-which we can solve for {\tt s}.  Unless {\tt (n-m)\#(r-q) = 0}.
+\centerline{\tt s*(n-m)\#(q-p) = (n-m)\#(m-q)} \\
+which we can solve for {\tt s}.  Unless {\tt (n-m)\#(q-p) = 0}.
 
-What happens if {\tt (n-m)\#(r-q) = 0}? \\
+What happens if {\tt (n-m)\#(q-p) = 0}? \\
 \hspace*{0.3in}\begin{tabular}{r@{~~}l}
-Then    & \tt (n-m)\#(r-q) = sin $\theta$*||n-m||*||r-q|| = 0 \\
-where   & \tt ||n-m|| $\neq$ 0 $\neq$ ||r-q|| \\
-and     & \tt $\theta$ = azm (r-q) - azm (n-m) \\
+Then    & \tt (n-m)\#(q-p) = sin $\theta$*||n-m||*||q-p|| = 0 \\
+where   & \tt ||n-m|| $\neq$ 0 $\neq$ ||q-p|| \\
+and     & \tt $\theta$ = azm (q-p) - azm (n-m) \\
 so      & \tt sin $\theta$ = 0 \\
 so      & \tt $\theta$ = 0 or $\pm$180 \\
-so      & {\tt nm} and {\tt rq} are parallel \\
+so      & {\tt nm} and {\tt pq} are parallel \\
         \end{tabular}
 
-The converse is also true.  If {\tt mn} and {\tt rq} are parallel, \\
+The converse is also true.  If {\tt mn} and {\tt pq} are parallel, \\
 \hspace*{0.3in}\begin{tabular}{r@{~~}l}
-then    & {\tt n-m = s*(r-q)} for some scalar {\tt s} \\
-so      & \tt (n-m)\#(r-q) = s*((r-q)\#(r-q)) = 0 \\
+then    & {\tt azm (n-m) = azm (q-p)} \\
+and     & \tt ||n-m|| $\neq$ 0 $\neq$ ||q-p|| \\
+so      & {\tt n-m = s*(q-p)} for some scalar {\tt s} \\
+so      & \tt (n-m)\#(q-p) = s*((q-p)\#(q-p)) = 0 \\
         \end{tabular}
 
 Of course, testing a product to see if it is {\tt 0} is subject to
 rounding errors.  So we assume that the coordinates of {\tt m},
 {\tt n}, {\tt q}, and {\tt r} have at most {\tt d} decimal places,
 and therefore {\tt mn} is parallel to {\tt qr} if and only if
-{\tt (n-m)\#(r-q)==0:(2d)}.
+{\tt (n-m)\#(q-p)==0:(2d)}.
+
+If {\tt mn} and {\tt pq} are parallel infinite lines, they
+may be disjoint or identical.  To test which, test whether
+{\tt m} is on the infinite line {\tt pq} 
 
 The question of whether two finite lines intersect is made
 simpler by the following:
@@ -1538,51 +1544,70 @@ if and only if each intersects the infinite extension of the other.
 \begin{indpar}{0.3in}
 Proof: Let the finite lines be $\ell_1$ and $\ell_2$ and let
 $\ell_i$ intersect the infinite extension of the other finite line
-at point $p_i$.  Then $p_1=p_2=$ the intersection of the infinite
-extensions of both lines, and as $p_i$ is on $\ell_i$, this point is
+at point $r_i$.  Then $r_1=r_2=$ the intersection of the infinite
+extensions of both lines, and as $r_i$ is on $\ell_i$, this point is
 on both finite lines.
 
 The converse is trivial.
 \end{indpar}
 
 If we have a finite line {\tt mn} and and infinite line extending
-{\tt qr}, then they intersect if and only if either {\tt m} or {\tt n}
-is on the infinite line or {\tt m} and {\tt n} are on opposite sides
-of the infinite line.  Then we know from the end of
-section~\ref{LINE-AND-POINT} (p\pageref{LINE-AND-POINT}) that
-if coordinates have at most {\tt d} decimal places, then
-there is an intersection if and only if:\\
-\centerline{{\tt (r-q)\#(m-q)<=0:(2d)} and {\tt 0<=(r-q)\#(n-q):(2d)}} \\
+{\tt pq}, then we can test whether {\tt m} and {\tt n} are on, to the left of,
+or to the right of the infinite directed line {\tt pq}, and we get the
+following cases:
+\begin{enumerate}
+\item Both {\tt m} and {\tt n} are to the left of {\tt pq}.
+Then finite {\tt mn} does \underline{not} intersect infinite {\tt pq}.
+\item Both {\tt m} and {\tt n} are to the right of {\tt pq}.
+Then finite {\tt mn} does \underline{not} intersect infinite {\tt pq}.
+\item {\tt m} is to the left of and {\tt n} is to the right of {\tt pq}.
+Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
+\item {\tt m} is to the right of and {\tt n} is to the left of {\tt pq}.
+Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
+\item {\tt m} or {\tt n} is on {\tt pq}.
+Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
+\end{enumerate}
+
+The above cases can be captured by:
+\begin{lemma}
+If coordinates have at most {\tt d} decimal places,
+a finite line {\tt mn} intersects an infinite line {\tt pq}
+if and only if:
+\\[1ex]
+\centerline{{\tt (q-p)\#(m-p)<=0:(2d)} and {\tt 0<=(q-p)\#(n-p):(2d)}} \\
 \centerline{or} \\
-\centerline{{\tt (r-q)\#(n-q)<=0:(2d)} and {\tt 0<=(r-q)\#(m-q):(2d)}}
+\centerline{{\tt (q-p)\#(n-p)<=0:(2d)} and {\tt 0<=(q-p)\#(m-p):(2d)}}
+\end{lemma}
 
 (This could also be written as: \\
-\centerline{{\tt ((r-q)\#(m-q))*((r-q)\#(n-q))<=0:(4d)}} \\
+\centerline{{\tt ((q-p)\#(m-q))*((q-p)\#(n-q))<=0:(4d)}} \\
 but the change from {\tt 2d} to {\tt 4d} is worrisome: {\tt 4d} might
 be too large to be practical.)
 
-The case where {\tt mn} and {\tt qr} are parallel, that is, when: \\
-\centerline{{\tt (r-q)\#(n-m)==0:(2d)}} \\
+TBD
+
+The case where {\tt mn} and {\tt pq} are parallel, that is, when: \\
+\centerline{{\tt (q-p)\#(n-m)==0:(2d)}} \\
 requires a different approach.  If {\tt n} is not on the infinite
-line that extends {\tt rq}, that is if: \\
-\centerline{{\tt 0!=(r-q)\#(n-q):(2d)}} \\
-then there is no intersection.  Otherwise both {\tt nm} and {\tt qr}
+line that extends {\tt pq}, that is if: \\
+\centerline{{\tt 0!=(q-p)\#(n-q):(2d)}} \\
+then there is no intersection.  Otherwise both {\tt nm} and {\tt pq}
 are on the same infinite line and may or may not overlap.
-We can use the {\tt (r-q)*} product to establish coordinates on this
+We can use the {\tt (q-p)*} product to establish coordinates on this
 infinite line, getting: \\
-\centerline{\tt (r-q)*m ~~~ (r-q)*n ~~~ (r-q)*q ~~~ (r-q)*r} \\
+\centerline{\tt (q-p)*m ~~~ (q-p)*n ~~~ (q-p)*q ~~~ (q-p)*r} \\
 Then by exchanging {\tt m} with {\tt n} and {\tt q} with {\tt r}
 \underline{if necessary} we can arrange that: \\
-\centerline{\tt (r-q)*m<(r-q)*n:(2d) ~ and ~ (r-q)*q<(r-q)*r:(2d)} \\
+\centerline{\tt (q-p)*m<(q-p)*n:(2d) ~ and ~ (q-p)*q<(q-p)*r:(2d)} \\
 and there will be an overlap if and only if it is \underline{not}
 true that \\
-\centerline{\tt (r-q)*n<(r-q)*q:(2d) ~ or ~ (r-q)*r<(r-q)*m:(2d)} \\
+\centerline{\tt (q-p)*n<(q-p)*q:(2d) ~ or ~ (q-p)*r<(q-p)*m:(2d)} \\
 If there is an overlap, the overlap interval will be: \\
-\centerline{\tt [ max\{(r-q)*m,(r-q)*q\}, min\{(r-q)*n,(r-q)*r\} ]} \\
-expressed in {\tt (r-q)*} coordinates.  Since the points on our
-line have the form {\tt q + s*(r-q)}, a point on the line with
-{\tt (r-q)*} coordinate {\tt S} would be such that \\
-\centerline{\tt (r-q)*q + s*(r-q)*(r-q) = S} \\
+\centerline{\tt [ max\{(q-p)*m,(q-p)*q\}, min\{(q-p)*n,(q-p)*r\} ]} \\
+expressed in {\tt (q-p)*} coordinates.  Since the points on our
+line have the form {\tt q + s*(q-p)}, a point on the line with
+{\tt (q-p)*} coordinate {\tt S} would be such that \\
+\centerline{\tt (q-p)*q + s*(q-p)*(q-p) = S} \\
 and this can be solved for {\tt s}.
 
 \newpage
@@ -2320,7 +2345,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Dec 30 04:58:13 EST 2020
+Date:         & Thu Dec 31 03:28:20 EST 2020
 
 \end{tabular}
 
