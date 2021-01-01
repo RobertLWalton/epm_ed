@@ -1637,10 +1637,12 @@ otherwise \\
 
 We can summarize all this in:
 \begin{lemma}
-If coordinates have at most {\tt d} decimal places,
-and 
+Given finite lines {\tt pq} and {\tt mn},
+if coordinates have at most {\tt d} decimal places,
 \\[1ex]
 \centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
+\\[1ex]
+(so each line is a subset of the infinite extension of the other line),
 and we switch {\tt m} and {\tt n} if necessary so that \\
 \centerline{\tt (q-p)*(m-p) < (q-p)*(n-p)}
 then
@@ -1648,11 +1650,12 @@ then
 \item If {\tt (q-p)*(n-p) < (q-p)*(p-p):(2d)} the finite lines do not overlap.
 \item If {\tt (q-p)*(q-p) < (q-p)*(m-p):(2d)} the finite lines do not overlap.
 \item Otherwise the finite lines overlap and the length of the overlap \\
-is {\tt (U-L)/||q-p||} where \\
+is {\tt (U-L {\rm rounded to} {\tt 2d} {\rm decimal places})/||q-p||} where \\
 \hspace*{0.5in}\begin{tabular}{rl}
 	& \tt L = max ( (q-p)*(m-p), (q-p)*(p-p) ) \\
 and	& \tt U = min ( (q-p)*(n-p), (q-p)*(q-p) ) \\
-\end{tabular}
+\end{tabular} \\
+(If we do not round {\tt U-L} it can happen that {\tt U-L < 0}.)
 \end{enumerate}
 \end{lemma}
 
@@ -2419,7 +2422,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Jan  1 00:34:33 EST 2021
+Date:         & Fri Jan  1 02:23:59 EST 2021
 
 \end{tabular}
 
