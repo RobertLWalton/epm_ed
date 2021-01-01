@@ -1538,17 +1538,24 @@ may be disjoint or identical.  To test which, test whether
 The question of whether two finite lines intersect is made
 simpler by the following:
 \begin{lemma}
-Two \underline{non-parallel} finite lines intersect
-if and only if each intersects the infinite extension of the other.
+Two finite lines do \underline{not} intersect
+if either does not intersect the infinite extension of the other.
+
+Otherwise the two finite lines intersect at a single point unless
+each finite line is a subset of the infinite extension of the other.
 \end{lemma}
 \begin{indpar}{0.3in}
-Proof: Let the finite lines be $\ell_1$ and $\ell_2$ and let
+Proof: The first statement is clear.
+
+If one finite line is a subset of the the infinite extension of the
+other, then the other finite line is a subset of the infinite extension
+of the first finite line.
+
+Otherwise let the finite lines be $\ell_1$ and $\ell_2$ and let
 $\ell_i$ intersect the infinite extension of the other finite line
-at point $r_i$.  Then $r_1=r_2=$ the intersection of the infinite
+at single point $r_i$.  Then $r_1=r_2=$ the intersection of the infinite
 extensions of both lines, and as $r_i$ is on $\ell_i$, this point is
 on both finite lines.
-
-The converse is trivial.
 \end{indpar}
 
 If we have a finite line {\tt mn} and and infinite line extending
@@ -1564,25 +1571,92 @@ Then finite {\tt mn} does \underline{not} intersect infinite {\tt pq}.
 Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
 \item {\tt m} is to the right of and {\tt n} is to the left of {\tt pq}.
 Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
-\item {\tt m} or {\tt n} is on {\tt pq}.
-Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
+\item Just one of {\tt m} or {\tt n} is on {\tt pq}.
+Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}
+at a single point.
+\item Both {\tt m} and {\tt n} are on {\tt pq}.
+Then finite {\tt mn} is a \underline{subset} of the infinite {\tt pq}.
 \end{enumerate}
 
 The above cases can be captured by:
 \begin{lemma}
 If coordinates have at most {\tt d} decimal places,
-a finite line {\tt mn} intersects an infinite line {\tt pq}
-if and only if:
+a finite line {\tt mn} is a subset of an infinite line {\tt pq} if:
+\\[1ex]
+\centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
+\\[1ex]
+Otherwise the finite {\tt mn} intersects the infinite {\tt pq}
+in a single point if:
 \\[1ex]
 \centerline{{\tt (q-p)\#(m-p)<=0:(2d)} and {\tt 0<=(q-p)\#(n-p):(2d)}} \\
 \centerline{or} \\
 \centerline{{\tt (q-p)\#(n-p)<=0:(2d)} and {\tt 0<=(q-p)\#(m-p):(2d)}}
+Otherwise the finite {\tt mn} does \underline{not} intersect
+the infinite {\tt pq}.
 \end{lemma}
 
-(This could also be written as: \\
+(Determining if {\tt mn} intersects or is a subset of {\tt pq}
+could be answered by evaluating \\
 \centerline{{\tt ((q-p)\#(m-q))*((q-p)\#(n-q))<=0:(4d)}} \\
 but the change from {\tt 2d} to {\tt 4d} is worrisome: {\tt 4d} might
 be too large to be practical.)
+
+If two finite lines intersect at a single point, the point of intersection
+is the same as the point of intersection of the two infinite extensions
+of the two finite lines, which we have determined at the beginning
+of this section.
+
+If the two infinite extensions of the two finite lines {\tt pq} and
+{\tt mn} are the same
+infinite line, we need a new approach.  We need to establish a coordinate
+system on this infinite line.
+
+If {\tt r} is a point on this infinite line then
+{\tt r = p + s$_r$ * <q-p>} for some scalar {\tt s$_r$}.  Then
+{\tt s$_r$ = $\pm$||r-p||} where the + sign is chosen when {\tt r}
+is to the same side of {\tt p} as {\tt q}, and the - sign is chosen
+when {\tt r} is to the opposite side of {\tt p} from {\tt q}.
+We can use the map {\tt r $\mapsto$ s$_r$} as a system of coordinates
+on the infinite line.
+
+However it is more computationally convenient to use
+{\tt r $\mapsto$ S$_r$ = (q-p)*r = ||q-p||*s$_r$} as the system of coordinates.
+Distances in this coordinate system are {\tt ||q-p||} times distances in the
+original coordinate system.
+
+Using this coordinate system, the finite line {\tt pq} is represented
+as the coordinate interval {\tt [S$_p$,S$_q$]}, where \\
+\centerline{{\tt S$_p$ = (q-p)*(p-p) = 0} and {\tt S$_q$ = (q-p)*(q-p) > 0 }}
+To simplify
+the situation, switch {\tt m} and {\tt n} if necessary to that
+{\tt S$_m$ < S$_n$} and {\tt mn} is represented by the coordinate
+interval {\tt [S$_m$,S$_n$]}.  Then the overlap of the two intervals
+is empty if {\tt S$_n$ < S$_p$} or {\tt S$_q$ < S$_m$}, and is
+otherwise \\
+\centerline{\tt [max(S$_p$,S$_m$),min(S$_q$,S$_n$)]}
+
+We can summarize all this in:
+\begin{lemma}
+If coordinates have at most {\tt d} decimal places,
+and 
+\\[1ex]
+\centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
+and we switch {\tt m} and {\tt n} if necessary so that \\
+\centerline{\tt (q-p)*(m-p) < (q-p)*(n-p)}
+then
+\begin{enumerate}
+\item If {\tt (q-p)*(n-p) < (q-p)*(p-p):(2d)} the finite lines do not overlap.
+\item If {\tt (q-p)*(q-p) < (q-p)*(m-p):(2d)} the finite lines do not overlap.
+\item Otherwise the finite lines overlap and the length of the overlap \\
+is {\tt (U-L)/||q-p||} where \\
+\hspace*{0.5in}\begin{tabular}{rl}
+	& \tt L = max ( (q-p)*(m-p), (q-p)*(p-p) ) \\
+and	& \tt U = min ( (q-p)*(n-p), (q-p)*(q-p) ) \\
+\end{tabular}
+\end{enumerate}
+\end{lemma}
+
+
 
 TBD
 
@@ -2345,7 +2419,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Dec 31 03:28:20 EST 2020
+Date:         & Fri Jan  1 00:34:33 EST 2021
 
 \end{tabular}
 
