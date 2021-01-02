@@ -1,0 +1,26 @@
+# Test of Operation Results with Illegal Operands
+# The output of this test is language specific.
+#
+z=0
+p=+0
+m=-0
+r=z/z
+r=p/p
+r=p/m
+r=m/p
+r=m/m
+o=1
+r=o/z
+r=o/p
+r=o/m
+r=o%z
+r=o%p
+r=o%m
+#
+n=-1
+r=n/z
+r=n/p
+r=n/m
+r=n%z
+r=n%p
+r=n%m

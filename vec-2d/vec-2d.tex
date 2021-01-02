@@ -118,16 +118,17 @@ The syntax is:
                    one or more non-letter, non-digit graphic characters \\
                    (e.g. {\tt +} or {\tt <=})\\
 		   \end{tabular} \\
-{\em function} ::= three or more letters (e.g. {\tt sin} or {\tt length})
+{\em function} ::= three or more letters (e.g. {\tt sin} or {\tt area})
 \end{tabular}
 
 The Input/Output Rules are:
 \begin{indpar}{0.2in}\begin{itemize}
 
 \item Whitespace in {\em statements} is optional and should be deleted
-before the {\em statements} are parsed.
+before the {\em statements} are parsed.  There may be whitespace
+before the `{\tt \#}' that begins a comment.
 
-\item The output of a {\em statement} is a copy of the {\em statement}, \\
+\item The output of a {\em statement} is a copy of the {\em statement},
 which if the {\em statement} is neither a comment nor of the form
 `{\em variable} \TT{=} {\em value} {\em eol}', 
 is followed by `{\em space} \TT{=} {\em space} {\em value}', where
@@ -136,7 +137,7 @@ statement.
 
 \item Input lines have a maximum of 100,000 characters (long lines
 are only needed for inputting vector lists).  Output lines have
-no limit (vector lists output can be arbitrarily long).
+no limit (output vector lists can be arbitrarily long).
 
 \item Each calculator version should be able to input and output
 values of the types being tested by that version (beginning with
@@ -144,7 +145,9 @@ values of the types being tested by that version (beginning with
 and statements of the form `{\em variable} \TT{=} {\em variable}'.
 
 \item {\em Scalars} should be output with 6 digits of precision
-(which is the default for C/C++).
+(which is the default for C/C++).  To pass tests, scalar values
+must be accurate to better than 5 digits of precision \underline{or}
+to better than $\pm 10^{-6}$.
 
 \item  The total number of vector list elements that need to be
 allocated during one program execution will be small enough
@@ -173,7 +176,7 @@ then: \\[1ex]
 \tt x-y & returns $x - y$ \\
 \tt x*y & returns $x \times y$ \\
 \tt x/y & returns $x / y$ \\
-\tt x\%y & returns $x~\mathrm{modulo}~y$ \\
+\tt x\%y & returns remainder of $x/y$ rounded to integer nearest zero \\
 \tt -x & returns $-x$ \\
 \tt |x| & returns $|x|$, the absolute value of $x$ \\
 \tt cos x & returns $\cos ( (\pi/180) * x )$ [{\tt x} is in degrees] \\
@@ -2456,7 +2459,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jan  2 05:45:09 EST 2021
+Date:         & Sat Jan  2 13:01:18 EST 2021
 
 \end{tabular}
 
