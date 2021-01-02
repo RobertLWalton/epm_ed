@@ -1660,32 +1660,66 @@ and	& \tt U = min ( (q-p)*(n-p), (q-p)*(q-p) ) \\
 \end{lemma}
 
 
+Lastly we consider the problem of finding the distance between
+the finite line {\tt mn} and the finite line {\tt pq}.  We assume:
 
-TBD
+\begin{theorem}
+If {\tt mn} and {\tt pq} are finite lines, the function from pairs
+of points
+{\tt r$_{\tt mn}$} on {\tt mn} and
+{\tt r$_{\tt pq}$} on {\tt pq}  to the distance
+{\tt ||r$_{\tt mn}$ - r$_{\tt pq}$||} has a minimum.
+\end{theorem}
 
-The case where {\tt mn} and {\tt pq} are parallel, that is, when: \\
-\centerline{{\tt (q-p)\#(n-m)==0:(2d)}} \\
-requires a different approach.  If {\tt n} is not on the infinite
-line that extends {\tt pq}, that is if: \\
-\centerline{{\tt 0!=(q-p)\#(n-q):(2d)}} \\
-then there is no intersection.  Otherwise both {\tt nm} and {\tt pq}
-are on the same infinite line and may or may not overlap.
-We can use the {\tt (q-p)*} product to establish coordinates on this
-infinite line, getting: \\
-\centerline{\tt (q-p)*m ~~~ (q-p)*n ~~~ (q-p)*q ~~~ (q-p)*r} \\
-Then by exchanging {\tt m} with {\tt n} and {\tt q} with {\tt r}
-\underline{if necessary} we can arrange that: \\
-\centerline{\tt (q-p)*m<(q-p)*n:(2d) ~ and ~ (q-p)*q<(q-p)*r:(2d)} \\
-and there will be an overlap if and only if it is \underline{not}
-true that \\
-\centerline{\tt (q-p)*n<(q-p)*q:(2d) ~ or ~ (q-p)*r<(q-p)*m:(2d)} \\
-If there is an overlap, the overlap interval will be: \\
-\centerline{\tt [ max\{(q-p)*m,(q-p)*q\}, min\{(q-p)*n,(q-p)*r\} ]} \\
-expressed in {\tt (q-p)*} coordinates.  Since the points on our
-line have the form {\tt q + s*(q-p)}, a point on the line with
-{\tt (q-p)*} coordinate {\tt S} would be such that \\
-\centerline{\tt (q-p)*q + s*(q-p)*(q-p) = S} \\
-and this can be solved for {\tt s}.
+We will \underline{not} give the proof of this,
+which involves the mathematics of compact sets.
+
+We will prove:
+
+\begin{theorem}
+\label{FINITE-LINE-DISTANCE-THEOREM}
+If {\tt mn} and {\tt pq} are finite lines that do not intersect, then
+points {\tt r$_{\tt mn}$} on {\tt mn} and
+{\tt r$_{\tt pq}$} on {\tt pq} may be chosen so that
+{\tt ||r$_{\tt mn}$ - r$_{\tt pq}$||} is minimal and
+one of the chosen points is an end-point of its finite line.
+
+Therefore the distance from {\tt mn} to {\tt pq} is the
+smallest of: \\
+\hspace*{0.5in}\begin{tabular}{l}
+the distance from {\tt m} to {\tt pq} \\
+the distance from {\tt n} to {\tt pq} \\
+the distance from {\tt p} to {\tt mn} \\
+the distance from {\tt q} to {\tt mn} \\
+\end{tabular}
+\end{theorem}
+
+\begin{indpar}{0.3in}
+Proof:  Consider the infinite line $\ell$ through
+{\tt r$_{\tt mn}$} and {\tt r$_{\tt pq}$}, and assume that
+neither
+{\tt r$_{\tt mn}$} or {\tt r$_{\tt pq}$} are endpoints.
+Then $\ell$ may be translated to its left or right by
+a small enough amount that the translation continues
+to intersect both finite lines.  Let the translation
+be $\ell'$ and its intersections with the finite lines be
+{\tt r'$_{\tt mn}$} and {\tt r'$_{\tt pq}$}.
+If {\tt mn} and {\tt pq} are not parallel, then
+{\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$||} will increase
+as $\ell$ is translated in one direction and decrease as
+it is translated in the other direction, but a decrease
+cannot happen by assumption of minimality of
+{\tt ||r$_{\tt mn}$ - r$_{\tt pq}$||}, so by contradiction either
+{\tt r$_{\tt mn}$} or {\tt r$_{\tt pq}$} must be an endpoint.
+
+If on the other hand {\tt mn} and {\tt pq} are parallel,
+{\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$||} will remain constant
+for all translations of $\ell$, and $\ell$ can be translated
+in either direction until it encounters an endpoint.
+\end{indpar}
+
+Of course if the finite lines intersect the distance between
+them is zero.
 
 \newpage
 
@@ -2422,7 +2456,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Jan  1 02:23:59 EST 2021
+Date:         & Sat Jan  2 05:45:09 EST 2021
 
 \end{tabular}
 
