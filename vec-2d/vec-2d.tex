@@ -217,6 +217,19 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.  Only scalar functionality is tested.
 
+There is also an input file:
+\begin{center}
+\begin{tabular}{rl}
+Sample Input Files: & \file{00-000-special-vec-2d.in} \\
+\end{tabular}
+\end{center}
+which may be used to test the results of divide by zero
+and other anomolous scalar computations.
+The output of your program for this file will depend
+upon the programming language you use, so the output is
+not testable except by human inspection.  Therefore this {\tt .in}
+file is not included in any {\tt .run} files.
+
 \section{Coding Hints}
 The calculator memory just maps each variable to a value.
 You can map each ASCII character to a value using a
@@ -2459,7 +2472,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jan  2 13:01:18 EST 2021
+Date:         & Sat Jan  2 17:23:42 EST 2021
 
 \end{tabular}
 

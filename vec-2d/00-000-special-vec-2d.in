@@ -24,3 +24,16 @@ r=n/m
 r=n%z
 r=n%p
 r=n%m
+#
+x=o/p
+y=o/m
+r=x+y
+r=x-y
+r=y-x
+r=x-y
+r=x+o
+r=y+o
+r=z*x
+r=o*x
+r=z*y
+r=o*y
