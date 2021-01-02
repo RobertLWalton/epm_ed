@@ -352,17 +352,23 @@ i.e., $u+(v+w)=(u+v)+w$.
 \end{tikzpicture}
 \end{wrapfigure}
 We define the \key{scalar product} of a scalar $s$ and a vector
-$v=(v_x,v_y)$ as $s*v = (s*v_x,s*v,y)$.  Multiplication
+$v=(v_x,v_y)$ as $s*v = (s*v_x,s*v_y)$.  Multiplication
 of $v$ by $s>0$ does not change the direction of $v$,
 but multiplies the length of $v$ by $s$.  Multiplication of $v$ by
 $s<0$ reverses the direction of $v$ and multiplies its length
 by $|s|$.  See the picture.
 \\[1ex]
-Scalar products are associative in the sense that
-$s_1*(s_2*v)=(s_1*s_2)*v$.
+Scalar products are associative in that
+$s_1*(s_2*v)=(s_1*s_2)*v$ and distributive in that
+$s*(v_1+v_2)=s*v_1+s*v_2$ and $(s_1+s_2)*v = s_1*v + s_2*v$.
 \end{minipage}
 
-\bigskip
+\medskip
+
+The negative of a vector is defined as $-v = (-1)*v = (-v_x,-v_y)$.
+Subtraction of vectors is defined as $v-w = v + (-w) = (v_x-w_x,v_y-w_y)$. 
+
+\medskip
 
 \begin{minipage}{\textwidth}\raggedright
 \begin{wrapfigure}{r}{0.4\textwidth}
@@ -420,7 +426,7 @@ value types and the {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
 Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
-          {\tt l=$\ell$}, {\tt t=$\theta$}
+          {\tt l=$\ell$}, {\tt t=$(180/\pi)*\theta$}
           are scalars \\
 	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
@@ -438,6 +444,7 @@ then: \\[1ex]
 \tt l\textasciicircum t
           & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
 	  & the vector with length {\tt l} and azimuth {\tt t} degrees \\
+	  & where $\theta = (\pi/180)*{\tt t}$ radians \\
 \end{tabular}
 \end{center}
 
@@ -2487,7 +2494,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jan  2 18:03:52 EST 2021
+Date:         & Sat Jan  2 18:43:37 EST 2021
 
 \end{tabular}
 
