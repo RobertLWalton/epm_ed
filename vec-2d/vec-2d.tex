@@ -236,9 +236,10 @@ You can map each ASCII character to a value using a
 vector of 128 elements, and simply not use the elements
 that do not correspond to letters.
 
-To parse a non-comment, remove its whitespace characters.  Then
+To parse a line, remove its whitespace characters.  Then
 \begin{itemize}
-\item If the line contains a digit, it has the form
+\item If the line begins with `{\tt \#}', it is a {\em comment}.
+\item Else if the line contains a digit, it has the form
 `{\em variable} \TT{=} {\em value}', where {\em value} is:
 \begin{itemize}
 \item A linear-transform if the `\TT{=}' is followed by `\TT{[}'.
@@ -249,6 +250,7 @@ To parse a non-comment, remove its whitespace characters.  Then
 \item If the line does \underline{not} contain a digit, match the
 line to a pattern using the rules:
 \begin{itemize}
+\item The pattern and the line must be the same length.
 \item A pattern character other than `\TT{\$}' must match the line character
 exactly.
 \item The `\TT{\$}' pattern character must match a letter (which will
@@ -265,21 +267,34 @@ Examples: \begin{tabular}[t]{l@{~~~}l@{~~~}l}
 \tt \$=\$<=\$:\$ & {\tt x=y<=z:d}  & [Normally input as {\tt x = y<=z:d}] \\
 \end{tabular}
 
-Data structure and function prototype definitions that you may
-optionally use are given in the following files, which may be
-downloaded:
+Remember that when you output a line, you are outputting the original
+line before whitespace characters were removed.
+
+Skeleton code for the solutions is available in the files:
 \begin{center}
 \begin{tabular}{ll}
-\TT{c-defs-vec-2d.txt}	&  for C \\
-\TT{cc-defs-vec-2d.txt}	&  for C++ \\
-\TT{java-defs-vec-2d.txt}	&  for JAVA \\
-\TT{py-defs-vec-2d.txt}	&  for PYTHON \\
+\TT{c-skeleton-vec-2d.txt}	&  for C \\
+\TT{cc-skeleton-vec-2d.txt}	&  for C++ \\
+\TT{java-skeleton-vec-2d.txt}	&  for JAVA \\
+\TT{py-skeleton-vec-2d.txt}	&  for PYTHON \\
 \end{tabular}
 \end{center}
 
-Using these definitions may make it easier
+This code includes data declarations and function prototypes;
+using these may make it easier
 for other people familiar with this problem to read your
 code, should that be important.
+The skeletons also contain the calculator except for
+commands and function bodies that actually perform operations: e.g.,
+the `{\tt {\em variable} = {\em value}}' and
+`{\tt {\em variable} = {\em variable}}' statements are
+implemented but `{\tt {\em variable} = {\em variable} + {\em variable}}'
+is not.
+
+You do not have to use the skeletons, or you can use one but delete
+everything in it but data declarations and function protypes.
+ 
+
 
 \section{Operations on Vectors}
 \begin{minipage}{\textwidth}\raggedright
@@ -2472,7 +2487,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jan  2 17:23:42 EST 2021
+Date:         & Sat Jan  2 18:03:52 EST 2021
 
 \end{tabular}
 
