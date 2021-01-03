@@ -469,9 +469,14 @@ run file.
 
 \section{Display Language}
 Points, lines, arrows, etc.~can be displayed in a PDF file
-by making a {\tt .pdf} file from an {\tt .in} or {\tt .fout}
-file.  The display commands are embedded in `{\tt \#}' comment
+by making a {\tt .pdf} file from an {\tt .in}
+file and your solution program.
+The display commands are embedded in {\tt .in} file `{\tt \#}' comment
 lines, so your program does not have to deal with them.
+The {\tt 00-001-vector-vec-2d.in} file has display commands,
+but many {\tt .in} files have none.
+
+\medskip
 
 \begin{minipage}{\textwidth}
 The line/area drawing commands are:
@@ -498,21 +503,18 @@ The line/area drawing commands are:
 \end{tabular}
 \end{minipage}
 
-In the above {\tt p}, {\tt q}, {\tt c}, {\tt R}
-are arbitrary {\em variables} whose
-values must be vectors denoting points; {\tt r}, {\tt A} are arbitrary
-{\em variables} whose values must be scalars;
-{\tt L} is an arbitrary {\em variable} whose value must be a list of points.
+In the above {\tt p}, {\tt q}, {\tt c}, {\tt R}, {\tt r}, {\tt A}, {\tt L}
+are arbitrary {\em variables}.
 Circle and ellipse radii must be strictly positive.
-Spaces are as indicated, and may consist
-of one or more horizonal space characters.
+Spaces are as indicated, and must consist
+of at least one horizonal space character.
 
 Coordinates are automatically scaled to fit the page.  Angles are
 in degrees.
 
 The possible colors
 are `{\tt red}', `{\tt blue}', `{\tt brown}', and `{\tt black}'.  Black is
-the default, and also the color of labels.
+the default.
 (Green does not show up when the page is printed in black-and-white, and
 so is not provided.)
 
@@ -525,8 +527,9 @@ For non-points {\tt opt} is zero or more of:
 \hspace*{0.5in}\begin{tabular}{rl}
     \tt . & dotted line \\
     \tt - & dashed line \\
-          & ~~ ({\tt .} and {\tt -} conflict, if neither line is solid) \\
+          & ~~ ({\tt .} and {\tt -} conflict; if neither line is solid) \\
     \tt c & close path (for {\tt \#!line}) \\
+          & ~~ (implied by {\tt s}, {\tt d}, {\tt h}, {\tt v}) \\
     \tt m & add arrow head in middle of each line segment (for {\tt \#!line}) \\
     \tt e & add arrow head at end of each line segment (for {\tt \#!line}) \\
     \tt s & fill with solid color \\
@@ -536,6 +539,8 @@ For non-points {\tt opt} is zero or more of:
           & ~~ ({\tt s}, {\tt d}, {\tt h}, and {\tt v} conflict) \\
     \tt f & extend infinite line forward from point \\
     \tt b & extend infinite line backward from point \\
+          & ~~ ({\tt f}, {\tt b} conflict; if neither
+	        line extends in both directions) \\
     \end{tabular}
 \end{minipage}
 
@@ -554,7 +559,7 @@ The text drawing commands are:
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-Here {\tt opt} is `{\tt -}' for no options, or given that point
+Here {\tt opt} is `{\tt -}' for no options, or given that the point
 of text placement is {\tt ($x$,$y$)}, is one or more of:
 \\[1ex]
 \hspace*{0.5in}\begin{tabular}{rl}
@@ -589,7 +594,7 @@ The page commands are:
 \end{tabular}
 \end{minipage}
 
-The output from on test case is one or more physical pages
+The output from a test case is one or more physical pages
 each containing one or more logical pages.  The physical
 pages are numbered and labelled with the test case name
 (e.g., {\tt 00-000-vec-2d}).  Each `{\tt text...}' adds one
@@ -2494,7 +2499,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jan  2 18:43:37 EST 2021
+Date:         & Sun Jan  3 02:35:11 EST 2021
 
 \end{tabular}
 
