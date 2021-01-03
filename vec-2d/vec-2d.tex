@@ -918,9 +918,9 @@ and is a linear transformation.
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-A \key{reflection} $F^\phi$ by $\phi$ degrees
-is a reflection accross the line through the origin with
-direction $\phi$ and
+A \key{reflection} $F^\phi$ by $\phi$ degrees, which
+is a reflection across the line with direction $\phi$
+through the origin,
 is defined mathematically by
 \hspace*{0.2in}\begin{tabular}[t]{l}
 $||F^\phi(v)|| = ||v||$ \\
@@ -989,20 +989,26 @@ A unitary linear map $L$
 also preserves the absolute values of angles between vectors,
 because $L$ preserves the side-lengths of any triangle made of
 vectors, and these determine the absolute values of the angles of
-the triangle (but not the direction of these angles).  Now
-$L$ being linear is determined by $L(u_x)$ and $L(u_y)$, where
+the triangle (but not the direction of these angles).  This means
+that {\tt azm L(v)} must be either `{\tt {\rm constant} + azm v}'
+or `{\tt {\rm constant} - azm v}'.  These two case are rotations
+and reflections, respectively.
+
+Now
+$L$, being linear, is determined by $L(u_x)$ and $L(u_y)$, where
 $u_x=(1,0)$ and $u_y=(0,1)$, and as $u_y$ is perpendicular to
-$u_x$, $L(u_y)$ must be perpendicular to $L(u_x)$ if $L$ is unitary.
-So for unitary $L$, in 2 dimensions there are only two possibilities
-for $L(u_y)$ given $L(u_x)$.
+$u_x$, $L(u_y)$ must be perpendicular to $L(u_x)$ since $L$ is unitary.
 
+Putting all this together we have:
+\begin{lemma}
+For unitary $L=[\ell_x,\ell_y]$, $\ell_x$ and $\ell_y$ are
+vectors of unit length, and $\ell_y$ is perpendicular to $\ell_u$.
 
-$u_y$ is $u_x$ rotated counter-clockwise by 90 degrees.
-If for unitary $L$, $L(u_y)$ is $L(u_x)$ rotated counter-clockwise
-by 90 degrees, $L$ is a rotation.
-But if $L(u_y)$ is $L(u_x)$ rotated clockwise
-by 90 degrees, $L$ is a reflection.  All unitary linear transformations
-in 2 dimensions must be either rotations or reflections.
+If $\ell_y$ is $\ell_x$ rotated counter-clockwise
+by 90 degrees, $L$ is a rotation, whereas if
+$\ell_y$ is $\ell_x$ rotated clockwise
+by 90 degrees, $L$ is a reflection.
+\end{lemma}
 
 If $L$ is a rotation, the angle of rotation is: \\
 \centerline{$\phi = \mathrm{azm}~L(u_x) - \mathrm{azm}~u_x =
@@ -2483,7 +2489,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Jan  3 03:33:19 EST 2021
+Date:         & Sun Jan  3 04:21:04 EST 2021
 
 \end{tabular}
 
