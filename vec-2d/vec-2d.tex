@@ -432,8 +432,8 @@ Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
 then: \\[1ex]
 \tt (x,y) & returns $(x,y)$ \\
-\tt v.x & returns $v_x$ ({\tt x} is \underline{not} a variable here) \\
-\tt v.y & returns $v_y$ ({\tt y} is \underline{not} a variable here) \\
+\tt v.x & returns $v_x$ ~~~ ({\tt x} is \underline{not} a variable here) \\
+\tt v.y & returns $v_y$ ~~~ ({\tt y} is \underline{not} a variable here) \\
 \tt v==w:d & returns $v_x==w_x:d$ AND $v_y==w_y:d$ \\
 \tt s*v & returns $(s v_x, s v_y )$ \\
 \tt -v & returns $( -v_x, -v_y )$, {\tt v} with direction reversed \\
@@ -635,7 +635,7 @@ and $L(v-w) = L(v) - L(w)$.
 \begin{indpar}{0.5in}
 Proof: $L(0) = L(0+0)= L(0) + L(0)$ so subtracting $L(0)$
 from both sides, $0=L(0)$.  $0 = L(0) = L(v-v) = L(v) + L(-v)$
-so subtracting $L(v)$ from both sides $-L(v)=L(-v)$.
+so subtracting $L(v)$ from both sides, $-L(v)=L(-v)$.
 $L(v-w)=L(v+(-w))=L(v)+L(-w)=L(v)+(-L(w))=L(v)-L(w)$.
 \end{indpar}
 
@@ -672,11 +672,14 @@ Proof: $L(v+w) = (v_x+w_x)*\ell_x+(v_y+w_y)*\ell_y
 
 So $L$ is determined by $\ell_x = L(u_x)$ and $\ell_y = L(u_y)$,
 and there is a 1-1 correspondence between linear transformations
-and vector pairs $(\ell_x,\ell_y)$.  Therefore we will represent a linear
-transformation $L$ by a pair of vectors {\tt ($\ell_x$,$\ell_y$)}
+and vector pairs $[\ell_x,\ell_y]$.  Therefore we will represent a linear
+transformation $L$ by a pair of vectors {\tt [$\ell_x$,$\ell_y$]}
 and represent application of L to the vector {\tt v = ($v_x$,$v_y$)} by \\
-\centerline{\tt $L(v)$ = ($\ell_x$,$\ell_y$)*($v_x$,$v_y$) =
+\centerline{\tt $L(v)$ = [$\ell_x$,$\ell_y$]*($v_x$,$v_y$) =
              $v_x$*$\ell_x$+$v_y$*$\ell_y$}
+Here we use [] instead of () to surround the pair of vectors of a linear
+transformation, because our calculator does this to distinguish linear
+transformations from lists of vectors.
 
 Examples:
 \begin{enumerate}
@@ -697,15 +700,13 @@ $L(v)=v_x*(s_x,0) + v_y*(0,s_y)
 
 Now suppose we have a scalar {\tt s}, vector {\tt v},
 and two linear transformations
-{\tt K = [$\ell^K_x$,$\ell^K_y$)},
-{\tt L = [$\ell^L_x$,$\ell^L_y$)}.  Then we can define:
+{\tt K = [$\ell^K_x$,$\ell^K_y$]},
+{\tt L = [$\ell^L_x$,$\ell^L_y$]}.  Then we can define:
 \begin{center}
 \tt
 \begin{tabular}{l@{~so that~}l}
 s*L = [s*$\ell^L_x$,s*$\ell^L_y$]
 	 & (s*L)*v = s*(L*v) \\[0.3ex]
-K+L = [$\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$]
-	 & (K+L)*v = K*v + L*v \\[0.3ex]
 K+L = [$\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$]
 	 & (K+L)*v = K*v + L*v \\[0.3ex]
 K-L = [$\ell^K_x$-$\ell^L_x$,$\ell^K_y$-$\ell^L_y$]
@@ -717,7 +718,7 @@ K*L = [K*$\ell^L_x$,K*$\ell^L_y$]
 \end{tabular}
 \end{center}
 
-{\tt *} and {\tt +} as defined here are bi-linear
+{\tt *} and {\tt +} as defined here are \key{bi-linear}, which means
 (letting {\tt J} be another linear transformation):
 \begin{center}
 \tt
@@ -726,7 +727,12 @@ s*(K+L) = s*K + s*L \\
 J*(K+L) = J*K + J*L
 \end{center}
 
-In general {\tt K*L} is \underline{not equal} to {\tt L*K}.
+Addition of linear transformations commutes,
+{\tt K+L = L+K}, but multiplication does not:
+in general {\tt K*L} is \underline{not equal} to {\tt L*K}
+(as an example, a rotation does not generally commute with
+a reflection: see the end of the Rotations and Reflections
+section below).
 
 Let {\tt I} be the identity transform defined by
 {\tt I*v=v} for all vectors {\tt v}  (and therefore {\tt I=[$u_x$,$u_y$]}).
@@ -766,8 +772,10 @@ Assume: & {\tt s=}$s$ is a scalar \\
 then: \\[1ex]
 \tt (v,w) & returns $(v,w)$ \\
 \tt K==L:d & returns $\ell^K_x==\ell^L_x:d$ AND $\ell^K_y==\ell^L_y:d$ \\
-\tt L.x & returns {\tt $\ell^L_x$} \\
-\tt L.y & returns {\tt $\ell^L_y$} \\
+\tt L.x & returns {\tt $\ell^L_x$}
+          ~~~ ({\tt x} is \underline{not} a variable here) \\
+\tt L.y & returns {\tt $\ell^L_y$}
+          ~~~ ({\tt y} is \underline{not} a variable here) \\
 \tt L*v & returns {\tt $v_x$*$\ell^L_x$+$v_y$*$\ell^L_y$} & [application] \\
 \tt s*L & returns {\tt [$s\ell^L_x$,$s\ell^L_y$]} \\
 \tt K+L & returns {\tt [$\ell^K_x$+$\ell^L_x$,$\ell^K_y$+$\ell^L_y$]} \\
@@ -785,10 +793,6 @@ Sample Run File: & \file{sample-linear-vec-2d.run} \\
 Submit Run File: & \file{submit-linear-vec-2d.run} \\
 \end{tabular}
 \end{center}
-
-You can test your program using the indicated sample input and
-output and you can submit your program using the indicated submit
-run file.
 
 \newpage
 
@@ -1078,10 +1082,6 @@ Submit Run File: & \file{submit-unitary-vec-2d.run} \\
 \end{tabular}
 \end{center}
 
-You can test your program using the indicated sample input and
-output and you can submit your program using the indicated submit
-run file.
-
 \newpage
 
 \section{Products}
@@ -1336,10 +1336,6 @@ Submit Run File: & \file{submit-product-vec-2d.run} \\
 \end{tabular}
 \end{center}
 
-You can test your program using the indicated sample input and
-output and you can submit your program using the indicated submit
-run file.
-
 \newpage
 
 \section{Line and Point}\label{LINE-AND-POINT}
@@ -1515,10 +1511,6 @@ Sample Run File: & \file{sample-point-vec-2d.run} \\
 Submit Run File: & \file{submit-point-vec-2d.run} \\
 \end{tabular}
 \end{center}
-
-You can test your program using the indicated sample input and
-output and you can submit your program using the indicated submit
-run file.
 
 \newpage
 
@@ -1799,10 +1791,6 @@ Sample Run File: & \file{sample-line-vec-2d.run} \\
 Submit Run File: & \file{submit-line-vec-2d.run} \\
 \end{tabular}
 \end{center}
-
-You can test your program using the indicated sample input and
-output and you can submit your program using the indicated submit
-run file.
 
 \newpage
 
@@ -2307,16 +2295,12 @@ then: \\[1ex]
 
 \begin{center}
 \begin{tabular}{rl}
-Sample Input Files: & \file{00-XXXX-line-vec-2d.in} \\
-Sample Output Files: & \file{00-XXXX-line-vec-2d.ftest} \\
-Sample Run File: & \file{sample-line-vec-2d.run} \\
-Submit Run File: & \file{submit-line-vec-2d.run} \\
+Sample Input Files: & \file{00-XXXX-circle-vec-2d.in} \\
+Sample Output Files: & \file{00-XXXX-circle-vec-2d.ftest} \\
+Sample Run File: & \file{sample-circle-vec-2d.run} \\
+Submit Run File: & \file{submit-circle-vec-2d.run} \\
 \end{tabular}
 \end{center}
-
-You can test your program using the indicated sample input and
-output and you can submit your program using the indicated submit
-run file.
 
 \newpage
 
@@ -2499,7 +2483,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Jan  3 02:35:11 EST 2021
+Date:         & Sun Jan  3 03:33:19 EST 2021
 
 \end{tabular}
 
