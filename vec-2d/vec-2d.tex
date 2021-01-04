@@ -1365,7 +1365,7 @@ line to be undirected, or to be directed from {\tt p} to {\tt q}.
 We then consider a third point {\tt r} and ask about its relation
 to {\tt pq}.
 
-The answers to most of our questions will not be changed if we perform
+The answers to our questions will not be changed if we perform
 a coordinate translation on all the points, so we begin by moving
 {\tt p} to the origin {\tt (0,0)} using a translation by {\tt -p}.
 Our points become:
@@ -1402,14 +1402,22 @@ line {\tt PQ}, and the latter is the X-axis.  So the answer is \\
 
 Next we want to find the point {\tt t} on the infinite line {\tt pq}
 that is closest to {\tt r}.  We will represent {\tt t} as {\tt t = p + s*(q-p)}
-for the appropriate scalar {\tt s}.  Then
-{\tt T = P + s*(Q-P)} will be the closest point on the infinite
-line {\tt PQ} to the point {\tt R}.  But
-{\tt PQ} is the X-axis and {\tt P = (0,0)}, \\
+for the appropriate scalar {\tt s}.  Then {\tt t-p} is the closest point to
+{\tt r-p} on the infinite line from {\tt (p-p)} to {\tt (q-p)}
+and if we apply the
+linear transformation {\tt (q-p):~= ||q-p||*$R^{\tt -azm (q-p)}$},
+we get that {\tt T = (q-p):(t-p)} is the closest point to {\tt R} on the
+line {\tt PQ}, since rotations preserve distances and multiplication
+of all coordinates by {\tt ||q-p||} preserves the notion of `closest'.
+But the closest point to {\tt R = (X,Y)} on {\tt PQ = {\rm the X-axis}}
+is {\tt (X,0)}, so {\tt T = (X,0)}.
+And as {\tt (q-p):} is a linear transformation and {\tt t-p = s*(q-p)},
+then {\tt T = s*(Q-P) = s*Q}~~(since {\tt P = (0,0)}).
+
 \hspace*{0.3in}\begin{tabular}{rl}
-so	& \tt T = (X,0) = P + s*(Q-P) = s*Q = s*(L,0) \\
+so	& \tt T = (X,0) = s*Q = (s*L,0) \\
 so	& \tt s = X/L \\
-and     & \tt t = p + (X/L)*(q-p) \\
+therefore     & \tt t = p + (X/L)*(q-p) \\
 or	& \tt t = p + ((q-p)*(r-p)/(q-p)*(q-p)) * (q-p) \\
 \end{tabular}
 
@@ -1419,9 +1427,10 @@ coordinates.  However the denominator may be large.  If
 the input coordinates have at most {\tt d} decimal places,
 their denominator is at most $10^d$, and the denominator of {\tt t}
 may be as large as \\
-\centerline{\tt 10$^{\tt d}$*(numerator of L = (q-p)*(q-p))}
-where we use the fact that the denomiators of {\tt X} and {\tt L}
-which are $10^{2d}$ cancel each other out in {\tt X/L}.
+\centerline{\tt 10$^{\tt d}$*({\rm numerator of} L)}
+where we use the fact that the denominators of {\tt X} and {\tt L}
+which are $10^{2d}$ cancel each other out in {\tt X/L} so \\
+\centerline{\tt X/L = ({\rm numerator of} X)/({\rm numerator of} L)}
 
 
 \medskip
@@ -1451,11 +1460,19 @@ then this is the same as {\tt 1/||q-p||} times
 the distance from {\tt R} to the finite
 line {\tt PQ}, and there are three cases.
 If {\tt X<0}, the answer
-is {\small \tt ||R-P||/||q-p||=||r-p||}.  If {\tt X>L},
-the answer is {\small \tt ||R-Q||/||q-p||=||q-p||}.
+is {\small \tt ||R-P||/||q-p||}.  If {\tt X>L},
+the answer is {\small \tt ||R-Q||/||q-p||}.
 Otherwise the answer is {\small \tt |Y|/||q-p||} as before.
 See picture.
 \end{minipage}
+
+\medskip
+
+Here we can simplify the above by using: \\
+\begin{tabular}{@{~~}l}
+\tt ||R-P||/||q-p|| = ||(q-p):(r-p)||/||q-p|| = ||r-p|| \\
+\tt ||R-Q||/||q-p|| = ||(q-p):(r-q)||/||q-p|| = ||r-q|| \\
+\end{tabular}
 
 Now suppose we want a precise answer to the question: is {\tt r}
 on the infinite or finite line {\tt pq}?  This is the same as the question:
@@ -1466,7 +1483,7 @@ denominator {\tt 10$^{\tt d}$}, and the products will be rational
 numbers with denominator {\tt 10$^{\tt 2d}$}, so the coordinates of
 {\tt R} and {\tt Q} will have denominator {\tt 10$^{\tt 2d}$}.
 Or more precisely,
-the coordinates will be close approximations to such rational numbers.
+the computed coordinates will be close approximations to such rational numbers.
 Therefore
 \begin{enumerate}
 \item {\tt r} is to the left of the infinite directed line {\tt pq}
@@ -1500,11 +1517,11 @@ then: \\[1ex]
                   line {\tt pq} \\
 		& that is closest to the point {\tt r} \\
 \tt sidei~pqrd & returns {\tt +1} if {\tt r} is to the left of the
-                infinite line {\tt pq}, \\
-	      & zero if it on the line, and -1 if it is to the right, \\
+                \underline{infinite directed} line {\tt pq}, \\
+	      & zero if it is on the line, and -1 if it is to the right, \\
 	      & assuming all coordinates have at most {\tt d} decimal places \\
 \tt onf~pqrd & returns {\tt true} if and only if {\tt r} is on the
-                finite line {\tt pq}, \\
+                \underline{finite} line {\tt pq}, \\
 	      & assuming all coordinates have at most {\tt d} decimal places \\
 \end{tabular}
 \end{center}
@@ -2489,7 +2506,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Jan  3 04:21:04 EST 2021
+Date:         & Sun Jan  3 23:31:13 EST 2021
 
 \end{tabular}
 
