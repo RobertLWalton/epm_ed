@@ -1562,7 +1562,7 @@ The easy way to solve this is to take the cross product of both
 sides with {\tt n-m}, because
 {\tt (n-m)\#(t*(n-m)) = t*((n-m)\#(n-m)) = t*0 = 0}.
 So we end up with: \\
-\centerline{\tt s*(n-m)\#(q-p) = (n-m)\#(m-q)} \\
+\centerline{\tt s*(n-m)\#(q-p) = (n-m)\#(m-p)} \\
 which we can solve for {\tt s}.  Unless {\tt (n-m)\#(q-p) = 0}.
 
 What happens if {\tt (n-m)\#(q-p) = 0}? \\
@@ -1585,15 +1585,15 @@ so      & \tt (n-m)\#(q-p) = s*((q-p)\#(q-p)) = 0 \\
 
 Of course, testing a product to see if it is {\tt 0} is subject to
 rounding errors.  So we assume that the coordinates of {\tt m},
-{\tt n}, {\tt q}, and {\tt r} have at most {\tt d} decimal places,
-and therefore {\tt mn} is parallel to {\tt qr} if and only if
+{\tt n}, {\tt p}, and {\tt q} have at most {\tt d} decimal places,
+and therefore {\tt mn} is parallel to {\tt pq} if and only if
 {\tt (n-m)\#(q-p)==0:(2d)}.
 
 If {\tt mn} and {\tt pq} are parallel infinite lines, they
 may be disjoint or identical.  To test which, test whether
 {\tt m} is on the infinite line {\tt pq} 
 
-The question of whether two finite lines intersect is made
+The question of whether two \underline{finite} lines intersect is made
 simpler by the following:
 \begin{lemma}
 Two finite lines do \underline{not} intersect
@@ -1616,23 +1616,24 @@ extensions of both lines, and as $r_i$ is on $\ell_i$, this point is
 on both finite lines.
 \end{indpar}
 
-If we have a finite line {\tt mn} and and infinite line extending
+If we have a finite line {\tt mn} and an infinite directed line extending
 {\tt pq}, then we can test whether {\tt m} and {\tt n} are on, to the left of,
 or to the right of the infinite directed line {\tt pq}, and we get the
 following cases:
 \begin{enumerate}
-\item Both {\tt m} and {\tt n} are to the left of {\tt pq}.
+\item Both {\tt m} and {\tt n} are to the left of infinite {\tt pq}.
 Then finite {\tt mn} does \underline{not} intersect infinite {\tt pq}.
-\item Both {\tt m} and {\tt n} are to the right of {\tt pq}.
+\item Both {\tt m} and {\tt n} are to the right of infinite {\tt pq}.
 Then finite {\tt mn} does \underline{not} intersect infinite {\tt pq}.
-\item {\tt m} is to the left of and {\tt n} is to the right of {\tt pq}.
+\item {\tt m} is to the left of and {\tt n} is to the right of infinite {\tt pq}.
 Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
-\item {\tt m} is to the right of and {\tt n} is to the left of {\tt pq}.
+\item {\tt m} is to the right of and {\tt n} is to the left of
+infinite {\tt pq}.
 Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
-\item Just one of {\tt m} or {\tt n} is on {\tt pq}.
+\item Just one of {\tt m} or {\tt n} is on infinite {\tt pq}.
 Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}
 at a single point.
-\item Both {\tt m} and {\tt n} are on {\tt pq}.
+\item Both {\tt m} and {\tt n} are on infinite {\tt pq}.
 Then finite {\tt mn} is a \underline{subset} of the infinite {\tt pq}.
 \end{enumerate}
 
@@ -1642,22 +1643,23 @@ If coordinates have at most {\tt d} decimal places,
 a finite line {\tt mn} is a subset of an infinite line {\tt pq} if:
 \\[1ex]
 \centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
-\\[1ex]
+
 Otherwise the finite {\tt mn} intersects the infinite {\tt pq}
 in a single point if:
 \\[1ex]
 \centerline{{\tt (q-p)\#(m-p)<=0:(2d)} and {\tt 0<=(q-p)\#(n-p):(2d)}} \\
 \centerline{or} \\
 \centerline{{\tt (q-p)\#(n-p)<=0:(2d)} and {\tt 0<=(q-p)\#(m-p):(2d)}}
+
 Otherwise the finite {\tt mn} does \underline{not} intersect
 the infinite {\tt pq}.
 \end{lemma}
 
-(Determining if {\tt mn} intersects or is a subset of {\tt pq}
+(Determining if {\tt mn} intersects or is a subset of infinite {\tt pq}
 could be answered by evaluating \\
 \centerline{{\tt ((q-p)\#(m-q))*((q-p)\#(n-q))<=0:(4d)}} \\
-but the change from {\tt 2d} to {\tt 4d} is worrisome: {\tt 4d} might
-be too large to be practical.)
+but the change from {\tt 2d} to {\tt 4d} is worrisome: {\tt 4d}
+is often too large to be practical.)
 
 If two finite lines intersect at a single point, the point of intersection
 is the same as the point of intersection of the two infinite extensions
@@ -1671,8 +1673,8 @@ system on this infinite line.
 
 If {\tt r} is a point on this infinite line then
 {\tt r = p + s$_r$ * <q-p>} for some scalar {\tt s$_r$}.  Then
-{\tt s$_r$ = $\pm$||r-p||} where the + sign is chosen when {\tt r}
-is to the same side of {\tt p} as {\tt q}, and the - sign is chosen
+{\tt s$_r$ = $\pm$||r-p||} where the $+$ sign is chosen when {\tt r}
+is to the same side of {\tt p} as {\tt q}, and the $-$ sign is chosen
 when {\tt r} is to the opposite side of {\tt p} from {\tt q}.
 We can use the map {\tt r $\mapsto$ s$_r$} as a system of coordinates
 on the infinite line.
@@ -1696,21 +1698,21 @@ otherwise \\
 We can summarize all this in:
 \begin{lemma}
 Given finite lines {\tt pq} and {\tt mn},
-if coordinates have at most {\tt d} decimal places,
+if coordinates have at most {\tt d} decimal places, if
 \\[1ex]
 \centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
 \\[1ex]
 (so each line is a subset of the infinite extension of the other line),
-and we switch {\tt m} and {\tt n} if necessary so that \\
+and if we switch {\tt m} and {\tt n} if necessary so that \\
 \centerline{\tt (q-p)*(m-p) < (q-p)*(n-p)}
 then
 \begin{enumerate}
 \item If {\tt (q-p)*(n-p) < (q-p)*(p-p):(2d)} the finite lines do not overlap.
 \item If {\tt (q-p)*(q-p) < (q-p)*(m-p):(2d)} the finite lines do not overlap.
 \item Otherwise the finite lines overlap and the length of the overlap \\
-is {\tt (U-L {\rm rounded to} {\tt 2d} {\rm decimal places})/||q-p||} where \\
+is {\tt (U-L {\rm rounded to} {\tt 2d} {\rm decimal places})/||q-p||} \\
 \hspace*{0.5in}\begin{tabular}{rl}
-	& \tt L = max ( (q-p)*(m-p), (q-p)*(p-p) ) \\
+where	& \tt L = max ( (q-p)*(m-p), (q-p)*(p-p) ) \\
 and	& \tt U = min ( (q-p)*(n-p), (q-p)*(q-p) ) \\
 \end{tabular} \\
 (If we do not round {\tt U-L} it can happen that {\tt U-L < 0}.)
@@ -1729,7 +1731,7 @@ of points
 {\tt ||r$_{\tt mn}$ - r$_{\tt pq}$||} has a minimum.
 \end{theorem}
 
-We will \underline{not} give the proof of this,
+We will \underline{not} give a proof of this,
 which involves the mathematics of compact sets.
 
 We will prove:
@@ -1776,6 +1778,10 @@ for all translations of $\ell$, and $\ell$ can be translated
 in either direction until it encounters an endpoint.
 \end{indpar}
 
+The translation argument just given is an example of a
+\key{perturbation argument}.  Perturbation arguments are common
+in computational geometry.
+
 Of course if the finite lines intersect the distance between
 them is zero.
 
@@ -1795,12 +1801,13 @@ then: \\[1ex]
 		   & identical) and {\tt false} otherwise; assuming point \\
 		   & coordinates have at most {\tt d} decimal places \\
 \tt intersectf mnpqd & ditto but for finite lines {\tt mn} and {\tt pq} \\
-\tt overlap mnpq & returns the length of the overlap of finite lines {\tt mn} \\
+\tt overlapf mnpq & returns the length of the overlap of
+                    finite lines {\tt mn} \\
                  & and {\tt pq} assuming the infinite extensions of these \\
 		 & lines are identical \\
-\tt common mnpq & returns the common point of infinite lines {\tt mn} and \\
-                & {\tt pq} assuming these lines are not parallel \\
-\tt dist mnpq & returns the distance between finite lines {\tt mn} and
+\tt commoni mnpq & returns the common point of infinite lines {\tt mn} and \\
+                 & {\tt pq} assuming these lines are not parallel \\
+\tt distf mnpq & returns the distance between finite lines {\tt mn} and
                   {\tt pq} \\
 		& (may be zero if lines intersect) \\
 \end{tabular}
@@ -2506,7 +2513,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Jan  3 23:31:13 EST 2021
+Date:         & Tue Jan  5 02:12:37 EST 2021
 
 \end{tabular}
 
