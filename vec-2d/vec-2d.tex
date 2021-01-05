@@ -1897,17 +1897,25 @@ We define {\tt b} to be the point on {\tt pc} such that
     {\tt ptc} is a right angle \\
     {\tt ||p-c||} is known \\
     {\tt ||t-c||=r} \\
+    angle {\tt pct} equals angle {\tt tcb} \\
     triangles {\tt ptc} and {\tt tbc} are congruent \\
     so {\tt \small ||b-c||/||t-c|| = ||t-c||/||p-c||} \\
     so {\tt \small ||b-c|| = r$^2$/||p-c||} \\
     and using \\
     {\tt ||b-t|| = $\sqrt{{\tt r}^2 - {\tt ||b-c||}^2}$} \\
     we can compute both {\tt ||b-c||} and {\tt ||b-t||}; \\
-    then if we define {\tt u = (p-c)!} we have \\
-    {\tt b = c + ||b-c||*u} \\
-    {\tt t = b $\pm$ ||b-q||*(u\textasciicircum 90)} \\
     \end{tabular}
-\end{minipage}
+\end{minipage} \\
+\hspace*{0.2in}\begin{tabular}{@{}l}
+    then if we define {\tt u = <p-c>} we have \\
+    {\tt b = c + ||b-c||*u = c + (r$^2$/L$^2$)*(p-c)} \\
+    {\tt t \begin{tabular}[t]{@{}l}
+         = b $\pm$ ||b-t||*(u\textasciicircum 90) \\
+         = b $\pm$ (r/L$^2$)*$\sqrt{{\tt L}^2 - 1}$%
+	                    *((p-c)\textasciicircum 90) \\
+	   \end{tabular}} \\
+    where {\tt L$^2$ = (p-c)*(p-c)} \\
+    \end{tabular}
 
 The reason for the $\pm$ is that we actually have two possible
 values for {\tt t}, one on either side of the line {\tt pc}.
@@ -1922,7 +1930,7 @@ for integers {\tt x} and {\tt y}, then is
 For example, $101^2+201^2-100^2= 40602$ contains the factor $2$ only once
 and is therefore not a perfect square.
 Most of the time the sum will \underline{not}
-be a perfect square, and so most of the time at least one of the
+be a perfect square, and so most of the time the numerators of the
 coordinates of {\tt t} will be irrational.
 
 Now let {\tt p} and {\tt q} be points on an infinite line {\tt pq}
@@ -1980,7 +1988,7 @@ If {\tt s} is an intersection point of {\tt pq} and the circle, we have: \\
 \hspace*{0.2in}\begin{tabular}{@{}l}
     {\tt ||s-c||$^2$ = r$^2$ = ||t-c||$^2$ + ||t-s||$^2$} \\
     so {\tt ||t-s|| = $\sqrt{{\tt r}^2 - {\tt ||t-c||}^2}$} \\
-    and if we define {\tt u = (q-p)!} we have \\
+    and if we define {\tt u = <q-p>} we have \\
     {\tt s = t $\pm$ ||t-s||*u} \\
     \end{tabular}
 \end{minipage}
@@ -2495,7 +2503,7 @@ direction would decrease $||q-p||$.  Let the direction of the line tangent
 to the ellipse at \\
 \centerline{$q_\phi = (M*\cos\phi,m*\sin\phi)$} \\
 be given by a vector $v_\phi$.
-Then the function $F(\phi)=(q_\phi-p)!*v_\phi!$ is $0$ at $\phi=\theta$
+Then the function $F(\phi)=<q_\phi-p>*<v_\phi>$ is $0$ at $\phi=\theta$
 and monotonic between $\phi=\theta_1$ and $\phi=\theta_2$.  If we can compute
 $F(\phi)$ from $\phi$, we can use binary search to compute $\theta$.
 
@@ -2513,7 +2521,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Jan  5 02:12:37 EST 2021
+Date:         & Tue Jan  5 07:34:34 EST 2021
 
 \end{tabular}
 
