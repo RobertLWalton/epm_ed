@@ -1930,7 +1930,7 @@ for integers {\tt x} and {\tt y}, then is
 For example, $101^2+201^2-100^2= 40602$ contains the factor $2$ only once
 and is therefore not a perfect square.
 Most of the time the sum will \underline{not}
-be a perfect square, and so most of the time the numerators of the
+be a perfect square, and so most of the time the
 coordinates of {\tt t} will be irrational.
 
 Now let {\tt p} and {\tt q} be points on an infinite line {\tt pq}
@@ -2008,12 +2008,10 @@ Find the point {\tt t} on the infinite line {\tt pq} closest to
 the circle, if they exist.
 Then use the {\tt (q-p)*} product to establish coordinates on the
 infinite line: \\
-\centerline{\tt (q-p)*p ~~~ (q-p)*q ~~~ (q-p)*t ~~~ (q-p)*s} \\
-By exchanging {\tt p} with {\tt q}
-\underline{if necessary} we can arrange that \\
-\centerline{\tt (q-p)*p < (q-p)*q} \\
-so {\tt t} is in the finite line {\tt pq} if and only if
-{\tt (q-p)*p $\leq$ (q-p)*t $\leq$ (q-p)*q}.
+\centerline{\tt (q-p)*p ~~~ (q-p)*q ~~~ (q-p)*t ~~~ (q-p)*s}
+Since {\tt (q-p)*p~<~(q-p)*q},
+{\tt t} is in the finite line {\tt pq} if and only if \\
+\centerline{\tt (q-p)*p $\leq$ (q-p)*t $\leq$ (q-p)*q}
 Similarly we can find out if an intersection point is on the finite
 line.
 
@@ -2033,8 +2031,8 @@ rectangles, and convex polygons.
 \begin{definition}
 The \key{boundary} of a set $S$ of the points in the plane
 (i.e., $S\subset\mathcal{R}^2$) is the
-set of points $p$ such that every sufficiently small circle with
-center $p$ contains a point in $S$ and another point not in $S$.
+set of points $p$ such that every circle with
+center $p$ contains inside it a point in $S$ and another point not in $S$.
 
 A set $S$ of points in the plane is \key{closed} if every point
 of the boundary of $S$ is in $S$.
@@ -2058,16 +2056,23 @@ We will \underline{not} give the proof of this,
 which involves the mathematics of compact
 sets (i.e., uses the fact that a closed bounded set is compact).
 
-Some easily proved facts about boundaries are:
+Some facts about boundaries are:
 \begin{enumerate}
 \item The boundary of a set $S$ is also the boundary of the
 complement $\mathcal{R}^2-S$ of $S$.
-\item The boundary $B$ of a closed set $S$ is itself closed
-(i.e., $B$ is a closed set). \\
-(In fact, the boundary of any set $S$ is closed, but this is
-a bit harder to prove.)
-
+\item The boundary $B$ of a set $S$ is itself closed
+(i.e., $B$ is a closed set).
 \end{enumerate}
+\begin{indpar}{0.3in}
+Proof:  The first fact is easy.  For the second fact, let
+$p$ be a point in the
+boundary of $B$.  Then every open circle centered at $p$
+contains inside it a point $q$ in $B$ and a smaller circle
+centered at $q$ that is inside the first circle, and this
+smaller circule contains
+inside it a point in $S$ and a point not in $S$.  So $p$ is in $B$.
+\end{indpar}
+
 
 Another important fact about closed sets and their boundaries is:
 
@@ -2100,8 +2105,9 @@ $\alpha*p+(1-\alpha)*q \in S$
 (i.e., the finite line segment $pq$ is in $S$).
 \end{definition}
 
-In order to deal with the case where the finite line $pq$ is outside
-the circle, we will prove:
+In order to deal with the case where the finite line $pq$ is
+\underline{outside}
+the circle, we will prove below:
 
 \begin{theorem}\label{POINT-OUTSIDE-THEOREM}
 The distance from a finite line $pq$ to a closed convex set $S$ when
@@ -2121,7 +2127,27 @@ closest to the center of the circle
 and check if that is in the finite line {\tt pq}.  If not, then the
 closest point is either {\tt p} or {\tt q}, by the Theorem.
 
-To prove the theorem we need a definition and some lemmas.
+In order to deal with the case where the finite line $pq$ is
+\underline{inside}
+the circle, we will prove below:
+
+\begin{theorem}\label{POINT-INSIDE-THEOREM}
+The distance from a finite line $pq$ to the boundary of a
+closed convex set $S$ when
+$pq$ is \underline{inside} of $S$ is one of:
+\begin{enumerate}
+\item The distance from $p$ to the boundary of $S$.
+\item The distance from $q$ to the boundary of $S$.
+\end{enumerate}
+\end{theorem}
+
+The application of this theorem is obvious.
+
+The rest of this secion just gives the proofs of the last two
+theorems.
+
+To prove Theorem~\ref{POINT-OUTSIDE-THEOREM}
+we need a definition and some lemmas.
 
 \begin{definition}
 A function $F$ on a convex set of points $S$ is a \key{convex function}
@@ -2183,7 +2209,7 @@ follows.
 If $F(q)> F(p)$ and $\alpha>1$ then $F(r)> F(p)$.
 \end{corollary}
 
-Now we can prove our theorem:
+Now we have:
 
 \begin{indpar}{0.2in}
 Proof of Theorem \ref{POINT-OUTSIDE-THEOREM}:
@@ -2199,22 +2225,8 @@ infinite line $pq$.
 \end{indpar}
 
 
-So next we turn to the case where {\tt pq} is \underline{inside} the
-circle.
-
-\begin{theorem}\label{POINT-INSIDE-THEOREM}
-The distance from a finite line $pq$ to the boundary of a
-closed convex set $S$ when
-$pq$ is \underline{inside} of $S$ is one of:
-\begin{enumerate}
-\item The distance from $p$ to the boundary of $S$.
-\item The distance from $q$ to the boundary of $S$.
-\end{enumerate}
-\end{theorem}
-
-The application of this theorem is obvious.
-
-To prove the theorem we need one definition and some lemmas.
+To prove Theorem~\ref{POINT-INSIDE-THEOREM}
+we need a definition and some lemmas.
 
 \begin{definition}
 For a set $S$ of points, the \key{convex hull} of $S$ is the
@@ -2521,7 +2533,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Jan  5 07:34:34 EST 2021
+Date:         & Wed Jan  6 18:44:00 EST 2021
 
 \end{tabular}
 
