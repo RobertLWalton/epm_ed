@@ -1496,6 +1496,33 @@ if and only if {\tt Y==0:(2d)}.
 \hspace*{0.3in}{\tt Y==0:(2d)},~~{\tt 0<=X:(2d)},~~and~~{\tt X<=L:(2d)}
 \end{enumerate}
 
+There is a difference in the treatment of {\tt X < 0} between
+the problem of computing a distance from {\tt r} to the finite
+line {\tt pq} and the problem of computing whether {\tt r} is
+on the finite line {\tt pq}.  In both cases the line {\tt X = 0} is
+a boundary between different cases.  In the distance case, the distance
+is continuous across this boundary, so the computed value, the distance,
+does not change much when {\tt (X,Y)} moves across the boundary.
+In the other case, the computed value may change
+from {\tt false} to {\tt true} as {\tt (X,0)} moves from {\tt X < 0}
+to {\tt 0 <= X}, and thus the computed value is discontinuous.
+
+In the continuous case we need not concern ourselves with how many
+decimal places {\tt X} has, and we can use {\tt X < 0} instead of
+{\tt X<0:(2d)}.  In the discontinuout case we cannot get a meaningful
+{\tt true/false} answer unless we restrict the number of decimal
+places in {\tt X}, though we could get a {\tt true/false/maybe}
+answer if we knew more about the potential error in our value for
+{\tt X}.
+
+We will say that {\tt X = 0} is a \key{boundary} that is
+\key{continuous} in the distance computation and \key{discontinuous}
+in the {\tt on/not-on} computation.
+For continuous boundaries we can use inequalities to decide which
+side of the boundary we are on without worrying about accuracy.
+For discontinuous boundaries we must worry about accuracy and
+use tests like {\tt X<0:(2d)}.
+
 \newpage
 
 \section{Line and Point Calculator}
@@ -2523,7 +2550,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Jan  6 19:33:40 EST 2021
+Date:         & Thu Jan  7 13:06:56 EST 2021
 
 \end{tabular}
 
