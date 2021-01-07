@@ -2200,7 +2200,8 @@ let $p$ and $q$ be points on the line, and set $r=p+\alpha*(q-p)$
 for some scalar $\alpha\ge 1$.  Then $F(r)\ge(1-\alpha)*F(p)+\alpha*F(q)$.
 \end{lemma}
 \begin{indpar}{0.2in}
-Proof: $r-p = \alpha*(q-p)$ so $q-p=(1/\alpha)*(r-p)$ and as $F$ is convex,
+Proof: $(1/\alpha)*(r-p) = q-p$ so $q = (1 - 1/\alpha)*p + (1/\alpha)*r$
+and as $F$ is convex,
 $F(q)\le(1-1/\alpha)*F(p)+(1/\alpha)*F(r)$ from which the result
 follows.
 \end{indpar}
@@ -2253,7 +2254,7 @@ $S$, and this cannot be $q$.  So $||s-p||<r$ which contradicts the
 definition of $r$.
 \end{indpar}
 
-\begin{lemma}
+\begin{lemma}\label{LINE-INSIDE-LEMMA}
 Let $S$ be a closed convex set, let $p$ and $q$ be a points in $S$,
 let $s=\alpha*p+(1-\alpha)*q$ for $0\le\alpha\le 1$ be a point on the
 finite line $pq$, and let $r_p$, $r_q$, and $r_s$ be the distances
@@ -2281,27 +2282,16 @@ $t$ is on the finite line from $p+v_p$ to $q+v_q$ and is therefore in the
 convex hull of $C_p\cup C_q$.
 \end{indpar}
 
+Now we have:
 
+\begin{indpar}{0.2in}
+Proof of Theorem \ref{POINT-INSIDE-THEOREM}:
+By Lemma~\ref{LINE-INSIDE-LEMMA} the distance from any point in
+the finite line $pq$ to the boundary is at least the minimum
+of the distance of $p$ to the boundary and the distance of $q$
+to the boundary.
+\end{indpar}
 
-TBD
-
-
-The points on the infinite line can be represented as
-{\tt p+h*(q-p)} for scalars {\tt h}, and the square of the distance of such a
-point from {\tt c} is then \\
-\centerline{\tt (p+h*(q-p))*(p+h*(q-p))} \\
-which is a quadratic
-function of {\tt h}.  It has a minimum at {\tt p+h*(q-p) == t} and
-is increasing as the point moves away from {\tt t}.
-
-Therefore, if {\tt t} is on the finite line {\tt pq} it is the point on
-that line closest to {\tt c}, and if {\tt t} is not on the line, either
-{\tt p} or {\tt q} is the point closest to {\tt c}.  In either case
-either {\tt p} or {\tt q} is the point farthest from {\tt c}.  Using
-this information you can establish the minimum distance of the finite
-line {\tt pq} from the circle viewed as a curved line (and \underline{not}
-as an area).  You do not need to calculate intersection points {\tt s}
-to determine whether there is an intersection.
 
 
 \newpage
@@ -2533,7 +2523,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Jan  6 18:44:00 EST 2021
+Date:         & Wed Jan  6 19:33:40 EST 2021
 
 \end{tabular}
 
