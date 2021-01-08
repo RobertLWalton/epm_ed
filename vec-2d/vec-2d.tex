@@ -2488,20 +2488,20 @@ line tangent to $E$.
 line tangent to $C$.
 \end{itemize}
 
-In general, for any linear transformation $\mathcal{L}$ and straight line
-$S$, $\mathcal{L}*S$ is a straight line.  This is because for some point
+In general, for any linear transformation $K$ and straight line
+$S$, $K*S$ is a straight line.  This is because for some point
 $p$ and vector $v$, \\
 \hspace*{0.5in}\begin{tabular}{ll}
 $S$ & $= \{ p+s*v : s~\mathrm{is~a~scalar}\}$ \\
-$\mathcal{L}*S$
-    & $= \{ \mathcal{L}*(p+s*v) : s~\mathrm{is~a~scalar}\}$ \\
-    & $= \{ \mathcal{L}*p+s*(\mathcal{L}*v) : s~\mathrm{is~a~scalar}\}$ \\
+$K*S$
+    & $= \{ K*(p+s*v) : s~\mathrm{is~a~scalar}\}$ \\
+    & $= \{ K*p+s*(K*v) : s~\mathrm{is~a~scalar}\}$ \\
 \end{tabular} \\
-That is, linear transformations `preserve' straight lines.
+That is, linear transformations like $L$ `preserve' straight lines.
 
-Also, if $\mathcal{L}$ is a 1-1 map (as both $L$ and $L^{-1}$ are),
+Also, if $K$ is a 1-1 map (as both $L$ and $L^{-1}$ are),
 and if $S_1$ and $S_2$ are two sets of points, then
-$\mathcal{L}*(S_1\cap S_2) = (\mathcal{L}*S_1)\cap(\mathcal{L}*S_2)$.
+$K*(S_1\cap S_2) = (K*S_1)\cap(K*S_2)$.
 That is, intersections are `preserved'.  A straight line is tangent
 to an ellipse or circle if and only if the two intersect in a single
 point, and as intersections and straight lines are preserved, tangency
@@ -2516,7 +2516,57 @@ methods of page~\pageref{FINDING-TANGENT-POINT} we can find $T$ and
 therefore $t=L*T$.
 
 Now consider the problem of finding the point $q$ on the reference ellipse
-that is closest to $p$.  Let $t_1$ and $t_2$ be the two points on the
+that is closest to $p$.
+The key fact is that the tangent to the ellipse at $q$ must be perpendicular
+to the line $pq$.  If it were not, sliding $q$ along the ellipse in one
+direction would decrease $||q-p||$.
+
+Lets restate the problem slightly.  Let \\
+\centerline{$q_\theta = (M*\cos\theta,m*\sin\theta)$} \\
+and find $\theta$ such that $||q_\theta - p||$ is minimal.
+Note that as $\theta$ increases, $q_\theta$ moves counter-clockwise
+around the ellipse.
+
+The tangent to the ellipse at $q_\theta$ has direction \\
+\centerline{$\mathrm{azm}~dq_\theta/d\theta =
+             \mathrm{azm}~(-M*\sin\theta,m*\cos\theta)$} \\
+which is pointed in the counter-clockwise direction around the
+ellipse.  Notice that this is an increasing function of $\theta$.
+
+The direction of $pq$ is \\
+\centerline{$\mathrm{azm}~(q-p) =
+             \mathrm{azm}~(M*\cos\theta - q_x,m*\sin\theta - q_y)$} \\
+and we will consider the difference \\
+\centerline{$D(\theta) = \mathrm{azm}~dq_\theta/d\theta - \mathrm{azm}~(q-p)$}
+with the goal of finding $\theta$ such that $D(\theta) = -90~\mathrm{degrees}$,
+the point where rotating the direction of $pq$ by 90 degrees clockwise
+will give the counter-clockwise direction of the tangent.
+
+\begin{minipage}{\textwidth}\raggedright
+\label{INTERSECTION-PICTURE}
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{tikzpicture}[x=0.25in,y=0.25in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+
+    \fill[blue] (5.0,0.0) circle(0.1);
+
+    \draw[black] (-3.0,-4.0) -- (3.0,-4.0);
+    \draw[black] (0,-6.0) -- (0,-2.0);
+    \fill[red] (0,-4.0) circle(0.1);
+    \draw[black] (0,-4.0) ellipse(3.0 and 2.0);
+    \draw[black] (-0.1,-3.0) node[left]{$m$};
+    \draw[black] (1.4,-4.6) node{$M$};
+
+    \fill[red] (2.598076,-3.0) circle(0.1);
+    \draw[red,->] (0,-4.0) -- (2.598076,-3.0);
+    \draw[black] (1.9,-2.9) node{$q_\theta$};
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+TBD
+
+Let $t_1$ and $t_2$ be the two points on the
 reference ellipse where straight lines passing through $p$ and tangent
 to the ellipse touch the ellipse.  Let $P=L^{-1}*p$, $Q=L^{-1}*1$,
 $T_1=L^{-1}*t_1$, $T_2=L^{-1}*t_2$.
@@ -2525,24 +2575,7 @@ $\theta_1=\mathrm{azm}~T_1$,
 $\theta_2=\mathrm{azm}~T_2$.
 We know $\theta_1$ and $\theta_2$ and want to find $\theta$.
 See picture.
-
-The key fact is that the tangent to the ellipse at $q$ must be perpendicular
-to the line $pq$.  If it were not, sliding $q$ along the ellipse in one
-direction would decrease $||q-p||$.  Let the direction of the line tangent
-to the ellipse at \\
-\centerline{$q_\phi = (M*\cos\phi,m*\sin\phi)$} \\
-be given by a vector $v_\phi$.
-Then the function $F(\phi)=<q_\phi-p>*<v_\phi>$ is $0$ at $\phi=\theta$
-and monotonic between $\phi=\theta_1$ and $\phi=\theta_2$.  If we can compute
-$F(\phi)$ from $\phi$, we can use binary search to compute $\theta$.
-
-As $q_\phi = (M*\cos\phi,m*\sin\phi)$ the problem reduces to computing $v_\phi$.
-Let $Q_\phi = L^{-1}*q_\phi = (\cos\phi,\sin\phi)$ and
-$V_\phi=L^{-1}*v_\phi$.  Then this last is the direction of the tangent
-to $C$ at $Q_\phi$, and we can take this direction as
-$R^{90}*Q=(-\sin\phi,\cos\phi)$ so we can take
-$V_\phi=(-\sin\phi,\cos\phi)$ and therefore $v_\phi=(-M*\sin\phi,m*\cos\phi)$.
-Now doing the binary search finds $\theta$.
+\end{minipage}
 
 
 
@@ -2550,7 +2583,7 @@ Now doing the binary search finds $\theta$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Jan  7 13:06:56 EST 2021
+Date:         & Fri Jan  8 03:15:01 EST 2021
 
 \end{tabular}
 
