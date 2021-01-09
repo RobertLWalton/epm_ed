@@ -2544,11 +2544,12 @@ will give the counter-clockwise direction of the tangent.
 
 \begin{minipage}{\textwidth}\raggedright
 \label{INTERSECTION-PICTURE}
-\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{wrapfigure}{r}{0.42\textwidth}
 \begin{tikzpicture}[x=0.25in,y=0.25in]
 \begin{scope}[>=triangle 45,shorten >=0.01in]
 
-    \fill[blue] (5.0,0.0) circle(0.1);
+    \fill[blue] (5.0,0.0) circle(0.1)
+              + (0.4,0.0) node[black]{$p$};
 
     \draw[black] (-3.0,-4.0) -- (3.0,-4.0);
     \draw[black] (0,-6.0) -- (0,-2.0);
@@ -2560,27 +2561,46 @@ will give the counter-clockwise direction of the tangent.
     \fill[red] (2.598076,-3.0) circle(0.1);
     \draw[red,->] (0,-4.0) -- (2.598076,-3.0);
     \draw[black] (1.9,-2.9) node{$q_\theta$};
+    \draw[red,->] (2.598076,-3.0) -- (1.6,-2.05);
 
     \draw[blue,->] (5.0,0.0) -- (2.598076,-3.0);
     \draw[blue,->] (5.0,0.0) -- (2.8,-4.7);
-    \fill[red] (2.8,-4.7) circle(0.1);
+    \fill[red] (2.8,-4.7) circle(0.1)
+             + (+0.6,-0.2) node[black]{$q_{\theta_1}$};
     \draw[blue,->] (5.0,0.0) -- (-1.5,-2.2);
-    \fill[red] (-1.5,-2.2) circle(0.1);
+    \fill[red] (-1.5,-2.2) circle(0.1)
+             + (-0.2,+0.4) node[black]{$q_{\theta_2}$};
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-TBD
+Using methods above, we can find two angles $\theta_1<\theta_2$
+such that the lines $pq_{\theta_1}$ and $pq_{\theta_2}$
+are tangent to the ellipse.  See picture.
 
-Let $t_1$ and $t_2$ be the two points on the
-reference ellipse where straight lines passing through $p$ and tangent
-to the ellipse touch the ellipse.  Let $P=L^{-1}*p$, $Q=L^{-1}*1$,
-$T_1=L^{-1}*t_1$, $T_2=L^{-1}*t_2$.
-Let $\theta=\mathrm{azm}~Q$,
-$\theta_1=\mathrm{azm}~T_1$,
-$\theta_2=\mathrm{azm}~T_2$.
-We know $\theta_1$ and $\theta_2$ and want to find $\theta$.
-See picture.
+\smallskip
+
+\begin{tabular}{@{}ll}
+Then	& $D(\theta) = \mathrm{azm}~dq_\theta/d\theta
+		     - \mathrm{azm}~(q-p)$ \\
+and	& $\mathrm{azm}~dq_\theta/d\theta$ is \\
+        & an increasing function of $\theta$ \\
+and	& $\mathrm{azm}~(q-p)$ is a \\
+        & decreasing function of
+          $\theta \in [\theta_1,\theta_2]$ \\
+so	& $D(\theta)$ is an increasing function \\
+        & of $\theta \in [\theta_1,\theta_2]$ \\
+and	& $D(\theta_1) = -180$ \\
+and	& $D(\theta_2) = -0$ \\
+so	& $D(\theta) = -90$ for some
+          $\theta \in [\theta_1,\theta_2]$ \\
+\end{tabular}
 \end{minipage}
+
+Therefore we can use binary search to find
+$\theta \in [\theta_1,\theta_2]$ such that
+$D(\theta) = -90$.
+
+
 
 
 
@@ -2588,7 +2608,7 @@ See picture.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Jan  8 07:23:03 EST 2021
+Date:         & Fri Jan  8 18:21:59 EST 2021
 
 \end{tabular}
 
