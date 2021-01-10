@@ -2600,6 +2600,64 @@ Therefore we can use binary search to find
 $\theta \in [\theta_1,\theta_2]$ such that
 $D(\theta) = -90$.
 
+\begin{minipage}{\textwidth}\raggedright
+\label{INTERSECTION-PICTURE}
+\begin{wrapfigure}{r}{0.5\textwidth}
+\begin{tikzpicture}[x=0.35in,y=0.35in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+
+    \fill[blue] (0.5,0.5) circle(0.1)
+              + (+0.3,+0.3) node[black]{$p$};
+
+    \draw[black] (-3.0,0) -- (3.0,0);
+    \draw[black] (0,-2.0) -- (0,+2.0);
+    \fill[red] (0,0) circle(0.1);
+    \draw[black] (0,0) ellipse(3.0 and 2.0);
+    \draw[black] (-0.1,+1.0) node[left]{$m$};
+    \draw[black] (1.4,-0.6) node{$M$};
+
+    \fill[red] (2.598076,1.0) circle(0.1)
+             + (0.3,0.2) node[black]{$q_\theta$};
+    \draw[red,->] (2.598076,1.0) -- (1.6,1.95);
+
+    \draw[blue,->] (0.5,0.5) -- (2.598076,1.0);
+    \draw[blue,->] (0.5,0.5) -- (3,0);
+    \fill[red] (3,0) circle(0.1)
+             + (+0.6,0) node[black]{$q_{\theta_1}$};
+    \draw[blue,->] (0.5,0.5) -- (0,2);
+    \fill[red] (0,2) circle(0.1)
+             + (-0.2,+0.4) node[black]{$q_{\theta_2}$};
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+The situation when $p$ is inside the ellipse is
+both similar and different.  In this case we set
+$\theta_1$ and $\theta_2$ according to which
+quadrant $p$ is in.  Assume $p$ is in the first
+quadrant: see picture.  Then we set $\theta_1=0$ and
+$\theta_2=90$.
+
+\smallskip
+
+\begin{tabular}{@{}ll}
+Then	& $D(\theta) \begin{array}[t]{cl}
+                     = & \mathrm{azm}~dq_\theta/d\theta \\
+		     - & \mathrm{azm}~(q-p) \\
+		     \end{array}$ \\
+and	& $\mathrm{azm}~dq_\theta/d\theta$ is \\
+        & an increasing function of $\theta$ \\
+and	& $\mathrm{azm}~(q-p)$ is a \\
+        & increasing function of
+          $\theta \in [\theta_1,\theta_2]$ \\
+so	& $D(\theta)$ may both increase and decrease \\
+        & for $\theta \in [\theta_1,\theta_2]$ \\
+and	& $D(\theta_1) > 90$ \\
+and	& $D(\theta_2) < 90$ \\
+so	& $D(\theta) = 90$ for some
+          $\theta \in (\theta_1,\theta_2)$ \\
+\end{tabular}
+\end{minipage}
+
 
 
 
@@ -2608,7 +2666,7 @@ $D(\theta) = -90$.
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Jan  8 18:21:59 EST 2021
+Date:         & Sun Jan 10 05:15:15 EST 2021
 
 \end{tabular}
 
