@@ -588,8 +588,9 @@ The page commands are:
                              & C columns of logical pages, each logical \\
 			     & page with margins as given in pt (1/72") \\
 			     & (margin defaults to 18 or 0.25") \\
-\tt \#!newpage [text...] & Starts new logical page \\
-                         & with text line in page header \\
+\tt \#!newpage [pq] & Starts new logical page with corners \\
+                    & optionally given by points p and q \\
+		    & (which are not themselves displayed) \\
 \tt \#!header text... & Adds text line to current page header \\
 \end{tabular}
 \end{minipage}
@@ -2666,7 +2667,7 @@ so	& $D(\theta) = 90$ for some
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Jan 10 05:15:15 EST 2021
+Date:         & Wed Jan 13 03:33:49 EST 2021
 
 \end{tabular}
 

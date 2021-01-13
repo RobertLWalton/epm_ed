@@ -1,0 +1,66 @@
+# Test Line and Point Calculator Operations
+#
+#!layout 3 2
+d=3
+p=(0,0)
+q=(2,0)
+#
+r=(-1,1)
+D=disti pqr
+D=distf pqr
+C=closei pqr
+C=closef pqr
+B=sidei pqrd
+B=onf pqrd
+l=(-3,-3)
+u=(3,3)
+#!newpage lu
+#!point p red
+#!point q red
+#!point r blue
+A=0
+#!infline pA
+A=90
+#!infline pA
+#!line pq red
+#!line rC brown
+#
+r=(1,1)
+D=disti pqr
+D=distf pqr
+C=closei pqr
+C=closef pqr
+B=sidei pqrd
+B=onf pqrd
+l=(-3,-3)
+u=(3,3)
+#!newpage lu
+#!point p red
+#!point q red
+#!point r blue
+A=0
+#!infline pA
+A=90
+#!infline pA
+#!line pq red
+#!line rC brown
+#
+r=(3,1)
+D=disti pqr
+D=distf pqr
+C=closei pqr
+C=closef pqr
+B=sidei pqrd
+B=onf pqrd
+l=(-3,-3)
+u=(3,3)
+#!newpage lu
+#!point p red
+#!point q red
+#!point r blue
+A=0
+#!infline pA
+A=90
+#!infline pA
+#!line pq red
+#!line rC brown

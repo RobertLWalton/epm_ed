@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Dec 30 05:43:00 EST 2020
+// Date:	Wed Jan 13 02:39:39 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include <cstring>
 #include <cstdlib>
 #include <cstdarg>
@@ -20,6 +21,8 @@ using std::cerr;
 using std::endl;
 using std::ostream;
 using std::string;
+using std::min;
+using std::max;
 using std::fpclassify;
 
 #include <sstream>
@@ -477,17 +480,26 @@ void execute ( const char * p )
     }
     else if ( strncmp ( p, "newpage", 7 ) == 0 )
     {
-	p += 7;
-	skip_space ( p );
 	end_page();
-	if ( * p != 0 )
+
+	p += 7;
+	get_operands ( p, 0, 2 );
+	if ( number_of_operands == 2 )
 	{
-	    cout << "head" << endl
-	         << "text font " << p << endl
-		 << "level" << endl;
+	    if ( OP1.t != VECTOR
+	         ||
+		 OP2.t != VECTOR )
+		error ( "operand is not a point" );
+	    cout << "bounds"
+	         << " " << min ( OP1.v.x, OP2.v.x )
+	         << " " << min ( OP1.v.y, OP2.v.y )
+	         << " " << max ( OP1.v.x, OP2.v.x )
+	         << " " << max ( OP1.v.y, OP2.v.y )
+		 << endl;
 	    page_non_empty = true;
-	    page_has_head = true;
 	}
+	else if ( number_of_operands != 0 )
+	    error ( "wrong number of operands" );
     }
     else if ( strncmp ( p, "header", 6 ) == 0 )
     {

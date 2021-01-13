@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Dec 30 05:35:52 EST 2020
+// Date:	Wed Jan 13 03:05:53 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -43,78 +43,10 @@ double units[13] =  // units[d] = 10**(-d)
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
       1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
 
-
-// C++ Vector Function Signatures
-// --- ------ -------- ----------
-//
-// For Scalar Calculator
-//
-bool lt ( double x, double y, int d );	// x<y:d
-bool le ( double x, double y, int d );	// x<=y:d
-bool eq ( double x, double y, int d );	// x==y:d
+vec zerov = { 0, 0 };
+vec uxv = { 1, 0 };
+vec uyv = { 0, 1 };
 
-// For Vector Calculator
-//
-vec new_vec ( double x, double y );	// (x,y)
-bool eq ( vec v, vec w, int d );	// v==w:d
-ostream & operator << ( ostream & s, vec v );
-vec operator * ( double s, vec v );	// s*v
-vec operator + ( vec v, vec w );	// v+w
-vec operator - ( vec v, vec w );	// v-w
-vec operator - ( vec v );		// -v
-vec zerov = { 0, 0 };			// (0,0)
-vec uxv = { 1, 0 };			// (1,0)
-vec uyv = { 0, 1 };			// (0,1)
-double len ( vec v );			// ||v||
-double azm ( vec v );			// azm v
-vec polar ( double l, double t );	// l^t
-
-// For Linear Calculator
-//
-linear new_linear ( vec v, vec w );	    // (v,w)
-int eq ( linear L, linear K, int d );	    // L==K:d
-ostream & operator << ( ostream & s, linear L );
-vec operator * ( linear L, vec v );	    // L*v
-    // application
-linear operator * ( double s, linear L );    // s*L
-linear operator + ( linear K, linear L );    // K+L
-linear operator - ( linear K, linear L );    // K-L
-linear operator - ( linear L );		     // -L
-linear operator * ( linear K, linear L );    // K*L
-    // composition
-
-// For Rotations and Reflections Calculator
-//
-vec rotate ( vec v, double p );		// v^p
-vec reflect ( vec v, double p );	// v|p
-linear rotation ( double p );		// ^p
-linear reflection ( double p );		// |p
-
-// For Product Calculator
-//
-double operator * ( vec v, vec w );	// v*w
-double cross ( vec v, vec w );		// v#w
-vec change ( vec v, vec w );		// v:w
-vec unit ( vec v );			// <v>
-vec uchange ( vec v, vec w );		// v!w
-linear changel ( vec v );		// v:
-linear uchangel ( vec v );		// v!
-double area ( vec p, vec q, vec r );	// area pqr
-
-// For Line and Point Calculator
-//
-double disti				//disti pqr
-    ( vec p, vec q, vec r );
-double distf				//distf pqr
-    ( vec p, vec q, vec r );
-vec closei				//closei pqr
-    ( vec p, vec q, vec r );
-vec closef				//closef pqr
-    ( vec p, vec q, vec r );
-double sidei				//sidei pqr
-    ( vec p, vec q, vec r, double d );
-bool onf				//onf pqr
-    ( vec p, vec q, vec r, double d );
 
 // C++ Main Program
 // --- ---- -------
@@ -163,11 +95,12 @@ ostream & operator << ( ostream & s, vec v )
 // true iff successful.  Sets V[.] to variables matched
 // to $ in left-to-right order:
 // //
-var * V[4];
+var * V[5];
 # define RES (*V[0])    // Result
 # define OP1 (*V[1])    // First Operand
 # define OP2 (*V[2])    // Second Operand
 # define OP3 (*V[3])    // Third Operand
+# define OP4 (*V[4])    // Fourth Operand
 bool match ( const char * pattern )
 {
     const char * p = squashed, * q = pattern;
@@ -177,7 +110,7 @@ bool match ( const char * pattern )
         if ( * q == '$' )
 	{
 	    if ( ! isalpha ( * p ) ) return false;
-	    assert ( i < 4 );
+	    assert ( i < 5 );
 	    V[i++] = & vars[*p++];
 	    q ++;
 	}
@@ -1016,6 +949,68 @@ bool compute_result ( void )
 	}
 	else
 	    return false;
+	return true;
+    }
+
+    if ( match ( "$=disti$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	RES.t = SCALAR;
+	RES.s = disti ( OP1.v, OP2.v, OP3.v );
+	return true;
+    }
+
+    if ( match ( "$=distf$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	RES.t = SCALAR;
+	RES.s = distf ( OP1.v, OP2.v, OP3.v );
+	return true;
+    }
+
+    if ( match ( "$=closei$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	RES.t = VECTOR;
+	RES.v = closei ( OP1.v, OP2.v, OP3.v );
+	return true;
+    }
+
+    if ( match ( "$=closef$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	RES.t = VECTOR;
+	RES.v = closef ( OP1.v, OP2.v, OP3.v );
+	return true;
+    }
+
+    if ( match ( "$=sidei$$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	assert ( OP4.t == SCALAR );
+	RES.t = SCALAR;
+	RES.s = sidei ( OP1.v, OP2.v, OP3.v, OP4.s );
+	return true;
+    }
+
+    if ( match ( "$=onf$$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	assert ( OP4.t == SCALAR );
+	RES.t = BOOLEAN;
+	RES.b = onf ( OP1.v, OP2.v, OP3.v, OP4.s );
 	return true;
     }
 
