@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Jan 13 03:05:53 EST 2021
+// Date:	Thu Jan 14 02:43:50 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -536,7 +536,7 @@ double sidei				//sidei pqr
 {
     vec R = change ( q - p, r - p );
     if ( eq ( 0, R.y, 2*d ) ) return 0;
-    else if ( R.y < 0 ) return +1;
+    else if ( R.y > 0 ) return +1;
     else return -1;
 }
 bool onf				//onf pqr
@@ -545,8 +545,8 @@ bool onf				//onf pqr
     vec Q = change ( q - p, q - p );
     vec R = change ( q - p, r - p );
     if ( ! eq ( 0, R.y, 2*d ) ) return false;
-    else if ( lt ( R.y, 0, 2*d ) ) return false;
-    else if ( lt ( Q.y, R.y, 2*d ) ) return false;
+    else if ( lt ( R.x, 0, 2*d ) ) return false;
+    else if ( lt ( Q.x, R.x, 2*d ) ) return false;
     else return true;
 }
 

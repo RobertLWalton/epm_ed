@@ -2,65 +2,143 @@
 #
 #!layout 3 2
 d=3
+z=(0,0)
 p=(0,0)
 q=(2,0)
+l=(-4,-4)
+u=(4,4)
 #
 r=(-1,1)
 D=disti pqr
 D=distf pqr
-C=closei pqr
-C=closef pqr
+I=closei pqr
+F=closef pqr
 B=sidei pqrd
 B=onf pqrd
-l=(-3,-3)
-u=(3,3)
 #!newpage lu
 #!point p red
 #!point q red
 #!point r blue
 A=0
-#!infline pA
+#!infline zA
 A=90
-#!infline pA
+#!infline zA
 #!line pq red
-#!line rC brown
+#!line rI blue
+#!line rF brown
 #
 r=(1,1)
 D=disti pqr
 D=distf pqr
-C=closei pqr
-C=closef pqr
+I=closei pqr
+F=closef pqr
 B=sidei pqrd
 B=onf pqrd
-l=(-3,-3)
-u=(3,3)
 #!newpage lu
 #!point p red
 #!point q red
 #!point r blue
 A=0
-#!infline pA
+#!infline zA
 A=90
-#!infline pA
+#!infline zA
 #!line pq red
-#!line rC brown
+#!line rI blue
+#!line rF brown
 #
 r=(3,1)
 D=disti pqr
 D=distf pqr
-C=closei pqr
-C=closef pqr
+I=closei pqr
+F=closef pqr
 B=sidei pqrd
 B=onf pqrd
-l=(-3,-3)
-u=(3,3)
 #!newpage lu
 #!point p red
 #!point q red
 #!point r blue
 A=0
-#!infline pA
+#!infline zA
 A=90
-#!infline pA
+#!infline zA
 #!line pq red
-#!line rC brown
+#!line rI blue
+#!line rF brown
+#
+p=(-3,-5)
+q=(6,10)
+l=(-15,-15)
+u=(15,15)
+#
+r=(3,-12)
+D=disti pqr
+D=distf pqr
+I=closei pqr
+F=closef pqr
+B=sidei pqrd
+B=onf pqrd
+#!newpage lu
+#!point p red
+#!point q red
+#!point r blue
+A=0
+#!infline zA
+A=90
+#!infline zA
+#!line pq red
+#!line rI blue
+#!line rF brown
+#
+r=(6.6,11)
+D=disti pqr
+D=distf pqr
+I=closei pqr
+F=closef pqr
+B=sidei pqrd
+B=onf pqrd
+#!newpage lu
+#!point p red
+#!point q red
+#!point r blue
+A=0
+#!infline zA
+A=90
+#!infline zA
+#!line pq red
+#!line rI blue
+#!line rF brown
+#
+r=(5.4,9)
+D=disti pqr
+D=distf pqr
+I=closei pqr
+F=closef pqr
+B=sidei pqrd
+B=onf pqrd
+#
+r=(-3.6,-6)
+D=disti pqr
+D=distf pqr
+I=closei pqr
+F=closef pqr
+B=sidei pqrd
+B=onf pqrd
+#
+r=(2,14)
+D=disti pqr
+D=distf pqr
+I=closei pqr
+F=closef pqr
+B=sidei pqrd
+B=onf pqrd
+#!newpage lu
+#!point p red
+#!point q red
+#!point r blue
+A=0
+#!infline zA
+A=90
+#!infline zA
+#!line pq red
+#!line rI blue
+#!line rF brown
