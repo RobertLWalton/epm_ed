@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sat Jan 16 02:37:08 EST 2021
+// Date:	Sat Jan 16 07:14:45 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -624,20 +624,34 @@ vec commoni				//commoni mnpq
 }
 double distf ( vec m, vec n, vec p, vec q )
 {
-    vec Rm = change ( q - p, m - p );
-    vec Rn = change ( q - p, n - p );
-    if ( Rm.y > 0 && Rn.y > 0 )
-        goto check_endpoints;
-    if ( Rm.y < 0 && Rn.y < 0 )
-        goto check_endpoints;
-    vec Rp = change ( n - m, p - m );
-    vec Rq = change ( n - m, q - m );
-    if ( Rp.y > 0 && Rq.y > 0 )
-        goto check_endpoints;
-    if ( Rp.y < 0 && Rq.y < 0 )
-        goto check_endpoints;
+    double Ym, Yn, Yp, Yq, A;
+    Ym = cross ( q - p, m - p );
+    Yn = cross ( q - p, n - p );
+    if ( ( Ym > 0 && Yn > 0 ) || ( Ym < 0 && Yn < 0 ) )
+        goto CHECK_ENDPOINTS;
+	// Finite mn does not intersect infinite pq
+	// at a point not very near to m or n
+    Yp = cross ( n - m, p - m );
+    Yq = cross ( n - m, q - m );
+    if ( ( Yp > 0 && Yq > 0 ) || ( Yp < 0 && Yq < 0 ) )
+        goto CHECK_ENDPOINTS;
+	// Finite pq does not intersect infinite mn
+	// at a point not very near to p or q
+    A = cross ( n - m, q - p );
 
-    // TBD
+// TBD
+//
+    if ( fabs ( A ) != 0 ) return 0;
+        // Infinite mn intersects infinite pq.
+
+CHECK_ENDPOINTS:
+
+    double Dm = distf ( p, q, m );
+    double Dn = distf ( p, q, n );
+    double Dp = distf ( m, n, p );
+    double Dq = distf ( m, n, q );
+    return min ( min ( Dm, Dn ), min ( Dp, Dq ) );
+
 }
 
 // C++ Compute Result Function
