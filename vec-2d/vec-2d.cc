@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sat Jan 16 07:14:45 EST 2021
+// Date:	Sat Jan 16 08:24:32 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -627,22 +627,18 @@ double distf ( vec m, vec n, vec p, vec q )
     double Ym, Yn, Yp, Yq, A;
     Ym = cross ( q - p, m - p );
     Yn = cross ( q - p, n - p );
-    if ( ( Ym > 0 && Yn > 0 ) || ( Ym < 0 && Yn < 0 ) )
+    if ( Ym * Yn >= 0 )
         goto CHECK_ENDPOINTS;
 	// Finite mn does not intersect infinite pq
-	// at a point not very near to m or n
+	// or intersects at a point very near to m or n
     Yp = cross ( n - m, p - m );
     Yq = cross ( n - m, q - m );
-    if ( ( Yp > 0 && Yq > 0 ) || ( Yp < 0 && Yq < 0 ) )
+    if ( Yp * Yq >= 0 )
         goto CHECK_ENDPOINTS;
 	// Finite pq does not intersect infinite mn
-	// at a point not very near to p or q
-    A = cross ( n - m, q - p );
-
-// TBD
-//
-    if ( fabs ( A ) != 0 ) return 0;
-        // Infinite mn intersects infinite pq.
+	// or intersects at a point very near to p or q
+    return 0;
+        // Finite mn intersects finite pq.
 
 CHECK_ENDPOINTS:
 
