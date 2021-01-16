@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Jan 14 02:43:50 EST 2021
+// Date:	Sat Jan 16 02:37:08 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -15,6 +15,7 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include <cstring>
 #include <cctype>
 #include <cassert>
@@ -24,6 +25,9 @@ using std::cin;
 using std::cout;
 using std::endl;
 using std::ostream;
+using std::swap;
+using std::max;
+using std::min;
 
 struct vec { double x, y; };
 struct linear { vec lx, ly; };
@@ -548,6 +552,92 @@ bool onf				//onf pqr
     else if ( lt ( R.x, 0, 2*d ) ) return false;
     else if ( lt ( Q.x, R.x, 2*d ) ) return false;
     else return true;
+}
+
+// Line and Line Calculator Functions
+//
+bool intersecti		            //intersecti mnpqd
+    ( vec m, vec n, vec p, vec q, double d )
+{
+    assert ( ! eq ( m, n, d ) );
+    assert ( ! eq ( p, q, d ) );
+    return ! eq ( 0, cross ( q - p, n - m ), d );
+}
+bool intersectf		            //intersectf mnpqd
+    ( vec m, vec n, vec p, vec q, double d )
+{
+    assert ( ! eq ( m, n, d ) );
+    assert ( ! eq ( p, q, d ) );
+
+    int side_m = sidei ( p, q, m, d );
+    int side_n = sidei ( p, q, n, d );
+    if ( side_m == side_n ) return false;
+    	// finite mn does not intersect infinite pq
+    int side_p = sidei ( m, n, p, d );
+    int side_q = sidei ( m, n, p, d );
+    if ( side_p == side_q ) return false;
+    	// finite pq does not intersect infinite mn
+    if ( side_m != 0 || side_n != 0 ) return true;
+        // finite mn is not a subset of infinite pq
+
+    double cp = ( q - p ) * ( p - p );
+    double cq = ( q - p ) * ( q - p );
+    double cm = ( q - p ) * ( m - p );
+    double cn = ( q - p ) * ( n - p );
+    assert ( cp == 0 );
+    assert ( cq > cp );
+    assert ( cm != cn );
+    if ( cm > cn ) swap ( cm, cn );
+    if ( lt ( cn, cp, d ) ) return false;
+        // [cm,cn] < [cp,cq]
+    if ( lt ( cq, cm, d ) ) return false;
+        // [cp,cq] < [cm,cn]
+    return true;
+}
+double overlapf				//overlapf mnpq
+    ( vec m, vec n, vec p, vec q )
+{
+    double cp = ( q - p ) * ( p - p );
+    double cq = ( q - p ) * ( q - p );
+    double cm = ( q - p ) * ( m - p );
+    double cn = ( q - p ) * ( n - p );
+    if ( cm > cn ) swap ( cm, cn );
+    double L = max ( cm, cp );
+    double U = min ( cn, cq );
+    double length = len ( p - q );
+    double r = ( U - L ) / length;
+    if ( r < 0 ) r - 0;
+    return r;
+    
+}
+vec commoni				//commoni mnpq
+    ( vec m, vec n, vec p, vec q )
+{
+    // r = p + s * ( q - p )
+    // where A * s = B
+    //
+    double A = cross ( n - m, q - p );
+    double B = cross ( n - m, m - p );
+    return p + (B/A) * ( q - p );
+        // If A == 0 lines are parallel and
+	// components will be nan or inf.
+}
+double distf ( vec m, vec n, vec p, vec q )
+{
+    vec Rm = change ( q - p, m - p );
+    vec Rn = change ( q - p, n - p );
+    if ( Rm.y > 0 && Rn.y > 0 )
+        goto check_endpoints;
+    if ( Rm.y < 0 && Rn.y < 0 )
+        goto check_endpoints;
+    vec Rp = change ( n - m, p - m );
+    vec Rq = change ( n - m, q - m );
+    if ( Rp.y > 0 && Rq.y > 0 )
+        goto check_endpoints;
+    if ( Rp.y < 0 && Rq.y < 0 )
+        goto check_endpoints;
+
+    // TBD
 }
 
 // C++ Compute Result Function
