@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sat Jan 16 08:24:32 EST 2021
+// Date:	Sun Jan 17 00:34:10 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -624,7 +624,7 @@ vec commoni				//commoni mnpq
 }
 double distf ( vec m, vec n, vec p, vec q )
 {
-    double Ym, Yn, Yp, Yq, A;
+    double Ym, Yn, Yp, Yq, A, B, s;
     Ym = cross ( q - p, m - p );
     Yn = cross ( q - p, n - p );
     if ( Ym * Yn >= 0 )
@@ -637,7 +637,15 @@ double distf ( vec m, vec n, vec p, vec q )
         goto CHECK_ENDPOINTS;
 	// Finite pq does not intersect infinite mn
 	// or intersects at a point very near to p or q
-    return 0;
+
+    // r = p + s * ( q - p )
+    // where A * s = B
+    //
+    A = cross ( n - m, q - p );
+    if ( A == 0 ) goto CHECK_ENDPOINTS;
+    B = cross ( n - m, m - p );
+    s = B/A;
+    if ( 0 <= s && s <= 1 ) return 0;
         // Finite mn intersects finite pq.
 
 CHECK_ENDPOINTS:
