@@ -1679,71 +1679,32 @@ Two finite lines do \underline{not} intersect
 if either does not intersect the infinite extension of the other.
 
 Otherwise the two finite lines intersect at a single point unless
-each finite line is a subset of the infinite extension of the other.
+the infinite extensions of the two finite lines are identical.
 \end{lemma}
 \begin{indpar}{0.3in}
 Proof: The first statement is clear.
 
-If one finite line is a subset of the the infinite extension of the
-other, then the other finite line is a subset of the infinite extension
-of the first finite line.
+If the infinite extensions of the finite lines are parallel, either
+the infinite extensions are identical, or neither finite line
+intersects the infinite extension of the other line.
+So if both the finite lines intersect the infinite extension of the other,
+and if these infinite extensions are not identical, then the
+infinite extensions are not parallel, so they must intersect at a
+single point.  So each finite line must intersect the infinite extension
+of the other line at a single point.
 
-Otherwise let the finite lines be $\ell_1$ and $\ell_2$ and let
+Then let the finite lines be $\ell_1$ and $\ell_2$ and let
 $\ell_i$ intersect the infinite extension of the other finite line
-at single point $r_i$.  Then $r_1=r_2=$ the intersection of the infinite
+at the point $r_i$.  So $r_1=r_2=$ the intersection of the infinite
 extensions of both lines, and as $r_i$ is on $\ell_i$, this point is
 on both finite lines.
 \end{indpar}
 
-If we have a finite line {\tt mn} and an infinite directed line extending
-{\tt pq}, then we can test whether {\tt m} and {\tt n} are on, to the left of,
-or to the right of the infinite directed line {\tt pq}, and we get the
-following cases:
-\begin{enumerate}
-\item Both {\tt m} and {\tt n} are to the left of infinite {\tt pq}.
-Then finite {\tt mn} does \underline{not} intersect infinite {\tt pq}.
-\item Both {\tt m} and {\tt n} are to the right of infinite {\tt pq}.
-Then finite {\tt mn} does \underline{not} intersect infinite {\tt pq}.
-\item {\tt m} is to the left of and {\tt n} is to the right of infinite {\tt pq}.
-Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
-\item {\tt m} is to the right of and {\tt n} is to the left of
-infinite {\tt pq}.
-Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}.
-\item Just one of {\tt m} or {\tt n} is on infinite {\tt pq}.
-Then finite {\tt mn} \underline{does} intersect infinite {\tt pq}
-at a single point.
-\item Both {\tt m} and {\tt n} are on infinite {\tt pq}.
-Then finite {\tt mn} is a \underline{subset} of the infinite {\tt pq}.
-\end{enumerate}
-
-The above cases can be captured by:
-\begin{lemma}
-If coordinates have at most {\tt d} decimal places,
-a finite line {\tt mn} is a subset of an infinite line {\tt pq} if:
-\\[1ex]
+As indicated above,
+we can check whether the infinite extensions of the {\tt mn} and {\tt pq}
+are the same by checking whether thay are parallel and {\tt n} is on
+the infinite extension of {\tt pq}, or in other words, whether: \\
 \centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
-
-Otherwise the finite {\tt mn} intersects the infinite {\tt pq}
-in a single point if:
-\\[1ex]
-\centerline{{\tt (q-p)\#(m-p)<=0:(2d)} and {\tt 0<=(q-p)\#(n-p):(2d)}} \\
-\centerline{or} \\
-\centerline{{\tt (q-p)\#(n-p)<=0:(2d)} and {\tt 0<=(q-p)\#(m-p):(2d)}}
-
-Otherwise the finite {\tt mn} does \underline{not} intersect
-the infinite {\tt pq}.
-\end{lemma}
-
-(Determining if {\tt mn} intersects or is a subset of infinite {\tt pq}
-could be answered by evaluating \\
-\centerline{{\tt ((q-p)\#(m-q))*((q-p)\#(n-q))<=0:(4d)}} \\
-but the change from {\tt 2d} to {\tt 4d} is worrisome: {\tt 4d}
-is often too large to be practical.)
-
-If two finite lines intersect at a single point, the point of intersection
-is the same as the point of intersection of the two infinite extensions
-of the two finite lines, which we have determined at the beginning
-of this section.
 
 If the two infinite extensions of the two finite lines {\tt pq} and
 {\tt mn} are the same
@@ -2718,7 +2679,7 @@ so	& $D(\theta) = 90$ for some
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Jan 18 01:00:13 EST 2021
+Date:         & Mon Jan 18 06:25:10 EST 2021
 
 \end{tabular}
 
