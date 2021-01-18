@@ -1570,7 +1570,9 @@ Submit Run File: & \file{submit-point-vec-2d.run} \\
 In this section we investigate the following questions:
 \begin{enumerate}
 \item Do two infinite lines intersect, and if so where?
-\item Do two finite lines intersect, and if so where?
+\item Does a finite line intersect an infinite line?
+\item What is the distance between a finite line and an infinite line?
+\item Do two finite lines intersect?
 \item What is the distance between two finite lines?
 \end{enumerate}
 
@@ -1620,6 +1622,55 @@ and therefore {\tt mn} is parallel to {\tt pq} if and only if
 If {\tt mn} and {\tt pq} are parallel infinite lines, they
 may be disjoint or identical.  To test which, test whether
 {\tt m} is on the infinite line {\tt pq} 
+
+The question of whether a finite line {\tt mn} intersects an
+infinite line {\tt pq} can be answered by applying the translation
+by {\tt -p} and then the linear transform {\tt (q-p):} to get:
+\begin{center}
+\begin{tabular}{rcl}
+\tt m & $\longmapsto$ & \tt M = ( (q-p)*(m-p), (q-p)\#(m-p) ) \\
+\tt n & $\longmapsto$ & \tt N = ( (q-p)*(n-p), (q-p)\#(n-p) ) \\
+infinite {\tt pq} & $\longmapsto$ & X-axis \\
+\end{tabular}
+\end{center}
+Then intersection occurs if and only if {\tt M.y} and {\tt N.y}
+have opposite signs or one is zero, or:
+\begin{theorem}
+If the coordinates of {\tt m},
+{\tt n}, {\tt p}, and {\tt q} have at most {\tt d} decimal places,
+finite {\tt mn} intersects infinite {\tt pq} if and only if:
+\begin{center}
+{\tt M.y > 0:d} and {\tt N.y < 0:d} \\
+or \\
+{\tt M.y < 0:d} and {\tt N.y > 0:d} \\
+or \\
+{\tt M.y == 0:d} \\
+or \\
+{\tt N.y == 0:d}
+\end{center}
+where {\tt M.y == (q-p)\#(m-p)} and {\tt N.y == (q-p)\#(n-p)}.
+\end{theorem}
+The question of intersection has a discontinuous true/false
+answer, so the boundaries {\tt M.y == 0} and {\tt N.y == 0}
+are discontinuous for this question.  However, for the
+question of the distance of finite {\tt mn} from infinite {\tt pq},
+the boundaries are continuous, and remembering that distances in
+the transformed coordinates are {\tt ||q-p||} times distances
+in the original coordinates, we have:
+\begin{theorem}
+The distance between the finite line {\tt mn} and the infinite
+line {\tt pq} is {\tt 0} (due to intersection) unless
+\begin{center}
+{\tt M.y > 0} and {\tt N.y > 0} \\
+or \\
+{\tt M.y < 0} and {\tt N.y < 0} \\
+\end{center}
+in which case it is \\
+\centerline{\tt min (|M.y|, |N.y|) / ||q-p||}
+
+where {\tt M.y == (q-p)\#(m-p)} and {\tt N.y == (q-p)\#(n-p)}.
+\end{theorem}
+
 
 The question of whether two \underline{finite} lines intersect is made
 simpler by the following:
@@ -2667,7 +2718,7 @@ so	& $D(\theta) = 90$ for some
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Jan 13 03:33:49 EST 2021
+Date:         & Mon Jan 18 01:00:13 EST 2021
 
 \end{tabular}
 
