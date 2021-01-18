@@ -1825,6 +1825,37 @@ in computational geometry.
 Of course if the finite lines intersect the distance between
 them is zero.
 
+What if an endpoint of one finite line is on the other finite
+line.  Then the lines intersect, so the distance between them
+is {\tt 0}.  However, if we assume that the lines do not
+intersect and apply Theorem~\ref{FINITE-LINE-DISTANCE-THEOREM}
+to calculate the distance, we will also get {\tt 0}.  Thus
+the boundaries used to determine whether two finite lines
+intersect are continuous when used to calculate the distance
+between finite lines, and we need not worry about the inequalities
+being exact.  This gives:
+
+\begin{theorem}
+If {\tt mn} and {\tt pq} are finite lines, then if
+both \\
+\centerline{\tt (n-m)*(p-m) * (n-m)*(q-m) <= 0}
+and \\
+\centerline{\tt (q-p)*(m-p) * (q-p)*(n-p) <= 0}
+the distance from {\tt mn} to {\tt pq} is {\tt 0}
+(the lines intersect, possibly at the endpoint of
+one of the lines).
+Otherwise the distance is the smallest of: \\
+\hspace*{0.5in}\begin{tabular}{l}
+the distance from {\tt m} to {\tt pq} \\
+the distance from {\tt n} to {\tt pq} \\
+the distance from {\tt p} to {\tt mn} \\
+the distance from {\tt q} to {\tt mn} \\
+\end{tabular} \\
+(the lines do not intersect, or the endpoint of one line
+is on the other line).
+\end{theorem}
+
+
 \newpage
 
 \section{Line and Line Calculator}
@@ -2679,7 +2710,7 @@ so	& $D(\theta) = 90$ for some
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Jan 18 06:25:10 EST 2021
+Date:         & Mon Jan 18 11:32:06 EST 2021
 
 \end{tabular}
 
