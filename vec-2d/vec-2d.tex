@@ -1971,21 +1971,22 @@ We define {\tt b} to be the point on {\tt pc} such that
     angle {\tt pct} equals angle {\tt tcb} \\
     triangles {\tt ptc} and {\tt tbc} are congruent \\
     so {\tt \small ||b-c||/||t-c|| = ||t-c||/||p-c||} \\
-    so {\tt \small ||b-c|| = r$^2$/||p-c||} \\
-    and using \\
-    {\tt ||b-t|| = $\sqrt{{\tt r}^2 - {\tt ||b-c||}^2}$} \\
-    we can compute both {\tt ||b-c||} and {\tt ||b-t||}; \\
+    so {\tt \small ||b-c|| = r$^2$/||p-c|| = r$^2$/L} \\
+    where {\tt L = ||p-c||} \\
     \end{tabular}
 \end{minipage} \\
 \hspace*{0.2in}\begin{tabular}{@{}l}
+    and using \\
+    {\tt ||b-t|| = $\sqrt{{\tt r}^2 - {\tt ||b-c||}^2}$ =
+                   (r/L)*$\sqrt{{\tt L}^2 - {\tt r}^2}$} \\
+    we can compute both {\tt ||b-c||} and {\tt ||b-t||}; \\
     then if we define {\tt u = <p-c>} we have \\
     {\tt b = c + ||b-c||*u = c + (r$^2$/L$^2$)*(p-c)} \\
     {\tt t \begin{tabular}[t]{@{}l}
          = b $\pm$ ||b-t||*(u\textasciicircum 90) \\
-         = b $\pm$ (r/L$^2$)*$\sqrt{{\tt L}^2 - 1}$%
+         = b $\pm$ (r/L$^2$)*$\sqrt{{\tt L}^2 - {\tt r}^2}$%
 	                    *((p-c)\textasciicircum 90) \\
 	   \end{tabular}} \\
-    where {\tt L$^2$ = (p-c)*(p-c)} \\
     \end{tabular}
 
 The reason for the $\pm$ is that we actually have two possible
@@ -2710,7 +2711,7 @@ so	& $D(\theta) = 90$ for some
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Jan 18 11:32:06 EST 2021
+Date:         & Mon Feb 15 12:30:24 EST 2021
 
 \end{tabular}
 
