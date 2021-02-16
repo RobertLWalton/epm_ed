@@ -1992,18 +1992,18 @@ We define {\tt b} to be the point on {\tt pc} such that
 The reason for the $\pm$ is that we actually have two possible
 values for {\tt t}, one on either side of the line {\tt pc}.
 
-It turns out that the coordinates of {\tt b} are rational
+Since we are using a computer, the inputs {\tt r} and the coordinates
+of {\tt p} and {\tt c} must be rational.  Then
+the coordinates of {\tt b} are rational
 with denominator containing {\tt (p-c)*(p-c)}.  However, the
 coordinates of {\tt t} are irrational in general, due to
-$\sqrt{\tt (p-c)*(p-c) - 1}$ being a factor while other factors are rational.
-It comes down the the question of whether if {\tt p-c = 10$^{-d}$*(x,y)}
-for integers {\tt x} and {\tt y}, then is
-{\tt x$^2$+y$^2$-(10$^d$)$^2$} a perfect square.
-For example, $101^2+201^2-100^2= 40602$ contains the factor $2$ only once
-and is therefore not a perfect square.
-Most of the time the sum will \underline{not}
-be a perfect square, and so most of the time the
-coordinates of {\tt t} will be irrational.
+$\sqrt{\tt (p-c)*(p-c) - r*r}$ being a factor while other factors are rational.
+For example, if {\tt ||p-c|| = 3} and {\tt r = 1}, then
+$\sqrt{\tt 3*3 - 1*1} = \sqrt{\tt 8} = {\tt 2*}\sqrt{\tt 2}$
+is irrational.  However note that the coordinates of {\tt t}
+will be rational if
+{\tt (r,||p-t||,||p-c||) = (r,$\sqrt{{\tt L}^2 - {\tt r}^2}$,L)}
+is a rational number times a pythagorean triple.
 
 Now let {\tt p} and {\tt q} be points on an infinite line {\tt pq}
 and let {\tt c} be a circle of radius {\tt r}.  Does {\tt pq} intersect
@@ -2054,7 +2054,7 @@ the circle, and locate the points of intersection (see picture).
 By section \ref{LINE-AND-POINT}, page \pageref{LINE-AND-POINT},
 we can find the point {\tt t} on the line that is closest to
 {\tt c}, and find the distance {\tt ||t-c||}.  Then the line {\tt tc} is
-perpendicular to {\tt pq} as if it were not sliding {\tt t}
+perpendicular to {\tt pq}, as if it were not sliding {\tt t}
 along the {\tt pq} line would reduce {\tt ||t-c||}.
 If {\tt s} is an intersection point of {\tt pq} and the circle, we have: \\
 \hspace*{0.2in}\begin{tabular}{@{}l}
@@ -2215,7 +2215,7 @@ $pq$ is \underline{inside} of $S$ is one of:
 
 The application of this theorem is obvious.
 
-The rest of this secion just gives the proofs of the last two
+The rest of this section just gives the proofs of the last two
 theorems.
 
 To prove Theorem~\ref{POINT-OUTSIDE-THEOREM}
@@ -2226,7 +2226,7 @@ A function $F$ on a convex set of points $S$ is a \key{convex function}
 if and only if
 for any two points $p$ and $q$ in $S$ and
 $0\le\alpha\le 1$,
-$D(\alpha*p+(1-\alpha)*q)\le\alpha*F(p) + (1-\alpha)*F(q)$.
+$F(\alpha*p+(1-\alpha)*q)\le\alpha*F(p) + (1-\alpha)*F(q)$.
 \end{definition}
 
 Next note that for any two vectors $v_1$ and $v_2$,
@@ -2339,7 +2339,7 @@ Proof:  By construction.  Let $r_s'=\alpha*r_p+(1-\alpha)*r_q$.
 Let $C_p$ be the circle of center $p$ and
 radius $r_p$, and let $C_q$ and $C_s'$ be constructed similarly from
 $(q,r_q)$ and $(s,r_s')$.  Then we will prove $C_s'$ is a subset of
-the convex hull of $C_p\cup C_q$, and as by the previous lemma
+the convex hull of $C_p\cup C_q$, and as by a previous remark
 the latter is a subset of $S$, we get the conclusion $r_s\ge r_s'$.
 
 Let $t$ be a point on the boundary $C_s'$ and let $v=t-s$, so
@@ -2349,7 +2349,7 @@ respectively.  Then by hypothesis,
 $||v|| = \alpha*||v_p||+(1-\alpha)*||v_q||$, so
 $v = \alpha*v_p+(1-\alpha)*v_q$, and as
 $s = \alpha*p+(1-\alpha)*q$, we have
-$t=s+v=\alpha*(p+v_p)+(1-\alpha)*(q+v_q)$ and 
+$t=s+v=\alpha*(p+v_p)+(1-\alpha)*(q+v_q)$ so
 $t$ is on the finite line from $p+v_p$ to $q+v_q$ and is therefore in the
 convex hull of $C_p\cup C_q$.
 \end{indpar}
@@ -2376,22 +2376,25 @@ the following {\em operators} and {\em functions}:
 Assume: & {\tt c}, {\tt p}, {\tt q} are vectors representing points \\
 	& {\tt r} is a scalar with {\tt r > 0} \\
 	& below the circle has center {\tt c} and radius {\tt r} \\
+	& ~~~ and is viewed as an arc and \underline{not} as an area \\
 	& {\tt d} is an integer scalar with {\tt 0 $\leq$ d $\leq$ 12} \\
 then: \\[1ex]
 \tt sidec~crpd & returns {\tt -1} if {\tt p} is outside the circle, \\
                & {\tt 0} if it is on the circle, {\tt +1} if it is \\
 	       & inside the circle, assuming all coordinates have \\
 	       & at most {\tt d} decimal places \\
-\tt distc crp  & returns the distance of the point {\tt p} to the  \\
-               & circle viewed as an arc and not an area \\
+\tt distc crp  & returns the distance of the point {\tt p} to the
+                 circle \\
 \tt tangc crp  & returns a tangent point ({\tt t} in the page
                  \pageref{TANGENT-PICTURE} picture) \\
-               & of a line through {\tt p} tangent to the circle; \\
+               & of a line through {\tt p} tangent to the circle, \\
+	       & where {\tt p} is outside the circle; \\
 	       & of the two possibilities, the one to the right of \\
 	       & the directed line {\tt cp} must be returned \\
 \tt basec crp  & returns the base point ({\tt b} in the page
                  \pageref{TANGENT-PICTURE} picture) \\
-               & of lines through {\tt p} tangent to the circle; \\
+               & of lines through {\tt p} tangent to the circle, \\
+	       & where {\tt p} is outside the circle; \\
 	       & this is technically the point on {\tt cp} closest \\
 	       & to the tangent point {\tt t} \\
 \tt intersectc crpq  & returns the intersection point
@@ -2400,8 +2403,9 @@ then: \\[1ex]
 	       & of the two possibilities, the one to the right of \\
 	       & the directed line {\tt ct} must be returned, where \\
 	       & {\tt t} is the point on the line closest to {\tt c} \\
-\tt distc crpq  & returns the distance of the finite line {\tt pq} to the  \\
-               & circle viewed as an arc and not an area \\
+	       & and may be assumed to be on or inside the circle \\
+\tt distc crpq  & returns the distance of the finite line {\tt pq} to the
+                  circle \\
 \end{tabular}
 \end{center}
 
@@ -2711,7 +2715,7 @@ so	& $D(\theta) = 90$ for some
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Feb 15 12:30:24 EST 2021
+Date:         & Tue Feb 16 01:31:21 EST 2021
 
 \end{tabular}
 
