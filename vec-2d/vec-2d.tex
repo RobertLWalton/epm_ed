@@ -2438,15 +2438,16 @@ where is the point on the finite line segment that is closest to the
 ellipse.
 \end{enumerate}
 
-A circle with center at {\tt (0,0)} and radius {\tt r} is the set:
+A circle with center at $(0,0)$ and radius $r > 0$ is the set:
 \begin{center}
 $\{ (x,y) : (\frac{x}{r})^2 + (\frac{y}{r})^2 = 1 \}
 =
 \{ (r\cos\theta,r\sin\theta): 0\leq\theta< 2\pi \}$
 \end{center}
 
-An \key{ellipse} with center at {\tt (0,0)}, \key{major axis} {\tt M}
-and \key{minor axis} {\tt m}, with the major axis in the X-axis direction
+An \key{ellipse} with center at $(0,0)$, \key{major axis} $M$
+and \key{minor axis} $m$, $M > m > 0$,
+with the major axis in the X-axis direction
 (the minor axis is always perpendicular to the major axis) is the set:
 \begin{center}
 $\{ (x,y) : (\frac{x}{M})^2 + (\frac{y}{m})^2 = 1 \}
@@ -2489,11 +2490,11 @@ $\{ (x,y) : (\frac{x}{M})^2 + (\frac{y}{m})^2 = 1 \}
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-Lets call a circle with center {\tt (0,0)} a \key{reference circle}.
+Lets call a circle with center $(0,0)$ a \key{reference circle}.
 Then an arbitrary circle is made by translating the reference circle
 so its center is moved to an arbitrary point. \\
 ~ \\
-Lets call an ellipse with center {\tt (0,0)} and major axis aligned with
+Lets call an ellipse with center $(0,0)$ and major axis aligned with
 the X-axis a \key{reference ellipse}.
 Then an arbitrary ellipse is made by first rotating the reference ellipse
 to align its major axis in an arbitrary direction, and then
@@ -2508,7 +2509,7 @@ going to consider reference ellipses in this section.
 
 The reference circle with unit radius is closely related to
 the reference ellipse by the linear transformation: \\
-\centerline{$L = (M*u_x,m*u_y): (x,y) \longmapsto (M*x,m*y)$} \\
+\centerline{$L = [M*u_x,m*u_y]: (x,y) \longmapsto (M*x,m*y)$} \\
 This is because: \\
 \centerline{$L*(\cos\theta,\sin\theta) = (M*\cos\theta,m*\sin\theta)$}
 
@@ -2522,7 +2523,7 @@ Then $L*C = E$.
 
 This is important because of the following.
 
-First, note that $L^{-1}$, the inverse of $L$, exists (where we assume
+First, note that $L^{-1}$, the inverse of $L$, exists (because
 $M,m>0$) and is such that \\
 \centerline{$L^{-1} = (M^{-1}*u_x,m^{-1}*u_y): (x,y)
             \longmapsto (M^{-1}*x,m^{-1}*y)$} \\
@@ -2582,13 +2583,15 @@ The tangent to the ellipse at $q_\theta$ has direction \\
 which is pointed in the counter-clockwise direction around the
 ellipse.  Notice that this is an increasing function of $\theta$.
 
-The direction of $pq$ is \\
-\centerline{$\mathrm{azm}~(q-p) =
-             \mathrm{azm}~(M*\cos\theta - q_x,m*\sin\theta - q_y)$} \\
+The direction of $pq_\theta$ is \\
+\centerline{$\mathrm{azm}~(q_\theta-p) =
+             \mathrm{azm}~(M*\cos\theta - p_x,
+	                   m*\sin\theta - p_y)$} \\
 and we will consider the difference \\
-\centerline{$D(\theta) = \mathrm{azm}~dq_\theta/d\theta - \mathrm{azm}~(q-p)$}
+\centerline{$D(\theta) = \mathrm{azm}~dq_\theta/d\theta
+                       - \mathrm{azm}~(q_\theta-p)$}
 with the goal of finding $\theta$ such that $D(\theta) = -90~\mathrm{degrees}$,
-the point where rotating the direction of $pq$ by 90 degrees clockwise
+the point where rotating the direction of $pq_\theta$ by 90 degrees clockwise
 will give the counter-clockwise direction of the tangent.
 
 \begin{minipage}{\textwidth}\raggedright
@@ -2630,10 +2633,10 @@ are tangent to the ellipse.  See picture.
 
 \begin{tabular}{@{}ll}
 Then	& $D(\theta) = \mathrm{azm}~dq_\theta/d\theta
-		     - \mathrm{azm}~(q-p)$ \\
+		     - \mathrm{azm}~(q_\theta-p)$ \\
 and	& $\mathrm{azm}~dq_\theta/d\theta$ is \\
         & an increasing function of $\theta$ \\
-and	& $\mathrm{azm}~(q-p)$ is a \\
+and	& $\mathrm{azm}~(q_\theta-p)$ is a \\
         & decreasing function of
           $\theta \in [\theta_1,\theta_2]$ \\
 so	& $D(\theta)$ is an increasing function \\
@@ -2647,7 +2650,8 @@ so	& $D(\theta) = -90$ for some
 
 Therefore we can use binary search to find
 $\theta \in [\theta_1,\theta_2]$ such that
-$D(\theta) = -90$.
+$D(\theta) = -90$, making $q_\theta$ the closest
+point on the ellipse to $p$.
 
 \begin{minipage}{\textwidth}\raggedright
 \label{INTERSECTION-PICTURE}
@@ -2691,11 +2695,11 @@ $\theta_2=90$.
 \begin{tabular}{@{}ll}
 Then	& $D(\theta) \begin{array}[t]{cl}
                      = & \mathrm{azm}~dq_\theta/d\theta \\
-		     - & \mathrm{azm}~(q-p) \\
+		     - & \mathrm{azm}~(q_\theta-p) \\
 		     \end{array}$ \\
 and	& $\mathrm{azm}~dq_\theta/d\theta$ is \\
         & an increasing function of $\theta$ \\
-and	& $\mathrm{azm}~(q-p)$ is a \\
+and	& $\mathrm{azm}~(q_\theta-p)$ is a \\
         & increasing function of
           $\theta \in [\theta_1,\theta_2]$ \\
 so	& $D(\theta)$ may both increase and decrease \\
@@ -2707,6 +2711,33 @@ so	& $D(\theta) = 90$ for some
 \end{tabular}
 \end{minipage}
 
+Again we can use binary search to find
+$\theta \in [\theta_1,\theta_2]$ such that
+$D(\theta) = 90$, but this time, because $D(\theta)$ is not
+monotone for $\theta \in [\theta_1,\theta_2]$, we cannot
+be sure that $q_\theta$ is the closest
+point on the ellipse to $p$.  Specifically,
+$D(\theta) = 90$ might be true for more than one
+$\theta \in [\theta_1,\theta_2]$, in which case one of the
+$q_\theta$ would be a point on the ellipse farthest from
+$p$ for small changes in $\theta$.
+
+We can invoke any of the following arguments to assure
+ourselves that this cannot happen.
+
+\begin{enumerate}
+\item Our `geometric intuition'.
+\item Graphing $D(\theta)$ in particular cases to see what
+actually happens in these cases.
+\item Proving that $d^2 D(\theta)/d\theta^2 > 0$ for
+$\theta \in [\theta_1,\theta_2]$, thus proving the $D(\theta)$
+is convex on $[\theta_1,\theta_2]$ and verifying that the graphs
+are not just typical, but are general.  This is too difficult
+so we will not do it.
+\end{enumerate}
+
+TBD
+
 
 
 
@@ -2715,7 +2746,7 @@ so	& $D(\theta) = 90$ for some
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Feb 16 01:31:21 EST 2021
+Date:         & Sun Feb 21 01:46:03 EST 2021
 
 \end{tabular}
 
