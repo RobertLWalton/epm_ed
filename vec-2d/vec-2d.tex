@@ -1595,6 +1595,16 @@ So we end up with: \\
 \centerline{\tt s*(n-m)\#(q-p) = (n-m)\#(m-p)} \\
 which we can solve for {\tt s}.  Unless {\tt (n-m)\#(q-p) = 0}.
 
+If {\tt (n-m)\#(q-p) $\ne$ 0} then plugging {\tt s} into
+{\tt p + s*(q-p)} and using \\
+\centerline{\tt (n-m)\#(q-p) - (n-m)\#(m-p) = (n-m)\#(q-m)}
+we get that the intesection point is: \\
+\centerline{\tt \begin{tabular}{c}
+                [(n-m)\#(q-m)]*p + [(n-m)\#(m-p)]*q
+		\\\hline
+		(n-m)\#(q-p) \\
+		\end{tabular} }
+
 What happens if {\tt (n-m)\#(q-p) = 0}? \\
 \hspace*{0.3in}\begin{tabular}{r@{~~}l}
 Then    & \tt (n-m)\#(q-p) = sin $\theta$*||n-m||*||q-p|| = 0 \\
@@ -2746,7 +2756,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Feb 21 01:46:03 EST 2021
+Date:         & Sat Feb 27 20:13:59 EST 2021
 
 \end{tabular}
 
