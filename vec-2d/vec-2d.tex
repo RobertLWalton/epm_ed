@@ -1355,6 +1355,9 @@ on the line?
 \item What is the general position of a point relative
 to a finite line segment?  What is the distance from the
 point to the line segment?
+\item What is the general position of a direction relative
+to two other directions, where all three directions are
+defined by infinite lines passing through a common point?
 \end{enumerate}
 
 We begin with a line {\tt pq} from point {\tt p} to point {\tt q},
@@ -1523,6 +1526,58 @@ For continuous boundaries we can use inequalities to decide which
 side of the boundary we are on without worrying about accuracy.
 For discontinuous boundaries we must worry about accuracy and
 use tests like {\tt X<0:(2d)}.
+
+\medskip
+
+\begin{minipage}{\textwidth}\raggedright
+\begin{wrapfigure}{r}{0.48\textwidth}
+\begin{tikzpicture}[x=0.25in,y=0.25in]
+\begin{scope}[>=triangle 45,shorten >=0.01in]
+
+    \draw[black] (-4.5,+1.5) -- (+4.5,-1.5);
+    \draw[black] (-3.5,-2.5) -- (+3.5,+2.5);
+    \draw[red] (0,0) -- (+2.5,+1);
+    \fill[red] (0,0) circle(0.1) + (0,-0.5) node[black]{\tt p};
+    \fill[red] (4.5,-1.5) circle(0.1) + (0.5,0) node[black]{\tt q$_1$};
+    \fill[red] (3.5,2.5) circle(0.1) + (0.5,0) node[black]{\tt q$_2$};
+    \fill[red] (2.5,1) circle(0.1) + (0.5,0) node[black]{\tt q};
+    \draw[black] (4,0) node{LR};
+    \draw[black] (-0.5,2.5) node{LL};
+    \draw[black] (-4,0) node{RL};
+    \draw[black] (+0.5,-2.5) node{RR};
+
+\end{scope}
+\end{tikzpicture}
+\end{wrapfigure}
+Lastly, let us find the general position of a direction {\tt pq} relative
+to two other directions, {\tt pq$_1$}  and {\tt pq$_2$} (see picture).
+The infinite lines {\tt pq$_1$}  and {\tt pq$_2$} divide space into
+four regions:
+\begin{itemize}
+\item[LR]
+for points {\tt q} that are to the \underline{left} of {\tt pq$_1$}
+and to the \underline{right} of {\tt pq$_2$};
+\item[LL] for points {\tt q} that are to the \underline{left} of {\tt pq$_1$}
+and to the \underline{left} of {\tt pq$_2$};
+\item[RL] for points {\tt q} that are to the \underline{right} of {\tt pq$_1$}
+and to the \underline{left} of {\tt pq$_2$};
+\item[RR] for points {\tt q} that are to the \underline{right} of {\tt pq$_1$}
+and to the \underline{right} of {\tt pq$_2$};
+\end{itemize}
+\end{minipage}
+
+\medskip
+
+Thus, for example,
+if {\tt p} is in region LR, then when {\tt pq$_1$} is rotated
+counter-clock\-wise
+it will line up with {\tt pq} \underline{before} it lines up with
+{\tt pq$_2$}.
+
+Therefore we can use what we already know about finding which side
+of an infinite line a point is on
+to find the general position of a direction relative to
+two other directions.
 
 \newpage
 
@@ -2756,7 +2811,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Feb 27 20:13:59 EST 2021
+Date:         & Wed Mar 10 11:22:56 EST 2021
 
 \end{tabular}
 
