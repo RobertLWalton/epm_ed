@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sun Jan 17 00:34:10 EST 2021
+// Date:	Wed Mar 10 16:01:13 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -99,12 +99,13 @@ ostream & operator << ( ostream & s, vec v )
 // true iff successful.  Sets V[.] to variables matched
 // to $ in left-to-right order:
 // //
-var * V[5];
+var * V[6];
 # define RES (*V[0])    // Result
 # define OP1 (*V[1])    // First Operand
 # define OP2 (*V[2])    // Second Operand
 # define OP3 (*V[3])    // Third Operand
 # define OP4 (*V[4])    // Fourth Operand
+# define OP5 (*V[5])    // Fifth Operand
 bool match ( const char * pattern )
 {
     const char * p = squashed, * q = pattern;
@@ -114,7 +115,7 @@ bool match ( const char * pattern )
         if ( * q == '$' )
 	{
 	    if ( ! isalpha ( * p ) ) return false;
-	    assert ( i < 5 );
+	    assert ( i < 6 );
 	    V[i++] = & vars[*p++];
 	    q ++;
 	}
@@ -551,6 +552,13 @@ bool onf				//onf pqr
     if ( ! eq ( 0, R.y, 2*d ) ) return false;
     else if ( lt ( R.x, 0, 2*d ) ) return false;
     else if ( lt ( Q.x, R.x, 2*d ) ) return false;
+    else return true;
+}
+bool between				//betweed pquvd
+    ( vec p, vec q, vec u, vec v, double d )
+{
+    if ( sidei ( p, u, q, d ) != +1 ) return false;
+    else if ( sidei ( p, v, q, d ) != -1 ) return false;
     else return true;
 }
 
@@ -1119,6 +1127,18 @@ bool compute_result ( void )
 	assert ( OP4.t == SCALAR );
 	RES.t = BOOLEAN;
 	RES.b = onf ( OP1.v, OP2.v, OP3.v, OP4.s );
+	return true;
+    }
+    if ( match ( "$=between$$$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	assert ( OP4.t == VECTOR );
+	assert ( OP5.t == SCALAR );
+	RES.t = BOOLEAN;
+	RES.b = between
+	    ( OP1.v, OP2.v, OP3.v, OP4.v, OP5.s );
 	return true;
     }
 

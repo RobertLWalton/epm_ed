@@ -1585,7 +1585,7 @@ two other directions.
 Implement additions to the product calculator for
 the following {\em operators} and {\em functions}:
 \begin{center}
-\begin{tabular}{l@{~~~~~}l@{~~~~~}l}
+\begin{tabular}{l@{~~~~}l@{~~~~}l}
 Assume: & {\tt p}, {\tt q}, {\tt r}, {\tt u}, {\tt v}
           are vectors representing points \\
 	& {\tt d} is an integer scalar with {\tt 0 $\leq$ d $\leq$ 12} \\
@@ -1604,17 +1604,18 @@ then: \\[1ex]
                 \underline{infinite directed} line \\
 	      & {\tt pq}, zero if it is on the line,
 	        and -1 if it is to the right, \\
-	      & assuming all coordinates have at most {\tt d} decimal places \\
+	      & if all coordinates have at most {\tt d} decimal places \\
 \tt onf~pqrd & returns {\tt true} if and only if {\tt r} is on the
                 \underline{finite} line {\tt pq}, \\
-	      & assuming all coordinates have at most {\tt d} decimal places \\
-\tt between~pquv & returns {\tt true} if and only if the directed
-                   line {\tt pu} rotated \\
-		 & counter-clockwise will line up with
-		   the directed line {\tt pq} \\
-		 & before it lines up with {\tt pv}; \\
+	      & if all coordinates have at most {\tt d} decimal places \\
+\tt between~pquvd & returns {\tt true} if and only if the directed
+                   line {\tt pu} \\
+		 & rotated counter-clockwise will line up with
+		   the \\
+		 & directed line {\tt pq} before it lines up with {\tt pv}; \\
 		 & return false if {\tt pq} has the same
-		   direction as {\tt pu} or {\tt pv} \\
+		   direction as {\tt pu} or {\tt pv}; \\
+	      & if all coordinates have at most {\tt d} decimal places \\
 \end{tabular}
 \end{center}
 
@@ -2820,7 +2821,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Mar 10 15:38:05 EST 2021
+Date:         & Wed Mar 10 16:18:34 EST 2021
 
 \end{tabular}
 
