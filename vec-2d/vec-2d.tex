@@ -1586,7 +1586,8 @@ Implement additions to the product calculator for
 the following {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
-Assume: & {\tt p}, {\tt q}, {\tt r} are vectors representing points \\
+Assume: & {\tt p}, {\tt q}, {\tt r}, {\tt u}, {\tt v}
+          are vectors representing points \\
 	& {\tt d} is an integer scalar with {\tt 0 $\leq$ d $\leq$ 12} \\
 then: \\[1ex]
 \tt disti~pqr  & returns the distance from point {\tt r} to the
@@ -1600,12 +1601,20 @@ then: \\[1ex]
                   line {\tt pq} \\
 		& that is closest to the point {\tt r} \\
 \tt sidei~pqrd & returns {\tt +1} if {\tt r} is to the left of the
-                \underline{infinite directed} line {\tt pq}, \\
-	      & zero if it is on the line, and -1 if it is to the right, \\
+                \underline{infinite directed} line \\
+	      & {\tt pq}, zero if it is on the line,
+	        and -1 if it is to the right, \\
 	      & assuming all coordinates have at most {\tt d} decimal places \\
 \tt onf~pqrd & returns {\tt true} if and only if {\tt r} is on the
                 \underline{finite} line {\tt pq}, \\
 	      & assuming all coordinates have at most {\tt d} decimal places \\
+\tt between~pquv & returns {\tt true} if and only if the directed
+                   line {\tt pu} rotated \\
+		 & counter-clockwise will line up with
+		   the directed line {\tt pq} \\
+		 & before it lines up with {\tt pv}; \\
+		 & return false if {\tt pq} has the same
+		   direction as {\tt pu} or {\tt pv} \\
 \end{tabular}
 \end{center}
 
@@ -2811,7 +2820,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Mar 10 11:22:56 EST 2021
+Date:         & Wed Mar 10 15:38:05 EST 2021
 
 \end{tabular}
 
