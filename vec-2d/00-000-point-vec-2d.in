@@ -142,3 +142,53 @@ A=90
 #!line pq red
 #!line rI blue
 #!line rF brown
+#
+L=(-4,-4)
+U=(4,4)
+p=(0,0)
+u=(3.5,-1.5)
+v=(2.5,3.5)
+q=(3.0,2.0)
+d=1
+b=between pquvd
+#!newpage LU
+#!point p red
+#!point q red
+#!point u brown
+#!point v blue
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(-1.0,3.0)
+b=between pquvd
+#!newpage LU
+#!point p red
+#!point q red
+#!point u brown
+#!point v blue
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(-3.0,-2.0)
+b=between pquvd
+#!newpage LU
+#!point p red
+#!point q red
+#!point u brown
+#!point v blue
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(1.0,-3.0)
+b=between pquvd
+#!newpage LU
+#!point p red
+#!point q red
+#!point u brown
+#!point v blue
+#!line pq red
+#!line pu brown
+#!line pv blue
