@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Mar 10 16:01:13 EST 2021
+// Date:	Thu Mar 11 03:46:06 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -630,7 +630,8 @@ vec commoni				//commoni mnpq
         // If A == 0 lines are parallel and
 	// components will be nan or inf.
 }
-double distf ( vec m, vec n, vec p, vec q )
+double distf				// distf mnpq
+    ( vec m, vec n, vec p, vec q )
 {
     double Ym, Yn, Yp, Yq, A, B, s;
     Ym = cross ( q - p, m - p );
@@ -664,6 +665,21 @@ CHECK_ENDPOINTS:
     double Dq = distf ( m, n, q );
     return min ( min ( Dm, Dn ), min ( Dp, Dq ) );
 
+}
+
+// Circle, Line, and Point Calculator Functions
+//
+double sidec		            	//sidec crpd
+    ( vec c, double r, vec p, double d )
+{
+    double diff = (p-c) * (p-c) - r*r;
+    if ( eq ( diff, 0, d ) ) return 0;
+    else if ( diff > 0 ) return -1;
+    else return +1;
+}
+double distc ( vec c, double r, vec p )	//distc crp
+{
+    return fabs ( len ( p - c ) - r );
 }
 
 // C++ Compute Result Function
@@ -1129,6 +1145,7 @@ bool compute_result ( void )
 	RES.b = onf ( OP1.v, OP2.v, OP3.v, OP4.s );
 	return true;
     }
+
     if ( match ( "$=between$$$$$" ) )
     {
 	assert ( OP1.t == VECTOR );
@@ -1139,6 +1156,65 @@ bool compute_result ( void )
 	RES.t = BOOLEAN;
 	RES.b = between
 	    ( OP1.v, OP2.v, OP3.v, OP4.v, OP5.s );
+	return true;
+    }
+
+    if ( match ( "$=intersecti$$$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	assert ( OP4.t == VECTOR );
+	assert ( OP5.t == SCALAR );
+	RES.t = BOOLEAN;
+	RES.b = intersecti
+	    ( OP1.v, OP2.v, OP3.v, OP4.v, OP5.s );
+	return true;
+    }
+
+    if ( match ( "$=intersectf$$$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	assert ( OP4.t == VECTOR );
+	assert ( OP5.t == SCALAR );
+	RES.t = BOOLEAN;
+	RES.b = intersectf
+	    ( OP1.v, OP2.v, OP3.v, OP4.v, OP5.s );
+	return true;
+    }
+
+    if ( match ( "$=overlapf$$$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	assert ( OP4.t == VECTOR );
+	RES.t = SCALAR;
+	RES.s = overlapf ( OP1.v, OP2.v, OP3.v, OP4.v );
+	return true;
+    }
+
+    if ( match ( "$=commoni$$$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	assert ( OP4.t == VECTOR );
+	RES.t = VECTOR;
+	RES.v = commoni ( OP1.v, OP2.v, OP3.v, OP4.v );
+	return true;
+    }
+
+    if ( match ( "$=distf$$$$$" ) )
+    {
+	assert ( OP1.t == VECTOR );
+	assert ( OP2.t == VECTOR );
+	assert ( OP3.t == VECTOR );
+	assert ( OP4.t == VECTOR );
+	RES.t = SCALAR;
+	RES.s = distf ( OP1.v, OP2.v, OP3.v, OP4.v );
 	return true;
     }
 
