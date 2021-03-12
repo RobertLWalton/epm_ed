@@ -2267,12 +2267,17 @@ a point on the infinite line closest to $S$ is in the finite line $pq$.
 \end{enumerate}
 \end{theorem}
 
-Given this and a finite line {\tt pq} \underline{outside} the
-circle,
-we compute the point {\tt t} on the infinite line {\tt pq} that is
-closest to the center of the circle
-and check if that is in the finite line {\tt pq}.  If not, then the
-closest point is either {\tt p} or {\tt q}, by the Theorem.
+For a circle of center {\tt c}, the point on the infinite line
+closest to the circle is the point on the infinite line closest
+to {\tt c}, and computing the distance from a finite line to the
+circle is the same as computing the distance from the finite line
+to {\tt c} and subtracting the radius.  Thus:
+
+\begin{corollary}
+The distance of finite line {\tt pq} that is \underline{outside}
+of a circle of center {\tt c} and radius {\tt r} is the distance
+from {\tt pq} to {\tt c} minus {\tt r}.
+\end{corollary}
 
 In order to deal with the case where the finite line $pq$ is
 \underline{inside}
@@ -2475,10 +2480,10 @@ then: \\[1ex]
 \tt intersectc crpq  & returns the intersection point
                        ({\tt s} in the page \pageref{INTERSECTION-PICTURE} \\
                & picture) of the infinite line {\tt pq} and the circle; \\
-	       & of the two possibilities, the one to the right of \\
-	       & the directed line {\tt ct} must be returned, where \\
-	       & {\tt t} is the point on the line closest to {\tt c} \\
-	       & and may be assumed to be on or inside the circle \\
+	       & of the two possibilities, the one nearer {\tt q} must \\
+	       & be returned, where {\tt t} is the point on the line \\
+	       & closest to {\tt c} and may be assumed to be on or \\
+	       & inside the circle \\
 \tt distc crpq  & returns the distance of the finite line {\tt pq} to the
                   circle \\
 \end{tabular}
@@ -2821,7 +2826,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Mar 10 16:18:34 EST 2021
+Date:         & Fri Mar 12 01:03:35 EST 2021
 
 \end{tabular}
 

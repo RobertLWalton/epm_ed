@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Mar 11 03:46:06 EST 2021
+// Date:	Fri Mar 12 01:07:27 EST 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -371,6 +371,12 @@ vec operator - ( vec v, vec w )
     return r;
 }
 
+vec rotate90 ( vec v )
+{
+    vec r = { - v.y, + v.x };
+    return r;
+}
+
 double len ( vec v )
 {
     return sqrt ( v.x*v.x + v.y*v.y );
@@ -680,6 +686,44 @@ double sidec		            	//sidec crpd
 double distc ( vec c, double r, vec p )	//distc crp
 {
     return fabs ( len ( p - c ) - r );
+}
+vec tangc ( vec c, double r, vec p )	// tangc crp
+{
+    vec pc = p - c;
+    double L = len ( pc );
+    assert ( L > r );
+    vec b = c + ( ( r*r ) / ( L*L ) ) * pc;
+    return b + ( r / ( L*L ) ) * rotate90 ( pc );
+}
+vec basec ( vec c, double r, vec p )	// basec crp
+{
+    vec pc = p - c;
+    double L = len ( pc );
+    assert ( L > r );
+    return c + ( r*r / L*L ) * pc;
+}
+vec intersectc			     // intersectc crpq
+    ( vec c, double r, vec p, vec q )
+{
+    vec t = closei ( p, q, c );
+    vec tc = t - c;
+    double tcsq = tc * tc;
+    assert ( tcsq <= r * r );
+    double ts = sqrt ( r * r - tcsq );
+    vec u = unit ( q - p );
+    return t + ts * u;
+}
+double distc				// distc crpq
+    ( vec c, double r, vec p, vec q )
+{
+    double pc = len ( p - c );
+    double qc = len ( q - c );
+    if ( pc < r && qc < r )
+        return min ( r - pc, r - pc );
+    else if ( pc > r && qc > r )
+	return distf ( p, q, c ) - r;
+    else
+        return 0;
 }
 
 // C++ Compute Result Function
