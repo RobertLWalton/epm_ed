@@ -1,0 +1,101 @@
+# Test Scalar Arithmetic Operators
+#
+x=0
+y=1
+o=x+y
+o=x-y
+o=x*y
+o=x/y
+o=x%y
+o=-x
+o=|x|
+#
+x = +1000
+y =  -234
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
+#
+x =  -234
+y = +1000
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
+#
+x = 1.24356789
+y = 9.87654321
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
+#
+x = 9.87654321
+y = 1.24356789
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
+#
+x = 1.23456e4
+y = 9.87654e-3
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
+#
+x = -1.23456e4
+y = -9.87654e-3
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
+#
+x = 1.23456e4
+y = -9.87654e-3
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
+#
+x = -1.23456e4
+y = 9.87654e-3
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
+#
+x = 1e-4
+y = 1e-6
+o = x + y
+o = x - y
+o = x * y
+o = x / y
+o = x % y
+o = - x
+o = | x |
