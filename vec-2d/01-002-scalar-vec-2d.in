@@ -1,0 +1,91 @@
+# Test Scalar Functions
+#
+A = 0
+x = cos A
+y = sin A
+z = tan A
+#
+A = 1
+x = cos A
+y = sin A
+z = tan A
+#
+A = 361
+x = cos A
+y = sin A
+z = tan A
+#
+A = -359
+x = cos A
+y = sin A
+z = tan A
+#
+A = 2
+x = cos A
+y = sin A
+z = tan A
+#
+A = 3
+x = cos A
+y = sin A
+z = tan A
+#
+A = 4
+x = cos A
+y = sin A
+z = tan A
+#
+A = 5
+x = cos A
+y = sin A
+z = tan A
+#
+A = 6
+x = cos A
+y = sin A
+z = tan A
+#
+A = 7
+x = cos A
+y = sin A
+z = tan A
+#
+A = 8
+x = cos A
+y = sin A
+z = tan A
+#
+A = 9
+x = cos A
+y = sin A
+z = tan A
+#
+A = 10
+x = cos A
+y = sin A
+z = tan A
+#
+A = -10
+x = cos A
+y = sin A
+z = tan A
+#
+A = 80
+x = cos A
+y = sin A
+z = tan A
+#
+A = 100
+x = cos A
+y = sin A
+z = tan A
+#
+A = 170
+x = cos A
+y = sin A
+z = tan A
+#
+A = -170
+x = cos A
+y = sin A
+z = tan A
