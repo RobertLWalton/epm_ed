@@ -33,8 +33,8 @@
 
 \section{Two Dimensional Geometry Calculator}
 This document describes a group of 2-dimensional geometry problems,
-starting with simple vector calculations, and working up to polygons and
-ellipses.
+starting with simple vector calculations, and working up to
+ellipses and polygons.
 The problems are embedded in a simple calculator for ease of
 testing.
 
@@ -120,6 +120,27 @@ The syntax is:
 		   \end{tabular} \\
 {\em function} ::= three or more letters (e.g. {\tt sin} or {\tt area})
 \end{tabular}
+
+There are multiple versions of the calculator, each an extension
+of previous versions:
+\begin{center}
+\small
+\begin{tabular}{ll}
+Version & Implements
+\\\hline
+Scalar	& scalar and boolean types \\
+Vector  & the vector type \\
+Linear Transform & the linear transformation type \\
+Rotations and Reflections & rotation and reflection linear transforms \\
+Products & vector scalar and cross products \\
+Line and Point & algorithms involving a line and a point \\
+Line and Line & algorithms involving two lines \\
+Circle, Line, and Point & algorithms involving a circle and a line or a point \\
+Ellipse, Line, and Point & algorithms involving an ellipse
+                           and a line or a point \\
+
+\end{tabular}
+\end{center}
 
 The Input/Output Rules are:
 \begin{indpar}{0.2in}\begin{itemize}
@@ -2826,7 +2847,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Mar 12 01:03:35 EST 2021
+Date:         & Fri Jun 18 05:43:12 EDT 2021
 
 \end{tabular}
 
