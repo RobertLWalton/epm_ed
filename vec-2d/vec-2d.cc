@@ -2,13 +2,13 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Mar 12 01:07:27 EST 2021
+// Date:	Sat Jun 19 17:00:09 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
 // for this program.
 
-// Assert failure is on input line after last line
+// Any `assert' failure is on input line after last line
 // printed.
 
 // C++ Data Structures
@@ -32,6 +32,7 @@ using std::min;
 struct vec { double x, y; };
 struct linear { vec lx, ly; };
 struct element { vec v; element * next; };
+    // For vector lists.
 enum type { NONE = 0, BOOLEAN, SCALAR, VECTOR,
             LINEAR, LIST };
 struct var {
@@ -43,26 +44,30 @@ struct var {
     element * first;
         // First element of vector LIST.
 };
+
+var vars[128];
+    // vars['X'] is value of variable named X.
+    // Implicitly initialized to
+    // vars[...].t == 0 == NONE,
+
 double units[13] =  // units[d] = 10**(-d)
     { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
       1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
 
-vec zerov = { 0, 0 };
-vec uxv = { 1, 0 };
-vec uyv = { 0, 1 };
-
-
-// C++ Main Program
-// --- ---- -------
+vec zerov = { 0, 0 };  // Zero vector
+vec uxv = { 1, 0 };    // Unit vector in X direction.
+vec uyv = { 0, 1 };    // Unit vector in Y direction.
 
 const int MAX_LINE = 100000;
 
 char line[MAX_LINE+2];
+    // Input line.
 char squashed[MAX_LINE+2];
+    // Input line with whitespace removed.
 
-var vars[128];
-    // Implicitly initialized to
-    // vars[...].t == 0 == NONE,
+
+// C++ Main Program
+// --- ---- -------
 
 // Read and return scalar.
 //
@@ -333,6 +338,7 @@ bool eq ( double x, double y, double d )
     return fabs ( x - y ) < 0.5 * units[i];
 }
 
+
 // Vector Calculator Functions
 // ------ ---------- ---------
 
@@ -397,6 +403,7 @@ vec polar ( double l, double t )
     return r;
 }
 
+
 // Linear Transform Calculator Functions
 // ------ --------- ---------- ---------
 
@@ -446,6 +453,7 @@ linear operator * ( linear K, linear L )    // K*L
     return r;
 }
 
+
 // Rotations and Reflections Calculator Functions
 // --------- --- ----------- ---------- ---------
 
@@ -468,6 +476,7 @@ linear reflection ( double p )		// |p
                         reflect ( uyv, p ) );
 }
 
+
 // Product Calculator Functions
 // ------- ---------- ---------
 //
@@ -508,6 +517,7 @@ double area ( vec p, vec q, vec r )	// area pqr
     return 0.5 * cross ( r - p, q - p );
 }
 
+
 // Line and Point Calculator Functions
 //
 double disti				//disti pqr
@@ -568,6 +578,7 @@ bool between				//betweed pquvd
     else return true;
 }
 
+
 // Line and Line Calculator Functions
 //
 bool intersecti		            //intersecti mnpqd
@@ -673,6 +684,7 @@ CHECK_ENDPOINTS:
 
 }
 
+
 // Circle, Line, and Point Calculator Functions
 //
 double sidec		            	//sidec crpd

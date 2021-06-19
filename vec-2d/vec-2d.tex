@@ -106,10 +106,7 @@ The syntax is:
 {\em value} ::= {\em boolean} $|$ {\em scalar} $|$ {\em vector}
 	    $|$ {\em linear-transform} $|$ {\em vector-list} \\
 {\em boolean} ::= \TT{true} $|$ \TT{false} \\
-{\em scalar} ::= \begin{tabular}[t]{@{}l}
-                 double precision floating point number (e.g., 1.4142135) \\
-		 (must have a digit before any decimal point) \\
-		 \end{tabular} \\
+{\em scalar} ::= double precision floating point number (e.g., 1.4142135) \\
 {\em vector} ::= \TT{(} {\em scalar}\TT{,} {\em scalar} \TT{)} \\
 {\em linear-transform} ::= \TT{[} {\em vector}\TT{,} {\em vector} \TT{]} \\
 {\em vector-list} ::= \TT{()} $|$
@@ -118,8 +115,13 @@ The syntax is:
                    one or more non-letter, non-digit graphic characters \\
                    (e.g. {\tt +} or {\tt <=})\\
 		   \end{tabular} \\
-{\em function} ::= three or more letters (e.g. {\tt sin} or {\tt area})
+{\em function} ::= \begin{tabular}[t]{@{}l@{}}
+     three or more letters (e.g. {\tt sin} or {\tt area}) \\
+     no {\em function} shall be a prefix of another {\em function} \\
+     \end{tabular}
 \end{tabular}
+
+\newpage
 
 There are multiple versions of the calculator, each an extension
 of previous versions:
@@ -168,7 +170,7 @@ and statements of the form `{\em variable} \TT{=} {\em variable}'.
 \item {\em Scalars} should be output with 6 digits of precision
 (which is the default for C/C++).  To pass tests, scalar values
 must be accurate to better than 5 digits of precision \underline{or}
-to better than $\pm 10^{-6}$.
+to better than $\pm 10^{-5}$.
 
 \item  The total number of vector list elements that need to be
 allocated during one program execution will be small enough
@@ -197,7 +199,8 @@ then: \\[1ex]
 \tt x-y & returns $x - y$ \\
 \tt x*y & returns $x \times y$ \\
 \tt x/y & returns $x / y$ \\
-\tt x\%y & returns remainder of $x/y$ rounded to integer nearest zero \\
+\tt x\%y & returns $x - n*y$ \\
+         & where $n = x/y$ rounded to the integer nearest zero \\
 \tt -x & returns $-x$ \\
 \tt |x| & returns $|x|$, the absolute value of $x$ \\
 \tt cos x & returns $\cos ( (\pi/180) * x )$ [{\tt x} is in degrees] \\
@@ -238,17 +241,18 @@ You can test your program using the indicated sample input and
 output and you can submit your program using the indicated submit
 run file.  Only scalar functionality is tested.
 
-There is also an input file:
+There are also files:
 \begin{center}
 \begin{tabular}{rl}
-Sample Input Files: & \file{00-000-special-vec-2d.in} \\
+Special Input File: & \file{00-000-special-vec-2d.in} \\
+Special Output File: & \file{00-000-special-vec-2d.ftest} \\
 \end{tabular}
 \end{center}
 which may be used to test the results of divide by zero
 and other anomolous scalar computations.
-The output of your program for this file will depend
+The output of your program for the special input file will depend
 upon the programming language you use, so the output is
-not testable except by human inspection.  Therefore this {\tt .in}
+not testable except by human inspection.  Therefore the special input
 file is not included in any {\tt .run} files.
 
 \section{Coding Hints}
@@ -283,12 +287,14 @@ Examples: \begin{tabular}[t]{l@{~~~}l@{~~~}l}
 \\[1ex]
 \tt \$=\$ & \tt x=y \\
 \tt \$=true & \tt t=true \\
+\tt \$=() & \tt x=() \\
 \tt \$=\$+\$ & \tt b=c+d \\
 \tt \$=sin\$ & {\tt x=sinA} & [Normally input as {\tt x=sin A}] \\
 \tt \$=\$<=\$:\$ & {\tt x=y<=z:d}  & [Normally input as {\tt x = y<=z:d}] \\
 \end{tabular}
 
-Remember that when you output a line, you are outputting the original
+Remember that when you output a line, you are outputting the
+\underline{original}
 line before whitespace characters were removed.
 
 Skeleton code for the solutions is available in the files:
