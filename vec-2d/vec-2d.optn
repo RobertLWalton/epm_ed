@@ -1,5 +1,5 @@
 {
-    "scoring-abs": "1e-9",
+    "scoring-abs": "1e-5",
     "scoring-rel": "1e-5",
     "scoring-float": "-float SCORING-ABS SCORING-REL"
 }

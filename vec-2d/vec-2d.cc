@@ -8,9 +8,6 @@
 // domain; they make no warranty and accept no liability
 // for this program.
 
-// Any `assert' failure is on input line after last line
-// printed.
-
 // C++ Data Structures
 //
 
@@ -18,11 +15,11 @@
 #include <algorithm>
 #include <cstring>
 #include <cctype>
-#include <cassert>
 #include <cmath>    // PI is M_PI
 
 using std::cin;
 using std::cout;
+using std::cerr;
 using std::endl;
 using std::ostream;
 using std::swap;
@@ -60,10 +57,23 @@ vec uyv = { 0, 1 };    // Unit vector in Y direction.
 
 const int MAX_LINE = 100000;
 
+int line_number = 0;
 char line[MAX_LINE+2];
     // Input line.
 char squashed[MAX_LINE+2];
     // Input line with whitespace removed.
+
+// Define assert to print error and current line.
+//
+# define assert(x) \
+    if ( ! ( x ) ) \
+    { \
+	cerr << "FATAL ERROR: assert ( " \
+	     << #x << " ) failed in line " \
+	     << line_number << ":" << endl \
+	     << line << endl; \
+	exit ( 1 ); \
+    }
 
 
 // C++ Main Program
@@ -87,9 +97,9 @@ vec read_vector ( char * & p )
     vec r;
     assert ( * p ++ == '(' );
     r.x = read_scalar ( p );
-    assert ( * p ++ = ',' );
+    assert ( * p ++ == ',' );
     r.y = read_scalar ( p );
-    assert ( * p ++ = ')' );
+    assert ( * p ++ == ')' );
     return r;
 }
 
@@ -136,6 +146,7 @@ int main ( int argc, char * argv[] )
     while ( cin.getline ( line, sizeof ( line ) ),
             cin.good() )
     {
+	++ line_number;
         assert ( strlen ( line ) <= MAX_LINE );
 	    // Line is too long.
 
@@ -302,7 +313,7 @@ int main ( int argc, char * argv[] )
 	}
         else
 	{
-	    cout << "ERROR: unrecognized operation in:"
+	    cerr << "ERROR: unrecognized operation in:"
 	         << endl << "    " << line << endl;
 	    exit ( 1 );
 	}
