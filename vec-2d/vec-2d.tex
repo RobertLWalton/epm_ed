@@ -435,7 +435,14 @@ negative angles are clockwise.
 For a vector {\tt v},~~{\tt azm v} and {\tt ||v||} are said to be
 the \key{polar coordinates} of {\tt v}.
 The vector with the polar coordinates $\theta$ (azimuth) and $\ell$ (length) is
-$(\ell \cos\theta,\ell \sin\theta)$.
+$(\ell \cos\theta,\ell \sin\theta)$.  For the vector {\tt v}=$(v_x,v_y)$:
+\begin{center}
+\tt
+\begin{tabular}{l}
+||v|| = $\sqrt{v_x^2+v_y^2}$ \\
+azm v = $(180/\pi)$ * atan2($v_y$,$v_x$)
+\end{tabular}
+\end{center}
 See the picture.
 
 Adding integer multiples of 360 to a vector's
@@ -444,7 +451,7 @@ azimuth does \underline{not} change the vector.
 \newpage
 
 \section{Vector Calculator}
-Implement additions to the basic calculator for just {\em vector}
+Implement additions to the scalar calculator for just {\em vector}
 value types and the {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
@@ -463,7 +470,7 @@ then: \\[1ex]
 \tt v+w & returns $(v_x + w_x, v_y + w_y)$ \\
 \tt v-w & returns $(v_x - w_x, v_y - w_y)$ \\
 \tt ||v|| & returns $\sqrt{v_x^2 + v_y^2}$ & [length] \\
-\tt azm v & returns $\mathrm{atan2}(v_y,v_x)*(180/\pi)$ & [azimuth] \\
+\tt azm v & returns $(180/\pi)*\mathrm{atan2}(v_y,v_x)$ & [azimuth] \\
 \tt l\textasciicircum t
           & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
 	  & the vector with length {\tt l} and azimuth {\tt t} degrees \\
@@ -2849,7 +2856,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Jun 20 03:56:07 EDT 2021
+Date:         & Sun Jun 20 12:52:41 EDT 2021
 
 \end{tabular}
 
