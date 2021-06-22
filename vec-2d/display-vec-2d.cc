@@ -2,24 +2,29 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Jan 13 02:39:39 EST 2021
+// Date:	Tue Jun 22 16:41:04 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
 // for this program.
 
 #include <iostream>
+#include <streambuf>
 #include <string>
 #include <algorithm>
 #include <cstring>
 #include <cstdlib>
 #include <cstdarg>
 #include <cmath>
-using std::cin;
+extern "C" {
+#include <unistd.h>
+}
 using std::cout;
 using std::cerr;
 using std::endl;
 using std::ostream;
+using std::istream;
+using std::streambuf;
 using std::string;
 using std::min;
 using std::max;
@@ -32,6 +37,47 @@ using std::ws;
 
 bool debug = false;
 # define dout if ( debug ) cerr
+
+// Class for reading from file descriptor.
+//
+// putback is not supported.  Read errors are treated
+// as end-of-file.
+//
+class inbuf : public streambuf
+{
+    char buffer[4096];
+    bool eof;
+    int fd;
+
+  public:
+
+    inbuf ( int _fd )
+    {
+        setg ( buffer, buffer, buffer );
+	eof = false;
+	fd = _fd;
+    }
+
+  protected:
+
+    virtual int underflow ( void )
+    {
+
+	if ( eof ) return EOF;
+	ssize_t c = read ( fd, buffer, 4096 );
+	if ( c <= 0 )
+	{
+	    eof = true; return EOF;
+	}
+	setg ( buffer, buffer, buffer + c );
+	return buffer[0];
+    }
+};
+
+// Stream for reading solution output.
+//
+inbuf soutBUF ( 3 );
+istream sout ( & soutBUF );
 
 string line;
 int line_number = 0;
@@ -742,7 +788,7 @@ int main ( int argc, char ** argv )
     }
     if ( argc > 1 ) title = argv[1];
 
-    while ( getline ( cin, line ) )
+    while ( getline ( sout, line ) )
     {
         try {
 	    ++ line_number;
