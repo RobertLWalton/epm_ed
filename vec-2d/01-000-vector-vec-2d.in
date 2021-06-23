@@ -1,0 +1,25 @@
+# Test Vector Input/Output
+#
+z = ( 0, 0 )
+z = z
+x = ( 99.765, -32.879 )
+x = x
+y = ( -45.890, +87.9 )
+y = y
+u = ( 23.876, 73.897 )
+u = u
+v = ( -61.908, -59.987 )
+v = v
+L = ( (99.765,-32.879), (-45.890,+87.9), (23.876,73.897), (-61.908,-59.987) )
+L = L
+#
+#!point z red
+#!point x red
+#!point y red
+#!point u red
+#!point v red
+#!line zx blue e
+#!line zy blue e
+#!line zv blue e
+#!line zu blue e
+#!line L brown -c
