@@ -1,0 +1,65 @@
+# Test Vector Valued Vector Calculator Operations
+#
+#!layout 3 2
+x = 1
+y = 0
+v = (x,y)
+w = (y,x)
+a = v
+b = a + w
+c = b - v
+d = c - w
+#
+o = a.x
+o = a.y
+o = b.x
+o = b.y
+o = c.x
+o = c.y
+o = d.x
+o = d.y
+#
+o = ||a||
+o = ||b||
+o = ||c||
+o = ||d||
+#
+o = azm a
+o = azm b
+o = azm c
+# azm d undefined
+#
+#!point d red 5
+#!line ab brown e
+#!line bc brown e
+#!line cd brown e
+#!line da brown e
+#
+#!newpage
+l = 1
+A = 0
+B = 45
+C = 90
+D = 135
+E = 180
+F = -135
+G = -90
+H = -45
+a = l^A
+b = l^B
+c = l^C
+d = l^D
+e = l^E
+f = l^F
+g = l^G
+h = l^H
+#!line ab brown e
+#!line bc brown e
+#!line cd brown e
+#!line de brown e
+#!line ef brown e
+#!line fg brown e
+#!line gh brown e
+#!line ha brown e
+z=(0,0)
+#!circle zl blue -

@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Jun 23 15:46:04 EDT 2021
+// Date:	Wed Jun 23 17:23:36 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -691,7 +691,7 @@ void execute ( const char * p )
 	check_scalar ( OP2.s );
 	if ( OP2.s <= 0 )
 	    error ( "radius is <= 0" );
-	cout << "circle line " << color
+	cout << "arc line " << color
 	     << " " << options
 	     << " " << OP1.v.x << " " << OP1.v.y
 	     << " " << OP2.s
