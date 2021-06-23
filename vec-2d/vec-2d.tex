@@ -498,7 +498,7 @@ run file.
 \newpage
 
 \section{Display Language}
-Points, lines, arrows, etc.~can be displayed in a PDF file
+Points, lines, arrows, etc.~can be displayed
 by making a {\tt .pdf} file from an {\tt .in}
 file and your solution program.
 The display commands are embedded in {\tt .in} file `{\tt \#}' comment
@@ -534,11 +534,15 @@ The line/area drawing commands are:
 \end{minipage}
 
 In the above {\tt p}, {\tt q}, {\tt c}, {\tt R}, {\tt r}, {\tt A}, {\tt L}
-are arbitrary {\em variables}.
+are arbitrary {\em variables}.  Each variable used in a display command
+must have been set or computed by a calculator statement output before
+the display command.  The last value assigned to the variable by a
+calculator statement before the display command will be used by the
+display command.
+
 Circle and ellipse radii must be strictly positive.
 Spaces are as indicated, and must consist
 of at least one horizonal space character.
-
 Coordinates are automatically scaled to fit the page.  Angles are
 in degrees.
 
@@ -599,10 +603,10 @@ of text placement is {\tt ($x$,$y$)}, is one or more of:
     \tt l & display about 0.5em left of $x$ \\
     \tt r & display about 0.5em right of $x$ \\
           & ~~ ({\tt l} and {\tt r} conflict, if neither center on $x$) \\
-    \tt x & make the bounding box of text white \\
+    \tt x & make the bounding rectangle of text white \\
     \tt c & make the bounding circle of text white \\
           & ~~ ({\tt x} and {\tt c} conflict) \\
-    \tt o & outline any bounding box or circle with \\
+    \tt o & outline any bounding rectangle or circle with \\
           & a black line of width 1pt \\
     \end{tabular}
 \end{minipage}
@@ -611,17 +615,17 @@ of text placement is {\tt ($x$,$y$)}, is one or more of:
 \begin{minipage}{\textwidth}
 The page commands are:
 \\[1ex]
-\begin{tabular}{@{}l@{~~~~~}l@{~~~~~}l@{}}
+\begin{tabular}{@{}l@{~~~~~}l@{}}
 \underline{Command} & \underline{Action}
 \\[1ex]
 \tt \#!layout R C [margin]   & Starts new physical page with R rows and \\
                              & C columns of logical pages, each logical \\
 			     & page with margins as given in pt (1/72") \\
 			     & (margin defaults to 18 or 0.25") \\
-\tt \#!newpage [pq] & Starts new logical page with corners \\
-                    & optionally given by points p and q \\
+\tt \#!newpage [pq] & Starts new logical page with opposite \\
+                    & corners optionally given by points p and q \\
 		    & (which are not themselves displayed) \\
-\tt \#!header text... & Adds text line to current page header \\
+\tt \#!header text... & Adds text line to current logical page header \\
 \end{tabular}
 \end{minipage}
 
@@ -2856,7 +2860,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Jun 20 12:52:41 EDT 2021
+Date:         & Wed Jun 23 10:04:11 EDT 2021
 
 \end{tabular}
 
