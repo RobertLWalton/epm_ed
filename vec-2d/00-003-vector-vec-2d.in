@@ -1,0 +1,39 @@
+# Test List Valued Vector Calculator Operations
+#
+# Draw Hexagon
+#
+L=()
+l=1
+z=(0,0)
+#
+a=30
+v=l^a
+L=cons v L
+#!line zv blue -
+#
+a=90
+v=l^a
+L=cons v L
+#!line zv blue -
+#
+a=150
+v=l^a
+L=cons v L
+#!line zv blue -
+#
+a=210
+v=l^a
+L=cons v L
+#!line zv blue -
+#
+a=270
+v=l^a
+L=cons v L
+#!line zv blue -
+#
+a=330
+v=l^a
+L=cons v L
+#!line zv blue -
+#
+#!line L brown c

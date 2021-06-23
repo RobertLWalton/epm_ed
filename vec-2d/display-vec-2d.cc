@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Jun 22 16:41:04 EDT 2021
+// Date:	Wed Jun 23 15:46:04 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -255,19 +255,21 @@ void read_value ( const char * line )
 	dout << ")" << endl;
     }
 
+    else if ( strcmp ( p, "()" ) == 0 )
+    {
+        // Warning: put this BEFORE next else if.
+	//
+    	R.t = LIST;
+	R.first = NULL;
+	dout << v << "=()" << endl;
+    }
+
     else if ( p[0] == '(' )
     {
 	R.t = VECTOR;
 	R.v = read_vector ( p );
 	read_char ( p, 0 );
 	dout << v << "=" << R.v << endl;
-    }
-
-    else if ( strcmp ( p, "()" ) == 0 )
-    {
-    	R.t = LIST;
-	R.first = NULL;
-	dout << v << "=()" << endl;
     }
 
     else if ( strcmp ( p, "true" ) == 0 )

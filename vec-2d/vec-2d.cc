@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sat Jun 19 17:00:09 EDT 2021
+// Date:	Wed Jun 23 15:28:19 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -1148,6 +1148,24 @@ bool compute_result ( void )
 	}
 	else
 	    return false;
+	return true;
+    }
+
+    if ( match ( "$=cons$$" ) )
+    {
+	if ( OP1.t != VECTOR )
+	    return false;
+	if ( OP2.t != LIST )
+	    return false;
+
+	// Beware: RES and OP2 might be the
+	// same variable!
+	//
+	element * next = OP2.first;
+	RES.t = LIST;
+	RES.first = new element;
+	RES.first->v = OP1.v;
+	RES.first->next = next;
 	return true;
     }
 

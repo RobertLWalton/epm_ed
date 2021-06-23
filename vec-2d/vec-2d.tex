@@ -460,6 +460,7 @@ Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
           are scalars \\
 	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
+	& {\tt L} is a list of vectors \\
 then: \\[1ex]
 \tt (x,y) & returns $(x,y)$ \\
 \tt v.x & returns $v_x$ ~~~ ({\tt x} is \underline{not} a variable here) \\
@@ -475,6 +476,7 @@ then: \\[1ex]
           & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
 	  & the vector with length {\tt l} and azimuth {\tt t} degrees \\
 	  & where $\theta = (\pi/180)*{\tt t}$ radians \\
+\tt cons v L & returns the list made by prepending {\tt v} to {\tt L} \\
 \end{tabular}
 \end{center}
 
@@ -2860,7 +2862,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Jun 23 10:04:11 EDT 2021
+Date:         & Wed Jun 23 15:51:14 EDT 2021
 
 \end{tabular}
 

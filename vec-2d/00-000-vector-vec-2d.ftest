@@ -1,4 +1,4 @@
-# Test vector input/output
+# Test Vector Input/Output
 #
 z = ( 0, 0 )
 z = z = (0,0)
@@ -6,14 +6,18 @@ x = ( 1, 0 )
 x = x = (1,0)
 y = ( 0, 1 )
 y = y = (0,1)
-v = ( -1.234, +5.678 )
-v = v = (-1.234,5.678)
 v = ( 1, 1 )
+w = (-.23,-0.41)
+L = ((0.2,0.2),(0.2,0.8),(0.8,0.8),(0.8,0.2))
+M = L = ((0.2,0.2),(0.2,0.8),(0.8,0.8),(0.8,0.2))
 #
 #!point z red
 #!point x red
 #!point y red
 #!point v red
+#!point w red
 #!line zx blue e
 #!line zy blue e
 #!line zv blue e
+#!line zw blue e
+#!line L brown -c

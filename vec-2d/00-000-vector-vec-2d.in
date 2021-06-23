@@ -6,14 +6,18 @@ x = ( 1, 0 )
 x = x
 y = ( 0, 1 )
 y = y
-v = ( -1.234, +5.678 )
-v = v
 v = ( 1, 1 )
+w = (-.23,-0.41)
+L = ((0.2,0.2),(0.2,0.8),(0.8,0.8),(0.8,0.2))
+M = L
 #
 #!point z red
 #!point x red
 #!point y red
 #!point v red
+#!point w red
 #!line zx blue e
 #!line zy blue e
 #!line zv blue e
+#!line zw blue e
+#!line L brown -c
