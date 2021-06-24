@@ -1,0 +1,145 @@
+# Test Scalar Valued Vector Calculator Operations
+#
+#!layout 3 2
+a=(0,0)
+b=(4,0)
+c=(4,3)
+#
+o = a.x = 0
+o = a.y = 0
+o = b.x = 4
+o = b.x = 4
+o = c.y = 3
+o = c.y = 3
+#
+o = ||a|| = 0
+o = ||b|| = 4
+o = ||c|| = 5
+#
+o = azm b = 0
+o = azm c = 36.8699
+#
+#!point a red 5
+#!point b red 5
+#!point c red 5
+#!line ab brown
+#!text ab b 4
+#!line bc brown
+#!text bc r 3
+#!line ca brown
+#!text ca tl 5
+#
+#!newpage
+a=(0,0)
+b=(1.7320508,0)
+c=(1.7320508,1)
+#
+o = a.x = 0
+o = a.y = 0
+o = b.x = 1.73205
+o = b.x = 1.73205
+o = c.y = 1
+o = c.y = 1
+#
+o = ||a|| = 0
+o = ||b|| = 1.73205
+o = ||c|| = 2
+#
+o = azm b = 0
+o = azm c = 30
+#
+#!point a red 5
+#!point b red 5
+#!point c red 5
+#!line ab brown
+#!text ab b sqrt(3) = 1.7320508
+#!line bc brown
+#!text bc r 1
+#!line ca brown
+#!text ca tl 2
+#
+#!newpage
+a=(0,0)
+b=(1,0)
+c=(1,1)
+d=(1,2)
+e=(1,3)
+f=(1,4)
+g=(1,5)
+h=(1,6)
+#
+o = ||a|| = 0
+o = ||b|| = 1
+o = ||c|| = 1.41421
+o = ||d|| = 2.23607
+o = ||e|| = 3.16228
+o = ||f|| = 4.12311
+o = ||g|| = 5.09902
+o = ||h|| = 6.08276
+#
+o = azm b = 0
+o = azm c = 45
+o = azm d = 63.4349
+o = azm e = 71.5651
+o = azm f = 75.9638
+o = azm g = 78.6901
+o = azm h = 80.5377
+#
+#!point a red 5
+#!point b red 5
+#!point c red 5
+#!point d red 5
+#!point e red 5
+#!point f red 5
+#!point g red 5
+#!point h red 5
+#!line ab blue -e
+#!line ac blue -e
+#!line ad blue -e
+#!line ae blue -e
+#!line af blue -e
+#!line ag blue -e
+#!line ah blue -e
+#
+#!newpage
+a=(-0,-0)
+b=(-1,-0)
+c=(-1,-1)
+d=(-1,-2)
+e=(-1,-3)
+f=(-1,-4)
+g=(-1,-5)
+h=(-1,-6)
+#
+o = ||a|| = 0
+o = ||b|| = 1
+o = ||c|| = 1.41421
+o = ||d|| = 2.23607
+o = ||e|| = 3.16228
+o = ||f|| = 4.12311
+o = ||g|| = 5.09902
+o = ||h|| = 6.08276
+#
+o = azm b = 180
+o = azm c = 225
+o = azm d = 243.435
+o = azm e = 251.565
+o = azm f = 255.964
+o = azm g = 258.69
+o = azm h = 260.538
+#
+#!point a red 5
+#!point b red 5
+#!point c red 5
+#!point d red 5
+#!point e red 5
+#!point f red 5
+#!point g red 5
+#!point h red 5
+#!line ab blue -e
+#!line ac blue -e
+#!line ad blue -e
+#!line ae blue -e
+#!line af blue -e
+#!line ag blue -e
+#!line ah blue -e

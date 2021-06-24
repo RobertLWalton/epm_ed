@@ -1,0 +1,109 @@
+# Test Vector Valued Vector Calculator Operations
+#
+#!layout 3 2
+x = +1.2345
+y = +6.7890
+v = (x,y) = (1.2345,6.789)
+w=(1,-1)
+s=5.5
+u=s*w = (5.5,-5.5)
+w=u+v = (6.7345,1.289)
+w=u-v = (4.2655,-12.289)
+z=(0,0)
+#!point z black
+#!line zu red m
+#!text zu tr u
+#!line zv red m
+#!text zv br v
+#!line vu brown m
+#!text vu tr u-v
+#
+#!newpage
+s=37.82
+v=s*v = (46.6888,256.76)
+s=-2.56
+w=s*w = (-10.9197,31.4598)
+u=-v = (-46.6888,-256.76)
+u=v+w = (35.7691,288.22)
+u=v-w = (57.6085,225.3)
+#
+v = (1.234,-5.678)
+w = (8.765,4.321)
+p = ( 4, 8 )
+q = p+v = (5.234,2.322)
+r = q+w = (13.999,6.643)
+#!point p red
+#!text p tl p
+#!point q red
+#!point r red
+#!line pq blue m
+#!text pq bl v
+#!line qr blue m
+#!text qr br w
+#!line pr brown m
+#!text pr tr v+w
+#
+#!newpage
+m=-w = (-8.765,-4.321)
+n=-v = (-1.234,5.678)
+#!point z black
+#!line zw red me
+#!text zw br w
+#!line zm blue me
+#!text zm br -w
+#!line zv red me
+#!text zv tr v
+#!line zn blue me
+#!text zn tr -v
+#
+#!newpage
+l=1
+d=0
+v=l^d = (1,0)
+#!point z black
+#!line zv red e
+#!text v r 1^0
+d=30
+v=l^d = (0.866025,0.5)
+#!line zv red e
+#!text v r 1^30
+d=60
+v=l^d = (0.5,0.866025)
+#!line zv red e
+#!text v tr 1^60
+d=90
+v=l^d = (6.12323e-17,1)
+#!line zv red e
+#!text v t 1^90
+d=120
+v=l^d = (-0.5,0.866025)
+#!line zv red e
+#!text v tl 1^120
+d=150
+v=l^d = (-0.866025,0.5)
+#!line zv red e
+#!text v l 1^150
+d=-180
+v=l^d = (-1,-1.22465e-16)
+#!line zv blue e
+#!text v l 1^(-180)
+d=-150
+v=l^d = (-0.866025,-0.5)
+#!line zv blue e
+#!text v l 1^(-150)
+d=-120
+v=l^d = (-0.5,-0.866025)
+#!line zv blue e
+#!text v l 1^(-120)
+d=-90
+v=l^d = (6.12323e-17,-1)
+#!line zv blue e
+#!text v b 1^(-90)
+d=-60
+v=l^d = (0.5,-0.866025)
+#!line zv blue e
+#!text v br 1^(-60)
+d=-30
+v=l^d = (0.866025,-0.5)
+#!line zv blue e
+#!text v br 1^(-30)
