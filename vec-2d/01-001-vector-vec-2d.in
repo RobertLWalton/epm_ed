@@ -1,5 +1,6 @@
 # Test Scalar Valued Vector Calculator Operations
 #
+#!layout 3 2
 a=(0,0)
 b=(4,0)
 c=(4,3)
@@ -22,5 +23,37 @@ o = azm c
 #!point b red 5
 #!point c red 5
 #!line ab brown
+#!text ab b 4
 #!line bc brown
+#!text bc r 3
 #!line ca brown
+#!text ca tl 5
+#
+#!newpage
+a=(0,0)
+b=(1.7320508,0)
+c=(1.7320508,1)
+#
+o = a.x
+o = a.y
+o = b.x
+o = b.x
+o = c.y
+o = c.y
+#
+o = ||a||
+o = ||b||
+o = ||c||
+#
+o = azm b
+o = azm c
+#
+#!point a red 5
+#!point b red 5
+#!point c red 5
+#!line ab brown
+#!text ab b sqrt(3) = 1.7320508
+#!line bc brown
+#!text bc r 1
+#!line ca brown
+#!text ca tl 2
