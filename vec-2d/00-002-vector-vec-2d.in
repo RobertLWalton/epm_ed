@@ -1,19 +1,117 @@
-# Test Scalar Valued Vector Calculator Operations
+# Test Vector Valued Vector Calculator Operations
 #
-l=1
-d=30
-v=l^d
-x=v.x
-y=v.y
-d=azm v
-l=||v||
-d=210
-w=l^d
-w=-w
-d=8
-q=v==w:d
-d=211
-w=l^d
-w=-w
-d=2
-q=v==w:d
+#!layout 3 2
+x = 1
+y = 0
+v = (x,y)
+w = (y,x)
+a = v
+b = a + w
+c = b - v
+d = c - w
+#
+o = a.x
+o = a.y
+o = b.x
+o = b.y
+o = c.x
+o = c.y
+o = d.x
+o = d.y
+#
+o = ||a||
+o = ||b||
+o = ||c||
+o = ||d||
+#
+o = azm a
+o = azm b
+o = azm c
+# azm d undefined
+#
+#!point d red 5
+#!line ab brown e
+#!line bc brown e
+#!line cd brown e
+#!line da brown e
+#
+#!newpage
+x=(1,0)
+y=(0,1)
+z=(0,0)
+s=4
+a=s*x
+s=3
+b=s*y
+b=a+b
+s=-3
+c=s*x
+s=-4
+d=s*y
+d=c+d
+#
+o = ||a||
+o = ||b||
+o = ||c||
+o = ||d||
+#
+o = azm a
+o = azm b
+o = azm c
+o = azm d
+#
+#!point a red 5
+#!point b red 5
+#!point z red 5
+#!point c red 5
+#!point d red 5
+#!line za blue e
+#!line ab blue e
+#!line bz blue e
+#!line zc blue e
+#!line cd blue e
+#!line dz blue e
+#
+#!newpage
+a=(1,0)
+b=(0,1)
+c=-a
+d=-b
+z=(0,0)
+#!line za red -
+#!line zb red -
+#!line zc red -
+#!line zd red -
+#!line ab blue
+#!line bc blue
+#!line cd blue
+#!line da blue
+#
+#!newpage
+l = 1
+A = 0
+B = 45
+C = 90
+D = 135
+E = 180
+F = -135
+G = -90
+H = -45
+a = l^A
+b = l^B
+c = l^C
+d = l^D
+e = l^E
+f = l^F
+g = l^G
+h = l^H
+#!line ab brown e
+#!line bc brown e
+#!line cd brown e
+#!line de brown e
+#!line ef brown e
+#!line fg brown e
+#!line gh brown e
+#!line ha brown e
+z=(0,0)
+#!circle zl blue -

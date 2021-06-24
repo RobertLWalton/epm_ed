@@ -1,19 +1,117 @@
-# Test Scalar Valued Vector Calculator Calculations
+# Test Vector Valued Vector Calculator Operations
 #
-l=1
-d=30
-v=l^d = (0.866025,0.5)
-x=v.x = 0.866025
-y=v.y = 0.5
-d=azm v = 30
-l=||v|| = 1
-d=210
-w=l^d = (-0.866025,-0.5)
-w=-w = (0.866025,0.5)
-d=8
-q=v==w:d = true
-d=211
-w=l^d = (-0.857167,-0.515038)
-w=-w = (0.857167,0.515038)
-d=2
-q=v==w:d = false
+#!layout 3 2
+x = 1
+y = 0
+v = (x,y) = (1,0)
+w = (y,x) = (0,1)
+a = v = (1,0)
+b = a + w = (1,1)
+c = b - v = (0,1)
+d = c - w = (0,0)
+#
+o = a.x = 1
+o = a.y = 0
+o = b.x = 1
+o = b.y = 1
+o = c.x = 0
+o = c.y = 1
+o = d.x = 0
+o = d.y = 0
+#
+o = ||a|| = 1
+o = ||b|| = 1.41421
+o = ||c|| = 1
+o = ||d|| = 0
+#
+o = azm a = 0
+o = azm b = 45
+o = azm c = 90
+# azm d undefined
+#
+#!point d red 5
+#!line ab brown e
+#!line bc brown e
+#!line cd brown e
+#!line da brown e
+#
+#!newpage
+x=(1,0)
+y=(0,1)
+z=(0,0)
+s=4
+a=s*x = (4,0)
+s=3
+b=s*y = (0,3)
+b=a+b = (4,3)
+s=-3
+c=s*x = (-3,-0)
+s=-4
+d=s*y = (-0,-4)
+d=c+d = (-3,-4)
+#
+o = ||a|| = 4
+o = ||b|| = 5
+o = ||c|| = 3
+o = ||d|| = 5
+#
+o = azm a = 0
+o = azm b = 36.8699
+o = azm c = -180
+o = azm d = -126.87
+#
+#!point a red 5
+#!point b red 5
+#!point z red 5
+#!point c red 5
+#!point d red 5
+#!line za blue e
+#!line ab blue e
+#!line bz blue e
+#!line zc blue e
+#!line cd blue e
+#!line dz blue e
+#
+#!newpage
+a=(1,0)
+b=(0,1)
+c=-a = (-1,-0)
+d=-b = (-0,-1)
+z=(0,0)
+#!line za red -
+#!line zb red -
+#!line zc red -
+#!line zd red -
+#!line ab blue
+#!line bc blue
+#!line cd blue
+#!line da blue
+#
+#!newpage
+l = 1
+A = 0
+B = 45
+C = 90
+D = 135
+E = 180
+F = -135
+G = -90
+H = -45
+a = l^A = (1,0)
+b = l^B = (0.707107,0.707107)
+c = l^C = (6.12323e-17,1)
+d = l^D = (-0.707107,0.707107)
+e = l^E = (-1,1.22465e-16)
+f = l^F = (-0.707107,-0.707107)
+g = l^G = (6.12323e-17,-1)
+h = l^H = (0.707107,-0.707107)
+#!line ab brown e
+#!line bc brown e
+#!line cd brown e
+#!line de brown e
+#!line ef brown e
+#!line fg brown e
+#!line gh brown e
+#!line ha brown e
+z=(0,0)
+#!circle zl blue -
