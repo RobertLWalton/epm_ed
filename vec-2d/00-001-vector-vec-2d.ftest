@@ -34,18 +34,18 @@ f=(-1,-1)
 o = f.x = -1
 o = f.y = -1
 o = ||f|| = 1.41421
-o = azm f = -135
+o = azm f = 225
 #
 g=(0,-1)
 o = g.x = 0
 o = g.y = -1
 o = ||g|| = 1
-o = azm g = -90
+o = azm g = 270
 h=(1,-1)
 o = h.x = 1
 o = h.y = -1
 o = ||h|| = 1.41421
-o = azm h = -45
+o = azm h = 315
 #
 z=(0,0)
 #!point a red 5

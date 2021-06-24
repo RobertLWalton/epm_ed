@@ -57,8 +57,8 @@ o = ||d|| = 5
 #
 o = azm a = 0
 o = azm b = 36.8699
-o = azm c = -180
-o = azm d = -126.87
+o = azm c = 180
+o = azm d = 233.13
 #
 #!point a red 5
 #!point b red 5

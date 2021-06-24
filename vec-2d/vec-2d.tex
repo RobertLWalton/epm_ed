@@ -471,7 +471,9 @@ then: \\[1ex]
 \tt v+w & returns $(v_x + w_x, v_y + w_y)$ \\
 \tt v-w & returns $(v_x - w_x, v_y - w_y)$ \\
 \tt ||v|| & returns $\sqrt{v_x^2 + v_y^2}$ & [length] \\
-\tt azm v & returns $(180/\pi)*\mathrm{atan2}(v_y,v_x)$ & [azimuth] \\
+\tt azm v & returns $(180/\pi)*\mathrm{atan2}(v_y,v_x)$ adjusted & [azimuth] \\
+          & to be in the range [0,360).  Calculated values very \\
+	  & near 0 or 360 may be unstable. \\
 \tt l\textasciicircum t
           & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
 	  & the vector with length {\tt l} and azimuth {\tt t} degrees \\
@@ -2862,7 +2864,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Jun 23 15:51:14 EDT 2021
+Date:         & Thu Jun 24 16:15:29 EDT 2021
 
 \end{tabular}
 

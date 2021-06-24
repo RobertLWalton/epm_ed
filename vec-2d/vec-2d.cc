@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Jun 23 15:28:19 EDT 2021
+// Date:	Thu Jun 24 16:19:07 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -404,7 +404,9 @@ double azm ( vec v )
     assert ( v.x != 0 || v.y != 0 );
         // Judge's assertion to be sure v == 0 does
 	// not happen.
-    return (180/M_PI) * atan2 ( v.y, v.x );
+    double r = (180/M_PI) * atan2 ( v.y, v.x );
+    if ( r < 0 ) r += 360;
+    return r;
 }
 
 vec polar ( double l, double t )

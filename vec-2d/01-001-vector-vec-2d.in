@@ -57,3 +57,89 @@ o = azm c
 #!text bc r 1
 #!line ca brown
 #!text ca tl 2
+#
+#!newpage
+a=(0,0)
+b=(1,0)
+c=(1,1)
+d=(1,2)
+e=(1,3)
+f=(1,4)
+g=(1,5)
+h=(1,6)
+#
+o = ||a||
+o = ||b||
+o = ||c||
+o = ||d||
+o = ||e||
+o = ||f||
+o = ||g||
+o = ||h||
+#
+o = azm b
+o = azm c
+o = azm d
+o = azm e
+o = azm f
+o = azm g
+o = azm h
+#
+#!point a red 5
+#!point b red 5
+#!point c red 5
+#!point d red 5
+#!point e red 5
+#!point f red 5
+#!point g red 5
+#!point h red 5
+#!line ab blue -e
+#!line ac blue -e
+#!line ad blue -e
+#!line ae blue -e
+#!line af blue -e
+#!line ag blue -e
+#!line ah blue -e
+#
+#!newpage
+a=(-0,-0)
+b=(-1,-0)
+c=(-1,-1)
+d=(-1,-2)
+e=(-1,-3)
+f=(-1,-4)
+g=(-1,-5)
+h=(-1,-6)
+#
+o = ||a||
+o = ||b||
+o = ||c||
+o = ||d||
+o = ||e||
+o = ||f||
+o = ||g||
+o = ||h||
+#
+o = azm b
+o = azm c
+o = azm d
+o = azm e
+o = azm f
+o = azm g
+o = azm h
+#
+#!point a red 5
+#!point b red 5
+#!point c red 5
+#!point d red 5
+#!point e red 5
+#!point f red 5
+#!point g red 5
+#!point h red 5
+#!line ab blue -e
+#!line ac blue -e
+#!line ad blue -e
+#!line ae blue -e
+#!line af blue -e
+#!line ag blue -e
+#!line ah blue -e
