@@ -758,10 +758,13 @@ K*L = [K*$\ell^L_x$,K*$\ell^L_y$]
 \end{center}
 
 {\tt *} and {\tt +} as defined here are \key{bi-linear}, which means
-(letting {\tt J} be another linear transformation):
+(supposing {\tt t} to be another scalar and
+{\tt J} to be another linear transformation):
 \begin{center}
 \tt
 s*(K+L) = s*K + s*L \\
+(s+t)*K = s*K + t*K \\
+(J+K)*L = J*L + K*L \\
 (J+K)*L = J*L + K*L \\
 J*(K+L) = J*K + J*L
 \end{center}
@@ -771,7 +774,7 @@ Addition of linear transformations commutes,
 in general {\tt K*L} is \underline{not equal} to {\tt L*K}
 (as an example, a rotation does not generally commute with
 a reflection: see the end of the Rotations and Reflections
-section below).
+section below where $R^\phi*F^\omega = F^\omega*R^{-\phi}$).
 
 Let {\tt I} be the identity transform defined by
 {\tt I*v=v} for all vectors {\tt v}  (and therefore {\tt I=[$u_x$,$u_y$]}).
@@ -809,7 +812,7 @@ Assume: & {\tt s=}$s$ is a scalar \\
 	& \multicolumn{2}{@{}l}{{\tt K=[$\ell^K_x$,$\ell^K_y$]} and
 	  {\tt L=[$\ell^L_x$,$\ell^L_y$]} are linear transforms} \\
 then: \\[1ex]
-\tt (v,w) & returns $(v,w)$ \\
+\tt [v,w] & returns $[v,w]$ \\
 \tt K==L:d & returns $\ell^K_x==\ell^L_x:d$ AND $\ell^K_y==\ell^L_y:d$ \\
 \tt L.x & returns {\tt $\ell^L_x$}
           ~~~ ({\tt x} is \underline{not} a variable here) \\
@@ -2864,7 +2867,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Jun 24 16:15:29 EDT 2021
+Date:         & Fri Jun 25 17:53:42 EDT 2021
 
 \end{tabular}
 
