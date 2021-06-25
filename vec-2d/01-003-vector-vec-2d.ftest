@@ -1,0 +1,16 @@
+# Test List Valued Vector Calculator Operations
+#
+#!layout 3 2
+L = ((1,1),(1,0),(0,0),(0,1))
+#
+p = (0.5,1.5)
+K = cons pL = ((0.5,1.5),(1,1),(1,0),(0,0),(0,1))
+#
+q = (0.5,0.5)
+J = cons qL = ((0.5,0.5),(1,1),(1,0),(0,0),(0,1))
+#
+#!line L brown c
+#!newpage
+#!line K red c
+#!newpage
+#!line J blue c
