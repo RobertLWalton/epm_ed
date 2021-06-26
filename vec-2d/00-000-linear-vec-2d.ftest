@@ -2,16 +2,16 @@
 # Linear Transform Calculator Operations
 #
 L=[(1,0),(0,1)]
-o = L.x
-o = L.y
+o = L.x = (1,0)
+o = L.y = (0,1)
 d=1
 K=[(1.01,0),(0,1.04)]
-o = L==K:d
+o = L==K:d = true
 K=[(1.06,0),(0,1.04)]
-o = L==K:d
+o = L==K:d = false
 K=[(1.01,0),(0,1.07)]
-o = L==K:d
+o = L==K:d = false
 #
 L=[(89.76,3.64),(-38.90,-93.01)]
-o = L.x
-o = L.y
+o = L.x = (89.76,3.64)
+o = L.y = (-38.9,-93.01)
