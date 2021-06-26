@@ -1,0 +1,57 @@
+# Test Linear Transform Valued
+# Rotations and Reflections Calculator Operations
+#
+z=(0,0)
+#!layout 2 1 36
+p=0
+L=^p = [(1,0),(6.12323e-17,1)]
+x=L.x = (1,0)
+y=L.y = (6.12323e-17,1)
+#!line zx red e
+#!text x r ux
+#!line zy blue e
+#!text y t uy
+p=30
+L=^p = [(0.866025,0.5),(-0.5,0.866025)]
+x=L.x = (0.866025,0.5)
+y=L.y = (-0.5,0.866025)
+#!line zx red e.
+#!text x tr (^30)*ux
+#!line zy blue e.
+#!text y tl (^30)*uy
+p=60
+L=^p = [(0.5,0.866025),(-0.866025,0.5)]
+x=L.x = (0.5,0.866025)
+y=L.y = (-0.866025,0.5)
+#!line zx red e-
+#!text x tr (^60)*ux
+#!line zy blue e-
+#!text y tl (^60)*uy
+#
+#
+#!newpage
+p=0
+L=|p = [(1,0),(6.12323e-17,-1)]
+x=L.x = (1,0)
+y=L.y = (6.12323e-17,-1)
+y=-y = (-6.12323e-17,1)
+#!line zx red e
+#!text x r ux
+#!line zy blue e
+#!text y t uy
+p=30
+L=|p = [(0.5,0.866025),(0.866025,-0.5)]
+x=L.x = (0.5,0.866025)
+y=L.y = (0.866025,-0.5)
+#!line zx red e.
+#!text x tr (|30)*ux
+#!line zy blue e.
+#!text y br (|30)*uy
+p=60
+L=|p = [(-0.5,0.866025),(0.866025,0.5)]
+x=L.x = (-0.5,0.866025)
+y=L.y = (0.866025,0.5)
+#!line zx red e-
+#!text x tl (|60)*ux
+#!line zy blue e-
+#!text y tr (|60)*uy

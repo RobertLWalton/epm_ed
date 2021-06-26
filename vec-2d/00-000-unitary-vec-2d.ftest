@@ -9,47 +9,47 @@ u=(1,0)
 #!line zu red e
 #!text u r u
 p=30
-v=u^p
+v=u^p = (0.866025,0.5)
 #!line zv red e
 #!text v r u^30
 p=60
-v=u^p
+v=u^p = (0.5,0.866025)
 #!line zv red e
 #!text v tr u^60
 p=90
-v=u^p
+v=u^p = (6.12323e-17,1)
 #!line zv red e
 #!text v t u^90
 p=120
-v=u^p
+v=u^p = (-0.5,0.866025)
 #!line zv red e
 #!text v tl u^120
 p=150
-v=u^p
+v=u^p = (-0.866025,0.5)
 #!line zv red e
 #!text v l u^150
 p=180
-v=u^p
+v=u^p = (-1,1.22465e-16)
 #!line zv red e
 #!text v l u^180
 p=210
-v=u^p
+v=u^p = (-0.866025,-0.5)
 #!line zv red e
 #!text v l u^210
 p=240
-v=u^p
+v=u^p = (-0.5,-0.866025)
 #!line zv red e
 #!text v bl u^240
 p=270
-v=u^p
+v=u^p = (-1.83697e-16,-1)
 #!line zv red e
 #!text v b u^270
 p=300
-v=u^p
+v=u^p = (0.5,-0.866025)
 #!line zv red e
 #!text v br u^300
 p=330
-v=u^p
+v=u^p = (0.866025,-0.5)
 #!line zv red e
 #!text v r u^330
 #
@@ -57,46 +57,46 @@ v=u^p
 #!newpage
 p=60
 v=(1.5,0)
-v=v^p
-w=-v
+v=v^p = (0.75,1.29904)
+w=-v = (-0.75,-1.29904)
 #!line wv brown
 #!text v t 60°
 #
 u=(1,0)
 #!line zu red e
 #!text u r u
-r=u|p
+r=u|p = (-0.5,0.866025)
 #!line zr blue e
 #!text r tl u|60
 #
 d=30
-v=u^d
+v=u^d = (0.866025,0.5)
 #!line zv red e
 #!text v r v
-r=v|p
+r=v|p = (6.12323e-17,1)
 #!line zr blue e
 #!text r t v|60
 #
 d=-30
-w=u^d
+w=u^d = (0.866025,-0.5)
 #!line zw red e
 #!text w r w
-r=w|p
+r=w|p = (-0.866025,0.5)
 #!line zr blue e
 #!text r l w|60
 #
 d=-60
-t=u^d
+t=u^d = (0.5,-0.866025)
 #!line zt red e
 #!text t br t
-r=t|p
+r=t|p = (-1,-1.22465e-16)
 #!line zr blue e
 #!text r l t|60
 #
 d=-90
-s=u^d
+s=u^d = (6.12323e-17,-1)
 #!line zs red e
 #!text s b s
-r=s|p
+r=s|p = (-0.866025,-0.5)
 #!line zr blue e
 #!text r bl s|60
