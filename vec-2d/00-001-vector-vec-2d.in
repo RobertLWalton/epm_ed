@@ -4,67 +4,67 @@ u=(0.987654321,0.987654321)
 d=2
 v=(0.987,0.9876)
 w=(0.9876,0.987)
-o= u==v:d = true
-o= u==w:d = true
+o= u==v:d
+o= u==w:d
 d=3
-o= u==v:d = false
-o= u==w:d = false
+o= u==v:d
+o= u==w:d
 #
 v=(0.987654,0.98765432)
 w=(0.98765432,0.987654)
 d=6
-o= u==v:d = true
-o= u==w:d = true
+o= u==v:d
+o= u==w:d
 d=7
-o= u==v:d = false
-o= u==w:d = false
+o= u==v:d
+o= u==w:d
 #
 a=(1,0)
-o = a.x = 1
-o = a.y = 0
-o = ||a|| = 1
-o = azm a = 0
+o = a.x
+o = a.y
+o = ||a||
+o = azm a
 #
 b=(1,1)
-o = b.x = 1
-o = b.y = 1
-o = ||b|| = 1.41421
-o = azm b = 45
+o = b.x
+o = b.y
+o = ||b||
+o = azm b
 #
 c=(0,1)
-o = c.x = 0
-o = c.y = 1
-o = ||c|| = 1
-o = azm c = 90
+o = c.x
+o = c.y
+o = ||c||
+o = azm c
 #
 d=(-1,1)
-o = d.x = -1
-o = d.y = 1
-o = ||d|| = 1.41421
-o = azm d = 135
+o = d.x
+o = d.y
+o = ||d||
+o = azm d
 #
 e=(-1,0)
-o = e.x = -1
-o = e.y = 0
-o = ||e|| = 1
-o = azm e = 180
+o = e.x
+o = e.y
+o = ||e||
+o = azm e
 #
 f=(-1,-1)
-o = f.x = -1
-o = f.y = -1
-o = ||f|| = 1.41421
-o = azm f = 225
+o = f.x
+o = f.y
+o = ||f||
+o = azm f
 #
 g=(0,-1)
-o = g.x = 0
-o = g.y = -1
-o = ||g|| = 1
-o = azm g = 270
+o = g.x
+o = g.y
+o = ||g||
+o = azm g
 h=(1,-1)
-o = h.x = 1
-o = h.y = -1
-o = ||h|| = 1.41421
-o = azm h = 315
+o = h.x
+o = h.y
+o = ||h||
+o = azm h
 #
 z=(0,0)
 #!point a red 5
