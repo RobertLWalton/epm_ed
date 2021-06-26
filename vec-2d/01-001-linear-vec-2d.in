@@ -1,0 +1,44 @@
+# Test Linear Transform Valued
+# Linear Transform Calculator Operations
+#
+L = [(1,1),(-1,-1)]
+s = 43.21
+K = s*L
+s = 12.34
+J = s*L
+O = K+J
+O = -O
+#
+s = 32.10
+J = s*L
+O = K-J
+O = -O
+#
+u=(5,0)
+v=(0,-3)
+L=[u,v]
+w=(1,1)
+o = L*w
+#
+l = 1
+a = 32
+b = 90
+b = a+b
+u = l^a
+v = l^b
+L=[u,v]
+o = L.x
+o = azm o
+o = L.y
+o = azm o
+c = 248
+w = l^c
+o = L*w
+o = azm o
+#
+J = L*L
+o = J*w
+o = azm o
+o = L*w
+o = L*o
+o = azm o
