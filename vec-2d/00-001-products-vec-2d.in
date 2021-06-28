@@ -3,14 +3,10 @@
 #!layout 3 2 36
 z=(0,0)
 #
-u=(2,0)
-a=210
-u=u^a
+u=(-1,1)
 a=90
 v=u^a
-w=(5,0)
-a=240
-w=w^a
+w=(-1,0)
 U=u:u
 V=u:v
 W=u:w
@@ -21,7 +17,7 @@ W=L*w
 #!line zu blue e
 #!text u l u
 #!line zv blue e
-#!text v b v
+#!text v b v = u^90
 #!line zw red e
 #!text w lb w
 #!line zU blue -e
@@ -42,7 +38,57 @@ W=L*w
 #!line zu blue e
 #!text u l u
 #!line zv blue e
-#!text v b v
+#!text v b v = u^90
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u!u
+#!line zV blue -e
+#!text V t u!v
+#!line zW red -e
+#!text W tr u!w
+#
+#!newpage
+u=(2,0)
+a=210
+u=u^a
+a=90
+v=u^a
+w=(5,0)
+a=240
+w=w^a
+U=u:u
+V=u:v
+W=u:w
+L=u:
+U=L*u
+V=L*v
+W=L*w
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v = u^90
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u:u
+#!line zV blue -e
+#!text V t u:v
+#!line zW red -e
+#!text W tr u:w
+#
+#!newpage
+U=u!u
+V=u!v
+W=u!w
+L=u!
+U=L*u
+V=L*v
+W=L*w
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v = u^90
 #!line zw red e
 #!text w lb w
 #!line zU blue -e
@@ -71,7 +117,7 @@ W=L*w
 #!line zu blue e
 #!text u l u
 #!line zv blue e
-#!text v b v
+#!text v b v = u^90
 #!line zw red e
 #!text w lb w
 #!line zU blue -e
@@ -92,7 +138,7 @@ W=L*w
 #!line zu blue e
 #!text u l u
 #!line zv blue e
-#!text v b v
+#!text v b v = u^90
 #!line zw red e
 #!text w lb w
 #!line zU blue -e
