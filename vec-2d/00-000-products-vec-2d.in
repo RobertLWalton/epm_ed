@@ -39,3 +39,9 @@ w=s*w
 r=v*w
 r=v#w
 o = area zwv
+#
+U=(1000,-200)
+Z=z+U
+V=v+U
+W=w+U
+o = area ZWV
