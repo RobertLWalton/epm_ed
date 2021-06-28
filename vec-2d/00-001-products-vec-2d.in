@@ -1,0 +1,117 @@
+# Test Scalar Valued Products Calculator Operations
+#
+#!layout 3 2 36
+z=(0,0)
+#
+u=(2,0)
+a=210
+u=u^a
+a=90
+v=u^a
+w=(5,0)
+a=240
+w=w^a
+U=u:u
+V=u:v
+W=u:w
+L=u:
+U=L*u
+V=L*v
+W=L*w
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u:u
+#!line zV blue -e
+#!text V t u:v
+#!line zW red -e
+#!text W tr u:w
+#
+#!newpage
+U=u!u
+V=u!v
+W=u!w
+L=u!
+U=L*u
+V=L*v
+W=L*w
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u!u
+#!line zV blue -e
+#!text V t u!v
+#!line zW red -e
+#!text W tr u!w
+#
+#!newpage
+u=(2,0)
+a=135
+u=u^a
+a=90
+v=u^a
+w=(5,0)
+a=240
+w=w^a
+U=u:u
+V=u:v
+W=u:w
+L=u:
+U=L*u
+V=L*v
+W=L*w
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u:u
+#!line zV blue -e
+#!text V t u:v
+#!line zW red -e
+#!text W tr u:w
+#
+#!newpage
+U=u!u
+V=u!v
+W=u!w
+L=u!
+U=L*u
+V=L*v
+W=L*w
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u!u
+#!line zV blue -e
+#!text V t u!v
+#!line zW red -e
+#!text W tr u!w
+#
+v=(1,1)
+o = azm v
+o = ||v||
+u = <v>
+o = azm u
+o = ||u||
+#
+v=(-3,4)
+o = azm v
+o = ||v||
+u = <v>
+o = azm u
+o = ||u||

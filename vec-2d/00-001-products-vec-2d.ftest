@@ -1,0 +1,117 @@
+# Test Scalar Valued Products Calculator Operations
+#
+#!layout 3 2 36
+z=(0,0)
+#
+u=(2,0)
+a=210
+u=u^a = (-1.73205,-1)
+a=90
+v=u^a = (1,-1.73205)
+w=(5,0)
+a=240
+w=w^a = (-2.5,-4.33013)
+U=u:u = (4,0)
+V=u:v = (0,4)
+W=u:w = (8.66025,5)
+L=u: = [(-1.73205,1),(-1,-1.73205)]
+U=L*u = (4,0)
+V=L*v = (0,4)
+W=L*w = (8.66025,5)
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u:u
+#!line zV blue -e
+#!text V t u:v
+#!line zW red -e
+#!text W tr u:w
+#
+#!newpage
+U=u!u = (2,0)
+V=u!v = (0,2)
+W=u!w = (4.33013,2.5)
+L=u! = [(-0.866025,0.5),(-0.5,-0.866025)]
+U=L*u = (2,0)
+V=L*v = (0,2)
+W=L*w = (4.33013,2.5)
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u!u
+#!line zV blue -e
+#!text V t u!v
+#!line zW red -e
+#!text W tr u!w
+#
+#!newpage
+u=(2,0)
+a=135
+u=u^a = (-1.41421,1.41421)
+a=90
+v=u^a = (-1.41421,-1.41421)
+w=(5,0)
+a=240
+w=w^a = (-2.5,-4.33013)
+U=u:u = (4,0)
+V=u:v = (4.44089e-16,4)
+W=u:w = (-2.58819,9.65926)
+L=u: = [(-1.41421,-1.41421),(1.41421,-1.41421)]
+U=L*u = (4,0)
+V=L*v = (4.44089e-16,4)
+W=L*w = (-2.58819,9.65926)
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u:u
+#!line zV blue -e
+#!text V t u:v
+#!line zW red -e
+#!text W tr u:w
+#
+#!newpage
+U=u!u = (2,0)
+V=u!v = (2.22045e-16,2)
+W=u!w = (-1.2941,4.82963)
+L=u! = [(-0.707107,-0.707107),(0.707107,-0.707107)]
+U=L*u = (2,0)
+V=L*v = (2.22045e-16,2)
+W=L*w = (-1.2941,4.82963)
+#!line zu blue e
+#!text u l u
+#!line zv blue e
+#!text v b v
+#!line zw red e
+#!text w lb w
+#!line zU blue -e
+#!text U r u!u
+#!line zV blue -e
+#!text V t u!v
+#!line zW red -e
+#!text W tr u!w
+#
+v=(1,1)
+o = azm v = 45
+o = ||v|| = 1.41421
+u = <v> = (0.707107,0.707107)
+o = azm u = 45
+o = ||u|| = 1
+#
+v=(-3,4)
+o = azm v = 126.87
+o = ||v|| = 5
+u = <v> = (-0.6,0.8)
+o = azm u = 126.87
+o = ||u|| = 1
