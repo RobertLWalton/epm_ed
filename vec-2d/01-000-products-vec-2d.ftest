@@ -1,0 +1,59 @@
+# Test Scalar Valued Products Calculator Operations
+#
+z=(0,0)
+#
+v=(4,0)
+w=(0,3)
+r=v*w = 0
+r=v#w = 12
+o = area zwv = 6
+o = area zvw = -6
+#
+U=(-367,9867)
+V=v+U = (-363,9867)
+W=w+U = (-367,9870)
+Z=z+U = (-367,9867)
+o = area ZWV = 6
+o = area ZVW = -6
+#
+v=(3e6,0)
+w=(0,4e6)
+r=v*w = 0
+r=v#w = 1.2e+13
+o = area zwv = 6e+12
+o = area zvw = -6e+12
+#
+v=(1e8,0)
+w=(0,0.5e8)
+r=v*w = 0
+r=v#w = 5e+15
+o = area zwv = 2.5e+15
+o = area zvw = -2.5e+15
+#
+v=(3.456,-1.876)
+w=(10.748,3.009)
+r=v*w = 31.5002
+r=v#w = 30.5624
+o = area zwv = 15.2812
+o = area zvw = -15.2812
+#
+v=(75234,14223)
+w=(0,4e6)
+r=v*w = 5.6892e+10
+r=v#w = 3.00936e+11
+o = area zwv = 1.50468e+11
+o = area zvw = -1.50468e+11
+#
+v=(0.0087631,0.003453)
+w=(-0.0039278,0.009368)
+r=v*w = -2.072e-06
+r=v#w = 9.56554e-05
+o = area zwv = 4.78277e-05
+o = area zvw = -4.78277e-05
+#
+v=(7.49e4,-6.21e3)
+w=(4.89e3,5.82e4)
+r=v*w = 4.839e+06
+r=v#w = 4.38955e+09
+o = area zwv = 2.19477e+09
+o = area zvw = -2.19477e+09
