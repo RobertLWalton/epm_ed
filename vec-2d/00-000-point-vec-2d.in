@@ -1,194 +1,98 @@
 # Test Line and Point Calculator Operations
 #
 #!layout 3 2
-d=3
-z=(0,0)
-p=(0,0)
-q=(2,0)
-l=(-4,-4)
-u=(4,4)
+p=(20,32)
+q=(-4,-3)
+q=q+p
+x=(-3,-6)
+x=x+p
+y=(-4,0)
+y=y+p
+z=(-1,4)
+z=z+p
 #
-r=(-1,1)
-D=disti pqr
-D=distf pqr
-I=closei pqr
-F=closef pqr
-B=sidei pqrd
-B=onf pqrd
+l=(-8,-8)
+l=l+p
+u=(5,5)
+u=u+p
 #!newpage lu
-#!point p red
-#!point q red
-#!point r blue
-A=0
-#!infline zA
-A=90
-#!infline zA
-#!line pq red
-#!line rI blue
-#!line rF brown
 #
-r=(1,1)
-D=disti pqr
-D=distf pqr
-I=closei pqr
-F=closef pqr
-B=sidei pqrd
-B=onf pqrd
+#!point p red 3
+#!text p br p
+#!point q red 3
+#!text q br q
+#!point x blue 3
+#!text x r x
+#!point y blue 3
+#!text y l y
+#!point z blue 3
+#!text z t z
+u=q-p
+A=azm u
+#!infline pA
+#!line pq red
+#
+e=closei pqx
+f=closef pqx
+#!line xe blue
+#!line xf brown
+g=closei pqy
+h=closef pqy
+#!line yg blue
+#!line yh brown
+i=closei pqz
+j=closef pqz
+#!line zi blue
+#!line zj brown
+#
+o=p
+z=z-o
+y=y-o
+x=x-o
+q=q-o
+p=p-o
+e=e-o
+f=f-o
+g=g-o
+h=h-o
+i=i-o
+j=j-o
+#
+u=q-p
+Z=u:z
+Y=u:y
+X=u:x
+Q=u:q
+P=u:p
+E=u:e
+F=u:f
+G=u:g
+H=u:h
+I=u:i
+J=u:j
+#
+u=(32,32)
+l=(-22,-22)
 #!newpage lu
-#!point p red
-#!point q red
-#!point r blue
-A=0
-#!infline zA
-A=90
-#!infline zA
-#!line pq red
-#!line rI blue
-#!line rF brown
 #
-r=(3,1)
-D=disti pqr
-D=distf pqr
-I=closei pqr
-F=closef pqr
-B=sidei pqrd
-B=onf pqrd
-#!newpage lu
-#!point p red
-#!point q red
-#!point r blue
-A=0
-#!infline zA
-A=90
-#!infline zA
-#!line pq red
-#!line rI blue
-#!line rF brown
+#!point P red 3
+#!text P t P
+#!point Q red 3
+#!text Q b Q
+#!point X blue 3
+#!text X r X
+#!point Y blue 3
+#!text Y b Y
+#!point Z blue 3
+#!text Z b Z
+u=Q-P
+A=azm u
+#!infline PA
+#!line PQ red
 #
-p=(-3,-5)
-q=(6,10)
-l=(-15,-15)
-u=(15,15)
-#
-r=(3,-12)
-D=disti pqr
-D=distf pqr
-I=closei pqr
-F=closef pqr
-B=sidei pqrd
-B=onf pqrd
-#!newpage lu
-#!point p red
-#!point q red
-#!point r blue
-A=0
-#!infline zA
-A=90
-#!infline zA
-#!line pq red
-#!line rI blue
-#!line rF brown
-#
-r=(6.6,11)
-D=disti pqr
-D=distf pqr
-I=closei pqr
-F=closef pqr
-B=sidei pqrd
-B=onf pqrd
-#!newpage lu
-#!point p red
-#!point q red
-#!point r blue
-A=0
-#!infline zA
-A=90
-#!infline zA
-#!line pq red
-#!line rI blue
-#!line rF brown
-#
-r=(5.4,9)
-D=disti pqr
-D=distf pqr
-I=closei pqr
-F=closef pqr
-B=sidei pqrd
-B=onf pqrd
-#
-r=(-3.6,-6)
-D=disti pqr
-D=distf pqr
-I=closei pqr
-F=closef pqr
-B=sidei pqrd
-B=onf pqrd
-#
-r=(2,14)
-D=disti pqr
-D=distf pqr
-I=closei pqr
-F=closef pqr
-B=sidei pqrd
-B=onf pqrd
-#!newpage lu
-#!point p red
-#!point q red
-#!point r blue
-A=0
-#!infline zA
-A=90
-#!infline zA
-#!line pq red
-#!line rI blue
-#!line rF brown
-#
-L=(-4,-4)
-U=(4,4)
-p=(0,0)
-u=(3.5,-1.5)
-v=(2.5,3.5)
-q=(3.0,2.0)
-d=1
-b=between pquvd
-#!newpage LU
-#!point p red
-#!point q red
-#!point u brown
-#!point v blue
-#!line pq red
-#!line pu brown
-#!line pv blue
-#
-q=(-1.0,3.0)
-b=between pquvd
-#!newpage LU
-#!point p red
-#!point q red
-#!point u brown
-#!point v blue
-#!line pq red
-#!line pu brown
-#!line pv blue
-#
-q=(-3.0,-2.0)
-b=between pquvd
-#!newpage LU
-#!point p red
-#!point q red
-#!point u brown
-#!point v blue
-#!line pq red
-#!line pu brown
-#!line pv blue
-#
-q=(1.0,-3.0)
-b=between pquvd
-#!newpage LU
-#!point p red
-#!point q red
-#!point u brown
-#!point v blue
-#!line pq red
-#!line pu brown
-#!line pv blue
+#!line XE blue
+#!line XF brown
+#!line YG blue
+#!line YH brown
+#!line ZI blue
+#!line ZJ brown
