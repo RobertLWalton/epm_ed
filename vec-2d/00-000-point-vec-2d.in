@@ -46,6 +46,26 @@ j=closef pqz
 #!line zi blue
 #!line zj brown
 #
+o=disti pqx
+o=e-x
+o=||o||
+o=disti pqy
+o=g-y
+o=||o||
+o=disti pqz
+o=i-z
+o=||o||
+#
+o=distf pqx
+o=f-x
+o=||o||
+o=distf pqy
+o=h-y
+o=||o||
+o=distf pqz
+o=j-z
+o=||o||
+#
 o=p
 z=z-o
 y=y-o
@@ -71,6 +91,8 @@ G=u:g
 H=u:h
 I=u:i
 J=u:j
+#
+o = ||u||
 #
 u=(32,32)
 l=(-22,-22)
@@ -102,6 +124,20 @@ v=(x,y)
 #!line YH brown
 #!line ZI blue
 #!line ZJ brown
+#
+o=E-X
+o=||o||
+o=G-Y
+o=||o||
+o=I-Z
+o=||o||
+#
+o=F-X
+o=||o||
+o=H-Y
+o=||o||
+o=J-Z
+o=||o||
 #
 p=(-4889,+56743)
 q=(-6,9)
@@ -148,6 +184,26 @@ j=closef pqz
 #!line zi blue
 #!line zj brown
 #
+o=disti pqx
+o=e-x
+o=||o||
+o=disti pqy
+o=g-y
+o=||o||
+o=disti pqz
+o=i-z
+o=||o||
+#
+o=distf pqx
+o=f-x
+o=||o||
+o=distf pqy
+o=h-y
+o=||o||
+o=distf pqz
+o=j-z
+o=||o||
+#
 o=p
 z=z-o
 y=y-o
@@ -173,6 +229,7 @@ G=u:g
 H=u:h
 I=u:i
 J=u:j
+o = ||u||
 #
 u=(240,240)
 l=(-180,-180)
@@ -204,3 +261,17 @@ v=(x,y)
 #!line YH brown
 #!line ZI blue
 #!line ZJ brown
+#
+o=E-X
+o=||o||
+o=G-Y
+o=||o||
+o=I-Z
+o=||o||
+#
+o=F-X
+o=||o||
+o=H-Y
+o=||o||
+o=J-Z
+o=||o||
