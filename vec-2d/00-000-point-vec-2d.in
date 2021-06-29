@@ -16,11 +16,12 @@ l=l+p
 u=(5,5)
 u=u+p
 #!newpage lu
+#!header Original
 #
 #!point p red 3
 #!text p br p
 #!point q red 3
-#!text q br q
+#!text q lt q
 #!point x blue 3
 #!text x r x
 #!point y blue 3
@@ -74,9 +75,10 @@ J=u:j
 u=(32,32)
 l=(-22,-22)
 #!newpage lu
+#!header After Map v -> V = (q-p):(v-p)
 #
 #!point P red 3
-#!text P t P
+#!text P t P=(0,0)
 #!point Q red 3
 #!text Q b Q
 #!point X blue 3
@@ -88,6 +90,10 @@ l=(-22,-22)
 u=Q-P
 A=azm u
 #!infline PA
+x=l.x
+y=0
+v=(x,y)
+#!text v t X-axis
 #!line PQ red
 #
 #!line XE blue

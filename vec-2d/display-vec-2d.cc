@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Jun 23 17:23:36 EDT 2021
+// Date:	Tue Jun 29 15:59:26 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -556,7 +556,7 @@ void execute ( const char * p )
 	if ( * p != 0 )
 	{
 	    cout << "head" << endl
-	         << "text font " << p << endl
+	         << "text text " << p << endl
 		 << "level" << endl;
 	    page_non_empty = true;
 	    page_has_head = true;
