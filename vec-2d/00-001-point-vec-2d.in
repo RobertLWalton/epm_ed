@@ -1,0 +1,128 @@
+# Test Non-Continuous
+# Line and Point Calculator Operations
+#
+#!layout 3 2
+o=(1,1)
+p=(-342,954)
+q=(-6,9)
+q=q+p
+a=(-10,15)
+a=a+p
+b=(-8,12)
+b=b+p
+b=b+o
+c=q
+c=c-o
+d=(-4,6)
+d=d+p
+e=(-2,3)
+e=e+p
+e=e+o
+f=(2,-3)
+f=f+p
+g=(4,-6)
+g=g+p
+g=g-o
+h=g+o
+L=(-13,-13)
+U=(18,18)
+L=L+p
+U=U+p
+#!newpage LU
+u=q-p
+A=azm u
+#!infline pA
+#!point p red 2
+#!text p tr p
+#!point q red 2
+#!text q tr q
+#!line pq red e
+#!point a blue 2
+#!text a tr a
+#!point b blue 2
+#!text b tr b
+#!point c blue 2
+#!text c l c
+#!point d blue 2
+#!text d tr d
+#!point e blue 2
+#!text e r e
+#!point f blue 2
+#!text f tr f
+#!point g blue 2
+#!text g l g
+#!point h blue 2
+#!text h tr h
+#
+D=6
+o = sidei pqpD
+o = sidei pqqD
+o = onf pqpD
+o = onf pqqD
+#
+o = sidei pqaD
+o = sidei pqbD
+o = sidei pqcD
+o = sidei pqdD
+o = sidei pqeD
+o = sidei pqfD
+o = sidei pqgD
+o = sidei pqhD
+o = onf pqaD
+o = onf pqbD
+o = onf pqcD
+o = onf pqdD
+o = onf pqeD
+o = onf pqfD
+o = onf pqgD
+o = onf pqhD
+#
+L=(-4,-4)
+U=(4,4)
+p=(0,0)
+u=(3.5,-1.5)
+v=(2.5,3.5)
+q=(3.0,2.0)
+d=1
+b=between pquvd
+#!newpage LU
+#!point p red
+#!point q red
+#!point u brown
+#!point v blue
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(-1.0,3.0)
+b=between pquvd
+#!newpage LU
+#!point p red
+#!point q red
+#!point u brown
+#!point v blue
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(-3.0,-2.0)
+b=between pquvd
+#!newpage LU
+#!point p red
+#!point q red
+#!point u brown
+#!point v blue
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(1.0,-3.0)
+b=between pquvd
+#!newpage LU
+#!point p red
+#!point q red
+#!point u brown
+#!point v blue
+#!line pq red
+#!line pu brown
+#!line pv blue

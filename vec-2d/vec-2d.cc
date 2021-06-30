@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Jun 24 16:19:07 EDT 2021
+// Date:	Wed Jun 30 14:12:02 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -313,7 +313,8 @@ int main ( int argc, char * argv[] )
 	}
         else
 	{
-	    cerr << "ERROR: unrecognized operation in:"
+	    cerr << "ERROR: unrecognized operation in"
+	         << " line " << line_number << ":"
 	         << endl << "    " << line << endl;
 	    exit ( 1 );
 	}
@@ -566,28 +567,30 @@ vec closef				//closef pqr
     else return closei ( p, q, r );
 }
 double sidei				//sidei pqr
-    ( vec p, vec q, vec r, double d )
+    ( vec p, vec q, vec r, double D )
 {
+    assert ( 0 <= D && D <= 6 );
     vec R = change ( q - p, r - p );
-    if ( eq ( 0, R.y, 2*d ) ) return 0;
+    if ( eq ( 0, R.y, 2*D ) ) return 0;
     else if ( R.y > 0 ) return +1;
     else return -1;
 }
 bool onf				//onf pqr
-    ( vec p, vec q, vec r, double d )
+    ( vec p, vec q, vec r, double D )
 {
+    assert ( 0 <= D && D <= 6 );
     vec Q = change ( q - p, q - p );
     vec R = change ( q - p, r - p );
-    if ( ! eq ( 0, R.y, 2*d ) ) return false;
-    else if ( lt ( R.x, 0, 2*d ) ) return false;
-    else if ( lt ( Q.x, R.x, 2*d ) ) return false;
+    if ( ! eq ( 0, R.y, 2*D ) ) return false;
+    else if ( lt ( R.x, 0, 2*D ) ) return false;
+    else if ( lt ( Q.x, R.x, 2*D ) ) return false;
     else return true;
 }
 bool between				//betweed pquvd
-    ( vec p, vec q, vec u, vec v, double d )
+    ( vec p, vec q, vec u, vec v, double D )
 {
-    if ( sidei ( p, u, q, d ) != +1 ) return false;
-    else if ( sidei ( p, v, q, d ) != -1 ) return false;
+    if ( sidei ( p, u, q, D ) != +1 ) return false;
+    else if ( sidei ( p, v, q, D ) != -1 ) return false;
     else return true;
 }
 
