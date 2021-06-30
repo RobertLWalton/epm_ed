@@ -1,0 +1,277 @@
+# Test Continuous Line and Point Calculator Operations
+#
+#!layout 2 2
+p=(20,32)
+q=(-4,-3)
+q=q+p = (16,29)
+x=(-3,-6)
+x=x+p = (17,26)
+y=(-4,0)
+y=y+p = (16,32)
+z=(-1,4)
+z=z+p = (19,36)
+#
+l=(-8,-8)
+l=l+p = (12,24)
+u=(5,5)
+u=u+p = (25,37)
+#!newpage lu
+#!header Case 1: Original
+#
+#!point p red 3
+#!text p br p
+#!point q red 3
+#!text q lt q
+#!point x blue 3
+#!text x r x
+#!point y blue 3
+#!text y l y
+#!point z blue 3
+#!text z t z
+u=q-p = (-4,-3)
+A=azm u = 216.87
+#!infline pA
+#!line pq red
+#
+e=closei pqx = (15.2,28.4)
+f=closef pqx = (16,29)
+#!line xe blue
+#!line xf brown
+g=closei pqy = (17.44,30.08)
+h=closef pqy = (17.44,30.08)
+#!line yg blue
+#!line yh brown
+i=closei pqz = (21.28,32.96)
+j=closef pqz = (20,32)
+#!line zi blue
+#!line zj brown
+#
+o=disti pqx = 3
+o=e-x = (-1.8,2.4)
+o=||o|| = 3
+o=disti pqy = 2.4
+o=g-y = (1.44,-1.92)
+o=||o|| = 2.4
+o=disti pqz = 3.8
+o=i-z = (2.28,-3.04)
+o=||o|| = 3.8
+#
+o=distf pqx = 3.16228
+o=f-x = (-1,3)
+o=||o|| = 3.16228
+o=distf pqy = 2.4
+o=h-y = (1.44,-1.92)
+o=||o|| = 2.4
+o=distf pqz = 4.12311
+o=j-z = (1,-4)
+o=||o|| = 4.12311
+#
+o=p = (20,32)
+z=z-o = (-1,4)
+y=y-o = (-4,0)
+x=x-o = (-3,-6)
+q=q-o = (-4,-3)
+p=p-o = (0,0)
+e=e-o = (-4.8,-3.6)
+f=f-o = (-4,-3)
+g=g-o = (-2.56,-1.92)
+h=h-o = (-2.56,-1.92)
+i=i-o = (1.28,0.96)
+j=j-o = (0,0)
+#
+u=q-p = (-4,-3)
+Z=u:z = (-8,-19)
+Y=u:y = (16,-12)
+X=u:x = (30,15)
+Q=u:q = (25,0)
+P=u:p = (-0,0)
+E=u:e = (30,3.55271e-15)
+F=u:f = (25,0)
+G=u:g = (16,1.06581e-14)
+H=u:h = (16,1.06581e-14)
+I=u:i = (-8,0)
+J=u:j = (-0,0)
+#
+o = ||u|| = 5
+#
+u=(32,32)
+l=(-22,-22)
+#!newpage lu
+#!header Case 1: After Map v -> V = (q-p):(v-p)
+#
+#!point P red 3
+#!text P t P=(0,0)
+#!point Q red 3
+#!text Q b Q
+#!point X blue 3
+#!text X r X
+#!point Y blue 3
+#!text Y b Y
+#!point Z blue 3
+#!text Z b Z
+u=Q-P = (25,0)
+A=azm u = 0
+#!infline PA
+x=l.x = -22
+y=0
+v=(x,y) = (-22,0)
+#!text v t X-axis
+#!line PQ red
+#
+#!line XE blue
+#!line XF brown
+#!line YG blue
+#!line YH brown
+#!line ZI blue
+#!line ZJ brown
+#
+o=E-X = (7.10543e-15,-15)
+o=||o|| = 15
+o=G-Y = (0,12)
+o=||o|| = 12
+o=I-Z = (-7.10543e-15,19)
+o=||o|| = 19
+#
+o=F-X = (-5,-15)
+o=||o|| = 15.8114
+o=H-Y = (0,12)
+o=||o|| = 12
+o=J-Z = (8,19)
+o=||o|| = 20.6155
+#
+p=(-4889,+56743)
+q=(-6,9)
+q=q+p = (-4895,56752)
+x=(-10,15)
+x=x+p = (-4899,56758)
+y=(-4,6)
+y=y+p = (-4893,56749)
+z=(6,-9)
+z=z+p = (-4883,56734)
+#
+l=(-12,-12)
+l=l+p = (-4901,56731)
+u=(18,18)
+u=u+p = (-4871,56761)
+#!newpage lu
+#!header Case 2: Original
+#
+#!point p red 3
+#!text p r p
+#!point q red 3
+#!text q r q
+#!point x blue 3
+#!text x l x
+#!point y blue 3
+#!text y l y
+#!point z blue 3
+#!text z l z
+u=q-p = (-6,9)
+A=azm u = 123.69
+#!infline pA
+#!line pq red
+#
+e=closei pqx = (-4899,56758)
+f=closef pqx = (-4895,56752)
+#!line xe blue
+#!line xf brown
+g=closei pqy = (-4893,56749)
+h=closef pqy = (-4893,56749)
+#!line yg blue
+#!line yh brown
+i=closei pqz = (-4883,56734)
+j=closef pqz = (-4889,56743)
+#!line zi blue
+#!line zj brown
+#
+o=disti pqx = 0
+o=e-x = (0,0)
+o=||o|| = 0
+o=disti pqy = 0
+o=g-y = (0,0)
+o=||o|| = 0
+o=disti pqz = 0
+o=i-z = (0,0)
+o=||o|| = 0
+#
+o=distf pqx = 7.2111
+o=f-x = (4,-6)
+o=||o|| = 7.2111
+o=distf pqy = 0
+o=h-y = (0,0)
+o=||o|| = 0
+o=distf pqz = 10.8167
+o=j-z = (-6,9)
+o=||o|| = 10.8167
+#
+o=p = (-4889,56743)
+z=z-o = (6,-9)
+y=y-o = (-4,6)
+x=x-o = (-10,15)
+q=q-o = (-6,9)
+p=p-o = (0,0)
+e=e-o = (-10,15)
+f=f-o = (-6,9)
+g=g-o = (-4,6)
+h=h-o = (-4,6)
+i=i-o = (6,-9)
+j=j-o = (0,0)
+#
+u=q-p = (-6,9)
+Z=u:z = (-117,0)
+Y=u:y = (78,0)
+X=u:x = (195,0)
+Q=u:q = (117,0)
+P=u:p = (0,-0)
+E=u:e = (195,0)
+F=u:f = (117,0)
+G=u:g = (78,0)
+H=u:h = (78,0)
+I=u:i = (-117,0)
+J=u:j = (0,-0)
+o = ||u|| = 10.8167
+#
+u=(240,240)
+l=(-180,-180)
+#!newpage lu
+#!header Case 2: After Map v -> V = (q-p):(v-p)
+#
+#!point P red 3
+#!text P t P=(0,0)
+#!point Q red 3
+#!text Q b Q
+#!point X blue 3
+#!text X b X
+#!point Y blue 3
+#!text Y b Y
+#!point Z blue 3
+#!text Z b Z
+u=Q-P = (117,0)
+A=azm u = 0
+#!infline PA
+x=l.x = -180
+y=0
+v=(x,y) = (-180,0)
+#!text v t X-axis
+#!line PQ red
+#
+#!line XE blue
+#!line XF brown
+#!line YG blue
+#!line YH brown
+#!line ZI blue
+#!line ZJ brown
+#
+o=E-X = (0,0)
+o=||o|| = 0
+o=G-Y = (0,0)
+o=||o|| = 0
+o=I-Z = (0,0)
+o=||o|| = 0
+#
+o=F-X = (-78,0)
+o=||o|| = 78
+o=H-Y = (0,0)
+o=||o|| = 0
+o=J-Z = (117,-0)
+o=||o|| = 117
