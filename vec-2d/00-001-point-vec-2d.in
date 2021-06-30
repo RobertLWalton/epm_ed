@@ -77,6 +77,57 @@ o = onf pqfD
 o = onf pqgD
 o = onf pqhD
 #
+o=p
+p=p-o
+q=q-o
+a=a-o
+b=b-o
+c=c-o
+d=d-o
+e=e-o
+f=f-o
+g=g-o
+h=h-o
+u=q-p
+P=u:p
+Q=u:q
+A=u:a
+B=u:b
+C=u:c
+D=u:d
+E=u:e
+F=u:f
+G=u:g
+H=u:h
+L=(-150,-150)
+U=(220,220)
+#!newpage LU
+s=0
+#!infline Ps
+x=(-125,0)
+#!text x t X-axis 
+#!point P red 2
+#!text P t P=(0,0)
+#!point Q red 2
+#!text Q b Q
+#!line PQ red e
+#!point A blue 2
+#!text A t A
+#!point B blue 2
+#!text B b B
+#!point C blue 2
+#!text C t C
+#!point D blue 2
+#!text D t D
+#!point E blue 2
+#!text E b E
+#!point F blue 2
+#!text F b F
+#!point G blue 2
+#!text G t G
+#!point H blue 2
+#!text H b H
+#
 L=(-4,-4)
 U=(4,4)
 p=(0,0)
