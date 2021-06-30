@@ -5,33 +5,33 @@
 o=(1,1)
 p=(-342,954)
 q=(-6,9)
-q=q+p
+q=q+p = (-348,963)
 a=(-10,15)
-a=a+p
+a=a+p = (-352,969)
 b=(-8,12)
-b=b+p
-b=b+o
-c=q
-c=c-o
+b=b+p = (-350,966)
+b=b+o = (-349,967)
+c=q = (-348,963)
+c=c-o = (-349,962)
 d=(-4,6)
-d=d+p
+d=d+p = (-346,960)
 e=(-2,3)
-e=e+p
-e=e+o
+e=e+p = (-344,957)
+e=e+o = (-343,958)
 f=(2,-3)
-f=f+p
+f=f+p = (-340,951)
 g=(4,-6)
-g=g+p
-g=g-o
-h=g+o
+g=g+p = (-338,948)
+g=g-o = (-339,947)
+h=g+o = (-338,948)
 L=(-13,-13)
 U=(18,18)
-L=L+p
-U=U+p
+L=L+p = (-355,941)
+U=U+p = (-324,972)
 #!newpage LU
 #!header Original
-u=q-p
-A=azm u
+u=q-p = (-6,9)
+A=azm u = 123.69
 #!infline pA
 #!point p red 2
 #!text p tr p
@@ -56,50 +56,50 @@ A=azm u
 #!text h tr h
 #
 D=6
-o = sidei pqpD
-o = sidei pqqD
-o = onf pqpD
-o = onf pqqD
+o = sidei pqpD = 0
+o = sidei pqqD = 0
+o = onf pqpD = true
+o = onf pqqD = true
 #
-o = sidei pqaD
-o = sidei pqbD
-o = sidei pqcD
-o = sidei pqdD
-o = sidei pqeD
-o = sidei pqfD
-o = sidei pqgD
-o = sidei pqhD
-o = onf pqaD
-o = onf pqbD
-o = onf pqcD
-o = onf pqdD
-o = onf pqeD
-o = onf pqfD
-o = onf pqgD
-o = onf pqhD
+o = sidei pqaD = 0
+o = sidei pqbD = -1
+o = sidei pqcD = 1
+o = sidei pqdD = 0
+o = sidei pqeD = -1
+o = sidei pqfD = 0
+o = sidei pqgD = 1
+o = sidei pqhD = 0
+o = onf pqaD = false
+o = onf pqbD = false
+o = onf pqcD = false
+o = onf pqdD = true
+o = onf pqeD = false
+o = onf pqfD = false
+o = onf pqgD = false
+o = onf pqhD = false
 #
-o=p
-p=p-o
-q=q-o
-a=a-o
-b=b-o
-c=c-o
-d=d-o
-e=e-o
-f=f-o
-g=g-o
-h=h-o
-u=q-p
-P=u:p
-Q=u:q
-A=u:a
-B=u:b
-C=u:c
-D=u:d
-E=u:e
-F=u:f
-G=u:g
-H=u:h
+o=p = (-342,954)
+p=p-o = (0,0)
+q=q-o = (-6,9)
+a=a-o = (-10,15)
+b=b-o = (-7,13)
+c=c-o = (-7,8)
+d=d-o = (-4,6)
+e=e-o = (-1,4)
+f=f-o = (2,-3)
+g=g-o = (3,-7)
+h=h-o = (4,-6)
+u=q-p = (-6,9)
+P=u:p = (0,-0)
+Q=u:q = (117,0)
+A=u:a = (195,0)
+B=u:b = (159,-15)
+C=u:c = (114,15)
+D=u:d = (78,0)
+E=u:e = (42,-15)
+F=u:f = (-39,0)
+G=u:g = (-81,15)
+H=u:h = (-78,0)
 L=(-150,-150)
 U=(220,220)
 #!newpage LU
@@ -137,8 +137,8 @@ u=(3.5,-1.5)
 v=(2.5,3.5)
 q=(3.0,2.0)
 D=6
-b=between pquvD
-b=between pqvuD
+b=between pquvD = true
+b=between pqvuD = false
 #!newpage LU
 #!point p red
 #!text p l p
@@ -153,8 +153,8 @@ b=between pqvuD
 #!line pv blue
 #
 q=(-1.0,3.0)
-b=between pquvD
-b=between pqvuD
+b=between pquvD = false
+b=between pqvuD = true
 #!newpage LU
 #!point p red
 #!text p l p
@@ -169,8 +169,8 @@ b=between pqvuD
 #!line pv blue
 #
 q=(-3.0,-2.0)
-b=between pquvD
-b=between pqvuD
+b=between pquvD = false
+b=between pqvuD = true
 #!newpage LU
 #!point p red
 #!text p tl p
@@ -185,8 +185,8 @@ b=between pqvuD
 #!line pv blue
 #
 q=(1.0,-3.0)
-b=between pquvD
-b=between pqvuD
+b=between pquvD = false
+b=between pqvuD = true
 #!newpage LU
 #!point p red
 #!text p l p

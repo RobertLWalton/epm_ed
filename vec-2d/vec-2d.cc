@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Jun 30 14:12:02 EDT 2021
+// Date:	Wed Jun 30 16:49:31 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -589,6 +589,8 @@ bool onf				//onf pqr
 bool between				//betweed pquvd
     ( vec p, vec q, vec u, vec v, double D )
 {
+    if ( sidei ( p, u, v, D ) == -1 )
+         return ! between ( p, q, v, u, D );
     if ( sidei ( p, u, q, D ) != +1 ) return false;
     else if ( sidei ( p, v, q, D ) != -1 ) return false;
     else return true;
