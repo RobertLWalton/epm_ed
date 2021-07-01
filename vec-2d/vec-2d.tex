@@ -1398,7 +1398,7 @@ to a finite line segment?  What is the distance from the
 point to the line segment?
 \item What is the general position of a direction relative
 to two other directions, where all three directions are
-defined by infinite lines passing through a common point?
+defined by directed lines passing through a common point?
 \end{enumerate}
 
 We begin with a line {\tt pq} from point {\tt p} to point {\tt q},
@@ -1466,7 +1466,8 @@ therefore     & \tt t = p + (X/L)*(q-p) \\
 or	& \tt t = p + ((q-p)*(r-p)/(q-p)*(q-p)) * (q-p) \\
 \end{tabular}
 
-Note that {\tt t} has rational\label{CLOSEST-IS-RATIONAL},
+Note that if {\tt p}, {\tt q}, and {\tt r} have rational coordinates,
+then {\tt t} has rational\label{CLOSEST-IS-RATIONAL},
 and \underline{not} irrational,
 coordinates.  However the denominator may be large.  If
 the input coordinates have at most {\tt d} decimal places,
@@ -1575,9 +1576,9 @@ use tests like {\tt X<0:(2d)}.
 \begin{tikzpicture}[x=0.25in,y=0.25in]
 \begin{scope}[>=triangle 45,shorten >=0.01in]
 
-    \draw[black] (-4.5,+1.5) -- (+4.5,-1.5);
-    \draw[black] (-3.5,-2.5) -- (+3.5,+2.5);
-    \draw[red] (0,0) -- (+2.5,+1);
+    \draw[black,->] (-4.5,+1.5) -- (+4.5,-1.5);
+    \draw[black,->] (-3.5,-2.5) -- (+3.5,+2.5);
+    \draw[red,->] (0,0) -- (+2.5,+1);
     \fill[red] (0,0) circle(0.1) + (0,-0.5) node[black]{\tt p};
     \fill[red] (4.5,-1.5) circle(0.1) + (0.5,0) node[black]{\tt q$_1$};
     \fill[red] (3.5,2.5) circle(0.1) + (0.5,0) node[black]{\tt q$_2$};
@@ -1591,8 +1592,10 @@ use tests like {\tt X<0:(2d)}.
 \end{tikzpicture}
 \end{wrapfigure}
 Lastly, let us find the general position of a direction {\tt pq} relative
-to two other directions, {\tt pq$_1$}  and {\tt pq$_2$} (see picture).
-The infinite lines {\tt pq$_1$}  and {\tt pq$_2$} divide space into
+to two other directions, {\tt pq$_1$}  and {\tt pq$_2$}, where
+{\tt q$_2$} is to the \underline{left} of the infinite directed line
+{\tt pq$_1$} (see picture).
+The infinite directed lines {\tt pq$_1$}  and {\tt pq$_2$} divide space into
 four regions:
 \begin{itemize}
 \item[LR]
@@ -1610,7 +1613,7 @@ and to the \underline{right} of {\tt pq$_2$};
 \medskip
 
 Thus, for example,
-if {\tt p} is in region LR, then when {\tt pq$_1$} is rotated
+if {\tt q} is in region LR, then when {\tt pq$_1$} is rotated
 counter-clock\-wise
 it will line up with {\tt pq} \underline{before} it lines up with
 {\tt pq$_2$}.
@@ -1629,7 +1632,9 @@ the following {\em operators} and {\em functions}:
 \begin{tabular}{l@{~~~~}l@{~~~~}l}
 Assume: & {\tt p}, {\tt q}, {\tt r}, {\tt u}, {\tt v}
           are vectors representing points \\
-	& {\tt d} is an integer scalar with {\tt 0 $\leq$ d $\leq$ 12} \\
+	& {\tt D} is an integer scalar with {\tt 0 $\leq$ D $\leq$ 6} \\
+	& (Note that {\tt D} is less than or equal to {\tt 6} and
+	  \underline{not} {\tt 12}.) \\
 then: \\[1ex]
 \tt disti~pqr  & returns the distance from point {\tt r} to the
 		\underline{infinite} line {\tt pq} \\
@@ -1641,22 +1646,21 @@ then: \\[1ex]
 \tt closef~pqr  & returns the point {\tt t} on the \underline{finite}
                   line {\tt pq} \\
 		& that is closest to the point {\tt r} \\
-\tt sidei~pqrd & returns {\tt +1} if {\tt r} is to the left of the
+\tt sidei~pqrD & returns {\tt +1} if {\tt r} is to the left of the
                 \underline{infinite directed} line \\
 	      & {\tt pq}, zero if it is on the line,
 	        and -1 if it is to the right, \\
-	      & if all coordinates have at most {\tt d} decimal places \\
-\tt onf~pqrd & returns {\tt true} if and only if {\tt r} is on the
+	      & if all coordinates have at most {\tt D} decimal places \\
+\tt onf~pqrD & returns {\tt true} if and only if {\tt r} is on the
                 \underline{finite} line {\tt pq}, \\
-	      & if all coordinates have at most {\tt d} decimal places \\
-\tt between~pquvd & returns {\tt true} if and only if the directed
-                   line {\tt pu} \\
-		 & rotated counter-clockwise will line up with
-		   the \\
-		 & directed line {\tt pq} before it lines up with {\tt pv}; \\
-		 & return false if {\tt pq} has the same
-		   direction as {\tt pu} or {\tt pv}; \\
-	      & if all coordinates have at most {\tt d} decimal places \\
+	      & if all coordinates have at most {\tt D} decimal places \\
+\tt between~pquvD & returns {\tt true} if and only if the direction
+                   {\tt pu} rotated \\
+		 & counter-clockwise will line up with the direction \\
+		 & {\tt pq} before it lines up with {\tt pv}; but returns
+		   {\tt false} \\
+		 & if any two of the three directions are identical; \\
+	      & if all coordinates have at most {\tt D} decimal places \\
 \end{tabular}
 \end{center}
 
@@ -2867,7 +2871,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Jun 28 18:49:37 EDT 2021
+Date:         & Thu Jul  1 03:25:41 EDT 2021
 
 \end{tabular}
 
