@@ -139,6 +139,9 @@ q=(3.0,2.0)
 D=6
 b=between pquvD
 b=between pqvuD
+b=between pqquD
+b=between pqvqD
+b=between pqvvD
 #!newpage LU
 #!point p red
 #!text p l p
