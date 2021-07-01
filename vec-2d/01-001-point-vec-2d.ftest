@@ -1,0 +1,153 @@
+# Test Non-Continuous
+# Line and Point Calculator Operations
+#
+p=(0,0)
+q=(10,0)
+a=(-5,1)
+b=(-4,-1)
+c=(-3,0)
+d=(0,0)
+e=(1,1)
+f=(2,-1)
+g=(3,0)
+h=(10,0)
+i=(13,0)
+j=(14,1)
+k=(15,-1)
+D=6
+o=sidei pqaD = 1
+o=sidei pqbD = -1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = 1
+o=sidei pqfD = -1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = 1
+o=sidei pqkD = -1
+o=onf pqaD = false
+o=onf pqbD = false
+o=onf pqcD = false
+o=onf pqdD = true
+o=onf pqeD = false
+o=onf pqfD = false
+o=onf pqgD = true
+o=onf pqhD = true
+o=onf pqiD = false
+o=onf pqjD = false
+o=onf pqkD = false
+#
+o=(-2578,-8740)
+p=p+o = (-2578,-8740)
+q=q+o = (-2568,-8740)
+a=a+o = (-2583,-8739)
+b=b+o = (-2582,-8741)
+c=c+o = (-2581,-8740)
+d=d+o = (-2578,-8740)
+e=e+o = (-2577,-8739)
+f=f+o = (-2576,-8741)
+g=g+o = (-2575,-8740)
+h=h+o = (-2568,-8740)
+i=i+o = (-2565,-8740)
+j=j+o = (-2564,-8739)
+k=k+o = (-2563,-8741)
+o=sidei pqaD = 1
+o=sidei pqbD = -1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = 1
+o=sidei pqfD = -1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = 1
+o=sidei pqkD = -1
+o=onf pqaD = false
+o=onf pqbD = false
+o=onf pqcD = false
+o=onf pqdD = true
+o=onf pqeD = false
+o=onf pqfD = false
+o=onf pqgD = true
+o=onf pqhD = true
+o=onf pqiD = false
+o=onf pqjD = false
+o=onf pqkD = false
+#
+# Set D = 5, or small calculation errors change answer
+D=5
+A=57
+p=p^A = (5925.9,-6922.24)
+q=q^A = (5931.35,-6913.85)
+a=a^A = (5922.34,-6925.89)
+b=b^A = (5924.56,-6926.14)
+c=c^A = (5924.27,-6924.75)
+d=d^A = (5925.9,-6922.24)
+e=e^A = (5925.61,-6920.85)
+f=f^A = (5927.83,-6921.11)
+g=g^A = (5927.54,-6919.72)
+h=h^A = (5931.35,-6913.85)
+i=i^A = (5932.98,-6911.34)
+j=j^A = (5932.69,-6909.95)
+k=k^A = (5934.91,-6910.2)
+o=sidei pqaD = 1
+o=sidei pqbD = -1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = 1
+o=sidei pqfD = -1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = 1
+o=sidei pqkD = -1
+o=onf pqaD = false
+o=onf pqbD = false
+o=onf pqcD = false
+o=onf pqdD = true
+o=onf pqeD = false
+o=onf pqfD = false
+o=onf pqgD = true
+o=onf pqhD = true
+o=onf pqiD = false
+o=onf pqjD = false
+o=onf pqkD = false
+#
+# Reflection switches sides of pq
+A=105
+p=p|A = (-1670.86,-8957.78)
+q=q|A = (-1679.77,-8953.24)
+a=a|A = (-1665.95,-8959.16)
+b=b|A = (-1667.75,-8960.49)
+c=c|A = (-1668.19,-8959.15)
+d=d|A = (-1670.86,-8957.78)
+e=e|A = (-1671.3,-8956.44)
+f=f|A = (-1673.1,-8957.77)
+g=g|A = (-1673.54,-8956.42)
+h=h|A = (-1679.77,-8953.24)
+i=i|A = (-1682.45,-8951.88)
+j=j|A = (-1682.88,-8950.54)
+k=k|A = (-1684.68,-8951.87)
+o=sidei pqaD = -1
+o=sidei pqbD = 1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = -1
+o=sidei pqfD = 1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = -1
+o=sidei pqkD = 1
+o=onf pqaD = false
+o=onf pqbD = false
+o=onf pqcD = false
+o=onf pqdD = true
+o=onf pqeD = false
+o=onf pqfD = false
+o=onf pqgD = true
+o=onf pqhD = true
+o=onf pqiD = false
+o=onf pqjD = false
+o=onf pqkD = false
