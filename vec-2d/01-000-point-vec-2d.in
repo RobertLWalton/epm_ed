@@ -1,0 +1,115 @@
+# Test Continuous Line and Point Calculator Operations
+#
+p=(20,32)
+q=(35,47)
+#
+x=(13,63)
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+#
+x=(13,91)
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+#
+x=(-7,71)
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+#
+x=(-27,51)
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+#
+x=(10,42)
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+#
+x=(45,37)
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+#
+p=(0,0)
+q=(10,0)
+x=(-3,4)
+y=(5,5)
+z=(14,-3)
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+e=closei pqy
+f=closef pqy
+o=disti pqy
+o=distf pqy
+e=closei pqz
+f=closef pqz
+o=disti pqz
+o=distf pqz
+#
+A=39
+# p=p^A not allowed as p=(0,0)
+q=q^A
+x=x^A
+y=y^A
+z=z^A
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+e=closei pqy
+f=closef pqy
+o=disti pqy
+o=distf pqy
+e=closei pqz
+f=closef pqz
+o=disti pqz
+o=distf pqz
+#
+o=(-62,39)
+p=p+o
+q=q+o
+x=x+o
+y=y+o
+z=z+o
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+e=closei pqy
+f=closef pqy
+o=disti pqy
+o=distf pqy
+e=closei pqz
+f=closef pqz
+o=disti pqz
+o=distf pqz
+#
+A=-263
+p=p|A
+q=q|A
+x=x|A
+y=y|A
+z=z|A
+e=closei pqx
+f=closef pqx
+o=disti pqx
+o=distf pqx
+e=closei pqy
+f=closef pqy
+o=disti pqy
+o=distf pqy
+e=closei pqz
+f=closef pqz
+o=disti pqz
+o=distf pqz

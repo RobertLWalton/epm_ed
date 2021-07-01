@@ -1,0 +1,115 @@
+# Test Continuous Line and Point Calculator Operations
+#
+p=(20,32)
+q=(35,47)
+#
+x=(13,63)
+e=closei pqx = (32,44)
+f=closef pqx = (32,44)
+o=disti pqx = 26.8701
+o=distf pqx = 26.8701
+#
+x=(13,91)
+e=closei pqx = (46,58)
+f=closef pqx = (35,47)
+o=disti pqx = 46.669
+o=distf pqx = 49.1935
+#
+x=(-7,71)
+e=closei pqx = (26,38)
+f=closef pqx = (26,38)
+o=disti pqx = 46.669
+o=distf pqx = 46.669
+#
+x=(-27,51)
+e=closei pqx = (6,18)
+f=closef pqx = (20,32)
+o=disti pqx = 46.669
+o=distf pqx = 50.6952
+#
+x=(10,42)
+e=closei pqx = (20,32)
+f=closef pqx = (20,32)
+o=disti pqx = 14.1421
+o=distf pqx = 14.1421
+#
+x=(45,37)
+e=closei pqx = (35,47)
+f=closef pqx = (35,47)
+o=disti pqx = 14.1421
+o=distf pqx = 14.1421
+#
+p=(0,0)
+q=(10,0)
+x=(-3,4)
+y=(5,5)
+z=(14,-3)
+e=closei pqx = (-3,0)
+f=closef pqx = (0,0)
+o=disti pqx = 4
+o=distf pqx = 5
+e=closei pqy = (5,0)
+f=closef pqy = (5,0)
+o=disti pqy = 5
+o=distf pqy = 5
+e=closei pqz = (14,0)
+f=closef pqz = (10,0)
+o=disti pqz = 3
+o=distf pqz = 5
+#
+A=39
+# p=p^A not allowed as p=(0,0)
+q=q^A = (7.77146,6.2932)
+x=x^A = (-4.84872,1.22062)
+y=y^A = (0.739128,7.03233)
+z=z^A = (12.768,6.47905)
+e=closei pqx = (-2.33144,-1.88796)
+f=closef pqx = (0,0)
+o=disti pqx = 4
+o=distf pqx = 5
+e=closei pqy = (3.88573,3.1466)
+f=closef pqy = (3.88573,3.1466)
+o=disti pqy = 5
+o=distf pqy = 5
+e=closei pqz = (10.88,8.81049)
+f=closef pqz = (7.77146,6.2932)
+o=disti pqz = 3
+o=distf pqz = 5
+#
+o=(-62,39)
+p=p+o = (-62,39)
+q=q+o = (-54.2285,45.2932)
+x=x+o = (-66.8487,40.2206)
+y=y+o = (-61.2609,46.0323)
+z=z+o = (-49.232,45.479)
+e=closei pqx = (-64.3314,37.112)
+f=closef pqx = (-62,39)
+o=disti pqx = 4
+o=distf pqx = 5
+e=closei pqy = (-58.1143,42.1466)
+f=closef pqy = (-58.1143,42.1466)
+o=disti pqy = 5
+o=distf pqy = 5
+e=closei pqz = (-51.12,47.8105)
+f=closef pqz = (-54.2285,45.2932)
+o=disti pqz = 3
+o=distf pqz = 5
+#
+A=-263
+p=p|A = (50.7234,52.8407)
+q=q|A = (41.6603,57.0669)
+x=x|A = (55.1328,55.1981)
+y=y|A = (48.3049,59.4853)
+z=z|A = (36.7672,56.0384)
+e=closei pqx = (53.4423,51.5728)
+f=closef pqx = (50.7234,52.8407)
+o=disti pqx = 4
+o=distf pqx = 5
+e=closei pqy = (46.1918,54.9538)
+f=closef pqy = (46.1918,54.9538)
+o=disti pqy = 5
+o=distf pqy = 5
+e=closei pqz = (38.0351,58.7573)
+f=closef pqz = (41.6603,57.0669)
+o=disti pqz = 3
+o=distf pqz = 5
