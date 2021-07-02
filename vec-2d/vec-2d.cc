@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Jul  2 16:29:39 EDT 2021
+// Date:	Fri Jul  2 17:33:22 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -658,7 +658,7 @@ double overlapf				//overlapf mnpq
     double U = min ( cn, cq );
     double length = len ( p - q );
     double r = ( U - L ) / length;
-    if ( r < 0 ) r - 0;
+    if ( r < 0 ) r = 0;
     return r;
     
 }
