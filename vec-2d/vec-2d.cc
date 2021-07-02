@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Jun 30 21:46:10 EDT 2021
+// Date:	Fri Jul  2 16:29:39 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -1286,7 +1286,7 @@ bool compute_result ( void )
 	return true;
     }
 
-    if ( match ( "$=overlapf$$$$$" ) )
+    if ( match ( "$=overlapf$$$$" ) )
     {
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == VECTOR );
@@ -1297,7 +1297,7 @@ bool compute_result ( void )
 	return true;
     }
 
-    if ( match ( "$=commoni$$$$$" ) )
+    if ( match ( "$=commoni$$$$" ) )
     {
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == VECTOR );
@@ -1308,7 +1308,7 @@ bool compute_result ( void )
 	return true;
     }
 
-    if ( match ( "$=distf$$$$$" ) )
+    if ( match ( "$=distf$$$$" ) )
     {
 	assert ( OP1.t == VECTOR );
 	assert ( OP2.t == VECTOR );
