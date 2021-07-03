@@ -9,6 +9,7 @@ q=(7,7)
 c=commoni mnpq
 d=distf mnpq
 #
+#!newpage
 o=(29,-61)
 m=m+o
 n=n+o
@@ -17,8 +18,20 @@ q=q+o
 c=c+o
 c=commoni mnpq
 d=distf mnpq
+#!point m red
+#!text m t m
+#!point n red
+#!text n t n
+#!line mn red
+#!point p blue
+#!text p b p
+#!point q blue
+#!text q t q
+#!line pq blue
+#!point c black
 #
-A=169
+#!newpage
+A=119
 m=m^A
 n=n^A
 p=p^A
@@ -26,8 +39,20 @@ q=q^A
 c=c^A
 c=commoni mnpq
 d=distf mnpq
+#!point m red
+#!text m t m
+#!point n red
+#!text n b n
+#!line mn red
+#!point p blue
+#!text p t p
+#!point q blue
+#!text q t q
+#!line pq blue
+#!point c black
 #
-L=[(143,-584),(-29,54)]
+#!newpage
+L=[(3,4),(-3,20)]
 m=L*m
 n=L*n
 p=L*p
@@ -35,6 +60,17 @@ q=L*q
 c=L*c
 c=commoni mnpq
 d=distf mnpq
+#!point m red
+#!text m r m
+#!point n red
+#!text n r n
+#!line mn red
+#!point p blue
+#!text p t p
+#!point q blue
+#!text q t q
+#!line pq blue
+#!point c black
 #
 m=(0,0)
 n=(10,0)
@@ -48,6 +84,7 @@ o=overlapf mnnq
 o=overlapf mqpn
 o=overlapf mpnq
 #
+#!newpage
 o=(3652.78,-6742.45)
 m=m+o
 n=n+o
@@ -60,8 +97,18 @@ o=overlapf qpnm
 o=overlapf mnnq
 o=overlapf mqpn
 o=overlapf mpnq
+#!line mq blue
+#!point m red
+#!text m t m
+#!point n red
+#!text n t n
+#!point p red
+#!text p t p
+#!point q red
+#!text q t q
 #
-A=97
+#!newpage
+A=249
 m=m^A
 n=n^A
 p=p^A
@@ -73,7 +120,17 @@ o=overlapf qpnm
 o=overlapf mnnq
 o=overlapf mqpn
 o=overlapf mpnq
+#!line mq blue
+#!point m red
+#!text m l m
+#!point n red
+#!text n l n
+#!point p red
+#!text p l p
+#!point q red
+#!text q l q
 #
+#!newpage
 o=p-n
 L=[(294,967),(-572,359)]
 m=L*m
@@ -89,7 +146,17 @@ o=overlapf qpnm
 o=overlapf mnnq
 o=overlapf mqpn
 o=overlapf mpnq
+#!line mq blue
+#!point m red
+#!text m r m
+#!point n red
+#!text n r n
+#!point p red
+#!text p r p
+#!point q red
+#!text q r q
 #
+#!newpage
 p=(0,0)
 q=(10,0)
 a=(-2,-5)
