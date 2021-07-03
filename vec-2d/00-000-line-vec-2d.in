@@ -1,6 +1,7 @@
 # Test Continuous
 # Line and Line Calculator Operations
 #
+#!layout 3 2 18
 m=(-9,-3)
 n=(6,2)
 p=(-5,-5)
@@ -91,33 +92,66 @@ o=overlapf mpnq
 #
 p=(0,0)
 q=(10,0)
-a=(-5,5)
-b=(-1,1)
+a=(-2,-5)
+b=(5,-5)
 c=(-10,0)
 d=(0,-10)
-e=(-3,10)
-f=(5,9)
-g=(8,8)
-h=(14,-8)
-i=(10,10)
-j=(10,20)
+e=(-3,5)
+f=(7,4)
+g=(9,-16)
+h=(13,-2)
+i=(-5,10)
+j=(15,8)
+#!point p red
+#!point q red
+#!line pq red
+#!point a blue
+#!point b blue
+#!line ab blue
+#!point c blue
+#!point d blue
+#!line cd blue
+#!point e blue
+#!point f blue
+#!line ef blue
+#!point g blue
+#!point h blue
+#!line gh blue
+#!point i blue
+#!point j blue
+#!line ij blue
 o=distf pqab
 o=distf abpq
-o=p-b
-o=||o||
+o=disti abp
+o=disti pqb
+t=closei abp
+#!line tp brown -
+t=closei pqb
+#!line tb brown -
 o=distf pqcd
 o=distf cdpq
+o=distf dcpq
 o=disti cdp
+t=closei cdp
+#!line tp brown -
 o=distf pqef
 o=distf qpfe
 o=distf efpq
 o=distf feqp
+o=disti pqf
+t=closei pqf
+#!line tf brown -
 o=distf pqgh
 o=distf qphg
 o=distf ghpq
 o=distf hgqp
-o=disti ghq
+o=h-q
+o=||o||
+#!line hq brown -
 o=distf pqij
 o=distf qpji
 o=distf ijpq
 o=distf jiqp
+o=disti ijq
+t=closei ijq
+#!line tq brown -
