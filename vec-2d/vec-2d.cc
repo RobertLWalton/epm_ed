@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sat Jul  3 21:52:30 EDT 2021
+// Date:	Sun Jul  4 12:36:08 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -677,29 +677,22 @@ vec commoni				//commoni mnpq
 double distf				// distf mnpq
     ( vec m, vec n, vec p, vec q )
 {
-    double Ym, Yn, Yp, Yq, A, B, s;
-    Ym = cross ( q - p, m - p );
-    Yn = cross ( q - p, n - p );
-    if ( Ym * Yn >= 0 )
-        goto CHECK_ENDPOINTS;
-	// Finite mn does not intersect infinite pq
-	// or intersects at a point very near to m or n
-    Yp = cross ( n - m, p - m );
-    Yq = cross ( n - m, q - m );
-    if ( Yp * Yq >= 0 )
-        goto CHECK_ENDPOINTS;
-	// Finite pq does not intersect infinite mn
-	// or intersects at a point very near to p or q
-
-    // r = p + s * ( q - p )
-    // where A * s = B
+    // Solve m + t * ( n - m ) = p + s * ( q - p)
+    // for t and s and check if 0 <= s,t <= 1.  If
+    // so, there is an intersection point and distance
+    // is zero.  If not, go to CHECK_ENDPOINTS.
     //
-    A = cross ( n - m, q - p );
-    if ( A == 0 ) goto CHECK_ENDPOINTS;
-    B = cross ( n - m, m - p );
-    s = B/A;
-    if ( 0 <= s && s <= 1 ) return 0;
-        // Finite mn intersects finite pq.
+    double A = cross ( n - m, q - p );
+    double t, s;
+    if ( A == 0 )
+        goto CHECK_ENDPOINTS;  // Lines are parallel.
+    t = cross ( p - m, q - p ) / A;
+    s = cross ( n - m, m - p ) / A;
+    if ( t < 0 ) goto CHECK_ENDPOINTS;
+    if ( t > 1 ) goto CHECK_ENDPOINTS;
+    if ( s < 0 ) goto CHECK_ENDPOINTS;
+    if ( s > 1 ) goto CHECK_ENDPOINTS;
+    return 0;  // Finite lines intersect.
 
 CHECK_ENDPOINTS:
 
