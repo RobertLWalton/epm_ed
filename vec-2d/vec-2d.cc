@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Jul  2 17:33:22 EDT 2021
+// Date:	Sat Jul  3 21:52:30 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -609,24 +609,24 @@ bool between				//between pquvd
 // Line and Line Calculator Functions
 //
 bool intersecti		            //intersecti mnpqd
-    ( vec m, vec n, vec p, vec q, double d )
+    ( vec m, vec n, vec p, vec q, double D )
 {
-    assert ( ! eq ( m, n, d ) );
-    assert ( ! eq ( p, q, d ) );
-    return ! eq ( 0, cross ( q - p, n - m ), d );
+    assert ( ! eq ( m, n, D ) );
+    assert ( ! eq ( p, q, D ) );
+    return ! eq ( 0, cross ( q - p, n - m ), 2*D );
 }
 bool intersectf		            //intersectf mnpqd
-    ( vec m, vec n, vec p, vec q, double d )
+    ( vec m, vec n, vec p, vec q, double D )
 {
-    assert ( ! eq ( m, n, d ) );
-    assert ( ! eq ( p, q, d ) );
+    assert ( ! eq ( m, n, D ) );
+    assert ( ! eq ( p, q, D ) );
 
-    int side_m = sidei ( p, q, m, d );
-    int side_n = sidei ( p, q, n, d );
+    int side_m = sidei ( p, q, m, D );
+    int side_n = sidei ( p, q, n, D );
     if ( side_m == side_n ) return false;
     	// finite mn does not intersect infinite pq
-    int side_p = sidei ( m, n, p, d );
-    int side_q = sidei ( m, n, p, d );
+    int side_p = sidei ( m, n, p, D );
+    int side_q = sidei ( m, n, p, D );
     if ( side_p == side_q ) return false;
     	// finite pq does not intersect infinite mn
     if ( side_m != 0 || side_n != 0 ) return true;
@@ -640,9 +640,9 @@ bool intersectf		            //intersectf mnpqd
     assert ( cq > cp );
     assert ( cm != cn );
     if ( cm > cn ) swap ( cm, cn );
-    if ( lt ( cn, cp, d ) ) return false;
+    if ( lt ( cn, cp, 2*D ) ) return false;
         // [cm,cn] < [cp,cq]
-    if ( lt ( cq, cm, d ) ) return false;
+    if ( lt ( cq, cm, 2*D ) ) return false;
         // [cp,cq] < [cm,cn]
     return true;
 }

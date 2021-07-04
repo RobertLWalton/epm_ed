@@ -1754,7 +1754,7 @@ infinite {\tt pq} & $\longmapsto$ & X-axis \\
 \end{tabular}
 \end{center}
 Then intersection occurs if and only if {\tt M.y} and {\tt N.y}
-have opposite signs or one is zero, or:
+have opposite signs or one is zero, or more precisely:
 \begin{theorem}
 If the coordinates of {\tt m},
 {\tt n}, {\tt p}, and {\tt q} have at most {\tt d} decimal places,
@@ -1822,7 +1822,7 @@ on both finite lines.
 
 As indicated above,
 we can check whether the infinite extensions of the {\tt mn} and {\tt pq}
-are the same by checking whether thay are parallel and {\tt n} is on
+are the same by checking whether {\tt m} and {\tt n} are both on
 the infinite extension of {\tt pq}, or in other words, whether: \\
 \centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
 
@@ -1862,7 +1862,8 @@ if coordinates have at most {\tt d} decimal places, if
 \\[1ex]
 \centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
 \\[1ex]
-(so each line is a subset of the infinite extension of the other line),
+(so each finite line is a subset of the infinite extension of the
+other finite line),
 and if we switch {\tt m} and {\tt n} if necessary so that \\
 \centerline{\tt (q-p)*(m-p) < (q-p)*(n-p)}
 then
@@ -1894,7 +1895,7 @@ of points
 We will \underline{not} give a proof of this,
 which involves the mathematics of compact sets.
 
-We will prove:
+But we will use this theorem to prove:
 
 \begin{theorem}
 \label{FINITE-LINE-DISTANCE-THEOREM}
@@ -1984,14 +1985,16 @@ the following {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l}
 Assume: & {\tt m}, {\tt n}, {\tt p}, {\tt q} are vectors representing points \\
-	& {\tt d} is an integer scalar with {\tt 0 $\leq$ d $\leq$ 12} \\
+	& {\tt D} is an integer scalar with {\tt 0 $\leq$ D $\leq$ 6} \\
+	& (Note that {\tt D} is less than or equal to {\tt 6} and
+	  \underline{not} {\tt 12}.) \\
 then: \\[1ex]
-\tt intersecti mnpqd & returns {\tt true} if the infinite lines {\tt mn} and
+\tt intersecti mnpqD & returns {\tt true} if the infinite lines {\tt mn} and
                      {\tt pq} \\
 		   & intersect (including the case where the lines are \\
 		   & identical) and {\tt false} otherwise; assuming point \\
-		   & coordinates have at most {\tt d} decimal places \\
-\tt intersectf mnpqd & ditto but for finite lines {\tt mn} and {\tt pq} \\
+		   & coordinates have at most {\tt D} decimal places \\
+\tt intersectf mnpqD & ditto but for finite lines {\tt mn} and {\tt pq} \\
 \tt overlapf mnpq & returns the length of the overlap of
                     finite lines {\tt mn} \\
                  & and {\tt pq} assuming the infinite extensions of these \\
@@ -2871,7 +2874,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Jul  1 03:25:41 EDT 2021
+Date:         & Sat Jul  3 22:12:29 EDT 2021
 
 \end{tabular}
 
