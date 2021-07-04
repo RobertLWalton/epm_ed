@@ -156,6 +156,7 @@ o=overlapf mpnq
 #!point q red
 #!text q r q
 #
+#!layout 2 1
 #!newpage
 p=(0,0)
 q=(10,0)
@@ -170,22 +171,127 @@ h=(13,-2)
 i=(-5,10)
 j=(15,8)
 #!point p red
+#!text p lt p
 #!point q red
+#!text q rt q
 #!line pq red
 #!point a blue
+#!text a t a
 #!point b blue
+#!text b r b
 #!line ab blue
 #!point c blue
+#!text c t c
 #!point d blue
+#!text d r d
 #!line cd blue
 #!point e blue
+#!text e t e
 #!point f blue
+#!text f t f
 #!line ef blue
 #!point g blue
+#!text g b g
 #!point h blue
+#!text h r h
 #!line gh blue
 #!point i blue
+#!text i l i
 #!point j blue
+#!text j r j
+#!line ij blue
+o=distf pqab
+o=distf abpq
+o=disti abp
+o=disti pqb
+t=closei abp
+#!line tp brown -
+t=closei pqb
+#!line tb brown -
+o=distf pqcd
+o=distf cdpq
+o=distf dcpq
+o=disti cdp
+t=closei cdp
+#!line tp brown -
+o=distf pqef
+o=distf qpfe
+o=distf efpq
+o=distf feqp
+o=disti pqf
+t=closei pqf
+#!line tf brown -
+o=distf pqgh
+o=distf qphg
+o=distf ghpq
+o=distf hgqp
+o=h-q
+o=||o||
+#!line hq brown -
+o=distf pqij
+o=distf qpji
+o=distf ijpq
+o=distf jiqp
+o=disti ijq
+t=closei ijq
+#!line tq brown -
+#
+#!newpage
+o=(32,-29)
+p=p+o
+q=q+o
+a=a+o
+b=b+o
+c=c+o
+d=d+o
+e=e+o
+f=f+o
+g=g+o
+h=h+o
+i=i+o
+j=j+o
+A=283
+p=p^A
+q=q^A
+a=a^A
+b=b^A
+c=c^A
+d=d^A
+e=e^A
+f=f^A
+g=g^A
+h=h^A
+i=i^A
+j=j^A
+#!point p red
+#!text p lt p
+#!point q red
+#!text q rt q
+#!line pq red
+#!point a blue
+#!text a t a
+#!point b blue
+#!text b r b
+#!line ab blue
+#!point c blue
+#!text c t c
+#!point d blue
+#!text d r d
+#!line cd blue
+#!point e blue
+#!text e t e
+#!point f blue
+#!text f t f
+#!line ef blue
+#!point g blue
+#!text g b g
+#!point h blue
+#!text h r h
+#!line gh blue
+#!point i blue
+#!text i l i
+#!point j blue
+#!text j r j
 #!line ij blue
 o=distf pqab
 o=distf abpq

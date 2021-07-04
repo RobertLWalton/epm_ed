@@ -1,0 +1,330 @@
+# Test Continuous
+# Line and Line Calculator Operations
+#
+#!layout 3 2 18
+m=(-9,-3)
+n=(6,2)
+p=(-5,-5)
+q=(7,7)
+c=commoni mnpq = (0,0)
+d=distf mnpq = 0
+#
+#!newpage
+o=(29,-61)
+m=m+o = (20,-64)
+n=n+o = (35,-59)
+p=p+o = (24,-66)
+q=q+o = (36,-54)
+c=c+o = (29,-61)
+c=commoni mnpq = (29,-61)
+d=distf mnpq = 0
+#!point m red
+#!text m t m
+#!point n red
+#!text n t n
+#!line mn red
+#!point p blue
+#!text p b p
+#!point q blue
+#!text q t q
+#!line pq blue
+#!point c black
+#
+#!newpage
+A=119
+m=m^A = (46.2795,48.5202)
+n=n^A = (34.6342,59.2155)
+p=p^A = (46.0895,52.9883)
+q=q^A = (29.7763,57.666)
+c=c^A = (39.2923,54.9374)
+c=commoni mnpq = (39.2923,54.9374)
+d=distf mnpq = 0
+#!point m red
+#!text m t m
+#!point n red
+#!text n b n
+#!line mn red
+#!point p blue
+#!text p t p
+#!point q blue
+#!text q t q
+#!line pq blue
+#!point c black
+#
+#!newpage
+L=[(3,4),(-3,20)]
+m=L*m = (-6.72222,1155.52)
+n=L*n = (-73.7437,1322.85)
+p=L*p = (-20.6965,1244.12)
+q=L*q = (-83.6691,1272.43)
+c=L*c = (-46.9351,1255.92)
+c=commoni mnpq = (-46.9351,1255.92)
+d=distf mnpq = 0
+#!point m red
+#!text m r m
+#!point n red
+#!text n r n
+#!line mn red
+#!point p blue
+#!text p t p
+#!point q blue
+#!text q t q
+#!line pq blue
+#!point c black
+#
+m=(0,0)
+n=(10,0)
+p=(4.45,0)
+q=(11,0)
+o=p-n = (-5.55,0)
+o=||o|| = 5.55
+o=overlapf mnpq = 5.55
+o=overlapf qpnm = 5.55
+o=overlapf mnnq = 0
+o=overlapf mqpn = 5.55
+o=overlapf mpnq = 0
+#
+#!newpage
+o=(3652.78,-6742.45)
+m=m+o = (3652.78,-6742.45)
+n=n+o = (3662.78,-6742.45)
+p=p+o = (3657.23,-6742.45)
+q=q+o = (3663.78,-6742.45)
+o=p-n = (-5.55,0)
+o=||o|| = 5.55
+o=overlapf mnpq = 5.55
+o=overlapf qpnm = 5.55
+o=overlapf mnnq = 0
+o=overlapf mqpn = 5.55
+o=overlapf mpnq = 0
+#!line mq blue
+#!point m red
+#!text m t m
+#!point n red
+#!text n t n
+#!point p red
+#!text p t p
+#!point q red
+#!text q t q
+#
+#!newpage
+A=249
+m=m^A = (-7603.66,-993.886)
+n=n^A = (-7607.24,-1003.22)
+p=p^A = (-7605.25,-998.04)
+q=q^A = (-7607.6,-1004.16)
+o=p-n = (1.98894,5.18137)
+o=||o|| = 5.55
+o=overlapf mnpq = 5.55
+o=overlapf qpnm = 5.55
+o=overlapf mnnq = 0
+o=overlapf mqpn = 5.55
+o=overlapf mpnq = 0
+#!line mq blue
+#!point m red
+#!text m l m
+#!point n red
+#!text n l n
+#!point p red
+#!text p l p
+#!point q red
+#!text q l q
+#
+#!newpage
+o=p-n = (1.98894,5.18137)
+L=[(294,967),(-572,359)]
+m=L*m = (-1.66697e+06,-7.70954e+06)
+n=L*n = (-1.66269e+06,-7.71636e+06)
+p=L*p = (-1.66507e+06,-7.71258e+06)
+q=L*q = (-1.66226e+06,-7.71704e+06)
+o=L*o = (-2379,3783.42)
+o=||o|| = 4469.21
+o=p-n = (-2379,3783.42)
+o=||o|| = 4469.21
+o=overlapf mnpq = 4469.21
+o=overlapf qpnm = 4469.21
+o=overlapf mnnq = 0
+o=overlapf mqpn = 4469.21
+o=overlapf mpnq = 0
+#!line mq blue
+#!point m red
+#!text m r m
+#!point n red
+#!text n r n
+#!point p red
+#!text p r p
+#!point q red
+#!text q r q
+#
+#!layout 2 1
+#!newpage
+p=(0,0)
+q=(10,0)
+a=(-2,-5)
+b=(5,-5)
+c=(-10,0)
+d=(0,-10)
+e=(-3,5)
+f=(7,4)
+g=(9,-16)
+h=(13,-2)
+i=(-5,10)
+j=(15,8)
+#!point p red
+#!text p lt p
+#!point q red
+#!text q rt q
+#!line pq red
+#!point a blue
+#!text a t a
+#!point b blue
+#!text b r b
+#!line ab blue
+#!point c blue
+#!text c t c
+#!point d blue
+#!text d r d
+#!line cd blue
+#!point e blue
+#!text e t e
+#!point f blue
+#!text f t f
+#!line ef blue
+#!point g blue
+#!text g b g
+#!point h blue
+#!text h r h
+#!line gh blue
+#!point i blue
+#!text i l i
+#!point j blue
+#!text j r j
+#!line ij blue
+o=distf pqab = 5
+o=distf abpq = 5
+o=disti abp = 5
+o=disti pqb = 5
+t=closei abp = (0,-5)
+#!line tp brown -
+t=closei pqb = (5,0)
+#!line tb brown -
+o=distf pqcd = 7.07107
+o=distf cdpq = 7.07107
+o=distf dcpq = 7.07107
+o=disti cdp = 7.07107
+t=closei cdp = (-5,-5)
+#!line tp brown -
+o=distf pqef = 4
+o=distf qpfe = 4
+o=distf efpq = 4
+o=distf feqp = 4
+o=disti pqf = 4
+t=closei pqf = (7,0)
+#!line tf brown -
+o=distf pqgh = 3.60555
+o=distf qphg = 3.60555
+o=distf ghpq = 3.60555
+o=distf hgqp = 3.60555
+o=h-q = (3,-2)
+o=||o|| = 3.60555
+#!line hq brown -
+o=distf pqij = 8.45782
+o=distf qpji = 8.45782
+o=distf ijpq = 8.45782
+o=distf jiqp = 8.45782
+o=disti ijq = 8.45782
+t=closei ijq = (10.8416,8.41584)
+#!line tq brown -
+#
+#!newpage
+o=(32,-29)
+p=p+o = (32,-29)
+q=q+o = (42,-29)
+a=a+o = (30,-34)
+b=b+o = (37,-34)
+c=c+o = (22,-29)
+d=d+o = (32,-39)
+e=e+o = (29,-24)
+f=f+o = (39,-25)
+g=g+o = (41,-45)
+h=h+o = (45,-31)
+i=i+o = (27,-19)
+j=j+o = (47,-21)
+A=283
+p=p^A = (-21.0583,-37.7034)
+q=q^A = (-18.8088,-47.4471)
+a=a^A = (-26.3801,-36.8794)
+b=b^A = (-24.8054,-43.7)
+c=c^A = (-23.3078,-27.9597)
+d=d^A = (-30.802,-39.9529)
+e=e^A = (-16.8613,-33.6556)
+f=f^A = (-15.5862,-43.6242)
+g=g^A = (-34.6237,-50.072)
+h=h^A = (-20.0827,-50.8201)
+i=i^A = (-12.4394,-30.5821)
+j=j^A = (-9.88907,-50.5194)
+#!point p red
+#!text p lt p
+#!point q red
+#!text q rt q
+#!line pq red
+#!point a blue
+#!text a t a
+#!point b blue
+#!text b r b
+#!line ab blue
+#!point c blue
+#!text c t c
+#!point d blue
+#!text d r d
+#!line cd blue
+#!point e blue
+#!text e t e
+#!point f blue
+#!text f t f
+#!line ef blue
+#!point g blue
+#!text g b g
+#!point h blue
+#!text h r h
+#!line gh blue
+#!point i blue
+#!text i l i
+#!point j blue
+#!text j r j
+#!line ij blue
+o=distf pqab = 5
+o=distf abpq = 5
+o=disti abp = 5
+o=disti pqb = 5
+t=closei abp = (-25.9301,-38.8282)
+#!line tp brown -
+t=closei pqb = (-19.9335,-42.5753)
+#!line tb brown -
+o=distf pqcd = 7.07107
+o=distf cdpq = 7.07107
+o=distf dcpq = 7.07107
+o=disti cdp = 7.07107
+t=closei cdp = (-27.0549,-33.9563)
+#!line tp brown -
+o=distf pqef = 4
+o=distf qpfe = 4
+o=distf efpq = 4
+o=distf feqp = 4
+o=disti pqf = 4
+t=closei pqf = (-19.4836,-44.524)
+#!line tf brown -
+o=distf pqgh = 3.60555
+o=distf qphg = 3.60555
+o=distf ghpq = 3.60555
+o=distf hgqp = 3.60555
+o=h-q = (-1.27389,-3.37301)
+o=||o|| = 3.60555
+#!line hq brown -
+o=distf pqij = 8.45782
+o=distf qpji = 8.45782
+o=distf ijpq = 8.45782
+o=distf jiqp = 8.45782
+o=disti ijq = 8.45782
+t=closei ijq = (-10.4193,-46.374)
+#!line tq brown -
