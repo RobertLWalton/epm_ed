@@ -1899,7 +1899,9 @@ But we will use this theorem to prove:
 
 \begin{theorem}
 \label{FINITE-LINE-DISTANCE-THEOREM}
-If {\tt mn} and {\tt pq} are finite lines that do not intersect, then
+If either {\tt mn} and {\tt pq} are finite lines that do not intersect, or
+{\tt mn} and {\tt pq} are finite lines whose infinite extensions are
+identical, then
 points {\tt r$_{\tt mn}$} on {\tt mn} and
 {\tt r$_{\tt pq}$} on {\tt pq} may be chosen so that
 {\tt ||r$_{\tt mn}$ - r$_{\tt pq}$||} is minimal and
@@ -1916,7 +1918,13 @@ the distance from {\tt q} to {\tt mn} \\
 \end{theorem}
 
 \begin{indpar}{0.3in}
-Proof:  Consider the infinite line $\ell$ through
+Proof: By the previous theorem, {\tt r$_{\tt mn}$} in {\tt mn} and
+{\tt r$_{\tt pq}$} in {\tt pq} can be choosen so that
+{\tt ||r$_{\tt mn}$ - r$_{\tt pq}$||} is minimal.
+
+First assume that the infinite extensions of {\tt mn} and {\tt pq} are
+\underline{not} identical, and therefore {\tt mn} and {\tt pq} do not
+intersect.  Consider the infinite line $\ell$ through
 {\tt r$_{\tt mn}$} and {\tt r$_{\tt pq}$}, and assume that
 neither
 {\tt r$_{\tt mn}$} or {\tt r$_{\tt pq}$} are endpoints.
@@ -1937,6 +1945,13 @@ If on the other hand {\tt mn} and {\tt pq} are parallel,
 {\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$||} will remain constant
 for all translations of $\ell$, and $\ell$ can be translated
 in either direction until it encounters an endpoint.
+
+Second, assume that the infinite extensions of {\tt mn} and {\tt pq}
+are identical ({\tt mn} and {\tt pq} may or may not intersect).
+Then if either
+{\tt r$_{\tt mn}$} or {\tt r$_{\tt pq}$} is not an endpoint, they cannot
+be such that 
+{\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$||} is minimal; a contradiction.
 \end{indpar}
 
 The translation argument just given is an example of a
@@ -2874,7 +2889,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jul  3 22:12:29 EDT 2021
+Date:         & Sun Jul  4 23:03:39 EDT 2021
 
 \end{tabular}
 
