@@ -27,6 +27,7 @@
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{corollary}[definition]{Corollary}
 \newtheorem{theorem}[definition]{Theorem}
+\newtheorem{algorithm}[definition]{Algorithm}
 \newenvironment{indpar}[1]%
     {\begin{list}{}{\setlength{\leftmargin}{#1}}\item[]}%
     {\end{list}}
@@ -1995,6 +1996,47 @@ D to within computation accuracy.  Then
 our distance algorithm will be continuous and \underline{not} impose
 precision requirements on the data.
 
+The following is a continuous algorithm A:
+
+\begin{algorithm}
+Algorithm that returns true if finite lines {\tt mn} and {\tt pq}
+intersect, and false otherwise.
+
+Make the coordinate change:
+\begin{center}
+\begin{tabular}{rcl}
+\tt m & $\longmapsto$ & \tt M = ( (q-p)*(m-p), (q-p)\#(m-p) ) \\
+\tt n & $\longmapsto$ & \tt N = ( (q-p)*(n-p), (q-p)\#(n-p) ) \\
+\tt p & $\longmapsto$ & \tt P = ( (q-p)*(p-p), (q-p)\#(p-p) ) = (0,0) \\
+\tt q & $\longmapsto$ & \tt Q = ( (q-p)*(q-p), (q-p)\#(q-p) ) = (L,0) \\
+      &               & for {\tt L = (q-p)*(q-p) > 0} \\
+\end{tabular}
+\end{center}
+
+so infinite {\tt pq} $\longmapsto$ X-axis.
+
+Intersect the finite line {\tt MN} with the region
+\begin{center}
+$S = [0,L]\times(-\infty,+\infty) = \{(x,y):0\leq x\leq L\}$
+\end{center}
+
+If the intersection is empty, return false.
+
+Otherwise let {\tt M'} and {\tt N'} be the endpoints of the intersection
+({\tt M' = M} and {\tt N' = N} are possible).
+\begin{center}
+\begin{tabular}{ll}
+If & {\tt M'.y > 0} and {\tt N'.y > 0 } \\
+or & {\tt M'.y < 0} and {\tt N'.y < 0 } \\
+   & return false \\
+else & return true \\
+\end{tabular}
+\end{center}
+
+
+
+\end{algorithm}
+
 TBD
 
 
@@ -2895,7 +2937,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Jul  5 05:38:16 EDT 2021
+Date:         & Mon Jul  5 11:20:04 EDT 2021
 
 \end{tabular}
 
