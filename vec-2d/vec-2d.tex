@@ -1908,7 +1908,7 @@ points {\tt r$_{\tt mn}$} on {\tt mn} and
 one of the chosen points is an end-point of its finite line.
 
 Therefore the distance from {\tt mn} to {\tt pq} is the
-smallest of: \\
+minimum of: \\
 \hspace*{0.5in}\begin{tabular}{l}
 the distance from {\tt m} to {\tt pq} \\
 the distance from {\tt n} to {\tt pq} \\
@@ -1948,10 +1948,15 @@ in either direction until it encounters an endpoint.
 
 Second, assume that the infinite extensions of {\tt mn} and {\tt pq}
 are identical ({\tt mn} and {\tt pq} may or may not intersect).
-Then if either
-{\tt r$_{\tt mn}$} or {\tt r$_{\tt pq}$} is not an endpoint, they cannot
-be such that 
-{\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$||} is minimal; a contradiction.
+If {\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$|| > 0} and
+either
+{\tt r$_{\tt mn}$} or {\tt r$_{\tt pq}$} is not an endpoint, the one
+that is not an endpoint can be translated right or left to decrease
+{\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$||}, contradicting the minimality of
+{\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$||}.  If on the other hand
+{\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$|| = 0} and
+{\tt r$_{\tt mn}$ = r$_{\tt pq}$} is not an endpoint, it can be
+translated right or left until it becomes and endpoint.
 \end{indpar}
 
 The translation argument just given is an example of a
@@ -1961,35 +1966,36 @@ in computational geometry.
 Of course if the finite lines intersect the distance between
 them is zero.
 
-What if an endpoint of one finite line is on the other finite
-line.  Then the lines intersect, so the distance between them
-is {\tt 0}.  However, if we assume that the lines do not
-intersect and apply Theorem~\ref{FINITE-LINE-DISTANCE-THEOREM}
-to calculate the distance, we will also get {\tt 0}.  Thus
-the boundaries used to determine whether two finite lines
-intersect are continuous when used to calculate the distance
-between finite lines, and we need not worry about the inequalities
-being exact.  This gives:
-
-\begin{theorem}
-If {\tt mn} and {\tt pq} are finite lines, then if
-both \\
-\centerline{\tt (n-m)*(p-m) * (n-m)*(q-m) <= 0}
-and \\
-\centerline{\tt (q-p)*(m-p) * (q-p)*(n-p) <= 0}
-the distance from {\tt mn} to {\tt pq} is {\tt 0}
-(the lines intersect, possibly at the endpoint of
-one of the lines).
-Otherwise the distance is the smallest of: \\
+\begin{corollary}
+If two finite lines {\tt mn} and {\tt pq} intersect, the distance
+between them is {\tt 0}.  Otherwise the distance is the minimum of: \\
 \hspace*{0.5in}\begin{tabular}{l}
 the distance from {\tt m} to {\tt pq} \\
 the distance from {\tt n} to {\tt pq} \\
 the distance from {\tt p} to {\tt mn} \\
 the distance from {\tt q} to {\tt mn} \\
-\end{tabular} \\
-(the lines do not intersect, or the endpoint of one line
-is on the other line).
-\end{theorem}
+\end{tabular}
+\end{corollary}
+
+This corollary gives an algorithm to compute the distance between
+two finite lines as follows.  Let A be the answer to the question:
+do the lines intersect.  Let D be the distance computed by the
+corollary if A is false.  Then if A is true, return 0, else return D.
+
+But now we have a difficulty: the algorithms we have developed
+above for computing A are discontinuous and impose precision
+requirements on the data.  What we want is a continuous algorithm 
+to compute A,
+or more specifically, an algorithm that makes errors only if D = 0
+to within computational accuracy.  Then if A is erroneously
+false, D will be returned, which is the same value that would be
+returned if A is true, to within computational accuracy.  Or if
+A is erroneously true, 0 would be returned, which is the same as
+D to within computation accuracy.  Then
+our distance algorithm will be continuous and \underline{not} impose
+precision requirements on the data.
+
+TBD
 
 
 \newpage
@@ -2889,7 +2895,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sun Jul  4 23:03:39 EDT 2021
+Date:         & Mon Jul  5 05:38:16 EDT 2021
 
 \end{tabular}
 
