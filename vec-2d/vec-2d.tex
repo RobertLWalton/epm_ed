@@ -1996,9 +1996,9 @@ D to within computation accuracy.  Then
 our distance algorithm will be continuous and \underline{not} impose
 precision requirements on the data.
 
-The following is a continuous algorithm A:
+The following algorithm A has the require continuity property:
 
-\begin{algorithm}
+\begin{algorithm}\label{INTERSECTION-ALGORITHM}
 Algorithm that returns true if finite lines {\tt mn} and {\tt pq}
 intersect, and false otherwise.
 
@@ -2033,9 +2033,17 @@ else & return true \\
 \end{tabular}
 \end{center}
 
-
-
 \end{algorithm}
+
+We want to state the required continuity problem of
+Algorithm~\ref{INTERSECTION-ALGORITHM} more precisely.
+Let
+\begin{center}
+$R=\{(m,n,p,q): m\neq n, p\neq q\} \subset {\cal R}^8$ \\
+$T=\{(m,n,p,q)\in R:
+     \textrm{Algorithm~\ref{INTERSECTION-ALGORITHM} returns true}\}$ \\
+$B$ = boundary of $T$ in $R$
+\end{center}
 
 TBD
 
@@ -2937,7 +2945,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Jul  5 11:20:04 EDT 2021
+Date:         & Tue Jul  6 11:23:28 EDT 2021
 
 \end{tabular}
 
