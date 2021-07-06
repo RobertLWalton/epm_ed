@@ -677,24 +677,30 @@ vec commoni				//commoni mnpq
 double distf				// distf mnpq
     ( vec m, vec n, vec p, vec q )
 {
-    // Solve m + t * ( n - m ) = p + s * ( q - p)
-    // for t and s and check if 0 <= s,t <= 1.  If
-    // so, there is an intersection point and distance
-    // is zero.  If not, go to CHECK_ENDPOINTS.
-    //
-    double A = cross ( n - m, q - p );
-    double t, s;
-    if ( A == 0 )
-        goto CHECK_ENDPOINTS;  // Lines are parallel.
-    t = cross ( p - m, q - p ) / A;
-    s = cross ( n - m, m - p ) / A;
-    if ( t < 0 ) goto CHECK_ENDPOINTS;
-    if ( t > 1 ) goto CHECK_ENDPOINTS;
-    if ( s < 0 ) goto CHECK_ENDPOINTS;
-    if ( s > 1 ) goto CHECK_ENDPOINTS;
+    vec pq = q - p;
+    vec M = change ( pq, m - p );
+    vec N = change ( pq, n - p );
+    double L = pq * pq;
+    if ( M.x < 0 && N.x < 0 ) goto CHECK_ENDPOINTS;
+    if ( M.x > L && N.x > L ) goto CHECK_ENDPOINTS;
+    if ( M.x > N.x ) swap ( M, N );
+    if ( M.x < 0 )
+    {
+	double MNx = N.x - M.x;
+        double s = - M.x / MNx;
+	M = (1-s) * M + s * N;
+    }
+    if ( N.x > L )
+    {
+	double MNx = N.x - M.x;
+        double s = ( N.x - L ) / MNx;
+	N = (1-s) * N + s * M;
+    }
+    if ( M.y > 0 && N.y > 0 ) goto CHECK_ENDPOINTS;
+    if ( M.y < 0 && N.y < 0 ) goto CHECK_ENDPOINTS;
     return 0;  // Finite lines intersect.
 
-CHECK_ENDPOINTS:
+CHECK_ENDPOINTS:  // Finite lines do NOT intersect.
 
     double Dm = distf ( p, q, m );
     double Dn = distf ( p, q, n );
