@@ -2042,11 +2042,79 @@ Let
 $R=\{(m,n,p,q): m\neq n, p\neq q\} \subset {\cal R}^8$ \\
 $T=\{(m,n,p,q)\in R:
      \textrm{Algorithm~\ref{INTERSECTION-ALGORITHM} returns true}\}$ \\
-$B$ = boundary of $T$ in $R$
+$B$ = boundary of $T$ in $R$ \\
+$D$ be \begin{tabular}[t]{@{}l}
+the minimum of: \\
+the distance from {\tt m} to {\tt pq} \\
+the distance from {\tt n} to {\tt pq} \\
+the distance from {\tt p} to {\tt mn} \\
+the distance from {\tt q} to {\tt mn} \\
+\end{tabular}
 \end{center}
 
-TBD
+Then we want to prove:
+\begin{theorem}
+$D = 0$ on $B$.
+\end{theorem}
 
+Since $D$ is continuous on $R$, this follows immediately from:
+\begin{lemma}
+For every $b\in B$ and every neighborhood $B_b$ of $b$ in $R$,
+there is a point $d\in B_b$ at with $D=0$.
+\end{lemma}
+
+\begin{indpar}{0.3in}
+Proof:
+
+Using the notation of the algorithm, if {\tt MN} intersects $S$,
+then if {\tt M'.y = 0}, either {\tt M' = M} and {\tt M} is on
+the line {\tt PQ}, or {\tt M'.x = P.x} or {\tt M'.x = Q.x} and
+{\tt P} or {\tt Q} is on the line {\tt MN}, so in either case
+$D=0$.  Similarly if {\tt N'.y = 0} then $D=0$.
+
+Since $R$ is open in ${\cal R}^8$, $B_b$ contains a
+convex neighborhood of $b$, so we will assume that $B_b$ is
+convex.  By definition of the boundary, $B_b$ contains a point
+$b_t\in T$ and a point $b_f\not\in T$, and by convexity contains
+all the points on the line $L$ between $b_t$ and $b_f$.
+We need merely show that $D=0$ for some point on $L$.
+
+Let us think of {\tt M}, {\tt N}, {\tt M'}, {\tt N'}, {\tt P}, {\tt Q}
+as functions on points of $L$.  Then {\tt M'($b_t$)} and {\tt N'($b_t$)}
+are in $S$ and are not both on the same side of the line {\tt y = 0},
+since the algorithm returns true for $b_t$.  If {\tt M'.y = 0}
+for any point of $L\cap T$, then $D=0$ for that point and we are done,
+so we will assume this does not happen.  Similarly we will assume
+that {\tt N'.y = 0} does not happen for any point of $L\cap T$.
+Without loss of generality, we will assume that {\tt M'.y > 0 > N'.y}.
+
+Case 1: {\tt MN} intersects $S$ for all points on $L$.
+Then either {\tt M'($b_f$).y > 0} and {\tt N'($b_f$).y > 0} or
+{\tt M'($b_f$).y < 0} and {\tt N'($b_f$).y < 0}.  Since
+{\tt M'.y} and {\tt N'.y} are continuous on $L$, one of these
+must be {\tt 0} for some point of $L$, and $D=0$ for that point.
+
+Case 2: {\tt MN} does not intersect $S$ for some point of $L$.
+As {\tt MN} intersects $S$ for $b_t$, and {\tt MN} is a continuous
+function in $L$, then for some point $b_i$ on $L$ we must have:
+\begin{indpar}{0.3in}
+Case 2a: {\tt M.x = Q.x} and {\tt N.x > Q.x}.  Consequently
+{\tt N' = M} so as in Case 1 one of {\tt M'.y} and {\tt N'.y}
+must be {\tt 0} for some point in the interval $[b_t,b_i]$.
+\\
+Case 2b: {\tt M.x = Q.x = N.x}.  Then {\tt Q} is on {\tt MN} so
+$D=0$ for $b_i$.
+\\
+Other Cases: Like Case 2a or 2b but with {\tt P} and {\tt Q} and
+{\tt <} and {\tt >} switched, or with
+{\tt M} and {\tt N} switched.
+
+\end{indpar}
+The fact that $b_i$ exists and falls into one of these cases
+involves inductively defining an open covering of the compact
+set $L$ and observing that all open coverings of $L$ have a
+finite subcovering: this is mathematics we will not go into.
+\end{indpar}
 
 \newpage
 
@@ -2945,7 +3013,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Jul  6 11:23:28 EDT 2021
+Date:         & Tue Jul  6 11:52:18 EDT 2021
 
 \end{tabular}
 
