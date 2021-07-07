@@ -2095,25 +2095,40 @@ Then either {\tt M'($b_f$).y > 0} and {\tt N'($b_f$).y > 0} or
 must be {\tt 0} for some point of $L$, and $D=0$ for that point.
 
 Case 2: {\tt MN} does not intersect $S$ for some point of $L$.
-As {\tt MN} intersects $S$ for $b_t$, and {\tt MN} is a continuous
-function in $L$, then for some point $b_i$ on $L$ we must have:
+Let
+\begin{center}
+$I = \{ b_i\in R: {\tt MN} \textrm{~intersects~} S\}$
+\end{center}
+(Note that $S$ depends on {\tt p} and {\tt q}.)
+Then the complement of $I$ is open in $R$, so $I$ is closed, so
+$I\cap L$ is closed in $L$ and
+has a boundary point $b_j$ between $b_t$ and $b_f$.  At $b_j$
+(which is not to be confused with $b_b$)
+one of the following is true:
+\begin{center}
+\begin{tabular}{l}
+{\tt M.x} $=$ {\tt Q.x} $\leq$ {\tt N.x} \\
+{\tt N.x} $=$ {\tt Q.x} $\leq$ {\tt M.x} \\
+{\tt M.x} $\leq$ {\tt P.x} = {\tt N.x} \\
+{\tt N.x} $\leq$ {\tt P.x} = {\tt M.x} \\
+\end{tabular}
+\end{center}
+For if not, there would be an open interval containing $b_j$ in $L$
+that would be in $I\cap L$ and $b_j$ would not be a boundary
+point of $I\cap L$ in $L$.
+
+We will prove that $D=0$ at $b_j$.  We give the proof
+for just the first of these four cases,
+as the proof for the other three cases is similar.
+	
 \begin{indpar}{0.3in}
-Case 2a: {\tt M.x = Q.x} and {\tt N.x > Q.x}.  Consequently
+Case 2a: {\tt M.x = Q.x < N.x}.  Then
 {\tt N' = M} so as in Case 1 one of {\tt M'.y} and {\tt N'.y}
-must be {\tt 0} for some point in the interval $[b_t,b_i]$.
+must be {\tt 0} for some point in the interval $[b_t,b_j]$.
 \\
 Case 2b: {\tt M.x = Q.x = N.x}.  Then {\tt Q} is on {\tt MN} so
-$D=0$ for $b_i$.
-\\
-Other Cases: Like Case 2a or 2b but with {\tt P} and {\tt Q} and
-{\tt <} and {\tt >} switched, or with
-{\tt M} and {\tt N} switched.
-
+$D=0$ for $b_j$.
 \end{indpar}
-The fact that $b_i$ exists and falls into one of these cases
-involves inductively defining an open covering of the compact
-set $L$ and observing that all open coverings of $L$ have a
-finite subcovering: this is mathematics we will not go into.
 \end{indpar}
 
 \newpage
