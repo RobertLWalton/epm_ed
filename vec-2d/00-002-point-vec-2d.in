@@ -1,0 +1,204 @@
+# Test Non-Continuous
+# Line and Point Calculator Operations
+#
+#!layout 3 2
+o=(1,1)
+p=(-342,954)
+q=(-6,9)
+q=q+p
+a=(-10,15)
+a=a+p
+b=(-8,12)
+b=b+p
+b=b+o
+c=q
+c=c-o
+d=(-4,6)
+d=d+p
+e=(-2,3)
+e=e+p
+e=e+o
+f=(2,-3)
+f=f+p
+g=(4,-6)
+g=g+p
+g=g-o
+h=g+o
+L=(-13,-13)
+U=(18,18)
+L=L+p
+U=U+p
+#!newpage LU
+#!header Original
+u=q-p
+A=azm u
+#!infline pA
+#!point p red 2
+#!text p tr p
+#!point q red 2
+#!text q tr q
+#!line pq red e
+#!point a blue 2
+#!text a tr a
+#!point b blue 2
+#!text b tr b
+#!point c blue 2
+#!text c l c
+#!point d blue 2
+#!text d tr d
+#!point e blue 2
+#!text e r e
+#!point f blue 2
+#!text f tr f
+#!point g blue 2
+#!text g l g
+#!point h blue 2
+#!text h tr h
+#
+D=6
+o = sidei pqpD
+o = sidei pqqD
+o = onf pqpD
+o = onf pqqD
+#
+o = sidei pqaD
+o = sidei pqbD
+o = sidei pqcD
+o = sidei pqdD
+o = sidei pqeD
+o = sidei pqfD
+o = sidei pqgD
+o = sidei pqhD
+o = onf pqaD
+o = onf pqbD
+o = onf pqcD
+o = onf pqdD
+o = onf pqeD
+o = onf pqfD
+o = onf pqgD
+o = onf pqhD
+#
+o=p
+p=p-o
+q=q-o
+a=a-o
+b=b-o
+c=c-o
+d=d-o
+e=e-o
+f=f-o
+g=g-o
+h=h-o
+u=q-p
+P=u:p
+Q=u:q
+A=u:a
+B=u:b
+C=u:c
+D=u:d
+E=u:e
+F=u:f
+G=u:g
+H=u:h
+L=(-150,-150)
+U=(220,220)
+#!newpage LU
+#!header After Map v -> V = (q-p):(v-p)
+s=0
+#!infline Ps
+x=(-125,0)
+#!text x lt X-axis 
+#!point P red 2
+#!text P t P=(0,0)
+#!point Q red 2
+#!text Q b Q
+#!line PQ red e
+#!point A blue 2
+#!text A t A
+#!point B blue 2
+#!text B b B
+#!point C blue 2
+#!text C t C
+#!point D blue 2
+#!text D t D
+#!point E blue 2
+#!text E b E
+#!point F blue 2
+#!text F b F
+#!point G blue 2
+#!text G t G
+#!point H blue 2
+#!text H b H
+#
+L=(-4,-4)
+U=(4,4)
+p=(0,0)
+u=(3.5,-1.5)
+v=(2.5,3.5)
+q=(3.0,2.0)
+D=6
+b=between pquvD
+b=between pqvuD
+b=between pqquD
+b=between pqvqD
+b=between pqvvD
+#!newpage LU
+#!point p red
+#!text p l p
+#!point q red
+#!text q r q
+#!point u brown
+#!text u r u
+#!point v blue
+#!text v r v
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(-1.0,3.0)
+b=between pquvD
+b=between pqvuD
+#!newpage LU
+#!point p red
+#!text p l p
+#!point q red
+#!text q t q
+#!point u brown
+#!text u r u
+#!point v blue
+#!text v r v
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(-3.0,-2.0)
+b=between pquvD
+b=between pqvuD
+#!newpage LU
+#!point p red
+#!text p tl p
+#!point q red
+#!text q l q
+#!point u brown
+#!text u r u
+#!point v blue
+#!text v r v
+#!line pq red
+#!line pu brown
+#!line pv blue
+#
+q=(1.0,-3.0)
+b=between pquvD
+b=between pqvuD
+#!newpage LU
+#!point p red
+#!text p l p
+#!point q red
+#!text q b q
+#!point u brown
+#!text u r u
+#!point v blue
+#!text v r v
+#!line pq red
+#!line pu brown
+#!line pv blue

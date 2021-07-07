@@ -1,204 +1,310 @@
-# Test Non-Continuous
-# Line and Point Calculator Operations
+# Test Continuous Line and Point Calculator Operations
+# Same as 00-000-point-vec-2d.in but for scaling
+# transform: v --> s*v
 #
-#!layout 3 2
-o=(1,1)
-p=(-342,954)
+s=1e-20
+#
+#!layout 2 2
+#
+# Case 1
+#
+p=(20,32)
+q=(-4,-3)
+q=q+p = (16,29)
+x=(-3,-6)
+x=x+p = (17,26)
+y=(-4,0)
+y=y+p = (16,32)
+z=(-1,4)
+z=z+p = (19,36)
+#
+l=(-8,-8)
+l=l+p = (12,24)
+u=(5,5)
+u=u+p = (25,37)
+# Scale by s:
+p=s*p = (2e-19,3.2e-19)
+q=s*q = (1.6e-19,2.9e-19)
+x=s*x = (1.7e-19,2.6e-19)
+y=s*y = (1.6e-19,3.2e-19)
+z=s*z = (1.9e-19,3.6e-19)
+l=s*l = (1.2e-19,2.4e-19)
+u=s*u = (2.5e-19,3.7e-19)
+#!newpage lu
+#!header Case 1: Original
+#
+#!point p red 3
+#!text p br p
+#!point q red 3
+#!text q lt q
+#!point x blue 3
+#!text x r x
+#!point y blue 3
+#!text y l y
+#!point z blue 3
+#!text z t z
+u=q-p = (-4e-20,-3e-20)
+A=azm u = 216.87
+#!infline pA
+#!line pq red
+#
+e=closei pqx = (1.52e-19,2.84e-19)
+f=closef pqx = (1.6e-19,2.9e-19)
+#!line xe blue
+#!line xf brown
+g=closei pqy = (1.744e-19,3.008e-19)
+h=closef pqy = (1.744e-19,3.008e-19)
+#!line yg blue
+#!line yh brown
+i=closei pqz = (2.128e-19,3.296e-19)
+j=closef pqz = (2e-19,3.2e-19)
+#!line zi blue
+#!line zj brown
+#
+o=disti pqx = 3e-20
+o=e-x = (-1.8e-20,2.4e-20)
+o=||o|| = 3e-20
+o=disti pqy = 2.4e-20
+o=g-y = (1.44e-20,-1.92e-20)
+o=||o|| = 2.4e-20
+o=disti pqz = 3.8e-20
+o=i-z = (2.28e-20,-3.04e-20)
+o=||o|| = 3.8e-20
+#
+o=distf pqx = 3.16228e-20
+o=f-x = (-1e-20,3e-20)
+o=||o|| = 3.16228e-20
+o=distf pqy = 2.4e-20
+o=h-y = (1.44e-20,-1.92e-20)
+o=||o|| = 2.4e-20
+o=distf pqz = 4.12311e-20
+o=j-z = (1e-20,-4e-20)
+o=||o|| = 4.12311e-20
+#
+o=p = (2e-19,3.2e-19)
+z=z-o = (-1e-20,4e-20)
+y=y-o = (-4e-20,0)
+x=x-o = (-3e-20,-6e-20)
+q=q-o = (-4e-20,-3e-20)
+p=p-o = (0,0)
+e=e-o = (-4.8e-20,-3.6e-20)
+f=f-o = (-4e-20,-3e-20)
+g=g-o = (-2.56e-20,-1.92e-20)
+h=h-o = (-2.56e-20,-1.92e-20)
+i=i-o = (1.28e-20,9.6e-21)
+j=j-o = (0,0)
+#
+u=q-p = (-4e-20,-3e-20)
+Z=u:z = (-8e-40,-1.9e-39)
+Y=u:y = (1.6e-39,-1.2e-39)
+X=u:x = (3e-39,1.5e-39)
+Q=u:q = (2.5e-39,0)
+P=u:p = (-0,0)
+E=u:e = (3e-39,-3.26265e-55)
+F=u:f = (2.5e-39,0)
+G=u:g = (1.6e-39,6.5253e-55)
+H=u:h = (1.6e-39,6.5253e-55)
+I=u:i = (-8e-40,2.44699e-55)
+J=u:j = (-0,0)
+#
+o = ||u|| = 5e-20
+#
+u=(32,32)
+l=(-22,-22)
+u=s*u = (3.2e-19,3.2e-19)
+u=s*u = (3.2e-39,3.2e-39)
+l=s*l = (-2.2e-19,-2.2e-19)
+l=s*l = (-2.2e-39,-2.2e-39)
+#!newpage lu
+#!header Case 1: After Map v -> V = (q-p):(v-p)
+#
+#!point P red 3
+#!text P t P=(0,0)
+#!point Q red 3
+#!text Q b Q
+#!point X blue 3
+#!text X r X
+#!point Y blue 3
+#!text Y b Y
+#!point Z blue 3
+#!text Z b Z
+u=Q-P = (2.5e-39,0)
+A=azm u = 0
+#!infline PA
+x=l.x = -2.2e-39
+y=0
+v=(x,y) = (-2.2e-39,0)
+#!text v t X-axis
+#!line PQ red
+#
+#!line XE blue
+#!line XF brown
+#!line YG blue
+#!line YH brown
+#!line ZI blue
+#!line ZJ brown
+#
+o=E-X = (0,-1.5e-39)
+o=||o|| = 1.5e-39
+o=G-Y = (3.26265e-55,1.2e-39)
+o=||o|| = 1.2e-39
+o=I-Z = (0,1.9e-39)
+o=||o|| = 1.9e-39
+#
+o=F-X = (-5e-40,-1.5e-39)
+o=||o|| = 1.58114e-39
+o=H-Y = (3.26265e-55,1.2e-39)
+o=||o|| = 1.2e-39
+o=J-Z = (8e-40,1.9e-39)
+o=||o|| = 2.06155e-39
+#
+# Case 2
+#
+p=(-4889,+56743)
 q=(-6,9)
-q=q+p = (-348,963)
-a=(-10,15)
-a=a+p = (-352,969)
-b=(-8,12)
-b=b+p = (-350,966)
-b=b+o = (-349,967)
-c=q = (-348,963)
-c=c-o = (-349,962)
-d=(-4,6)
-d=d+p = (-346,960)
-e=(-2,3)
-e=e+p = (-344,957)
-e=e+o = (-343,958)
-f=(2,-3)
-f=f+p = (-340,951)
-g=(4,-6)
-g=g+p = (-338,948)
-g=g-o = (-339,947)
-h=g+o = (-338,948)
-L=(-13,-13)
-U=(18,18)
-L=L+p = (-355,941)
-U=U+p = (-324,972)
-#!newpage LU
-#!header Original
-u=q-p = (-6,9)
+q=q+p = (-4895,56752)
+x=(-10,15)
+x=x+p = (-4899,56758)
+y=(-4,6)
+y=y+p = (-4893,56749)
+z=(6,-9)
+z=z+p = (-4883,56734)
+#
+l=(-12,-12)
+l=l+p = (-4901,56731)
+u=(18,18)
+u=u+p = (-4871,56761)
+# Scale by s:
+p=s*p = (-4.889e-17,5.6743e-16)
+q=s*q = (-4.895e-17,5.6752e-16)
+x=s*x = (-4.899e-17,5.6758e-16)
+y=s*y = (-4.893e-17,5.6749e-16)
+z=s*z = (-4.883e-17,5.6734e-16)
+l=s*l = (-4.901e-17,5.6731e-16)
+u=s*u = (-4.871e-17,5.6761e-16)
+#!newpage lu
+#!header Case 2: Original
+#
+#!point p red 3
+#!text p r p
+#!point q red 3
+#!text q r q
+#!point x blue 3
+#!text x l x
+#!point y blue 3
+#!text y l y
+#!point z blue 3
+#!text z l z
+u=q-p = (-6e-20,9e-20)
 A=azm u = 123.69
 #!infline pA
-#!point p red 2
-#!text p tr p
-#!point q red 2
-#!text q tr q
-#!line pq red e
-#!point a blue 2
-#!text a tr a
-#!point b blue 2
-#!text b tr b
-#!point c blue 2
-#!text c l c
-#!point d blue 2
-#!text d tr d
-#!point e blue 2
-#!text e r e
-#!point f blue 2
-#!text f tr f
-#!point g blue 2
-#!text g l g
-#!point h blue 2
-#!text h tr h
+#!line pq red
 #
-D=6
-o = sidei pqpD = 0
-o = sidei pqqD = 0
-o = onf pqpD = true
-o = onf pqqD = true
+e=closei pqx = (-4.899e-17,5.6758e-16)
+f=closef pqx = (-4.895e-17,5.6752e-16)
+#!line xe blue
+#!line xf brown
+g=closei pqy = (-4.893e-17,5.6749e-16)
+h=closef pqy = (-4.893e-17,5.6749e-16)
+#!line yg blue
+#!line yh brown
+i=closei pqz = (-4.883e-17,5.6734e-16)
+j=closef pqz = (-4.889e-17,5.6743e-16)
+#!line zi blue
+#!line zj brown
 #
-o = sidei pqaD = 0
-o = sidei pqbD = -1
-o = sidei pqcD = 1
-o = sidei pqdD = 0
-o = sidei pqeD = -1
-o = sidei pqfD = 0
-o = sidei pqgD = 1
-o = sidei pqhD = 0
-o = onf pqaD = false
-o = onf pqbD = false
-o = onf pqcD = false
-o = onf pqdD = true
-o = onf pqeD = false
-o = onf pqfD = false
-o = onf pqgD = false
-o = onf pqhD = false
+o=disti pqx = 5.12775e-32
+o=e-x = (4.31408e-32,0)
+o=||o|| = 4.31408e-32
+o=disti pqy = 3.41448e-33
+o=g-y = (0,0)
+o=||o|| = 0
+o=disti pqz = 5.4698e-32
+o=i-z = (-4.31408e-32,0)
+o=||o|| = 4.31408e-32
 #
-o=p = (-342,954)
+o=distf pqx = 7.2111e-20
+o=f-x = (4e-20,-6e-20)
+o=||o|| = 7.2111e-20
+o=distf pqy = 3.41448e-33
+o=h-y = (0,0)
+o=||o|| = 0
+o=distf pqz = 1.08167e-19
+o=j-z = (-6e-20,9e-20)
+o=||o|| = 1.08167e-19
+#
+o=p = (-4.889e-17,5.6743e-16)
+z=z-o = (6e-20,-9e-20)
+y=y-o = (-4e-20,6e-20)
+x=x-o = (-1e-19,1.5e-19)
+q=q-o = (-6e-20,9e-20)
 p=p-o = (0,0)
-q=q-o = (-6,9)
-a=a-o = (-10,15)
-b=b-o = (-7,13)
-c=c-o = (-7,8)
-d=d-o = (-4,6)
-e=e-o = (-1,4)
-f=f-o = (2,-3)
-g=g-o = (3,-7)
-h=h-o = (4,-6)
-u=q-p = (-6,9)
+e=e-o = (-1e-19,1.5e-19)
+f=f-o = (-6e-20,9e-20)
+g=g-o = (-4e-20,6e-20)
+h=h-o = (-4e-20,6e-20)
+i=i-o = (6e-20,-9e-20)
+j=j-o = (0,0)
+#
+u=q-p = (-6e-20,9e-20)
+Z=u:z = (-1.17e-38,-5.91649e-51)
+Y=u:y = (7.8e-39,-3.69332e-52)
+X=u:x = (1.95e-38,5.54651e-51)
+Q=u:q = (1.17e-38,0)
 P=u:p = (0,-0)
-Q=u:q = (117,0)
-A=u:a = (195,0)
-B=u:b = (159,-15)
-C=u:c = (114,15)
-D=u:d = (78,0)
-E=u:e = (42,-15)
-F=u:f = (-39,0)
-G=u:g = (-81,15)
-H=u:h = (-78,0)
-L=(-150,-150)
-U=(220,220)
-#!newpage LU
-#!header After Map v -> V = (q-p):(v-p)
-s=0
-#!infline Ps
-x=(-125,0)
-#!text x lt X-axis 
-#!point P red 2
+E=u:e = (1.95e-38,1.66395e-51)
+F=u:f = (1.17e-38,0)
+G=u:g = (7.8e-39,-3.69332e-52)
+H=u:h = (7.8e-39,-3.69332e-52)
+I=u:i = (-1.17e-38,-2.03394e-51)
+J=u:j = (0,-0)
+o = ||u|| = 1.08167e-19
+#
+u=(240,240)
+l=(-180,-180)
+u=s*u = (2.4e-18,2.4e-18)
+u=s*u = (2.4e-38,2.4e-38)
+l=s*l = (-1.8e-18,-1.8e-18)
+l=s*l = (-1.8e-38,-1.8e-38)
+#!newpage lu
+#!header Case 2: After Map v -> V = (q-p):(v-p)
+#
+#!point P red 3
 #!text P t P=(0,0)
-#!point Q red 2
+#!point Q red 3
 #!text Q b Q
-#!line PQ red e
-#!point A blue 2
-#!text A t A
-#!point B blue 2
-#!text B b B
-#!point C blue 2
-#!text C t C
-#!point D blue 2
-#!text D t D
-#!point E blue 2
-#!text E b E
-#!point F blue 2
-#!text F b F
-#!point G blue 2
-#!text G t G
-#!point H blue 2
-#!text H b H
+#!point X blue 3
+#!text X b X
+#!point Y blue 3
+#!text Y b Y
+#!point Z blue 3
+#!text Z b Z
+u=Q-P = (1.17e-38,0)
+A=azm u = 0
+#!infline PA
+x=l.x = -1.8e-38
+y=0
+v=(x,y) = (-1.8e-38,0)
+#!text v t X-axis
+#!line PQ red
 #
-L=(-4,-4)
-U=(4,4)
-p=(0,0)
-u=(3.5,-1.5)
-v=(2.5,3.5)
-q=(3.0,2.0)
-D=6
-b=between pquvD = true
-b=between pqvuD = false
-b=between pqquD = false
-b=between pqvqD = false
-b=between pqvvD = false
-#!newpage LU
-#!point p red
-#!text p l p
-#!point q red
-#!text q r q
-#!point u brown
-#!text u r u
-#!point v blue
-#!text v r v
-#!line pq red
-#!line pu brown
-#!line pv blue
+#!line XE blue
+#!line XF brown
+#!line YG blue
+#!line YH brown
+#!line ZI blue
+#!line ZJ brown
 #
-q=(-1.0,3.0)
-b=between pquvD = false
-b=between pqvuD = true
-#!newpage LU
-#!point p red
-#!text p l p
-#!point q red
-#!text q t q
-#!point u brown
-#!text u r u
-#!point v blue
-#!text v r v
-#!line pq red
-#!line pu brown
-#!line pv blue
+o=E-X = (-2.58924e-51,-3.88256e-51)
+o=||o|| = 4.66673e-51
+o=G-Y = (0,0)
+o=||o|| = 0
+o=I-Z = (2.58794e-51,3.88256e-51)
+o=||o|| = 4.66601e-51
 #
-q=(-3.0,-2.0)
-b=between pquvD = false
-b=between pqvuD = true
-#!newpage LU
-#!point p red
-#!text p tl p
-#!point q red
-#!text q l q
-#!point u brown
-#!text u r u
-#!point v blue
-#!text v r v
-#!line pq red
-#!line pu brown
-#!line pv blue
-#
-q=(1.0,-3.0)
-b=between pquvD = false
-b=between pqvuD = true
-#!newpage LU
-#!point p red
-#!text p l p
-#!point q red
-#!text q b q
-#!point u brown
-#!text u r u
-#!point v blue
-#!text v r v
-#!line pq red
-#!line pu brown
-#!line pv blue
+o=F-X = (-7.8e-39,-5.54651e-51)
+o=||o|| = 7.8e-39
+o=H-Y = (0,0)
+o=||o|| = 0
+o=J-Z = (1.17e-38,5.91649e-51)
+o=||o|| = 1.17e-38
