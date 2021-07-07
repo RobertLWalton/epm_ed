@@ -1,6 +1,9 @@
 # Test Continuous Line and Point Calculator Operations
 #
 #!layout 2 2
+#
+# Case 1
+#
 p=(20,32)
 q=(-4,-3)
 q=q+p = (16,29)
@@ -138,6 +141,8 @@ o=H-Y = (0,12)
 o=||o|| = 12
 o=J-Z = (8,19)
 o=||o|| = 20.6155
+#
+# Case 2
 #
 p=(-4889,+56743)
 q=(-6,9)
