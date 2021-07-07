@@ -2,7 +2,7 @@
 # Same as 00-000-point-vec-2d.in but for scaling
 # transform: v --> s*v
 #
-s=1e-20
+s=1e-5
 #
 #!layout 2 2
 #
@@ -95,28 +95,26 @@ i=i-o
 j=j-o
 #
 u=q-p
-Z=u:z
-Y=u:y
-X=u:x
-Q=u:q
-P=u:p
-E=u:e
-F=u:f
-G=u:g
-H=u:h
-I=u:i
-J=u:j
+Z=u!z
+Y=u!y
+X=u!x
+Q=u!q
+P=u!p
+E=u!e
+F=u!f
+G=u!g
+H=u!h
+I=u!i
+J=u!j
 #
 o = ||u||
 #
-u=(32,32)
-l=(-22,-22)
+u=(8,8)
+l=(-5,-5)
 u=s*u
-u=s*u
-l=s*l
 l=s*l
 #!newpage lu
-#!header Case 1: After Map v -> V = (q-p):(v-p)
+#!header Case 1: After Map v -> V = (q-p)!(v-p)
 #
 #!point P red 3
 #!text P t P=(0,0)
@@ -247,27 +245,25 @@ i=i-o
 j=j-o
 #
 u=q-p
-Z=u:z
-Y=u:y
-X=u:x
-Q=u:q
-P=u:p
-E=u:e
-F=u:f
-G=u:g
-H=u:h
-I=u:i
-J=u:j
+Z=u!z
+Y=u!y
+X=u!x
+Q=u!q
+P=u!p
+E=u!e
+F=u!f
+G=u!g
+H=u!h
+I=u!i
+J=u!j
 o = ||u||
 #
-u=(240,240)
-l=(-180,-180)
+u=(25,25)
+l=(-15,-15)
 u=s*u
-u=s*u
-l=s*l
 l=s*l
 #!newpage lu
-#!header Case 2: After Map v -> V = (q-p):(v-p)
+#!header Case 2: After Map v -> V = (q-p)!(v-p)
 #
 #!point P red 3
 #!text P t P=(0,0)
