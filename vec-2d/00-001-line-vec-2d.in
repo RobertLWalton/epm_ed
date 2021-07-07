@@ -1,16 +1,26 @@
 # Test Continuous
 # Line and Line Calculator Operations
 #
+# Same as 00-000-line-vec-2d.in but for scaling
+# transform: v --> s*v
+#
+s=1e-5
+#
 #!layout 3 2 18
 m=(-9,-3)
 n=(6,2)
 p=(-5,-5)
 q=(7,7)
+m=s*m
+n=s*n
+p=s*p
+q=s*q
 c=commoni mnpq
 d=distf mnpq
 #
 #!newpage
 o=(29,-61)
+o=s*q
 m=m+o
 n=n+o
 p=p+o
@@ -76,6 +86,10 @@ m=(0,0)
 n=(10,0)
 p=(4.45,0)
 q=(11,0)
+m=s*m
+n=s*n
+p=s*p
+q=s*q
 o=p-n
 o=||o||
 o=overlapf mnpq
@@ -86,6 +100,7 @@ o=overlapf mpnq
 #
 #!newpage
 o=(3652.78,-6742.45)
+o=s*o
 m=m+o
 n=n+o
 p=p+o
@@ -170,6 +185,18 @@ g=(9,-16)
 h=(13,-2)
 i=(-5,10)
 j=(15,8)
+p=s*p
+q=s*q
+a=s*a
+b=s*b
+c=s*c
+d=s*d
+e=s*e
+f=s*f
+g=s*g
+h=s*h
+i=s*i
+j=s*j
 #!point p red
 #!text p lt p
 #!point q red
@@ -238,6 +265,7 @@ t=closei ijq
 #
 #!newpage
 o=(32,-29)
+o=s*o
 p=p+o
 q=q+o
 a=a+o

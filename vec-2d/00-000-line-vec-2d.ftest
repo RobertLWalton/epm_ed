@@ -264,34 +264,34 @@ h=h^A = (-20.0827,-50.8201)
 i=i^A = (-12.4394,-30.5821)
 j=j^A = (-9.88907,-50.5194)
 #!point p red
-#!text p lt p
+#!text p rt p
 #!point q red
-#!text q rt q
+#!text q rb q
 #!line pq red
 #!point a blue
 #!text a t a
 #!point b blue
-#!text b r b
+#!text b b b
 #!line ab blue
 #!point c blue
 #!text c t c
 #!point d blue
-#!text d r d
+#!text d b d
 #!line cd blue
 #!point e blue
 #!text e t e
 #!point f blue
-#!text f t f
+#!text f b f
 #!line ef blue
 #!point g blue
 #!text g b g
 #!point h blue
-#!text h r h
+#!text h br h
 #!line gh blue
 #!point i blue
-#!text i l i
+#!text i t i
 #!point j blue
-#!text j r j
+#!text j b j
 #!line ij blue
 o=distf pqab = 5
 o=distf abpq = 5
