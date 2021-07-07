@@ -20,7 +20,7 @@ d=distf mnpq
 #
 #!newpage
 o=(29,-61)
-o=s*q
+o=s*o
 m=m+o
 n=n+o
 p=p+o
