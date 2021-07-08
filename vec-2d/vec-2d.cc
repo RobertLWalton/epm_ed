@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sun Jul  4 12:36:08 EDT 2021
+// Date:	Thu Jul  8 14:11:56 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -601,6 +601,11 @@ bool between				//between pquvd
 	if ( sidei ( p, u, q, D ) == +1 ) return true;
 	else if ( sidei ( p, v, q, D ) == -1 ) return true;
 	else return false;
+    }
+    else if ( ( u - p ) * ( v - p ) < 0 )
+    {
+        if ( sidei ( p, u, q, D ) == +1 ) return true;
+        else return false;
     }
     else return false;
 }
