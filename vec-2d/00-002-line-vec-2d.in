@@ -1,0 +1,49 @@
+# Test Discontinuous
+# Line and Line Calculator Operations
+#
+D=6
+#!layout 3 2 18
+m=(-1,0)
+n=(1,0)
+p=(0,-1)
+q=(0,1)
+o=intersecti mnpqD
+o=intersectf mnpqD
+#
+#!newpage
+L=[(23,56),(-71,47)]
+m=L*m
+n=L*n
+p=L*p
+q=L*q
+o=intersecti mnpqD
+o=intersectf mnpqD
+#!point m red
+#!text m t m
+#!point n red
+#!text n t n
+#!line mn red
+#!point p blue
+#!text p b p
+#!point q blue
+#!text q t q
+#!line pq blue
+#
+#!newpage
+A=119
+m=m^A
+n=n^A
+p=p^A
+q=q^A
+o=intersecti mnpqD
+o=intersectf mnpqD
+#!point m red
+#!text m t m
+#!point n red
+#!text n b n
+#!line mn red
+#!point p blue
+#!text p t p
+#!point q blue
+#!text q t q
+#!line pq blue

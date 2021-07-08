@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Jul  8 14:11:56 EDT 2021
+// Date:	Thu Jul  8 18:23:10 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -618,7 +618,15 @@ bool intersecti		            //intersecti mnpqd
 {
     assert ( ! eq ( m, n, D ) );
     assert ( ! eq ( p, q, D ) );
-    return ! eq ( 0, cross ( q - p, n - m ), 2*D );
+    if ( eq ( 0, cross ( q - p, n - m ), 2*D ) )
+    {
+        // infinite mn is parallel to infinite pq
+	//
+	return ( eq ( cross ( q - p, p ),
+	              cross ( q - p, n ), 2*D ) );
+    }
+    else return true;
+        // infinite mn and infinite pq are NOT parallel
 }
 bool intersectf		            //intersectf mnpqd
     ( vec m, vec n, vec p, vec q, double D )
@@ -628,29 +636,34 @@ bool intersectf		            //intersectf mnpqd
 
     int side_m = sidei ( p, q, m, D );
     int side_n = sidei ( p, q, n, D );
-    if ( side_m == side_n ) return false;
+    if ( side_m == 0 && side_n == 0 )
+    {
+	// infinite mn is the same as infinite pq
+
+	double cp = ( q - p ) * ( p - p );
+	double cq = ( q - p ) * ( q - p );
+	double cm = ( q - p ) * ( m - p );
+	double cn = ( q - p ) * ( n - p );
+	assert ( cp == 0 );
+	assert ( cq > cp );
+	assert ( cm != cn );
+	if ( cm > cn ) swap ( cm, cn );
+	if ( lt ( cn, cp, 2*D ) ) return false;
+	    // [cm,cn] < [cp,cq]
+	if ( lt ( cq, cm, 2*D ) ) return false;
+	    // [cp,cq] < [cm,cn]
+	return true;
+    }
+    if ( side_m == side_n && side_m != 0 ) return false;
     	// finite mn does not intersect infinite pq
     int side_p = sidei ( m, n, p, D );
-    int side_q = sidei ( m, n, p, D );
-    if ( side_p == side_q ) return false;
+    int side_q = sidei ( m, n, q, D );
+    if ( side_p == side_q && side_p != 0 ) return false;
     	// finite pq does not intersect infinite mn
-    if ( side_m != 0 || side_n != 0 ) return true;
-        // finite mn is not a subset of infinite pq
-
-    double cp = ( q - p ) * ( p - p );
-    double cq = ( q - p ) * ( q - p );
-    double cm = ( q - p ) * ( m - p );
-    double cn = ( q - p ) * ( n - p );
-    assert ( cp == 0 );
-    assert ( cq > cp );
-    assert ( cm != cn );
-    if ( cm > cn ) swap ( cm, cn );
-    if ( lt ( cn, cp, 2*D ) ) return false;
-        // [cm,cn] < [cp,cq]
-    if ( lt ( cq, cm, 2*D ) ) return false;
-        // [cp,cq] < [cm,cn]
     return true;
+    	// finite mn and pq intersect at a single point
 }
+
 double overlapf				//overlapf mnpq
     ( vec m, vec n, vec p, vec q )
 {
