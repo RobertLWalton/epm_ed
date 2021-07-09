@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Jul  9 05:03:23 EDT 2021
+// Date:	Fri Jul  9 07:34:13 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -397,6 +397,12 @@ bool le ( double x, double y, int d )
 bool eq ( double x, double y, int d )
 {
     return fabs ( x - y ) < 0.5 * units[d];
+}
+
+double dround ( double s, int d )
+{
+    double i = round ( s / units[d] );
+    return i * units[d];
 }
 
 
@@ -947,10 +953,31 @@ bool compute_result ( void )
     }
     if ( match ( "$=$:$" ) )
     {
-	assert ( OP1.t == VECTOR );
-	assert ( OP2.t == VECTOR );
-	RES.t = VECTOR;
-	RES.v = change ( OP1.v, OP2.v );
+        if ( OP2.t == SCALAR )
+	{
+	    int d = dcheck ( OP2.s );
+	    if ( OP1.t == SCALAR )
+	        RES.s = dround ( OP1.s, d );
+	    else if ( OP1.t == VECTOR )
+	        RES.v = { dround ( OP1.v.x, d ),
+		          dround ( OP1.v.y, d ) };
+	    else if ( OP1.t == LINEAR )
+	        RES.l = { { dround ( OP1.l.lx.x, d ),
+		            dround ( OP1.l.lx.y, d ) },
+		          { dround ( OP1.l.ly.x, d ),
+		            dround ( OP1.l.ly.y, d ) }
+			};
+	    else
+	        return false;
+	    RES.t = OP1.t;
+	}
+	else
+	{
+	    assert ( OP1.t == VECTOR );
+	    assert ( OP2.t == VECTOR );
+	    RES.t = VECTOR;
+	    RES.v = change ( OP1.v, OP2.v );
+	}
 	return true;
     }
     if ( match ( "$=$!$" ) )
