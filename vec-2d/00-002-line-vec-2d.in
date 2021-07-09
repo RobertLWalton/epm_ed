@@ -2,48 +2,132 @@
 # Line and Line Calculator Operations
 #
 D=6
-#!layout 3 2 18
-m=(-1,0)
-n=(1,0)
-p=(0,-1)
-q=(0,1)
-o=intersecti mnpqD
-o=intersectf mnpqD
+#!layout 2 1 18
+p=(0,0)
+q=(1,0)
+a=(0.5,0.2)
+b=(0.5,0.01)
+c=(0.5,0)
+d=(0.5,-0.01)
+e=(0,0.2)
+f=(0,0.01)
+g=(0,-0.01)
+h=(1.01,0)
+i=(1.2,0)
+o=intersectf pqabD
+o=intersectf pqacD
+o=intersectf pqadD
+o=intersectf pqefD
+o=intersectf pqepD
+o=intersectf pqegD
+o=intersectf pqihD
+o=intersectf pqiqD
+o=intersectf pqicD
+o=intersectf piqcD
+o=intersectf pqbhD
+o=intersectf pqbfD
+o=intersectf pqbgD
 #
 #!newpage
-L=[(23,56),(-71,47)]
-m=L*m
-n=L*n
+L=[(23,36),(-71,37)]
 p=L*p
 q=L*q
-o=intersecti mnpqD
-o=intersectf mnpqD
-#!point m red
-#!text m t m
-#!point n red
-#!text n t n
-#!line mn red
-#!point p blue
-#!text p b p
-#!point q blue
-#!text q t q
-#!line pq blue
+a=L*a
+b=L*b
+c=L*c
+d=L*d
+e=L*e
+f=L*f
+g=L*g
+h=L*h
+i=L*i
+o=intersectf pqabD
+o=intersectf pqacD
+o=intersectf pqadD
+o=intersectf pqefD
+o=intersectf pqepD
+o=intersectf pqegD
+o=intersectf pqihD
+o=intersectf pqiqD
+o=intersectf pqicD
+o=intersectf piqcD
+o=intersectf pqbhD
+o=intersectf pqbfD
+o=intersectf pqbgD
+#!point p red
+#!text p lb p
+#!point q red
+#!text q br q
+#!line pq red
+#!point a blue
+#!text a t a
+#!point b blue
+#!text b t b
+#!point c red
+#!text c b c
+#!point d blue
+#!text d r d
+#!point e blue
+#!text e t e
+#!point f blue
+#!text f t f
+#!point g blue
+#!text g r g
+#!point h blue
+#!text h t h
+#!point i blue
+#!text i t i
 #
 #!newpage
 A=119
-m=m^A
-n=n^A
-p=p^A
-q=q^A
-o=intersecti mnpqD
-o=intersectf mnpqD
-#!point m red
-#!text m t m
-#!point n red
-#!text n b n
-#!line mn red
-#!point p blue
-#!text p t p
-#!point q blue
-#!text q t q
-#!line pq blue
+L=^A
+D=2
+L=L:D
+p=L*p
+q=L*q
+a=L*a
+b=L*b
+c=L*c
+d=L*d
+e=L*e
+f=L*f
+g=L*g
+h=L*h
+i=L*i
+D=4
+o=intersectf pqabD
+o=intersectf pqacD
+o=intersectf pqadD
+o=intersectf pqefD
+o=intersectf pqepD
+o=intersectf pqegD
+o=intersectf pqihD
+o=intersectf pqiqD
+o=intersectf pqicD
+o=intersectf piqcD
+o=intersectf pqbhD
+o=intersectf pqbfD
+o=intersectf pqbgD
+#!point p red
+#!text p r p
+#!point q red
+#!text q b q
+#!line pq red
+#!point a blue
+#!text a t a
+#!point b blue
+#!text b b b
+#!point c red
+#!text c lt c
+#!point d blue
+#!text d t d
+#!point e blue
+#!text e t e
+#!point f blue
+#!text f b f
+#!point g blue
+#!text g t g
+#!point h blue
+#!text h lt h
+#!point i blue
+#!text i t i
