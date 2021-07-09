@@ -55,7 +55,8 @@ A=azm u = 123.69
 #!point h blue 2
 #!text h tr h
 #
-D=6
+# Set D=3 to allow coordinate magnitudes up to 10**3
+D=3
 o = sidei pqpD = 0
 o = sidei pqqD = 0
 o = onf pqpD = true
@@ -137,7 +138,8 @@ u=(1.75,-0.75)
 w=-u = (-1.75,0.75)
 v=(1.25,1.35)
 q=(3.0,1.5)
-D=6
+# Set D=5 to allow coordinate magnitudes up to 10**1
+D=5
 b=between pquvD = true
 b=between pqvuD = false
 b=between pqvwD = false

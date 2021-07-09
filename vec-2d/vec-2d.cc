@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Jul  9 03:31:14 EDT 2021
+// Date:	Fri Jul  9 05:03:23 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -1305,6 +1305,12 @@ bool compute_result ( void )
 	assert ( OP3.t == VECTOR );
 	assert ( OP4.t == SCALAR );
 	int d = dcheck ( OP4.s );
+	assert ( units_ok ( OP1.v.x, d, 6 ) );
+	assert ( units_ok ( OP1.v.y, d, 6 ) );
+	assert ( units_ok ( OP2.v.x, d, 6 ) );
+	assert ( units_ok ( OP2.v.y, d, 6 ) );
+	assert ( units_ok ( OP3.v.x, d, 6 ) );
+	assert ( units_ok ( OP3.v.y, d, 6 ) );
 	RES.t = SCALAR;
 	RES.s = sidei ( OP1.v, OP2.v, OP3.v, d );
 	return true;
@@ -1317,6 +1323,12 @@ bool compute_result ( void )
 	assert ( OP3.t == VECTOR );
 	assert ( OP4.t == SCALAR );
 	int d = dcheck ( OP4.s );
+	assert ( units_ok ( OP1.v.x, d, 6 ) );
+	assert ( units_ok ( OP1.v.y, d, 6 ) );
+	assert ( units_ok ( OP2.v.x, d, 6 ) );
+	assert ( units_ok ( OP2.v.y, d, 6 ) );
+	assert ( units_ok ( OP3.v.x, d, 6 ) );
+	assert ( units_ok ( OP3.v.y, d, 6 ) );
 	RES.t = BOOLEAN;
 	RES.b = onf ( OP1.v, OP2.v, OP3.v, d );
 	return true;
@@ -1330,6 +1342,14 @@ bool compute_result ( void )
 	assert ( OP4.t == VECTOR );
 	assert ( OP5.t == SCALAR );
 	int d = dcheck ( OP5.s );
+	assert ( units_ok ( OP1.v.x, d, 6 ) );
+	assert ( units_ok ( OP1.v.y, d, 6 ) );
+	assert ( units_ok ( OP2.v.x, d, 6 ) );
+	assert ( units_ok ( OP2.v.y, d, 6 ) );
+	assert ( units_ok ( OP3.v.x, d, 6 ) );
+	assert ( units_ok ( OP3.v.y, d, 6 ) );
+	assert ( units_ok ( OP4.v.x, d, 6 ) );
+	assert ( units_ok ( OP4.v.y, d, 6 ) );
 	RES.t = BOOLEAN;
 	RES.b = between
 	    ( OP1.v, OP2.v, OP3.v, OP4.v, d );
