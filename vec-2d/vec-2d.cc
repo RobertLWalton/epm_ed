@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Thu Jul  8 18:23:10 EDT 2021
+// Date:	Fri Jul  9 03:31:14 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -47,9 +47,16 @@ var vars[128];
     // Implicitly initialized to
     // vars[...].t == 0 == NONE,
 
-double units[13] =  // units[d] = 10**(-d)
-    { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
-      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
+double units_data[31] =
+    { 1e15,  1e14,  1e13,  1e12,  1e11,
+      1e10,  1e9,   1e8,   1e7,   1e6,
+      1e5,   1e4,   1e3,   1e2,   1e1,
+      1e0,
+      1e-1,  1e-2,  1e-3,  1e-4,  1e-5,
+      1e-6,  1e-7,  1e-8,  1e-9,  1e-10,
+      1e-11, 1e-12, 1e-13, 1e-14, 1e-15 };
+double * units = & units_data[15];
+    // units[d] = 10**(-d) for -15 <= d <= +15
 
 vec zerov = { 0, 0 };  // Zero vector
 vec uxv = { 1, 0 };    // Unit vector in X direction.
@@ -323,31 +330,73 @@ int main ( int argc, char * argv[] )
     return 0;
 }
 
+// Judge's Check Functions
+//
+// dunits is like units but has a greater range in order
+// to support units_ok function below.
+//
+double dunits_data[51] =
+    { 1e30,  1e29,  1e28,  1e27,  1e26,
+      1e25,  1e24,  1e23,  1e22,  1e21,
+      1e20,  1e19,  1e18,  1e17,  1e16,
+      1e15,  1e14,  1e13,  1e12,  1e11,
+      1e10,  1e9,   1e8,   1e7,   1e6,
+      1e5,   1e4,   1e3,   1e2,   1e1,
+      1e0,
+      1e-1,  1e-2,  1e-3,  1e-4,  1e-5,
+      1e-6,  1e-7,  1e-8,  1e-9,  1e-10,
+      1e-11, 1e-12, 1e-13, 1e-14, 1e-15,
+      1e-16, 1e-17, 1e-18, 1e-19, 1e-20 };
+double * dunits = & dunits_data[30];
+    // dunits[d] = 10**(-d) for -30 <= d <= 20
+
+// Assert that d is an integer and -15 <= d <= +15,
+// and return d.
+//
+int dcheck ( double d )
+{
+    int d_as_integer = int ( d );
+    assert ( d_as_integer == d );
+    assert
+        ( -15 <= d_as_integer && d_as_integer <= +15 );
+    return d_as_integer;
+}
+
+// Return false if |s| > 10**(offset-d) or
+// |s| rounded to units of 10**d differs from |s|
+// by more than 10**(-d-2).
+//
+// -15 <= d <= 15 and 0 <= offset <= 14 are required
+// but not checked.
+//
+bool units_ok ( double s, int d, int offset )
+{
+    double delta = dunits[d];
+    double sabs = fabs ( s );
+    double sround = round ( sabs / delta );
+    if ( fabs ( sabs - sround * delta ) > dunits[d+2] )
+        return false;
+    if ( sabs > dunits[d-offset] ) 
+        return false;
+    return true;
+}
+
 // Scalar Calculator Functions
 // ------ ---------- ---------
 
-bool lt ( double x, double y, double d )
+bool lt ( double x, double y, int d )
 {
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return x < y - 0.5 * units[i];
+    return x < y - 0.5 * units[d];
 }
 
-bool le ( double x, double y, double d )
+bool le ( double x, double y, int d )
 {
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return x < y + 0.5 * units[i];
+    return x < y + 0.5 * units[d];
 }
 
-bool eq ( double x, double y, double d )
+bool eq ( double x, double y, int d )
 {
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return fabs ( x - y ) < 0.5 * units[i];
+    return fabs ( x - y ) < 0.5 * units[d];
 }
 
 
@@ -360,7 +409,7 @@ vec new_vec ( double x, double y )
     return r;
 }
 
-bool eq ( vec v, vec w, double d )
+bool eq ( vec v, vec w, int d )
 {
     return eq ( v.x, w.x, d ) && eq ( v.y, w.y, d );
 }
@@ -427,7 +476,7 @@ linear new_linear ( vec lx, vec ly )	    // [lx,ly]
     return r;
 }
 
-bool eq ( linear K, linear L, double d )    // K==L:d
+bool eq ( linear K, linear L, int d )    // K==L:d
 {
     return eq ( K.lx, L.lx, d ) && eq ( K.ly, L.ly, d );
 }
@@ -567,18 +616,16 @@ vec closef				//closef pqr
     else return closei ( p, q, r );
 }
 double sidei				//sidei pqr
-    ( vec p, vec q, vec r, double D )
+    ( vec p, vec q, vec r, int D )
 {
-    assert ( 0 <= D && D <= 6 );
     vec R = change ( q - p, r - p );
     if ( eq ( 0, R.y, 2*D ) ) return 0;
     else if ( R.y > 0 ) return +1;
     else return -1;
 }
 bool onf				//onf pqr
-    ( vec p, vec q, vec r, double D )
+    ( vec p, vec q, vec r, int D )
 {
-    assert ( 0 <= D && D <= 6 );
     vec Q = change ( q - p, q - p );
     vec R = change ( q - p, r - p );
     if ( ! eq ( 0, R.y, 2*D ) ) return false;
@@ -587,20 +634,26 @@ bool onf				//onf pqr
     else return true;
 }
 bool between				//between pquvd
-    ( vec p, vec q, vec u, vec v, double D )
+    ( vec p, vec q, vec u, vec v, int D )
 {
     int s = sidei ( p, u, v, D );
     if ( s == + 1 )
     {
-	if ( sidei ( p, u, q, D ) != +1 ) return false;
-	else if ( sidei ( p, v, q, D ) != -1 ) return false;
-	else return true;
+	if ( sidei ( p, u, q, D ) != +1 )
+	    return false;
+	else if ( sidei ( p, v, q, D ) != -1 )
+	    return false;
+	else
+	    return true;
     }
     else if ( s == -1 )
     {
-	if ( sidei ( p, u, q, D ) == +1 ) return true;
-	else if ( sidei ( p, v, q, D ) == -1 ) return true;
-	else return false;
+	if ( sidei ( p, u, q, D ) == +1 )
+	    return true;
+	else if ( sidei ( p, v, q, D ) == -1 )
+	    return true;
+	else
+	    return false;
     }
     else if ( ( u - p ) * ( v - p ) < 0 )
     {
@@ -614,7 +667,7 @@ bool between				//between pquvd
 // Line and Line Calculator Functions
 //
 bool intersecti		            //intersecti mnpqd
-    ( vec m, vec n, vec p, vec q, double D )
+    ( vec m, vec n, vec p, vec q, int D )
 {
     assert ( ! eq ( m, n, D ) );
     assert ( ! eq ( p, q, D ) );
@@ -629,7 +682,7 @@ bool intersecti		            //intersecti mnpqd
         // infinite mn and infinite pq are NOT parallel
 }
 bool intersectf		            //intersectf mnpqd
-    ( vec m, vec n, vec p, vec q, double D )
+    ( vec m, vec n, vec p, vec q, int D )
 {
     assert ( ! eq ( m, n, D ) );
     assert ( ! eq ( p, q, D ) );
@@ -1006,11 +1059,12 @@ bool compute_result ( void )
     if ( match ( "$=$<$:$" ) )
     {
 	assert ( OP3.t == SCALAR );
+	int d = dcheck ( OP3.s );
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
 	    RES.t = BOOLEAN;
-	    RES.b = lt ( OP1.s, OP2.s, OP3.s );
+	    RES.b = lt ( OP1.s, OP2.s, d );
 	}
 	else
 	    return false;
@@ -1019,11 +1073,12 @@ bool compute_result ( void )
     if ( match ( "$=$<=$:$" ) )
     {
 	assert ( OP3.t == SCALAR );
+	int d = dcheck ( OP3.s );
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
 	    RES.t = BOOLEAN;
-	    RES.b = le ( OP1.s, OP2.s, OP3.s );
+	    RES.b = le ( OP1.s, OP2.s, d );
 	}
 	else
 	    return false;
@@ -1032,23 +1087,24 @@ bool compute_result ( void )
     if ( match ( "$=$==$:$" ) )
     {
 	assert ( OP3.t == SCALAR );
+	int d = dcheck ( OP3.s );
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
 	    RES.t = BOOLEAN;
-	    RES.b = eq ( OP1.s, OP2.s, OP3.s );
+	    RES.b = eq ( OP1.s, OP2.s, d );
 	}
 	else if ( OP1.t == VECTOR )
 	{
 	    assert ( OP2.t == VECTOR );
 	    RES.t = BOOLEAN;
-	    RES.b = eq ( OP1.v, OP2.v, OP3.s );
+	    RES.b = eq ( OP1.v, OP2.v, d );
 	}
 	else if ( OP1.t == LINEAR )
 	{
 	    assert ( OP2.t == LINEAR );
 	    RES.t = BOOLEAN;
-	    RES.b = eq ( OP1.l, OP2.l, OP3.s );
+	    RES.b = eq ( OP1.l, OP2.l, d );
 	}
 	else
 	    return false;
@@ -1248,8 +1304,9 @@ bool compute_result ( void )
 	assert ( OP2.t == VECTOR );
 	assert ( OP3.t == VECTOR );
 	assert ( OP4.t == SCALAR );
+	int d = dcheck ( OP4.s );
 	RES.t = SCALAR;
-	RES.s = sidei ( OP1.v, OP2.v, OP3.v, OP4.s );
+	RES.s = sidei ( OP1.v, OP2.v, OP3.v, d );
 	return true;
     }
 
@@ -1259,8 +1316,9 @@ bool compute_result ( void )
 	assert ( OP2.t == VECTOR );
 	assert ( OP3.t == VECTOR );
 	assert ( OP4.t == SCALAR );
+	int d = dcheck ( OP4.s );
 	RES.t = BOOLEAN;
-	RES.b = onf ( OP1.v, OP2.v, OP3.v, OP4.s );
+	RES.b = onf ( OP1.v, OP2.v, OP3.v, d );
 	return true;
     }
 
@@ -1271,9 +1329,10 @@ bool compute_result ( void )
 	assert ( OP3.t == VECTOR );
 	assert ( OP4.t == VECTOR );
 	assert ( OP5.t == SCALAR );
+	int d = dcheck ( OP5.s );
 	RES.t = BOOLEAN;
 	RES.b = between
-	    ( OP1.v, OP2.v, OP3.v, OP4.v, OP5.s );
+	    ( OP1.v, OP2.v, OP3.v, OP4.v, d );
 	return true;
     }
 
@@ -1284,9 +1343,10 @@ bool compute_result ( void )
 	assert ( OP3.t == VECTOR );
 	assert ( OP4.t == VECTOR );
 	assert ( OP5.t == SCALAR );
+	int d = dcheck ( OP5.s );
 	RES.t = BOOLEAN;
 	RES.b = intersecti
-	    ( OP1.v, OP2.v, OP3.v, OP4.v, OP5.s );
+	    ( OP1.v, OP2.v, OP3.v, OP4.v, d );
 	return true;
     }
 
@@ -1297,9 +1357,10 @@ bool compute_result ( void )
 	assert ( OP3.t == VECTOR );
 	assert ( OP4.t == VECTOR );
 	assert ( OP5.t == SCALAR );
+	int d = dcheck ( OP5.s );
 	RES.t = BOOLEAN;
 	RES.b = intersectf
-	    ( OP1.v, OP2.v, OP3.v, OP4.v, OP5.s );
+	    ( OP1.v, OP2.v, OP3.v, OP4.v, d );
 	return true;
     }
 
