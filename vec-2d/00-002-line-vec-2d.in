@@ -28,6 +28,15 @@ o=intersectf pqbhD
 o=intersectf pqbfD
 o=intersectf pqbgD
 #
+o=intersecti pqaeD
+o=intersecti pqabD
+o=intersecti pqaiD
+o=intersecti pqfbD
+o=intersecti pqfdD
+o=intersecti pqfiD
+o=intersecti pqchD
+o=intersecti pqihD
+#
 #!newpage
 L=[(23,36),(-71,37)]
 p=L*p
@@ -54,6 +63,16 @@ o=intersectf piqcD
 o=intersectf pqbhD
 o=intersectf pqbfD
 o=intersectf pqbgD
+#
+o=intersecti pqaeD
+o=intersecti pqabD
+o=intersecti pqaiD
+o=intersecti pqfbD
+o=intersecti pqfdD
+o=intersecti pqfiD
+o=intersecti pqchD
+o=intersecti pqihD
+#
 #!point p red
 #!text p lb p
 #!point q red
@@ -108,6 +127,16 @@ o=intersectf piqcD
 o=intersectf pqbhD
 o=intersectf pqbfD
 o=intersectf pqbgD
+#
+o=intersecti pqaeD
+o=intersecti pqabD
+o=intersecti pqaiD
+o=intersecti pqfbD
+o=intersecti pqfdD
+o=intersecti pqfiD
+o=intersecti pqchD
+o=intersecti pqihD
+#
 #!point p red
 #!text p r p
 #!point q red

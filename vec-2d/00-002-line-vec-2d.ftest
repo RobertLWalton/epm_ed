@@ -28,6 +28,15 @@ o=intersectf pqbhD = false
 o=intersectf pqbfD = false
 o=intersectf pqbgD = true
 #
+o=intersecti pqaeD = false
+o=intersecti pqabD = true
+o=intersecti pqaiD = true
+o=intersecti pqfbD = false
+o=intersecti pqfdD = true
+o=intersecti pqfiD = true
+o=intersecti pqchD = true
+o=intersecti pqihD = true
+#
 #!newpage
 L=[(23,36),(-71,37)]
 p=L*p = (0,0)
@@ -54,6 +63,16 @@ o=intersectf piqcD = true
 o=intersectf pqbhD = false
 o=intersectf pqbfD = false
 o=intersectf pqbgD = true
+#
+o=intersecti pqaeD = false
+o=intersecti pqabD = true
+o=intersecti pqaiD = true
+o=intersecti pqfbD = false
+o=intersecti pqfdD = true
+o=intersecti pqfiD = true
+o=intersecti pqchD = true
+o=intersecti pqihD = true
+#
 #!point p red
 #!text p lb p
 #!point q red
@@ -108,6 +127,16 @@ o=intersectf piqcD = true
 o=intersectf pqbhD = false
 o=intersectf pqbfD = false
 o=intersectf pqbgD = true
+#
+o=intersecti pqaeD = false
+o=intersecti pqabD = true
+o=intersecti pqaiD = true
+o=intersecti pqfbD = false
+o=intersecti pqfdD = true
+o=intersecti pqfiD = true
+o=intersecti pqchD = true
+o=intersecti pqihD = true
+#
 #!point p red
 #!text p r p
 #!point q red
