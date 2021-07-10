@@ -3,14 +3,14 @@
 #
 p=(0,0)
 q=(10,0)
-x=(-3,4)
-y=(5,5)
-z=(14,-3)
+x=(13,5)
+y=(3,-4)
+z=(-1,6)
 X=closei pqx
 Y=closei pqy
 Z=closei pqz
 #
-A=39
+A=67
 # p=p^A not allowed as p=(0,0)
 q=q^A
 x=x^A
@@ -23,7 +23,7 @@ X=closei pqx
 Y=closei pqy
 Z=closei pqz
 #
-o=(-62,39)
+o=(190,-564)
 p=p+o
 q=q+o
 x=x+o
@@ -36,7 +36,7 @@ X=closei pqx
 Y=closei pqy
 Z=closei pqz
 #
-A=-263
+A=-29
 p=p|A
 q=q|A
 x=x|A
@@ -49,7 +49,7 @@ X=closei pqx
 Y=closei pqy
 Z=closei pqz
 #
-s=1e-10
+s=1e-20
 p=s*p
 q=s*q
 x=s*x
@@ -62,11 +62,11 @@ X=closei pqx
 Y=closei pqy
 Z=closei pqz
 #
-p=(20,32)
-q=(35,47)
-x=(13,63)
-y=(50,62)
-z=(11,15)
+p=(-38,74)
+q=(92,-67)
+x=(2,8)
+y=(9,7)
+z=(41,-56)
 X=closei pqx
 Y=closei pqy
 Z=closei pqz
@@ -84,24 +84,23 @@ X=closei pqx
 Y=closei pqy
 Z=closei pqz
 #
-p=(-39,63)
-q=(-13,21)
-x=(-26,42)
-y=(21,13)
-z=(-5,30)
-o=||y||
+p=(75,-56)
+q=(87,-21)
+x=(-43,98)
+y=(65,-24)
+z=(85,52)
 X=closei pqx
 Y=closei pqy
 Z=closei pqz
 #
-A=57
+A=158
 p=p|A
 q=q|A
 x=x|A
 y=y|A
 z=z|A
 X=X|A
-# Y=Y|A not allowed as Y=(0,0)
+Y=Y|A
 Z=Z|A
 X=closei pqx
 Y=closei pqy
