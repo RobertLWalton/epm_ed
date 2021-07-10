@@ -40,6 +40,16 @@ o=disti pqx
 o=disti pqy
 o=disti pqz
 #
+s=1e-10
+p=s*p
+q=s*q
+x=s*x
+y=s*y
+z=s*z
+o=disti pqx
+o=disti pqy
+o=disti pqz
+#
 p=(20,32)
 q=(35,47)
 x=(13,63)
@@ -75,6 +85,16 @@ q=q|A
 x=x|A
 y=y|A
 z=z|A
+o=disti pqx
+o=disti pqy
+o=disti pqz
+#
+s=1e-10
+p=s*p
+q=s*q
+x=s*x
+y=s*y
+z=s*z
 o=disti pqx
 o=disti pqy
 o=disti pqz
