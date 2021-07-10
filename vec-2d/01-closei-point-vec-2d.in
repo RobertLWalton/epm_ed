@@ -1,0 +1,121 @@
+# Test closei Function Point Calculator Operations
+#
+#
+p=(0,0)
+q=(10,0)
+x=(-3,4)
+y=(5,5)
+z=(14,-3)
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+A=39
+# p=p^A not allowed as p=(0,0)
+q=q^A
+x=x^A
+y=y^A
+z=z^A
+X=X^A
+Y=Y^A
+Z=Z^A
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+o=(-62,39)
+p=p+o
+q=q+o
+x=x+o
+y=y+o
+z=z+o
+X=X+o
+Y=Y+o
+Z=Z+o
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+A=-263
+p=p|A
+q=q|A
+x=x|A
+y=y|A
+z=z|A
+X=X|A
+Y=Y|A
+Z=Z|A
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+s=1e-10
+p=s*p
+q=s*q
+x=s*x
+y=s*y
+z=s*z
+X=s*X
+Y=s*Y
+Z=s*Z
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+p=(20,32)
+q=(35,47)
+x=(13,63)
+y=(50,62)
+z=(11,15)
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+A=142
+p=p^A
+q=q^A
+x=x^A
+y=y^A
+z=z^A
+X=X^A
+Y=Y^A
+Z=Z^A
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+p=(-39,63)
+q=(-13,21)
+x=(-26,42)
+y=(21,13)
+z=(-5,30)
+o=||y||
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+A=57
+p=p|A
+q=q|A
+x=x|A
+y=y|A
+z=z|A
+X=X|A
+# Y=Y|A not allowed as Y=(0,0)
+Z=Z|A
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
+#
+s=1e-10
+p=s*p
+q=s*q
+x=s*x
+y=s*y
+z=s*z
+X=s*X
+Y=s*Y
+Z=s*Z
+X=closei pqx
+Y=closei pqy
+Z=closei pqz
