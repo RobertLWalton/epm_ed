@@ -193,7 +193,7 @@ value types and the
 \begin{center}
 \begin{tabular}{l@{~~~~~}l}
 Assume:	& {\tt x=}$x$, {\tt y=}$y$ (scalars) \\
-	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
+	& {\tt d=}$d$ (an integer scalar $-15\le d\le +15$) \\
 	& {\tt b=}$b$ (a boolean) \\
 then: \\[1ex]
 \tt x+y & returns $x + y$ \\
@@ -210,6 +210,7 @@ then: \\[1ex]
 \tt x<y:d & returns \TT{true} if $x<y-0.5*10^{-d}$, else \TT{false} \\
 \tt x<=y:d & returns \TT{true} if $x<y+0.5*10^{-d}$, else \TT{false} \\
 \tt x==y:d & returns \TT{true} if $|x-y|<0.5*10^{-d}$, else \TT{false} \\
+\tt x:d & returns $x\textrm{~rounded to be an exact multiple of~}10^{-d}$ \\
 \end{tabular}
 \end{center}
 
@@ -459,7 +460,7 @@ value types and the {\em operators} and {\em functions}:
 Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
           {\tt l=$\ell$}, {\tt t=$(180/\pi)*\theta$}
           are scalars \\
-	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
+	& {\tt d=}$d$ (an integer scalar $-15\le d\le +15$) \\
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
 	& {\tt L} is a list of vectors \\
 then: \\[1ex]
@@ -467,6 +468,7 @@ then: \\[1ex]
 \tt v.x & returns $v_x$ ~~~ ({\tt x} is \underline{not} a variable here) \\
 \tt v.y & returns $v_y$ ~~~ ({\tt y} is \underline{not} a variable here) \\
 \tt v==w:d & returns $v_x==w_x:d$ AND $v_y==w_y:d$ \\
+\tt v:d & returns $(v_x:d,v_y:d)$ \\
 \tt s*v & returns $(s v_x, s v_y )$ \\
 \tt -v & returns $( -v_x, -v_y )$, {\tt v} with direction reversed \\
 \tt v+w & returns $(v_x + w_x, v_y + w_y)$ \\
@@ -808,13 +810,14 @@ value types and the {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
 Assume: & {\tt s=}$s$ is a scalar \\
-	& {\tt d=}$d$ (an integer scalar $0\le d\le 12$) \\
+	& {\tt d=}$d$ (an integer scalar $-15\le d\le +15$) \\
 	& {\tt v=($v_x$,$v_y$)} and {\tt w=($w_x$,$w_y$)} are vectors \\
 	& \multicolumn{2}{@{}l}{{\tt K=[$\ell^K_x$,$\ell^K_y$]} and
 	  {\tt L=[$\ell^L_x$,$\ell^L_y$]} are linear transforms} \\
 then: \\[1ex]
 \tt [v,w] & returns $[v,w]$ \\
 \tt K==L:d & returns $\ell^K_x==\ell^L_x:d$ AND $\ell^K_y==\ell^L_y:d$ \\
+\tt K:d & returns $[\ell^K_x:d,\ell^K_y:d]$ \\
 \tt L.x & returns {\tt $\ell^L_x$}
           ~~~ ({\tt x} is \underline{not} a variable here) \\
 \tt L.y & returns {\tt $\ell^L_y$}
@@ -1642,9 +1645,7 @@ the following {\em operators} and {\em functions}:
 \begin{tabular}{l@{~~~~}l@{~~~~}l}
 Assume: & {\tt p}, {\tt q}, {\tt r}, {\tt u}, {\tt v}
           are vectors representing points \\
-	& {\tt D} is an integer scalar with {\tt 0 $\leq$ D $\leq$ 6} \\
-	& (Note that {\tt D} is less than or equal to {\tt 6} and
-	  \underline{not} {\tt 12}.) \\
+	& {\tt D=}$D$ (an integer scalar $-15\le D\le +15$) \\
 then: \\[1ex]
 \tt disti~pqr  & returns the distance from point {\tt r} to the
 		\underline{infinite} line {\tt pq} \\
@@ -1659,18 +1660,21 @@ then: \\[1ex]
 \tt sidei~pqrD & returns {\tt +1} if {\tt r} is to the left of the
                 \underline{infinite directed} line \\
 	      & {\tt pq}, zero if it is on the line,
-	        and -1 if it is to the right, \\
-	      & if all coordinates have at most {\tt D} decimal places \\
+	        and -1 if it is to the right; \\
+	      & if all coordinates are exact multiples of $10^{-D}$ \\
+	      & and have absolute values $\le 10^{6-D}$ \\
 \tt onf~pqrD & returns {\tt true} if and only if {\tt r} is on the
-                \underline{finite} line {\tt pq}, \\
-	      & if all coordinates have at most {\tt D} decimal places \\
+                \underline{finite} line {\tt pq}; \\
+	      & if all coordinates are exact multiples of $10^{-D}$ \\
+	      & and have absolute values $\le 10^{6-D}$ \\
 \tt between~pquvD & returns {\tt true} if and only if the direction
                    {\tt pu} rotated \\
 		 & counter-clockwise will line up with the direction \\
 		 & {\tt pq} before it lines up with {\tt pv}; but returns
 		   {\tt false} \\
 		 & if any two of the three directions are identical; \\
-	      & if all coordinates have at most {\tt D} decimal places \\
+	      & if all coordinates are exact multiples of $10^{-D}$ \\
+	      & and have absolute values $\le 10^{6-D}$ \\
 \end{tabular}
 \end{center}
 
@@ -2148,15 +2152,14 @@ the following {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l}
 Assume: & {\tt m}, {\tt n}, {\tt p}, {\tt q} are vectors representing points \\
-	& {\tt D} is an integer scalar with {\tt 0 $\leq$ D $\leq$ 6} \\
-	& (Note that {\tt D} is less than or equal to {\tt 6} and
-	  \underline{not} {\tt 12}.) \\
+	& {\tt D=}$D$ (an integer scalar $-15\le D\le +15$) \\
 then: \\[1ex]
 \tt intersecti mnpqD & returns {\tt true} if the infinite lines {\tt mn} and
                      {\tt pq} \\
 		   & intersect (including the case where the lines are \\
-		   & identical) and {\tt false} otherwise; assuming point \\
-		   & coordinates have at most {\tt D} decimal places \\
+		   & identical) and {\tt false} otherwise; \\
+	           & if all coordinates are exact multiples of $10^{-D}$ \\
+		   & and have absolute values $\le 10^{6-D}$ \\
 \tt intersectf mnpqD & ditto but for finite lines {\tt mn} and {\tt pq} \\
 \tt overlapf mnpq & returns the length of the overlap of
                     finite lines {\tt mn} \\
@@ -3037,7 +3040,7 @@ TBD
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Thu Jul  8 14:24:13 EDT 2021
+Date:         & Sun Jul 11 15:00:24 EDT 2021
 
 \end{tabular}
 
