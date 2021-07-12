@@ -1,0 +1,138 @@
+# Test sidei Function Point Calculator Operations
+#
+p=(0,0)
+q=(10,0)
+a=(-5,1)
+b=(-4,-1)
+c=(-3,0)
+d=(0,0)
+e=(1,1)
+f=(2,-1)
+g=(3,0)
+h=(10,0)
+i=(13,0)
+j=(14,1)
+k=(15,-1)
+D=4
+o=sidei pqaD = 1
+o=sidei pqbD = -1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = 1
+o=sidei pqfD = -1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = 1
+o=sidei pqkD = -1
+#
+o=(-58,37)
+p=p+o = (-58,37)
+q=q+o = (-48,37)
+a=a+o = (-63,38)
+b=b+o = (-62,36)
+c=c+o = (-61,37)
+d=d+o = (-58,37)
+e=e+o = (-57,38)
+f=f+o = (-56,36)
+g=g+o = (-55,37)
+h=h+o = (-48,37)
+i=i+o = (-45,37)
+j=j+o = (-44,38)
+k=k+o = (-43,36)
+D=2
+o=sidei pqaD = 1
+o=sidei pqbD = -1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = 1
+o=sidei pqfD = -1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = 1
+o=sidei pqkD = -1
+#
+A=57
+L=^A = [(0.544639,0.838671),(-0.838671,0.544639)]
+L=L:D = [(0.54,0.84),(-0.84,0.54)]
+p=L*p = (-62.4,-28.74)
+q=L*q = (-57,-20.34)
+a=L*a = (-65.94,-32.4)
+b=L*b = (-63.72,-32.64)
+c=L*c = (-64.02,-31.26)
+d=L*d = (-62.4,-28.74)
+e=L*e = (-62.7,-27.36)
+f=L*f = (-60.48,-27.6)
+g=L*g = (-60.78,-26.22)
+h=L*h = (-57,-20.34)
+i=L*i = (-55.38,-17.82)
+j=L*j = (-55.68,-16.44)
+k=L*k = (-53.46,-16.68)
+o=sidei pqaD = 1
+o=sidei pqbD = -1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = 1
+o=sidei pqfD = -1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = 1
+o=sidei pqkD = -1
+#
+A=105
+L=|A = [(-0.866025,-0.5),(-0.5,0.866025)]
+L=L:D = [(-0.87,-0.5),(-0.5,0.87)]
+p=L*p = (68.658,6.1962)
+q=L*q = (59.76,10.8042)
+a=L*a = (73.5678,4.782)
+b=L*b = (71.7564,3.4632)
+c=L*c = (71.3274,4.8138)
+d=L*d = (68.658,6.1962)
+e=L*e = (68.229,7.5468)
+f=L*f = (66.4176,6.228)
+g=L*g = (65.9886,7.5786)
+h=L*h = (59.76,10.8042)
+i=L*i = (57.0906,12.1866)
+j=L*j = (56.6616,13.5372)
+k=L*k = (54.8502,12.2184)
+D=4
+o=sidei pqaD = -1
+o=sidei pqbD = 1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = -1
+o=sidei pqfD = 1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = -1
+o=sidei pqkD = 1
+#
+s=1e10
+p=s*p = (6.8658e+11,6.1962e+10)
+q=s*q = (5.976e+11,1.08042e+11)
+a=s*a = (7.35678e+11,4.782e+10)
+b=s*b = (7.17564e+11,3.4632e+10)
+c=s*c = (7.13274e+11,4.8138e+10)
+d=s*d = (6.8658e+11,6.1962e+10)
+e=s*e = (6.8229e+11,7.5468e+10)
+f=s*f = (6.64176e+11,6.228e+10)
+g=s*g = (6.59886e+11,7.5786e+10)
+h=s*h = (5.976e+11,1.08042e+11)
+i=s*i = (5.70906e+11,1.21866e+11)
+j=s*j = (5.66616e+11,1.35372e+11)
+k=s*k = (5.48502e+11,1.22184e+11)
+D=-6
+o=sidei pqaD = -1
+o=sidei pqbD = 1
+o=sidei pqcD = 0
+o=sidei pqdD = 0
+o=sidei pqeD = -1
+o=sidei pqfD = 1
+o=sidei pqgD = 0
+o=sidei pqhD = 0
+o=sidei pqiD = 0
+o=sidei pqjD = -1
+o=sidei pqkD = 1
