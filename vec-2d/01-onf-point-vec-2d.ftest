@@ -1,0 +1,41 @@
+# Test onf Function Point Calculator Operations
+#
+D=4
+p=(-10,30)
+q=(10,-10)
+v=q-p = (20,-40)
+s=0.0001
+O=s*v = (0.002,-0.004)
+#  O = small displacement in direction p -> q
+A=90
+P=O^A = (0.004,0.002)
+P=P:D = (0.004,0.002)
+#  P = small displacement in perpendicular to p-q
+s=0.3
+o=s*v = (6,-12)
+M=p+o = (-4,18)
+#  M = 0.3*q+0.7*p
+a=p+O = (-9.998,29.996)
+b=p-O = (-10.002,30.004)
+c=p+P = (-9.996,30.002)
+d=p-P = (-10.004,29.998)
+e=M+O = (-3.998,17.996)
+f=M-O = (-4.002,18.004)
+g=M+P = (-3.996,18.002)
+h=M-P = (-4.004,17.998)
+i=q+O = (10.002,-10.004)
+j=q-O = (9.998,-9.996)
+k=q+P = (10.004,-9.998)
+l=q-P = (9.996,-10.002)
+o=onf pqaD = true
+o=onf pqbD = false
+o=onf pqcD = false
+o=onf pqdD = false
+o=onf pqeD = true
+o=onf pqfD = true
+o=onf pqgD = false
+o=onf pqhD = false
+o=onf pqiD = false
+o=onf pqjD = true
+o=onf pqkD = false
+o=onf pqlD = false
