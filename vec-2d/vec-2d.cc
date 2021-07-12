@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Fri Jul  9 07:34:13 EDT 2021
+// Date:	Mon Jul 12 15:23:12 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -47,16 +47,22 @@ var vars[128];
     // Implicitly initialized to
     // vars[...].t == 0 == NONE,
 
-double units_data[31] =
-    { 1e15,  1e14,  1e13,  1e12,  1e11,
+double units_data[61] =
+    { 1e30,  1e29,  1e28,  1e27,  1e26,
+      1e25,  1e24,  1e23,  1e22,  1e21,
+      1e20,  1e19,  1e18,  1e17,  1e16,
+      1e15,  1e14,  1e13,  1e12,  1e11,
       1e10,  1e9,   1e8,   1e7,   1e6,
       1e5,   1e4,   1e3,   1e2,   1e1,
       1e0,
       1e-1,  1e-2,  1e-3,  1e-4,  1e-5,
       1e-6,  1e-7,  1e-8,  1e-9,  1e-10,
-      1e-11, 1e-12, 1e-13, 1e-14, 1e-15 };
-double * units = & units_data[15];
-    // units[d] = 10**(-d) for -15 <= d <= +15
+      1e-11, 1e-12, 1e-13, 1e-14, 1e-15,
+      1e-16, 1e-17, 1e-18, 1e-19, 1e-20,
+      1e-21, 1e-22, 1e-23, 1e-24, 1e-25,
+      1e-26, 1e-27, 1e-28, 1e-29, 1e-30 };
+double * units = & units_data[30];
+    // units[d] = 10**(-d) for -30 <= d <= +30
 
 vec zerov = { 0, 0 };  // Zero vector
 vec uxv = { 1, 0 };    // Unit vector in X direction.
@@ -331,24 +337,6 @@ int main ( int argc, char * argv[] )
 }
 
 // Judge's Check Functions
-//
-// dunits is like units but has a greater range in order
-// to support units_ok function below.
-//
-double dunits_data[51] =
-    { 1e30,  1e29,  1e28,  1e27,  1e26,
-      1e25,  1e24,  1e23,  1e22,  1e21,
-      1e20,  1e19,  1e18,  1e17,  1e16,
-      1e15,  1e14,  1e13,  1e12,  1e11,
-      1e10,  1e9,   1e8,   1e7,   1e6,
-      1e5,   1e4,   1e3,   1e2,   1e1,
-      1e0,
-      1e-1,  1e-2,  1e-3,  1e-4,  1e-5,
-      1e-6,  1e-7,  1e-8,  1e-9,  1e-10,
-      1e-11, 1e-12, 1e-13, 1e-14, 1e-15,
-      1e-16, 1e-17, 1e-18, 1e-19, 1e-20 };
-double * dunits = & dunits_data[30];
-    // dunits[d] = 10**(-d) for -30 <= d <= 20
 
 // Assert that d is an integer and -15 <= d <= +15,
 // and return d.
@@ -366,17 +354,17 @@ int dcheck ( double d )
 // |s| rounded to units of 10**d differs from |s|
 // by more than 10**(-d-2).
 //
-// -15 <= d <= 15 and 0 <= offset <= 14 are required
+// -15 <= d <= 15 and 0 <= offset <= 15 are required
 // but not checked.
 //
 bool units_ok ( double s, int d, int offset )
 {
-    double delta = dunits[d];
+    double delta = units[d];
     double sabs = fabs ( s );
     double sround = round ( sabs / delta );
-    if ( fabs ( sabs - sround * delta ) > dunits[d+2] )
+    if ( fabs ( sabs - sround * delta ) > units[d+2] )
         return false;
-    if ( sabs > dunits[d-offset] ) 
+    if ( sabs > units[d-offset] ) 
         return false;
     return true;
 }
@@ -384,6 +372,8 @@ bool units_ok ( double s, int d, int offset )
 // Scalar Calculator Functions
 // ------ ---------- ---------
 
+// The following allow -30 <= d <= 30.
+//
 bool lt ( double x, double y, int d )
 {
     return x < y - 0.5 * units[d];
