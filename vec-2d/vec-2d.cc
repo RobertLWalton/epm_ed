@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Mon Jul 12 15:23:12 EDT 2021
+// Date:	Mon Jul 12 18:32:57 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -629,31 +629,31 @@ bool onf				//onf pqr
     else if ( lt ( Q.x, R.x, 2*D ) ) return false;
     else return true;
 }
-bool between				//between pquvd
-    ( vec p, vec q, vec u, vec v, int D )
+bool between				//between puvwd
+    ( vec p, vec u, vec v, vec w, int D )
 {
-    int s = sidei ( p, u, v, D );
+    int s = sidei ( p, u, w, D );
     if ( s == + 1 )
     {
-	if ( sidei ( p, u, q, D ) != +1 )
+	if ( sidei ( p, u, v, D ) != +1 )
 	    return false;
-	else if ( sidei ( p, v, q, D ) != -1 )
+	else if ( sidei ( p, w, v, D ) != -1 )
 	    return false;
 	else
 	    return true;
     }
     else if ( s == -1 )
     {
-	if ( sidei ( p, u, q, D ) == +1 )
+	if ( sidei ( p, u, v, D ) == +1 )
 	    return true;
-	else if ( sidei ( p, v, q, D ) == -1 )
+	else if ( sidei ( p, w, v, D ) == -1 )
 	    return true;
 	else
 	    return false;
     }
-    else if ( ( u - p ) * ( v - p ) < 0 )
+    else if ( ( u - p ) * ( w - p ) < 0 )
     {
-        if ( sidei ( p, u, q, D ) == +1 ) return true;
+        if ( sidei ( p, u, v, D ) == +1 ) return true;
         else return false;
     }
     else return false;

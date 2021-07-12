@@ -1,0 +1,46 @@
+# Test between Function Point Calculator Operations
+#
+D=0
+u=(100,0)
+p=(823,-936)
+a=20
+a=u^a
+a=a:D
+a=a+p
+b=55
+b=u^b
+b=b:D
+b=b+p
+c=94
+c=u^c
+c=c:D
+c=c+p
+d=158
+d=u^d
+d=d:D
+d=d+p
+e=193
+e=u^e
+e=e:D
+e=e+p
+f=a-p
+f=p-f
+g=b-p
+g=p-g
+h=c-p
+h=p-h
+i=d-p
+i=p-i
+j=e-p
+j=p-j
+#
+o=between pabcD
+o=between pbcdD
+o=between pcdeD
+o=between pdefD
+o=between pefgD
+o=between pfghD
+o=between pghiD
+o=between phijD
+o=between pijaD
+o=between pjabD
