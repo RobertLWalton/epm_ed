@@ -140,16 +140,16 @@ v=(1.25,1.35)
 q=(3.0,1.5)
 # Set D=5 to allow coordinate magnitudes up to 10**1
 D=5
-b=between pquvD
-b=between pqvuD
-b=between pqvwD
-b=between pqwvD
-b=between pquwD
-b=between pqwuD
+b=between puqvD
+b=between pvquD
+b=between pvqwD
+b=between pwqvD
+b=between puqwD
+b=between pwquD
 #
 b=between pqquD
-b=between pqvqD
-b=between pqvvD
+b=between pvqqD
+b=between pvqvD
 #!newpage LU
 #!point p red
 #!text p bl p
@@ -163,12 +163,12 @@ b=between pqvvD
 #!line pw brown e
 #
 q=(-.75,2.25)
-b=between pquvD
-b=between pqvuD
-b=between pqvwD
-b=between pqwvD
-b=between pquwD
-b=between pqwuD
+b=between puqvD
+b=between pvquD
+b=between pvqwD
+b=between pwqvD
+b=between puqwD
+b=between pwquD
 #!newpage LU
 #!point p red
 #!text p bl p
@@ -182,12 +182,12 @@ b=between pqwuD
 #!line pw brown e
 #
 q=(-1.5,-0.5)
-b=between pquvD
-b=between pqvuD
-b=between pqvwD
-b=between pqwvD
-b=between pquwD
-b=between pqwuD
+b=between puqvD
+b=between pvquD
+b=between pvqwD
+b=between pwqvD
+b=between puqwD
+b=between pwquD
 #!newpage LU
 #!point p red
 #!text p b p
@@ -201,12 +201,12 @@ b=between pqwuD
 #!line pw brown e
 #
 q=(0.75,-2.25)
-b=between pquvD
-b=between pqvuD
-b=between pqvwD
-b=between pqwvD
-b=between pquwD
-b=between pqwuD
+b=between puqvD
+b=between pvquD
+b=between pvqwD
+b=between pwqvD
+b=between puqwD
+b=between pwquD
 #!newpage LU
 #!point p red
 #!text p bl p
