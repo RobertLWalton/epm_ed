@@ -44,3 +44,108 @@ o=between pghiD = true
 o=between phijD = true
 o=between pijaD = true
 o=between pjabD = true
+#
+o=between pabcD = true
+o=between pacdD = true
+o=between padeD = true
+o=between paefD = true
+o=between pafgD = true
+o=between paghD = true
+o=between pahiD = true
+o=between paijD = true
+#
+o=between pjihD = false
+o=between pihgD = false
+o=between phgfD = false
+o=between pgfeD = false
+o=between pfedD = false
+o=between pedcD = false
+o=between pdcbD = false
+o=between pcbaD = false
+o=between pbajD = false
+o=between pajiD = false
+#
+o=between pcbaD = false
+o=between pdcaD = false
+o=between pedaD = false
+o=between pfeaD = false
+o=between pgfaD = false
+o=between phgaD = false
+o=between pihaD = false
+o=between pjiaD = false
+#
+D=3
+L=[(-0.898,0.574),(0.001,0.873)]
+p=L*p = (-739.99,-344.726)
+a=L*a = (-824.368,-261.088)
+b=L*b = (-791.094,-240.422)
+c=L*c = (-733.604,-261.444)
+d=L*d = (-656.439,-365.807)
+e=L*e = (-652.906,-419.61)
+f=L*f = (-655.612,-428.364)
+g=L*g = (-688.886,-449.03)
+h=L*h = (-746.376,-428.008)
+i=L*i = (-823.541,-323.645)
+j=L*j = (-827.074,-269.842)
+#
+o=between pabcD = false
+o=between pbcdD = false
+o=between pcdeD = false
+o=between pdefD = false
+o=between pefgD = false
+o=between pfghD = false
+o=between pghiD = false
+o=between phijD = false
+o=between pijaD = false
+o=between pjabD = false
+#
+o=between pabcD = false
+o=between pacdD = false
+o=between padeD = false
+o=between paefD = false
+o=between pafgD = false
+o=between paghD = false
+o=between pahiD = false
+o=between paijD = false
+#
+o=between pjihD = true
+o=between pihgD = true
+o=between phgfD = true
+o=between pgfeD = true
+o=between pfedD = true
+o=between pedcD = true
+o=between pdcbD = true
+o=between pcbaD = true
+o=between pbajD = true
+o=between pajiD = true
+#
+o=between pcbaD = true
+o=between pdcaD = true
+o=between pedaD = true
+o=between pfeaD = true
+o=between pgfaD = true
+o=between phgaD = true
+o=between pihaD = true
+o=between pjiaD = true
+#
+D=4
+u=(1,0)
+p=(0.6743,-0.9730)
+a=37
+a=u^a = (0.798636,0.601815)
+a=a:D = (0.7986,0.6018)
+a=a+p = (1.4729,-0.3712)
+b=37.0100
+b=u^b = (0.79853,0.601954)
+b=b:D = (0.7985,0.602)
+b=b+p = (1.4728,-0.371)
+c=37.0200
+c=u^c = (0.798425,0.602094)
+c=c:D = (0.7984,0.6021)
+c=c+p = (1.4727,-0.3709)
+o=between pabcD = true
+o=between pbcaD = true
+o=between pcabD = true
+o=between pcbaD = false
+o=between pbacD = false
+o=between pacbD = false
