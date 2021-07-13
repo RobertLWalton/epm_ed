@@ -3,14 +3,17 @@
 x = 0
 y = 1.1e-10
 d = 11
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
 d = 10
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
 d = 9
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
@@ -35,14 +38,17 @@ x = 12345
 z = 1.1e-1
 y = x + z
 d = 2
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
 d = 1
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
 d = 0
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
@@ -67,14 +73,17 @@ x = -98765
 z = 1.1e-1
 y = x + z
 d = 2
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
 d = 1
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
 d = 0
+t = y:d
 t = x  < y :d
 t = x <= y :d
 t = x == y :d
