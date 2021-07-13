@@ -149,3 +149,51 @@ o=between pcabD = true
 o=between pcbaD = false
 o=between pbacD = false
 o=between pacbD = false
+#
+D=14
+L=[(2e-10,1e-10),(1e-10,2e-10)]
+p=L*p = (3.756e-11,-1.2717e-10)
+a=L*a = (2.5746e-10,7.305e-11)
+b=L*b = (2.5746e-10,7.308e-11)
+c=L*c = (2.5745e-10,7.309e-11)
+o=between pabcD = true
+o=between pbcaD = true
+o=between pcabD = true
+o=between pcbaD = false
+o=between pbacD = false
+o=between pacbD = false
+#
+D=2
+u=(4.76,0)
+p=(78.12,-39.03)
+a=152
+a=u^a = (-4.20283,2.23468)
+a=a:D = (-4.2,2.23)
+a=a+p = (73.92,-36.8)
+b=152.1
+b=u^b = (-4.20672,2.22735)
+b=b:D = (-4.21,2.23)
+b=b+p = (73.91,-36.8)
+c=152.2
+c=u^c = (-4.21061,2.22)
+c=c:D = (-4.21,2.22)
+c=c+p = (73.91,-36.81)
+o=between pabcD = true
+o=between pbcaD = true
+o=between pcabD = true
+o=between pcbaD = false
+o=between pbacD = false
+o=between pacbD = false
+#
+D=-8
+L=[(2e10,1e10),(1e10,2e10)]
+p=L*p = (1.1721e+12,6e+08)
+a=L*a = (1.1104e+12,3.2e+09)
+b=L*b = (1.1102e+12,3.1e+09)
+c=L*c = (1.1101e+12,2.9e+09)
+o=between pabcD = true
+o=between pbcaD = true
+o=between pcabD = true
+o=between pcbaD = false
+o=between pbacD = false
+o=between pacbD = false
