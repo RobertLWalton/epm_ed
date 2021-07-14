@@ -1,7 +1,7 @@
 # Test Discontinuous
 # Line and Line Calculator Operations
 #
-D=6
+D=4
 #!layout 2 1 18
 p=(0,0)
 q=(1,0)

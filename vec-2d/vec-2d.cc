@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Mon Jul 12 18:32:57 EDT 2021
+// Date:	Tue Jul 13 22:42:22 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -1381,6 +1381,14 @@ bool compute_result ( void )
 	assert ( OP4.t == VECTOR );
 	assert ( OP5.t == SCALAR );
 	int d = dcheck ( OP5.s );
+	assert ( units_ok ( OP1.v.x, d, 6 ) );
+	assert ( units_ok ( OP1.v.y, d, 6 ) );
+	assert ( units_ok ( OP2.v.x, d, 6 ) );
+	assert ( units_ok ( OP2.v.y, d, 6 ) );
+	assert ( units_ok ( OP3.v.x, d, 6 ) );
+	assert ( units_ok ( OP3.v.y, d, 6 ) );
+	assert ( units_ok ( OP4.v.x, d, 6 ) );
+	assert ( units_ok ( OP4.v.y, d, 6 ) );
 	RES.t = BOOLEAN;
 	RES.b = intersecti
 	    ( OP1.v, OP2.v, OP3.v, OP4.v, d );
@@ -1395,6 +1403,14 @@ bool compute_result ( void )
 	assert ( OP4.t == VECTOR );
 	assert ( OP5.t == SCALAR );
 	int d = dcheck ( OP5.s );
+	assert ( units_ok ( OP1.v.x, d, 6 ) );
+	assert ( units_ok ( OP1.v.y, d, 6 ) );
+	assert ( units_ok ( OP2.v.x, d, 6 ) );
+	assert ( units_ok ( OP2.v.y, d, 6 ) );
+	assert ( units_ok ( OP3.v.x, d, 6 ) );
+	assert ( units_ok ( OP3.v.y, d, 6 ) );
+	assert ( units_ok ( OP4.v.x, d, 6 ) );
+	assert ( units_ok ( OP4.v.y, d, 6 ) );
 	RES.t = BOOLEAN;
 	RES.b = intersectf
 	    ( OP1.v, OP2.v, OP3.v, OP4.v, d );
