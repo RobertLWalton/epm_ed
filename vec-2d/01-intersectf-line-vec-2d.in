@@ -1,0 +1,46 @@
+# Test intersectf Function Line Calculator Operations
+#
+o=(10,0)
+A=59
+a=o^A
+A=60
+b=o^A
+c=a^A
+d=b^A
+e=c^A
+f=d^A
+g=e^A
+h=f^A
+i=g^A
+j=h^A
+k=i^A
+l=j^A
+D=4
+a=a:D
+b=b:D
+c=c:D
+d=d:D
+e=e:D
+f=f:D
+g=g:D
+h=h:D
+i=i:D
+j=j:D
+k=k:D
+l=l:D
+#
+o=intersectf bcdeD
+o=intersectf defgD
+o=intersectf fghiD
+o=intersectf hijkD
+o=intersectf jklaD
+o=intersectf labcD
+o=intersectf acleD
+#
+o=intersectf bdceD
+o=intersectf dfegD
+o=intersectf fhgiD
+o=intersectf hjikD
+o=intersectf jlkaD
+o=intersectf lbacD
+o=intersectf acbgD
