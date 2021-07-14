@@ -1,0 +1,124 @@
+# Test intersecti Function Line Calculator Operations
+#
+m=(-1e6,0)
+n=(+1e6,0)
+p=(-1e6,1)
+q=(+1e6,1)
+D=0
+o=intersecti mnpqD = false
+o=intersecti qpnmD = false
+o=intersecti mpnqD = false
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
+#
+s=1e-12
+m=s*m = (-1e-06,0)
+n=s*n = (1e-06,0)
+p=s*p = (-1e-06,1e-12)
+q=s*q = (1e-06,1e-12)
+D=12
+o=intersecti mnpqD = false
+o=intersecti qpnmD = false
+o=intersecti mpnqD = false
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
+#
+m=(-1,-1)
+n=(+1,-1)
+p=(-1,1)
+q=(+1,1)
+L=[(43,27),(-12,-38)]
+m=L*m = (-31,11)
+n=L*n = (55,65)
+p=L*p = (-55,-65)
+q=L*q = (31,-11)
+D=0
+o=intersecti mnpqD = false
+o=intersecti qpnmD = false
+o=intersecti mpnqD = false
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
+#
+D=4
+A=67
+L=^A = [(0.390731,0.920505),(-0.920505,0.390731)]
+L=L:D = [(0.3907,0.9205),(-0.9205,0.3907)]
+m=L*m = (-22.2372,-24.2378)
+n=L*n = (-38.344,76.023)
+p=L*p = (38.344,-76.023)
+q=L*q = (22.2372,24.2378)
+o=intersecti mnpqD = false
+o=intersecti qpnmD = false
+o=intersecti mpnqD = false
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
+#
+s=1e12
+m=s*m = (-2.22372e+13,-2.42378e+13)
+n=s*n = (-3.8344e+13,7.6023e+13)
+p=s*p = (3.8344e+13,-7.6023e+13)
+q=s*q = (2.22372e+13,2.42378e+13)
+D=-8
+o=intersecti mnpqD = false
+o=intersecti qpnmD = false
+o=intersecti mpnqD = false
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
+#
+m=(0,47)
+n=(95,24)
+o=n-m = (95,-23)
+s=5
+o=s*o = (475,-115)
+p=(-287,79)
+q=p+o = (188,-36)
+D=0
+o=intersecti mnpqD = false
+o=intersecti qpnmD = false
+o=intersecti mpnqD = true
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
+#
+D=3
+A=238
+L=^A = [(-0.529919,-0.848048),(0.848048,-0.529919)]
+L=L:D = [(-0.53,-0.848),(0.848,-0.53)]
+m=L*m = (39.856,-24.91)
+n=L*n = (-29.998,-93.28)
+p=L*p = (219.102,201.506)
+q=L*q = (-130.168,-140.344)
+o=intersecti mnpqD = false
+o=intersecti qpnmD = false
+o=intersecti mpnqD = true
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
+#
+o=(20,-42)
+s=6
+m=s*o = (120,-252)
+s=1
+n=s*o = (20,-42)
+s=-4
+p=s*o = (-80,168)
+s=-7
+q=s*o = (-140,294)
+D=0
+o=intersecti mnpqD = true
+o=intersecti qpnmD = true
+o=intersecti mpnqD = true
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
+#
+D=3
+A=-140
+L=^A = [(-0.766044,-0.642788),(0.642788,-0.766044)]
+L=L:D = [(-0.766,-0.643),(0.643,-0.766)]
+m=L*m = (-253.956,115.872)
+n=L*n = (-42.326,19.312)
+p=L*p = (169.304,-77.248)
+q=L*q = (296.282,-135.184)
+o=intersecti mnpqD = true
+o=intersecti qpnmD = true
+o=intersecti mpnqD = true
+o=intersecti mqpnD = true
+o=intersecti pnqmD = true
