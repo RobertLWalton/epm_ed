@@ -1,0 +1,61 @@
+# Test distf Function Line Calculator Operations
+#
+p=(0,0)
+q=(10,0)
+a=(-1,0)
+b=(0,1)
+c=(1,1)
+d=(2,5)
+e=(3,5)
+f=(10,1)
+g=(11,1)
+h=(11,0)
+A= distf pq ab = 0.707107
+B= distf pq bc = 1
+C= distf pq cd = 1
+D= distf pq de = 5
+E= distf pq ef = 1
+F= distf pq fg = 1
+G= distf pq gh = 1
+H= distf pq fh = 0.707107
+#
+o=(-74,91)
+p=o+p = (-74,91)
+q=o+q = (-64,91)
+a=o+a = (-75,91)
+b=o+b = (-74,92)
+c=o+c = (-73,92)
+d=o+d = (-72,96)
+e=o+e = (-71,96)
+f=o+f = (-64,92)
+g=o+g = (-63,92)
+h=o+h = (-63,91)
+A= distf pq ab = 0.707107
+B= distf pq bc = 1
+C= distf pq cd = 1
+D= distf pq de = 5
+E= distf pq ef = 1
+F= distf pq fg = 1
+G= distf pq gh = 1
+H= distf pq fh = 0.707107
+#
+T=307
+L=^T = [(0.601815,-0.798636),(0.798636,0.601815)]
+p=L*p = (28.1415,113.864)
+q=L*q = (34.1597,105.878)
+a=L*a = (27.5397,114.663)
+b=L*b = (28.9402,114.466)
+c=L*c = (29.542,113.667)
+d=L*d = (33.3383,115.276)
+e=L*e = (33.9401,114.477)
+f=L*f = (34.9583,106.48)
+g=L*g = (35.5601,105.681)
+h=L*h = (34.7615,105.079)
+A= distf pq ab = 0.707107
+B= distf pq bc = 1
+C= distf pq cd = 1
+D= distf pq de = 5
+E= distf pq ef = 1
+F= distf pq fg = 1
+G= distf pq gh = 1
+H= distf pq fh = 0.707107
