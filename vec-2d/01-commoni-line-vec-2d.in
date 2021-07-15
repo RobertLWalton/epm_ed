@@ -79,3 +79,34 @@ B= commoni pqbe
 C= commoni pqcf
 D= commoni pqae
 E= commoni pqaf
+#
+m=(-2,2)
+n=(-1,1)
+p=(-2,-2)
+q=(-1,-1)
+I= commoni mnpq
+#
+L=[(1,0),(0,1e-6)]
+m=L*m
+n=L*n
+p=L*p
+q=L*q
+I=L*I
+I= commoni mnpq
+#
+o=(107,-29)
+m=o+m
+n=o+n
+p=o+p
+q=o+q
+I=o+I
+I= commoni mnpq
+#
+T=194
+L=^T
+m=L*m
+n=L*n
+p=L*p
+q=L*q
+I=L*I
+I= commoni mnpq
