@@ -1,0 +1,139 @@
+# Test overlapf Function Line Calculator Operations
+#
+o=(6,8)
+p=(563,729)
+a=p = (563,729)
+s=0.2
+b=s*o = (1.2,1.6)
+b=b+p = (564.2,730.6)
+s=0.3
+c=s*o = (1.8,2.4)
+c=c+p = (564.8,731.4)
+s=0.5
+d=s*o = (3,4)
+d=d+p = (566,733)
+s=0.7
+e=s*o = (4.2,5.6)
+e=e+p = (567.2,734.6)
+s=0.8
+f=s*o = (4.8,6.4)
+f=f+p = (567.8,735.4)
+g=o+p = (569,737)
+#a.bc.d.ef..g
+o= overlapf adcf = 2
+o= overlapf afce = 4
+o= overlapf dbdf = 0
+o= overlapf dbef = 0
+o= overlapf gabf = 6
+o= overlapf bdcg = 2
+o= overlapf bdcf = 2
+o= overlapf bacg = 0
+#
+A=249
+a=a^A = (478.819,-786.856)
+b=b^A = (479.883,-788.55)
+c=c^A = (480.415,-789.397)
+d=d^A = (481.478,-791.09)
+e=e^A = (482.542,-792.784)
+f=f^A = (483.074,-793.631)
+g=g^A = (484.137,-795.324)
+o= overlapf adcf = 2
+o= overlapf afce = 4
+o= overlapf dbdf = 0
+o= overlapf dbef = 0
+o= overlapf gabf = 6
+o= overlapf bdcg = 2
+o= overlapf bdcf = 2
+o= overlapf bacg = 0
+#
+o=(7.867,-909.876)
+a=a+o = (486.686,-1696.73)
+b=b+o = (487.75,-1698.43)
+c=c+o = (488.282,-1699.27)
+d=d+o = (489.345,-1700.97)
+e=e+o = (490.409,-1702.66)
+f=f+o = (490.941,-1703.51)
+g=g+o = (492.004,-1705.2)
+o= overlapf adcf = 2
+o= overlapf afce = 4
+o= overlapf dbdf = 0
+o= overlapf dbef = 0
+o= overlapf gabf = 6
+o= overlapf bdcg = 2
+o= overlapf bdcf = 2
+o= overlapf bacg = 0
+#
+A=-59
+a=a|A = (1269.64,-1226.29)
+b=b|A = (1270.64,-1228.02)
+c=c|A = (1271.13,-1228.89)
+d=d|A = (1272.13,-1230.62)
+e=e|A = (1273.13,-1232.36)
+f=f|A = (1273.62,-1233.22)
+g=g|A = (1274.62,-1234.96)
+o= overlapf adcf = 2
+o= overlapf afce = 4
+o= overlapf dbdf = 0
+o= overlapf dbef = 0
+o= overlapf gabf = 6
+o= overlapf bdcg = 2
+o= overlapf bdcf = 2
+o= overlapf bacg = 0
+#
+o=(1,0)
+A=-152
+o=o^A = (-0.882948,-0.469472)
+a=(0,0)
+s=0.002
+b=s*o = (-0.0017659,-0.000938943)
+s=0.003
+c=s*o = (-0.00264884,-0.00140841)
+s=0.883
+d=s*o = (-0.779643,-0.414543)
+s=0.884
+e=s*o = (-0.780526,-0.415013)
+f=o = (-0.882948,-0.469472)
+# a 0.002 b 0.001 c 0.880 d 0.001 e 0.116 f
+o= overlapf afba = 0.002
+o= overlapf acbf = 0.001
+o= overlapf adcf = 0.88
+o= overlapf aedf = 0.001
+o= overlapf afef = 0.116
+o= overlapf adbe = 0.881
+o= overlapf abcf = 0
+o= overlapf bdef = 0
+o= overlapf bfda = 0.881
+#
+o=(142.987,141.765)
+a=a+o = (142.987,141.765)
+b=b+o = (142.985,141.764)
+c=c+o = (142.984,141.764)
+d=d+o = (142.207,141.35)
+e=e+o = (142.206,141.35)
+f=f+o = (142.104,141.296)
+o= overlapf afba = 0.002
+o= overlapf acbf = 0.001
+o= overlapf adcf = 0.88
+o= overlapf aedf = 0.001
+o= overlapf afef = 0.116
+o= overlapf adbe = 0.881
+o= overlapf abcf = 0
+o= overlapf bdef = 0
+o= overlapf bfda = 0.881
+#
+A=-26.45
+a=a|A = (-26.8186,-199.558)
+b=b|A = (-26.8189,-199.556)
+c=c|A = (-26.8191,-199.555)
+d=d|A = (-26.9582,-198.686)
+e=e|A = (-26.9584,-198.685)
+f=f|A = (-26.9767,-198.57)
+o= overlapf afba = 0.002
+o= overlapf acbf = 0.001
+o= overlapf adcf = 0.88
+o= overlapf aedf = 0.001
+o= overlapf afef = 0.116
+o= overlapf adbe = 0.881
+o= overlapf abcf = 0
+o= overlapf bdef = 0
+o= overlapf bfda = 0.881
