@@ -1,0 +1,133 @@
+# Test intersectf Function Line Calculator Operations
+#
+o=(10,0)
+A=59
+a=o^A = (5.15038,8.57167)
+A=60
+b=o^A = (5,8.66025)
+c=a^A = (-4.8481,8.7462)
+d=b^A = (-5,8.66025)
+e=c^A = (-9.99848,0.174524)
+f=d^A = (-10,1.22465e-15)
+g=e^A = (-5.15038,-8.57167)
+h=f^A = (-5,-8.66025)
+i=g^A = (4.8481,-8.7462)
+j=h^A = (5,-8.66025)
+k=i^A = (9.99848,-0.174524)
+l=j^A = (10,-1.13311e-14)
+D=3
+a=a:D = (5.15,8.572)
+b=b:D = (5,8.66)
+c=c:D = (-4.848,8.746)
+d=d:D = (-5,8.66)
+e=e:D = (-9.998,0.175)
+f=f:D = (-10,0)
+g=g:D = (-5.15,-8.572)
+h=h:D = (-5,-8.66)
+i=i:D = (4.848,-8.746)
+j=j:D = (5,-8.66)
+k=k:D = (9.998,-0.175)
+l=l:D = (10,-0)
+#
+o=intersectf bcdeD = false
+o=intersectf defgD = false
+o=intersectf fghiD = false
+o=intersectf hijkD = false
+o=intersectf jklaD = false
+o=intersectf labcD = false
+o=intersectf acleD = false
+#
+o=intersectf bdceD = true
+o=intersectf dfegD = true
+o=intersectf fhgiD = true
+o=intersectf hjikD = true
+o=intersectf jlkaD = true
+o=intersectf lbacD = true
+o=intersectf acbgD = true
+#
+L=[(3,1),(1,5)]
+K=[(1,2),(-2,1)]
+L=K*L = [(1,7),(-9,7)]
+a=L*a = (-71.998,96.054)
+b=L*b = (-72.94,95.62)
+c=L*c = (-83.562,27.286)
+d=L*d = (-82.94,25.62)
+e=L*e = (-11.573,-68.761)
+f=L*f = (-10,-70)
+g=L*g = (71.998,-96.054)
+h=L*h = (72.94,-95.62)
+i=L*i = (83.562,-27.286)
+j=L*j = (82.94,-25.62)
+k=L*k = (11.573,68.761)
+l=L*l = (10,70)
+o=(-19.897,+32.659)
+a=o+a = (-91.895,128.713)
+b=o+b = (-92.837,128.279)
+c=o+c = (-103.459,59.945)
+d=o+d = (-102.837,58.279)
+e=o+e = (-31.47,-36.102)
+f=o+f = (-29.897,-37.341)
+g=o+g = (52.101,-63.395)
+h=o+h = (53.043,-62.961)
+i=o+i = (63.665,5.373)
+j=o+j = (63.043,7.039)
+k=o+k = (-8.324,101.42)
+l=o+l = (-9.897,102.659)
+#
+o=intersectf bcdeD = false
+o=intersectf defgD = false
+o=intersectf fghiD = false
+o=intersectf hijkD = false
+o=intersectf jklaD = false
+o=intersectf labcD = false
+o=intersectf acleD = false
+#
+o=intersectf bdceD = true
+o=intersectf dfegD = true
+o=intersectf fhgiD = true
+o=intersectf hjikD = true
+o=intersectf jlkaD = true
+o=intersectf lbacD = true
+o=intersectf acbgD = true
+#
+D=0
+a=(-1e6,1)
+b=(-1e6,0)
+c=(-1e6,-1)
+d=(0,1)
+e=(0,0)
+f=(0,-1)
+g=(1e6,1)
+h=(1e6,0)
+i=(1e6,-1)
+#
+o=intersectf agbiD = false
+o=intersectf bhciD = false
+o=intersectf bgchD = false
+o=intersectf ciagD = false
+o=intersectf agciD = false
+#
+o=intersectf chbiD = true
+o=intersectf aebgD = true
+o=intersectf beceD = true
+o=intersectf ahchD = true
+o=intersectf hchaD = true
+o=intersectf abbaD = true
+#
+D=5
+a=(0.47865,-0.36458)
+b=(-0.86798,0.56482)
+c=(0.98976,0.01987)
+d=(-0.85109,-0.39786)
+e=(0.04875,-0.75683)
+f=(-0.67432,-0.00987)
+#
+o=intersectf abcdD = true
+o=intersectf bedaD = true
+o=intersectf dbbfD = true
+o=intersectf dafeD = true
+#
+o=intersectf afedD = false
+o=intersectf efcaD = false
+o=intersectf caefD = false
+o=intersectf fcbdD = false
