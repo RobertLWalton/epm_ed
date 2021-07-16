@@ -10,6 +10,7 @@ e=(3,5)
 f=(10,1)
 g=(11,1)
 h=(11,0)
+i=(11,-1)
 A= distf pq ab = 0.707107
 B= distf pq bc = 1
 C= distf pq cd = 1
@@ -18,6 +19,7 @@ E= distf pq ef = 1
 F= distf pq fg = 1
 G= distf pq gh = 1
 H= distf pq fh = 0.707107
+I= distf pq di = 0
 #
 o=(-74,91)
 p=o+p = (-74,91)
@@ -30,6 +32,7 @@ e=o+e = (-71,96)
 f=o+f = (-64,92)
 g=o+g = (-63,92)
 h=o+h = (-63,91)
+i=o+i = (-63,90)
 A= distf pq ab = 0.707107
 B= distf pq bc = 1
 C= distf pq cd = 1
@@ -38,6 +41,7 @@ E= distf pq ef = 1
 F= distf pq fg = 1
 G= distf pq gh = 1
 H= distf pq fh = 0.707107
+I= distf pq di = 0
 #
 T=307
 L=^T = [(0.601815,-0.798636),(0.798636,0.601815)]
@@ -51,6 +55,7 @@ e=L*e = (33.9401,114.477)
 f=L*f = (34.9583,106.48)
 g=L*g = (35.5601,105.681)
 h=L*h = (34.7615,105.079)
+i=L*i = (33.9628,104.477)
 A= distf pq ab = 0.707107
 B= distf pq bc = 1
 C= distf pq cd = 1
@@ -59,3 +64,24 @@ E= distf pq ef = 1
 F= distf pq fg = 1
 G= distf pq gh = 1
 H= distf pq fh = 0.707107
+I= distf pq di = 0
+#
+p=(-10,0)
+q=(10,0)
+m=(-1e6,1e-6)
+n=(+1e6,-1e-6)
+o=(+1e6,-1e-8)
+I= distf pq mn = 0
+I= distf pq mo = 4.94995e-07
+I= distf mo q = 4.94995e-07
+#
+A=78
+L=^A = [(0.207912,0.978148),(-0.978148,0.207912)]
+p=L*p = (-2.07912,-9.78148)
+q=L*q = (2.07912,9.78148)
+m=L*m = (-207912,-978148)
+n=L*n = (207912,978148)
+o=L*o = (207912,978148)
+I= distf pq mn = 0
+I= distf pq mo = 4.94965e-07
+I= distf mo q = 4.94965e-07
