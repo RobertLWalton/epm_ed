@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Jul 20 14:44:13 EDT 2021
+// Date:	Tue Jul 20 15:02:52 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -543,13 +543,13 @@ double operator * ( vec v, vec w )	// v*w
 {
     return v.x * w.x + v.y * w.y;
 }
-double cross ( vec v, vec w )		// v#w
+double operator ^ ( vec v, vec w )	// v^w
 {
     return - v.y * w.x + v.x * w.y;
 }
 vec change ( vec v, vec w )		// v:w
 {
-    return new_vec ( v*w, cross ( v, w ) );
+    return new_vec ( v*w, v^w );
 }
 vec unit ( vec v )			// <v>
 {
@@ -573,7 +573,7 @@ linear uchangel ( vec v )		// v!
 }
 double area ( vec p, vec q, vec r )	// area pqr
 {
-    return 0.5 * cross ( r - p, q - p );
+    return 0.5 * ( ( r - p) ^ ( q - p ) );
 }
 
 
@@ -584,7 +584,7 @@ double disti				//disti pqr
 {
     double length = len ( q - p );
     return   ( 1 / length )
-           * fabs ( cross ( q - p, r - p ) );
+           * fabs ( ( q - p ) ^ ( r - p ) );
 }
 double distf				//distf pqr
     ( vec p, vec q, vec r )
@@ -667,12 +667,12 @@ bool intersecti		            //intersecti mnpqd
 {
     assert ( ! eq ( m, n, D ) );
     assert ( ! eq ( p, q, D ) );
-    if ( eq ( 0, cross ( q - p, n - m ), 2*D ) )
+    if ( eq ( 0, ( q - p ) ^ (n - m ), 2*D ) )
     {
         // infinite mn is parallel to infinite pq
 	//
-	return ( eq ( cross ( q - p, p ),
-	              cross ( q - p, n ), 2*D ) );
+	return ( eq ( ( q - p ) ^ p,
+	              ( q - p ) ^ n, 2*D ) );
     }
     else return true;
         // infinite mn and infinite pq are NOT parallel
@@ -735,8 +735,8 @@ vec commoni				//commoni mnpq
     // r = p + s * ( q - p )
     // where A * s = B
     //
-    double A = cross ( n - m, q - p );
-    double B = cross ( n - m, m - p );
+    double A = ( n - m ) ^ ( q - p );
+    double B = ( n - m ) ^ ( m - p );
     return p + (B/A) * ( q - p );
         // If A == 0 lines are parallel and
 	// components will be nan or inf.
@@ -1154,7 +1154,7 @@ bool compute_result ( void )
 	{
 	    assert ( OP1.t == VECTOR );
 	    RES.t = SCALAR;
-	    RES.s = cross ( OP1.v, OP2.v );
+	    RES.s = OP1.v ^ OP2.v;
 	    return true;
 	}
 
