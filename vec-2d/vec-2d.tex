@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Jul 20 10:10:54 EDT 2021
+Date:         & Tue Jul 20 14:53:17 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -500,10 +500,9 @@ then: \\[1ex]
 \tt azm v & returns $(180/\pi)*\mathrm{atan2}(v_y,v_x)$ adjusted & [azimuth] \\
           & to be in the range [0,360).  Calculated values very \\
 	  & near 0 or 360 may be unstable. \\
-\tt l\textasciicircum t
-          & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
-	  & the vector with length {\tt l} and azimuth {\tt t} degrees \\
-	  & where $\theta = (\pi/180)*{\tt t}$ radians \\
+\tt l\WH t & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
+	   & the vector with length {\tt l} and azimuth {\tt t} degrees \\
+	   & where $\theta = (\pi/180)*{\tt t}$ radians \\
 \tt cons v L & returns the list made by prepending {\tt v} to {\tt L} \\
 \end{tabular}
 \end{center}
@@ -1133,16 +1132,15 @@ the {\em operators} and {\em functions}:
         & {\tt p} is a scalar \\
 	& {\tt v} is a vector \\
 then: \\[1ex]
-\tt v\textasciicircum p & returns {\tt w} such that {\tt ||w||=||v||} and
-	                  {\tt azm w = azm v + p}, \\
-			& {\tt v} rotated by {\tt p} degrees \\
+\tt v\WH p & returns {\tt w} such that {\tt ||w||=||v||} and
+	     {\tt azm w = azm v + p}, \\
+	   & {\tt v} rotated by {\tt p} degrees \\
 \tt v|p & returns {\tt w} such that {\tt ||w||=||v||} and
-	                  {\tt azm w = 2*p\,-\,azm v}, \\
-			& {\tt v} reflected across the line with direction
-			  {\tt p} degrees \\
-\tt \textasciicircum p
-       & returns {\tt ($u_x$\textasciicircum p,$u_y$\textasciicircum p)}, \\
-       & the rotation $R^p$ with angle $p$ degrees \\
+	  {\tt azm w = 2*p\,-\,azm v}, \\
+	& {\tt v} reflected across the line with direction
+	  {\tt p} degrees \\
+\tt \WH p & returns {\tt ($u_x$\WH p,$u_y$\WH p)}, \\
+          & the rotation $R^p$ with angle $p$ degrees \\
 \tt |p & returns {\tt ($u_x$|p,$u_y$|p)}, \\
        & the reflection $F^p$ across the line with direction $p$ degrees \\
 \end{tabular}
