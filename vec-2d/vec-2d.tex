@@ -32,12 +32,16 @@
     {\begin{list}{}{\setlength{\leftmargin}{#1}}\item[]}%
     {\end{list}}
 
+\newcommand{\wh}{\,\widehat{~}\,}
+\newcommand{\WH}{$\widehat{~}$}
+
+
 \begin{center}
 {\Large \bf Two Dimensional Geometry Calculator}
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jul 17 11:45:18 EDT 2021
+Date:         & Tue Jul 20 10:10:54 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -1164,15 +1168,15 @@ The \key{scalar product} of two vectors \\
 \centerline{{\tt v = ($v_x$,$v_y$)} and {\tt w = ($w_x$,$w_y$)}} \\
 is \\
 \centerline{\tt v*w = $v_x w_x + v_y w_y$} \\
-The \key{cross product} of the two vectors is \\
-\centerline{\tt v\#w = $(-v_y)w_x + v_x w_y$}
+The \key{cross product} (a.k.a., \key{wedge product}) of the two vectors is \\
+\centerline{\tt v\WH w = $(-v_y)w_x + v_x w_y$}
 \end{definition}
 
 Note that {\tt ||v||$^2$ = v*v}.
 
 If we denote the rotation counter-clockwise by 90 degrees by {\tt R}$^{90}$,
 then \\
-\centerline{\tt v\#w = (-$v_y$,$v_x$)*w = R$^{90}$(v)*w}
+\centerline{\tt v\WH w = (-$v_y$,$v_x$)*w = R$^{90}$(v)*w}
 
 Both the scalar and cross product are \key{bi-linear}.  That is,
 if {\tt u}, {\tt v}, {\tt w} are vectors and {\tt s} is a scalar:
@@ -1181,22 +1185,22 @@ if {\tt u}, {\tt v}, {\tt w} are vectors and {\tt s} is a scalar:
 (u+v)*w = u*w + v*w \\
 u*(v+w) = u*v + u*w \\
 (s*u)*w = s*(u*w) = u*(s*w) \\
-(u+v)\#w = u\#w + v\#w \\
-u\#(v+w) = u\#v + u\#w \\
-(s*u)\#w = s*(u\#w) = u\#(s*w)
+(u+v)\WH w = u\WH w + v\WH w \\
+u\WH (v+w) = u\WH v + u\WH w \\
+(s*u)\WH w = s*(u\WH w) = u\WH (s*w)
 \end{center}
 
 The scalar product is symmetric ({\tt v*w = w*v})
-while the cross product is anti-symmetric ({\tt v\#w = -w\#v}).
+while the cross product is anti-symmetric ({\tt v\WH w = -w\WH v}).
 
 \begin{lemma}
 For a unitary transform {\tt L}:
 \begin{enumerate}
 \item {\tt L(v)*L(w) = v*w} for all vectors {\tt v} and {\tt w}.
 \item If {\tt L} is a rotation,
-         {\tt L(v)\#L(w) = v\#w} for all vectors {\tt v} and {\tt w}; \\
+         {\tt L(v)\WH L(w) = v\WH w} for all vectors {\tt v} and {\tt w}; \\
       if {\tt L} is a reflection,
-         {\tt L(v)\#L(w) = - v\#w} for all vectors {\tt v} and {\tt w}.
+         {\tt L(v)\WH L(w) = - v\WH w} for all vectors {\tt v} and {\tt w}.
 \end{enumerate}
 \end{lemma}
 
@@ -1221,8 +1225,8 @@ If $L$ is a rotation, {\tt R$^{90}$*L=L*R$^{90}$} so \\
 {\tt
 \hspace*{0.1in}
        \begin{tabular}[t]{rcl}
-       L(v)\#L(w) & = & R$^{90}$(L(v))*L(w) = L(R$^{90}$(v))*L(w) \\
-                  & = & R$^{90}$(v)*w = v\#w \\
+       L(v)\WH L(w) & = & R$^{90}$(L(v))*L(w) = L(R$^{90}$(v))*L(w) \\
+                    & = & R$^{90}$(v)*w = v\WH w \\
        \end{tabular}
 } % \tt
 
@@ -1231,8 +1235,8 @@ and {\tt R$^{-90}$ = - R$^{90}$} so \\
 {\tt
 \hspace*{0.1in}
        \begin{tabular}[t]{rcl}
-       L(v)\#L(w) & = & R$^{90}$(L(v))*L(w) = L(R$^{-90}$(v))*L(w) \\
-                  & = & R$^{-90}$(v)*w = - R$^{90}$(v)*w = - v\#w
+       L(v)\WH L(w) & = & R$^{90}$(L(v))*L(w) = L(R$^{-90}$(v))*L(w) \\
+                    & = & R$^{-90}$(v)*w = - R$^{90}$(v)*w = - v\WH w
        \end{tabular}
 } % \tt
 \end{indpar}
@@ -1271,7 +1275,7 @@ and {\tt R$^{-90}$ = - R$^{90}$} so \\
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-We can use the fact that $*$ and $\#$ are invariant under
+We can use the fact that $*$ and $\wh$ are invariant under
 rotations to give a geometric characterization
 of these two products.  Let $v$ and $w$ be two vectors, let
 $\theta=\mathrm{azm}~w - \mathrm{azm}~v$ be the direction angle of $w$
@@ -1279,13 +1283,13 @@ relative to $v$, and let $\phi = \mathrm{azm}~v$ be the aszimuth of $v$
 (see the picture).
 If we rotate both vectors by $R^{-\phi}$
 we line $v$ up with the positive X-axis, while not changing $\theta$,
-$||v||$, $||w||$, $v*w$, or $v\#w$.  So after rotation we have
+$||v||$, $||w||$, $v*w$, or $v\wh w$.  So after rotation we have
 \hspace*{0.5in}
     \begin{tabular}{l@{~~~~~}l}
     $v=(||v||,0)$ &
     $w=(||w||\cos\theta,||w||\sin\theta)$ \\
     $v*w=||v||\times||w||\times\cos\theta$ & 
-    $v\#w=||v||\times||w||\times\sin\theta$ \\
+    $v\wh w=||v||\times||w||\times\sin\theta$ \\
     \end{tabular}
 \end{minipage}
 
@@ -1293,12 +1297,12 @@ From this we deduce two things.  First, \\
 \hspace*{0.5in}
     \begin{tabular}{l@{~~~~~}l}
     $v*w=||v||\times||w||\times\cos\theta$ &
-    $v\#w=||v||\times||w||\times\sin\theta$ \\
+    $v\wh w=||v||\times||w||\times\sin\theta$ \\
     \end{tabular} \\
 before rotation, as well as after rotation,
 which gives a geometric characterization of the products.
 
-Second,\hspace{0.5in}$||v||*R^{-\mathrm{azm}~v}*w=(v*w,v\#w)$,
+Second,\hspace{0.5in}$||v||*R^{-\mathrm{azm}~v}*w=(v*w,v\wh w)$,
 \\[1ex]
 which gives us a quick way to change coordinate systems
 by a rotation times scalar multiplication by $||v||$ so that
@@ -1306,7 +1310,7 @@ $v$ has coordinates $(||v||^2,0)$ in the new coordinate system.
 Problems that might be hard to solve in the original
 coordinate system can be easly to solve in the new coordinate
 system.  For example, the end of $w$ is to the left of the infinite directed
-line extending $v$ if and only if $v\#w>0$.  One can also solve
+line extending $v$ if and only if $v\wh w>0$.  One can also solve
 distance problems in the original coordinate system by solving them
 in the new coordinate system while remembering that the new system distances
 are $||v||$ times the old system distances.
@@ -1354,15 +1358,15 @@ Lastly, looking at the picture at the right, we see that:
     \begin{tabular}{r@{~=~}l}
     \multicolumn{2}{l}{area of triangle $p_1 p_2 p_3$} \\
     & $(1/2)*||p_2-p_1||*\sin\theta*||p_3-p_1||$ \\
-    & $(1/2)*(p_3-p_1)\#(p_2-p_1)$ \\
-    & $-~(1/2)*(p_2-p_1)\#(p_3-p_1)$ \\
+    & $(1/2)*(p_3-p_1)\wh (p_2-p_1)$ \\
+    & $-~(1/2)*(p_2-p_1)\wh (p_3-p_1)$ \\
     \end{tabular} \\
 ~\\
 So we can use the cross product to compute triangle areas,
 but its a bit tricky because what we get is a signed area.
 The result is positive if
-the angle $\theta$ measured from the first factor of $\#$ to the
-second factor of $\#$ is in the range $[0,180]$, and negative if
+the angle $\theta$ measured from the first factor of $\wh $ to the
+second factor of $\wh $ is in the range $[0,180]$, and negative if
 $\theta$ is in the range $[-180,0]$.
 \end{minipage}
 
@@ -1381,14 +1385,14 @@ Assume: & {\tt v=$v$=}$(v_x,v_y)$ (a vector)
 then: \\[1ex]
 \tt v*w & returns $v_x w_x + w_y w_y$,
           the scalar product of {\tt v} and {\tt w} \\
-\tt v\#w & returns $(-v_y)w_x+v_x w_y$,
+\tt v\WH w & returns $(-v_y)w_x+v_x w_y$,
            the cross product of {\tt v} and {\tt w} \\
-\tt v:w & returns $||v||*R^{-\mathrm{azm}~v}*w = (v*w,v\#w)$ \\
+\tt v:w & returns $||v||*R^{-\mathrm{azm}~v}*w = (v*w,v\wh w)$ \\
 \tt <v> & returns $(1/||v|)*v$, the unit vector in the same direction as $v$ \\
-\tt v!w & returns $R^{-\mathrm{azm}~v}*w = (<v>*w,<v>\#w)$ \\
+\tt v!w & returns $R^{-\mathrm{azm}~v}*w = (<v>*w,<v>\wh w)$ \\
 \tt v:  & returns {\tt [$v$:$u_x$,$v$:$u_y$]} ~~~ (so {\tt (v:)*w = v:w}) \\
 \tt v!  & returns {\tt [$v$!$u_x$,$v$!$u_y$]} ~~~ (so {\tt (v!)*w = v!w}) \\
-\tt area~pqr & returns $0.5*(r-p)\#(q-p)$, the area of triangle $pqr$, \\
+\tt area~pqr & returns $0.5*(r-p)\wh (q-p)$, the area of triangle $pqr$, \\
              & with positive sign if $pqr$ clockwise, \\
 	     & and negative sign if counter-clockwise \\
 \end{tabular}
@@ -1452,10 +1456,10 @@ If we apply {\tt (q-p):} after the translation {\tt -p}, we get:
 \begin{center} \tt
 P = (q-p):(p-p) = (0,0) \\
 Q = (q-p):(q-p) = ( (q-p)*(q-p), 0 ) \\
-R = (q-p):(r-p) = ( (q-p)*(r-p), (q-p)\#(r-p) )
+R = (q-p):(r-p) = ( (q-p)*(r-p), (q-p)\WH(r-p) )
 \end{center}
 where we use the facts that {\tt p - p = (0,0)} and
-{\tt (q-p)\#(q-p) = 0}.
+{\tt (q-p)\WH(q-p) = 0}.
 
 Next we define {\tt X} and {\tt Y} to be the coordinates of {\tt R}
 so {\tt R = (X,Y)}, and {\tt L} to be the X coordinate of {\tt Q}
@@ -1466,7 +1470,7 @@ we want the distance from {\tt r} to the infinite line {\tt pq},
 then this is the same as {\tt 1/||q-p||} times
 the distance from {\tt R = (X,Y)} to the infinite
 line {\tt PQ}, and the latter is the X-axis.  So the answer is \\
-\centerline{\tt |Y|/||q-p|| = |(q-p)\#(r-p)|/||q-p||}
+\centerline{\tt |Y|/||q-p|| = |(q-p)\WH(r-p)|/||q-p||}
 
 Next we want to find the point {\tt t} on the infinite line {\tt pq}
 that is closest to {\tt r}.  We will represent {\tt t} as {\tt t = p + s*(q-p)}
@@ -1733,24 +1737,24 @@ If these two infinite lines intersect, there must exist values for
 
 The easy way to solve this is to take the cross product of both
 sides with {\tt n-m}, because
-{\tt (n-m)\#(t*(n-m)) = t*((n-m)\#(n-m)) = t*0 = 0}.
+{\tt (n-m)\WH(t*(n-m)) = t*((n-m)\WH(n-m)) = t*0 = 0}.
 So we end up with: \\
-\centerline{\tt s*(n-m)\#(q-p) = (n-m)\#(m-p)} \\
-which we can solve for {\tt s}.  Unless {\tt (n-m)\#(q-p) = 0}.
+\centerline{\tt s*(n-m)\WH(q-p) = (n-m)\WH(m-p)} \\
+which we can solve for {\tt s}.  Unless {\tt (n-m)\WH(q-p) = 0}.
 
-If {\tt (n-m)\#(q-p) $\ne$ 0} then plugging {\tt s} into
+If {\tt (n-m)\WH(q-p) $\ne$ 0} then plugging {\tt s} into
 {\tt p + s*(q-p)} and using \\
-\centerline{\tt (n-m)\#(q-p) - (n-m)\#(m-p) = (n-m)\#(q-m)}
+\centerline{\tt (n-m)\WH(q-p) - (n-m)\WH(m-p) = (n-m)\WH(q-m)}
 we get that the intesection point is: \\
 \centerline{\tt \begin{tabular}{c}
-                [(n-m)\#(q-m)]*p + [(n-m)\#(m-p)]*q
+                [(n-m)\WH(q-m)]*p + [(n-m)\WH(m-p)]*q
 		\\\hline
-		(n-m)\#(q-p) \\
+		(n-m)\WH(q-p) \\
 		\end{tabular} }
 
-What happens if {\tt (n-m)\#(q-p) = 0}? \\
+What happens if {\tt (n-m)\WH(q-p) = 0}? \\
 \hspace*{0.3in}\begin{tabular}{r@{~~}l}
-Then    & \tt (n-m)\#(q-p) = sin $\theta$*||n-m||*||q-p|| = 0 \\
+Then    & \tt (n-m)\WH(q-p) = sin $\theta$*||n-m||*||q-p|| = 0 \\
 where   & \tt ||n-m|| $\neq$ 0 $\neq$ ||q-p|| \\
 and     & \tt $\theta$ = azm (q-p) - azm (n-m) \\
 so      & \tt sin $\theta$ = 0 \\
@@ -1763,14 +1767,14 @@ The converse is also true.  If {\tt mn} and {\tt pq} are parallel, \\
 then    & {\tt azm (n-m) = azm (q-p)} \\
 and     & \tt ||n-m|| $\neq$ 0 $\neq$ ||q-p|| \\
 so      & {\tt n-m = s*(q-p)} for some scalar {\tt s} \\
-so      & \tt (n-m)\#(q-p) = s*((q-p)\#(q-p)) = 0 \\
+so      & \tt (n-m)\WH(q-p) = s*((q-p)\WH(q-p)) = 0 \\
         \end{tabular}
 
 Of course, testing a product to see if it is {\tt 0} is subject to
 rounding errors.  So we assume that the coordinates of {\tt m},
 {\tt n}, {\tt p}, and {\tt q} have at most {\tt d} decimal places,
 and therefore {\tt mn} is parallel to {\tt pq} if and only if
-{\tt (n-m)\#(q-p)==0:(2d)}.
+{\tt (n-m)\WH(q-p)==0:(2d)}.
 
 If {\tt mn} and {\tt pq} are parallel infinite lines, they
 may be disjoint or identical.  To test which, test whether
@@ -1781,8 +1785,8 @@ infinite line {\tt pq} can be answered by applying the translation
 by {\tt -p} and then the linear transform {\tt (q-p):} to get:
 \begin{center}
 \begin{tabular}{rcl}
-\tt m & $\longmapsto$ & \tt M = ( (q-p)*(m-p), (q-p)\#(m-p) ) \\
-\tt n & $\longmapsto$ & \tt N = ( (q-p)*(n-p), (q-p)\#(n-p) ) \\
+\tt m & $\longmapsto$ & \tt M = ( (q-p)*(m-p), (q-p)\WH(m-p) ) \\
+\tt n & $\longmapsto$ & \tt N = ( (q-p)*(n-p), (q-p)\WH(n-p) ) \\
 infinite {\tt pq} & $\longmapsto$ & X-axis \\
 \end{tabular}
 \end{center}
@@ -1801,7 +1805,7 @@ or \\
 or \\
 {\tt N.y == 0:d}
 \end{center}
-where {\tt M.y == (q-p)\#(m-p)} and {\tt N.y == (q-p)\#(n-p)}.
+where {\tt M.y == (q-p)\WH(m-p)} and {\tt N.y == (q-p)\WH(n-p)}.
 \end{theorem}
 The question of intersection has a discontinuous true/false
 answer, so the boundaries {\tt M.y == 0} and {\tt N.y == 0}
@@ -1821,7 +1825,7 @@ or \\
 in which case it is \\
 \centerline{\tt min (|M.y|, |N.y|) / ||q-p||}
 
-where {\tt M.y == (q-p)\#(m-p)} and {\tt N.y == (q-p)\#(n-p)}.
+where {\tt M.y == (q-p)\WH(m-p)} and {\tt N.y == (q-p)\WH(n-p)}.
 \end{theorem}
 
 
@@ -1857,7 +1861,7 @@ As indicated above,
 we can check whether the infinite extensions of the {\tt mn} and {\tt pq}
 are the same by checking whether {\tt m} and {\tt n} are both on
 the infinite extension of {\tt pq}, or in other words, whether: \\
-\centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
+\centerline{{\tt (q-p)\WH(m-p)==0:(2d)} and {\tt 0==(q-p)\WH(n-p):(2d)}}
 
 If the two infinite extensions of the two finite lines {\tt pq} and
 {\tt mn} are the same
@@ -1893,7 +1897,7 @@ We can summarize all this in:
 Given finite lines {\tt pq} and {\tt mn},
 if coordinates have at most {\tt d} decimal places, if
 \\[1ex]
-\centerline{{\tt (q-p)\#(m-p)==0:(2d)} and {\tt 0==(q-p)\#(n-p):(2d)}}
+\centerline{{\tt (q-p)\WH(m-p)==0:(2d)} and {\tt 0==(q-p)\WH(n-p):(2d)}}
 \\[1ex]
 (so each finite line is a subset of the infinite extension of the
 other finite line),
@@ -2037,10 +2041,10 @@ intersect, and false otherwise.
 Make the coordinate change:
 \begin{center}
 \begin{tabular}{rcl}
-\tt m & $\longmapsto$ & \tt M = ( (q-p)*(m-p), (q-p)\#(m-p) ) \\
-\tt n & $\longmapsto$ & \tt N = ( (q-p)*(n-p), (q-p)\#(n-p) ) \\
-\tt p & $\longmapsto$ & \tt P = ( (q-p)*(p-p), (q-p)\#(p-p) ) = (0,0) \\
-\tt q & $\longmapsto$ & \tt Q = ( (q-p)*(q-p), (q-p)\#(q-p) ) = (L,0) \\
+\tt m & $\longmapsto$ & \tt M = ( (q-p)*(m-p), (q-p)\WH(m-p) ) \\
+\tt n & $\longmapsto$ & \tt N = ( (q-p)*(n-p), (q-p)\WH(n-p) ) \\
+\tt p & $\longmapsto$ & \tt P = ( (q-p)*(p-p), (q-p)\WH(p-p) ) = (0,0) \\
+\tt q & $\longmapsto$ & \tt Q = ( (q-p)*(q-p), (q-p)\WH(q-p) ) = (L,0) \\
       &               & for {\tt L = (q-p)*(q-p) > 0} \\
 \end{tabular}
 \end{center}
