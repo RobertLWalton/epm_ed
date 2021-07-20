@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Jul 20 15:02:52 EDT 2021
+// Date:	Tue Jul 20 15:12:01 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -163,28 +163,35 @@ int main ( int argc, char * argv[] )
         assert ( strlen ( line ) <= MAX_LINE );
 	    // Line is too long.
 
-	// Set squashed to line with whitespace
-	// characters deleted.
+	// Set squashed to line terminated by NUL or #
+	// with whitespace characters deleted.
 	//
 	char * p = squashed, * q = line;
-	bool has_digit;
+	bool has_digit = false;
 	while ( true )
 	{ 
-	    * p = * q ++;
-	    if ( * p  == 0 ) break;
-	    if ( ! isspace ( * p ) ) ++ p;
-	}
+	    if ( isspace ( * q ) )
+	    {
+	        ++ q;
+		continue;
+	    }
+	    else if ( isdigit ( * q ) )
+	        has_digit = true;
+	    else if ( * q == 0 || * q == '#' )
+	        break;
 
-	if ( squashed[0] == '#' )
+	    * p ++ = * q ++;
+	}
+	* p = 0;
+
+	if ( squashed[0] == 0 )
 	{
+	    // Blank line or line containing only
+	    // comment.
+	    //
 	    cout << line << endl;
 	    continue;
 	}
-
-	p = squashed;
-	has_digit = false;
-	while ( * p && ! has_digit )
-	    has_digit = isdigit ( * p ++ );
 
 	if ( has_digit )
 	{
