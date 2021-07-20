@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Jul 13 22:42:22 EDT 2021
+// Date:	Tue Jul 20 14:44:13 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -933,14 +933,6 @@ bool compute_result ( void )
 	    return false;
 	return true;
     }
-    if ( match ( "$=$#$" ) )
-    {
-	assert ( OP1.t == VECTOR );
-	assert ( OP2.t == VECTOR );
-	RES.t = SCALAR;
-	RES.s = cross ( OP1.v, OP2.v );
-	return true;
-    }
     if ( match ( "$=$:$" ) )
     {
         if ( OP2.t == SCALAR )
@@ -1158,7 +1150,16 @@ bool compute_result ( void )
 
     if ( match ( "$=$^$" ) )
     {
+	if ( OP2.t == VECTOR )
+	{
+	    assert ( OP1.t == VECTOR );
+	    RES.t = SCALAR;
+	    RES.s = cross ( OP1.v, OP2.v );
+	    return true;
+	}
+
 	assert ( OP2.t == SCALAR );
+
         if ( OP1.t == SCALAR )
 	{
 	    RES.t = VECTOR;

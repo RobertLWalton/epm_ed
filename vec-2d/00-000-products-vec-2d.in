@@ -4,40 +4,40 @@ z=(0,0)
 v=(1,0)
 w=(0,1)
 r=v*w
-r=v#w
+r=v^w
 o = area zwv
 o = area zvw
 #
 p=60
 w=w^p
 r=v*w
-r=v#w
+r=v^w
 o = area zwv
 #
 p=142
 v=v^p
 w=w^p
 r=v*w
-r=v#w
+r=v^w
 o = area zwv
 #
 s=2.50
 v=s*v
 r=v*w
-r=v#w
+r=v^w
 o = area zwv
 #
 p=255
 v=v^p
 w=w^p
 r=v*w
-r=v#w
+r=v^w
 o = area zwv
 #
 s=5
 w=s*w
 r=v*w
-r=v#w
+r=v^w
 o = area zwv
 #
 U=(1000,-200)
