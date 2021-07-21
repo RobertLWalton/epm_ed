@@ -11,13 +11,48 @@ w = (-.23,-0.41)
 L = ((0.2,0.2),(0.2,0.8),(0.8,0.8),(0.8,0.2))
 M = L = ((0.2,0.2),(0.2,0.8),(0.8,0.8),(0.8,0.2))
 #
-#!point z red
+#!layout 2 1
+#!newpage
+#!header Point, Line, and Text
+#!point z red 4
 #!point x red
 #!point y red
 #!point v red
 #!point w red
 #!line zx blue e
+#!text x red r x
 #!line zy blue e
+#!text y red t y
 #!line zv blue e
+#!text v red tr v
 #!line zw blue e
+#!text zw blue tl w
 #!line L brown -c
+#!point L blue
+#
+L=(-10,-10)
+U=(+10,+10)
+#!newpage LU
+#!header Infinite Line, Rectangle, Circle, and Ellipse
+z=(0,0)
+A=0
+#!infline zA .
+A=90
+#!infline zA .
+p=(2,5)
+q=(8,2)
+#!rectangle pq brown d
+c=(5,-5)
+r=4
+#!circle cr red v
+c=(-5,5)
+r=5
+#!circle cr red h
+c=(-5,-5)
+R=(3,2)
+A=45
+#!ellipse cRA blue s
+c=(5,-5)
+R=(4,2)
+A=0
+#!ellipse cRA blue s

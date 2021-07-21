@@ -2,7 +2,7 @@
 //
 // File:	display-vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Jun 29 15:59:26 EDT 2021
+// Date:	Wed Jul 21 14:53:08 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -677,6 +677,7 @@ void execute ( const char * p )
 	cout << "rectangle line " << color
 	     << " " << options
 	     << " " << c.x << " " << c.y
+	     << " " << width << " " << height
 	     << endl;
     }
     else if ( strncmp ( p, "circle", 6 ) == 0 )
