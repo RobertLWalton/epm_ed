@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Jul 21 16:04:29 EDT 2021
+Date:         & Wed Jul 21 16:48:50 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -475,8 +475,8 @@ azimuth does \underline{not} change the vector.
 \section{Vector Calculator}
 Implement additions to the scalar calculator for just {\em vector}
 value types and the {\em operators} and {\em functions}:
-\begin{center}
-\begin{tabular}{l@{~~~~~}l@{~~~~~}l}
+\begin{indpar}{0.05in}
+\begin{tabular}{l@{~~~}l@{~~~}l}
 Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
           {\tt l=$\ell$}, {\tt t=$(180/\pi)*\theta$}
           are scalars \\
@@ -497,12 +497,14 @@ then: \\[1ex]
 \tt azm v & returns $(180/\pi)*\mathrm{atan2}(v_y,v_x)$ adjusted & [azimuth] \\
           & to be in the range [0,360).  Calculated values very \\
 	  & near 0 or 360 may be unstable. \\
-\tt l\WH t & returns $(\ell\cos\theta,\ell\sin\theta)$, \\
-	   & the vector with length {\tt l} and azimuth {\tt t} degrees \\
-	   & where $\theta = (\pi/180)*{\tt t}$ radians \\
+	  & The returned value is undefined if $||v||=0$. \\
+\tt l\WH t & returns $(\ell\cos\theta,\ell\sin\theta)$,
+	     the vector with length {\tt l} and \\
+	   & azimuth {\tt t} degrees,
+	     where $\theta = (\pi/180)*{\tt t}$ radians \\
 \tt cons v L & returns the list made by prepending {\tt v} to {\tt L} \\
 \end{tabular}
-\end{center}
+\end{indpar}
 
 If {\tt ||v|| = 0} then {\tt azm~v} is undefined (you can do extra
 programming to make it defined as {\tt nan} if you like, but this
@@ -791,7 +793,6 @@ K*L = [K*$\ell^L_x$,K*$\ell^L_y$]
 s*(K+L) = s*K + s*L \\
 (s+t)*K = s*K + t*K \\
 (J+K)*L = J*L + K*L \\
-(J+K)*L = J*L + K*L \\
 J*(K+L) = J*K + J*L
 \end{center}
 
@@ -899,12 +900,13 @@ A \key{rotation} $R^\phi$ by $\phi$ degrees (counter-\EOL clockwise)
 is defined mathematically by
 \hspace*{0.2in}\begin{tabular}[t]{l}
 $||R^\phi(v)|| = ||v||$ \\
-$\mathrm{azm}~R^\phi(v) = \mathrm{azm}~v + \phi$ \\
+$\mathrm{azm}~R^\phi(v) = \mathrm{azm}~v + \phi$ if $||v||\neq 0$ \\
 \end{tabular} \\
 ~\\
 A rotation preserves angles between vectors; that is: \\
 \hspace*{0.2in}$\mathrm{azm}~R^\phi(v)-\mathrm{azm}R^\phi(w)
-               = \mathrm{azm}~v-\mathrm{azm}~w$ \\
+               = \mathrm{azm}~v-\mathrm{azm}~w$
+	       if $||v||\neq 0 \neq ||w||$ \\
 Also, adding integer multiples of 360 to $\phi$
 does \underline{not} change $R^\phi$.
 \end{minipage}
@@ -995,12 +997,13 @@ is defined mathematically by
 $||F^\phi(v)|| = ||v||$ \\
 $\mathrm{azm}~F^\phi(v) = \phi - \alpha$ \\
 where $\alpha = \mathrm{azm}~v - \phi$ so \\
-$\mathrm{azm}~F^\phi(v) = 2*\phi - \mathrm{azm}~v$ \\
+$\mathrm{azm}~F^\phi(v) = 2*\phi - \mathrm{azm}~v$ if $||v||\neq 0$ \\
 \end{tabular} \\
 ~\\
 A reflection negates angles between vectors; that is: \\
 \hspace*{0.2in}$\mathrm{azm}~F^\phi(v)-\mathrm{azm}F^\phi(w)
-               = -(\mathrm{azm}~v-\mathrm{azm}~w)$ \\
+               = -(\mathrm{azm}~v-\mathrm{azm}~w)$
+	       if $||v||\neq 0 \neq ||w||$ \\
 Also, adding integer multiples of 180 to $\phi$
 does \underline{not} change $F^\phi$.
 \end{minipage}
@@ -1135,11 +1138,13 @@ the {\em operators} and {\em functions}:
 then: \\[1ex]
 \tt v\WH p & returns {\tt w} such that {\tt ||w||=||v||} and
 	     {\tt azm w = azm v + p}, \\
-	   & {\tt v} rotated by {\tt p} degrees \\
+	   & {\tt v} rotated by {\tt p} degrees;
+	     undefined if {\tt ||v|| = 0} \\
 \tt v|p & returns {\tt w} such that {\tt ||w||=||v||} and
 	  {\tt azm w = 2*p\,-\,azm v}, \\
 	& {\tt v} reflected across the line with direction
-	  {\tt p} degrees \\
+	  {\tt p} degrees; \\
+	& undefined if {\tt ||v|| = 0} \\
 \tt \WH p & returns {\tt ($u_x$\WH p,$u_y$\WH p)}, \\
           & the rotation $R^p$ with angle $p$ degrees \\
 \tt |p & returns {\tt ($u_x$|p,$u_y$|p)}, \\
