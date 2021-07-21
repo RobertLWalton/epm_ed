@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Jul 20 14:53:17 EDT 2021
+Date:         & Wed Jul 21 03:45:29 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -161,10 +161,6 @@ Rotations and Reflections & rotation and reflection linear transforms \\
 Products & vector scalar and cross products \\
 Line and Point & algorithms involving a line and a point \\
 Line and Line & algorithms involving two lines \\
-Circle, Line, and Point & algorithms involving a circle and a line or a point \\
-Ellipse, Line, and Point & algorithms involving an ellipse
-                           and a line or a point \\
-
 \end{tabular}
 \end{center}
 
@@ -175,12 +171,14 @@ The Input/Output Rules are:
 before the {\em statements} are parsed.  There may be whitespace
 before the `{\tt \#}' that begins a comment.
 
-\item The output of a {\em statement} is a copy of the {\em statement},
-which if the {\em statement} is neither a comment nor of the form
-`{\em variable} \TT{=} {\em value} {\em eol}', 
-is followed by `{\em space} \TT{=} {\em space} {\em value}', where
+\item The output of a {\em statement} is a copy of the {\em statement}
+line (including white\-space)
+if the {\em statement} is a comment or is of the form
+`{\em variable} \TT{=} {\em value} {\em eol}'.
+Otherwise the output is one line containing a copy of the {\em statement}
+followed by `{\em space} \TT{=} {\em space} {\em value} {\em eol}', where
 the {\em value} is that assigned to the {\em variable} beginning the
-statement.
+{\em statement}.
 
 \item Input lines have a maximum of 100,000 characters (long lines
 are only needed for inputting vector lists).  Output lines have
@@ -215,9 +213,8 @@ value types and the
 {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l}
-Assume:	& {\tt x=}$x$, {\tt y=}$y$ (scalars) \\
-	& {\tt d=}$d$ (an integer scalar $-15\le d\le +15$) \\
-	& {\tt b=}$b$ (a boolean) \\
+Assume:	& {\tt x=}$x$, {\tt y=}$y$ are scalars \\
+	& {\tt d=}$d$ is an integer scalar, $-15\le d\le +15$ \\
 then: \\[1ex]
 \tt x+y & returns $x + y$ \\
 \tt x-y & returns $x - y$ \\
@@ -483,7 +480,7 @@ value types and the {\em operators} and {\em functions}:
 Assume: & {\tt s=}$s$, {\tt x=}$x$, {\tt y=$y$},
           {\tt l=$\ell$}, {\tt t=$(180/\pi)*\theta$}
           are scalars \\
-	& {\tt d=}$d$ (an integer scalar $-15\le d\le +15$) \\
+	& {\tt d=}$d$ is an integer scalar, $-15\le d\le +15$ \\
 	& {\tt v=}$(v_x,v_y)$, {\tt w=}$(w_x,w_y)$ are vectors \\
 	& {\tt L} is a list of vectors \\
 then: \\[1ex]
@@ -832,7 +829,7 @@ value types and the {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l@{~~~~~}l}
 Assume: & {\tt s=}$s$ is a scalar \\
-	& {\tt d=}$d$ (an integer scalar $-15\le d\le +15$) \\
+	& {\tt d=}$d$ is an integer scalar, $-15\le d\le +15$ \\
 	& {\tt v=($v_x$,$v_y$)} and {\tt w=($w_x$,$w_y$)} are vectors \\
 	& \multicolumn{2}{@{}l}{{\tt K=[$\ell^K_x$,$\ell^K_y$]} and
 	  {\tt L=[$\ell^L_x$,$\ell^L_y$]} are linear transforms} \\
@@ -1666,7 +1663,7 @@ the following {\em operators} and {\em functions}:
 \begin{tabular}{l@{~~~~}l@{~~~~}l}
 Assume: & {\tt p}, {\tt q}, {\tt r}, {\tt u}, {\tt v}
           are vectors representing points \\
-	& {\tt D=}$D$ (an integer scalar $-15\le D\le +15$) \\
+	& {\tt D=}$D$ is an integer scalar, $-15\le D\le +15$ \\
 then: \\[1ex]
 \tt disti~pqr  & returns the distance from point {\tt r} to the
 		\underline{infinite} line {\tt pq} \\
@@ -2173,7 +2170,7 @@ the following {\em operators} and {\em functions}:
 \begin{center}
 \begin{tabular}{l@{~~~~~}l}
 Assume: & {\tt m}, {\tt n}, {\tt p}, {\tt q} are vectors representing points \\
-	& {\tt D=}$D$ (an integer scalar $-15\le D\le +15$) \\
+	& {\tt D=}$D$ is an integer scalar, $-15\le D\le +15$ \\
 then: \\[1ex]
 \tt intersecti mnpqD & returns {\tt true} if the infinite lines {\tt mn} and
                      {\tt pq} \\
