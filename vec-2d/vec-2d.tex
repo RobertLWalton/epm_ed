@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Jul 21 03:45:29 EDT 2021
+Date:         & Wed Jul 21 16:04:29 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -529,8 +529,9 @@ by making a {\tt .pdf} file from an {\tt .in}
 file and your solution program.
 The display commands are embedded in {\tt .in} file `{\tt \#}' comment
 lines, so your program does not have to deal with them.
-The {\tt 00-001-vector-vec-2d.in} file has display commands,
-but many {\tt .in} files have none.
+The {\tt 00-000-vector-vec-2d.in} file has examples of all the
+display commands.  Most sample {\tt 00-XXXX-YYYY-vec-2d.in} files have
+have display commands if they compute vectors.
 
 \medskip
 
@@ -548,7 +549,8 @@ The line/area drawing commands are:
                              & consecutive points in the \\
 		             & list of points {\tt L} \\
 \tt \#!infline pA [color] [opt] & infinite line from point {\tt p} \\
-                                & in direction {\tt A} and/or {\tt -A} \\
+                                & in direction {\tt A}
+				  (a scalar angle) \\
 \tt \#!rectangle pq [color] [opt] & rectangle with opposing corners \\
                                   & point {\tt p} and point {\tt q} \\
 \tt \#!circle cr [color] [opt] & circle of center {\tt c}
@@ -569,7 +571,7 @@ display command.
 Circle and ellipse radii must be strictly positive.
 Spaces are as indicated, and must consist
 of at least one horizonal space character.
-Coordinates are automatically scaled to fit the page.  Angles are
+Coordinates are automatically scaled to fit the logical page.  Angles are
 in degrees.
 
 The possible colors
@@ -588,7 +590,7 @@ For non-points {\tt opt} is zero or more of:
     \tt . & dotted line \\
     \tt - & dashed line \\
           & ~~ ({\tt .} and {\tt -} conflict; if neither line is solid) \\
-    \tt c & close path (for {\tt \#!line}) \\
+    \tt c & close path (for {\tt \#!line L}) \\
           & ~~ (implied by {\tt s}, {\tt d}, {\tt h}, {\tt v}) \\
     \tt m & add arrow head in middle of each line segment (for {\tt \#!line}) \\
     \tt e & add arrow head at end of each line segment (for {\tt \#!line}) \\
@@ -597,8 +599,10 @@ For non-points {\tt opt} is zero or more of:
     \tt h & fill with horizontal bars \\
     \tt v & fill with vertical bars \\
           & ~~ ({\tt s}, {\tt d}, {\tt h}, and {\tt v} conflict) \\
-    \tt f & extend infinite line forward from point \\
-    \tt b & extend infinite line backward from point \\
+    \tt f & extend infinite line forward from point
+            (for {\tt \#!infline}) \\
+    \tt b & extend infinite line backward from point
+            (for {\tt \#!infline}) \\
           & ~~ ({\tt f}, {\tt b} conflict; if neither
 	        line extends in both directions) \\
     \end{tabular}
