@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Fri Jul 23 21:57:58 EDT 2021
+Date:         & Sat Jul 24 04:47:26 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -2084,21 +2084,43 @@ all the points on the line $L$ between $b_t$ and $b_f$.
 We need merely show that $D=0$ for some point on $L$.
 
 Let us think of {\tt M}, {\tt N}, {\tt M'}, {\tt N'}, {\tt P}, {\tt Q}
-as functions on points of $L$.  Then {\tt M'($b_t$)} and {\tt N'($b_t$)}
-are in $S$ and are not both on the same side of the line {\tt y = 0},
-since the algorithm returns true for $b_t$.  If {\tt M'.y = 0}
-for any point of $L\cap T$, then $D=0$ for that point and we are done,
-so we will assume this does not happen.  Similarly we will assume
-that {\tt N'.y = 0} does not happen for any point of $L\cap T$.
-Without loss of generality, we will assume that {\tt M'.y > 0 > N'.y}.
+as functions on points of $L$.  These functions are continuous on $L$,
+though {\tt M'} and {\tt N'} may not exist for some points of $L$.
+We will use proof by contradiction, and therefore assume that $D\neq 0$
+for all points of $L$.  Then:
+
+\begin{center}
+\begin{tabular}{l}
+if {\tt M'} exists at $b\in L$, then {\tt M'($b$) $\neq$ 0} \\
+if {\tt N'} exists at $b\in L$, then {\tt N'($b$) $\neq$ 0} \\
+{\tt M'($b_t$)} and {\tt N'($b_t$)} exist \\
+either {\tt M'($b_t$).y > 0 > N'($b_t$).y}
+    or {\tt M'($b_t$).y < 0 < N'($b_t$).y} \\
+if {\tt MN} intersects $S$ at $b_f\in L$, then either \\
+~~~{\tt M'($b_f$).y > 0 < N'($b_f$).y}
+   or {\tt M'($b_f$).y < 0 > N'($b_f$).y} \\
+\end{tabular}
+\end{center}
 
 Case 1: {\tt MN} intersects $S$ for all points on $L$.
-Then either {\tt M'($b_f$).y > 0} and {\tt N'($b_f$).y > 0} or
-{\tt M'($b_f$).y < 0} and {\tt N'($b_f$).y < 0}.  Since
-{\tt M'.y} and {\tt N'.y} are continuous on $L$, one of these
-must be {\tt 0} for some point of $L$, and $D=0$ for that point.
+
+Then {\tt M'} and {\tt N'} exist for all $b\in L$ and
+one of the following is true:
+\begin{center}
+\begin{tabular}{l}
+{\tt M'($b_t$).y > 0 > M'($b_f$).y} \\
+{\tt M'($b_t$).y < 0 < M'($b_f$).y} \\
+{\tt N'($b_t$).y > 0 > N'($b_f$).y} \\
+{\tt N'($b_t$).y < 0 < N'($b_f$).y} \\
+\end{tabular}
+\end{center}
+
+Which ever of these cases is true, by continuity of
+{\tt M'} and {\tt N'} we have that either {\tt M'($b$).y = 0}
+or {\tt N'($b$).y = 0} for some $b\in L$, a contradiction.
 
 Case 2: {\tt MN} does not intersect $S$ for some point of $L$.
+
 Let
 \begin{center}
 $I = \{ b_i\in R: {\tt MN} \textrm{~intersects~} S\}$
@@ -2106,33 +2128,67 @@ $I = \{ b_i\in R: {\tt MN} \textrm{~intersects~} S\}$
 (Note that $S$ depends on {\tt p} and {\tt q}.)
 Then the complement of $I$ is open in $R$, so $I$ is closed, so
 $I\cap L$ is closed in $L$ and
-has a boundary point $b_j$ between $b_t$ and $b_f$.  At $b_j$
+has a boundary point $b_j$ between $b_t$ and $b_f$ such that
+{\TT MN} intersects $S$ for all $b\in L$ that are between
+$b_t$ and $b_j$.  Let $L_j$ denote the line between $b_j$ and $b_t$,
+and note that since {\tt MN} intersects $S$ for $b\in L_j$, then
+{\tt M'($b$)} and {\tt N'($b$)} exist for all $b\in L_j$.
+
+As $b_j$
 (which is not to be confused with $b_b$)
-one of the following is true:
+is a boundary point of $I\cap L$,
+one of the following is true at $b_j$:
 \begin{center}
 \begin{tabular}{l}
-{\tt M.x} $=$ {\tt Q.x} $\leq$ {\tt N.x} \\
-{\tt N.x} $=$ {\tt Q.x} $\leq$ {\tt M.x} \\
-{\tt M.x} $\leq$ {\tt P.x} = {\tt N.x} \\
-{\tt N.x} $\leq$ {\tt P.x} = {\tt M.x} \\
+{\tt M.x = Q.x $\leq$ N.x} \\
+{\tt N.x = Q.x $\leq$ M.x} \\
+{\tt M.x $\leq$ P.x = N.x} \\
+{\tt N.x $\leq$ P.x = M.x} \\
 \end{tabular}
 \end{center}
 For if not, there would be an open interval containing $b_j$ in $L$
 that would be in $I\cap L$ and $b_j$ would not be a boundary
 point of $I\cap L$ in $L$.
 
-We will prove that $D=0$ at $b_j$.  We give the proof
+We will prove that $D=0$ for some $b\in L_j$.  We give the proof
 for just the first of these four cases,
-as the proof for the other three cases is similar.
+as the proof for each of the other three cases is similar.
 	
 \begin{indpar}{0.3in}
-Case 2a: {\tt M.x = Q.x < N.x}.  Then
-{\tt N' = M} so as in Case 1 one of {\tt M'.y} and {\tt N'.y}
-must be {\tt 0} for some point in the interval $[b_t,b_j]$.
-\\
-Case 2b: {\tt M.x = Q.x = N.x}.  Then {\tt Q} is on {\tt MN} so
-$D=0$ for $b_j$.
+Case 2a: {\tt M.x = Q.x < N.x} at $b_j\in L_j$
+
+Then {\tt N' = M} at $b_j$ so the following are true:
+\begin{center}
+\begin{tabular}{l}
+{\tt M'($b_j$).y = N'($b_j$)}.y \\
+\begin{tabular}{@{}rl}
+either & {\tt M'($b_t$).y > 0 > N'($b_t$).y} \\
+    or & {\tt M'($b_t$).y < 0 < N'($b_t$).y} \\
+\end{tabular} \\
+\end{tabular}
+\end{center}
+
+Therefore by continuity of
+{\tt M'} and {\tt N'} on $L_j$,
+either {\tt M'($b$).y = 0}
+or {\tt N'($b$).y = 0} for some $b\in L_j\subset L$.
+
+
+Case 2b: {\tt M.x = Q.x = N.x} at $b_j\in L_j$
+
+Since $b_j\in L_j\subset T$,
+\begin{center}
+\begin{tabular}{l}
+\begin{tabular}{@{}rl}
+either & {\tt M'($b_j$).y > 0 > N'($b_j$).y} \\
+    or & {\tt M'($b_j$).y < 0 < N'($b_j$).y} \\
+\end{tabular} \\
+{\tt Q.y = 0} \\
+\end{tabular}
+\end{center}
+so {\tt Q} is on {\tt MN} at $b_j$ and therefore $D=0$ for $b_j\in L_j$.
 \end{indpar}
+
 \end{indpar}
 
 \newpage
