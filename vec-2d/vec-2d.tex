@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Jul 21 16:48:50 EDT 2021
+Date:         & Fri Jul 23 21:57:58 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -1317,12 +1317,9 @@ system.  For example, the end of $w$ is to the left of the infinite directed
 line extending $v$ if and only if $v\wh w>0$.  One can also solve
 distance problems in the original coordinate system by solving them
 in the new coordinate system while remembering that the new system distances
-are $||v||$ times the old system distances.
-
-A distance in
-this new coordinate system is $||v||$ times the corresponding
-distance in the old coordinate system.  Thus if absolute distances are
-of importance, it may be best to choose $v$ so that $||v||=1$.
+are $||v||$ times the original system distances.  If in addition
+$||v||=1$, distances in the new system equal distances in the original
+system.
 
 \bigskip
 
@@ -1654,14 +1651,11 @@ of an infinite line a point is on
 to find the general position of a direction relative to
 two other directions.
 
-Note the special cases:
-\begin{indpar}{0.5in}
-When {\tt pq$_2$} and {\tt pq$_1$} have the same direction,
-LR and RL are empty.
-\\[0.5ex]
-When {\tt pq$_2$} and {\tt pq$_1$} have opposite directions,
+Note that if
+{\tt pq$_2$} and {\tt pq$_1$} have the same direction,
+LR and RL are empty, whereas if
+{\tt pq$_2$} and {\tt pq$_1$} have opposite directions,
 LL and RR are empty.
-\end{indpar}
 
 \newpage
 
@@ -1861,8 +1855,7 @@ extensions of both lines, and as $r_i$ is on $\ell_i$, this point is
 on both finite lines.
 \end{indpar}
 
-As indicated above,
-we can check whether the infinite extensions of the {\tt mn} and {\tt pq}
+We can check whether the infinite extensions of the {\tt mn} and {\tt pq}
 are the same by checking whether {\tt m} and {\tt n} are both on
 the infinite extension of {\tt pq}, or in other words, whether: \\
 \centerline{{\tt (q-p)\WH(m-p)==0:(2d)} and {\tt 0==(q-p)\WH(n-p):(2d)}}
@@ -1874,52 +1867,22 @@ system on this infinite line.
 
 If {\tt r} is a point on this infinite line then
 {\tt r = p + s$_r$ * <q-p>} for some scalar {\tt s$_r$}.  Then
-{\tt s$_r$ = $\pm$||r-p||} where the $+$ sign is chosen when {\tt r}
-is to the same side of {\tt p} as {\tt q}, and the $-$ sign is chosen
-when {\tt r} is to the opposite side of {\tt p} from {\tt q}.
-We can use the map {\tt r $\mapsto$ s$_r$} as a system of coordinates
+{\tt s$_r$ = <q-p>*(r-p)} (because {\tt ||<q-p>|| = 1}).
+We can use the map {\tt r $\mapsto$ s$_r$} as a distance-preserving
+system of coordinates
 on the infinite line.
 
-However it is more computationally convenient to use
-{\tt r $\mapsto$ S$_r$ = (q-p)*r = ||q-p||*s$_r$} as the system of coordinates.
-Distances in this coordinate system are {\tt ||q-p||} times distances in the
-original coordinate system.
-
 Using this coordinate system, the finite line {\tt pq} is represented
-as the coordinate interval {\tt [S$_p$,S$_q$]}, where \\
-\centerline{{\tt S$_p$ = (q-p)*(p-p) = 0} and {\tt S$_q$ = (q-p)*(q-p) > 0 }}
+as the coordinate interval {\tt [s$_p$,s$_q$]}, where
+{\tt s$_p$ = <q-p>*(p-p) = 0} and
+{\tt s$_q$ = <q-p>*(q-p) = ||q-p|| > 0 }.
 To simplify
-the situation, switch {\tt m} and {\tt n} if necessary to that
-{\tt S$_m$ < S$_n$} and {\tt mn} is represented by the coordinate
-interval {\tt [S$_m$,S$_n$]}.  Then the overlap of the two intervals
-is empty if {\tt S$_n$ < S$_p$} or {\tt S$_q$ < S$_m$}, and is
+the situation, switch {\tt m} and {\tt n} if necessary so that
+{\tt s$_m$ < s$_n$} and {\tt mn} is represented by the coordinate
+interval {\tt [s$_m$,s$_n$]}.  Then the overlap of the two intervals
+is empty if {\tt s$_n$ < s$_p$} or {\tt s$_q$ < s$_m$}, and is
 otherwise \\
-\centerline{\tt [max(S$_p$,S$_m$),min(S$_q$,S$_n$)]}
-
-We can summarize all this in:
-\begin{lemma}
-Given finite lines {\tt pq} and {\tt mn},
-if coordinates have at most {\tt d} decimal places, if
-\\[1ex]
-\centerline{{\tt (q-p)\WH(m-p)==0:(2d)} and {\tt 0==(q-p)\WH(n-p):(2d)}}
-\\[1ex]
-(so each finite line is a subset of the infinite extension of the
-other finite line),
-and if we switch {\tt m} and {\tt n} if necessary so that \\
-\centerline{\tt (q-p)*(m-p) < (q-p)*(n-p)}
-then
-\begin{enumerate}
-\item If {\tt (q-p)*(n-p) < (q-p)*(p-p):(2d)} the finite lines do not overlap.
-\item If {\tt (q-p)*(q-p) < (q-p)*(m-p):(2d)} the finite lines do not overlap.
-\item Otherwise the finite lines overlap and the length of the overlap \\
-is {\tt (U-L {\rm rounded to} {\tt 2d} {\rm decimal places})/||q-p||} \\
-\hspace*{0.5in}\begin{tabular}{rl}
-where	& \tt L = max ( (q-p)*(m-p), (q-p)*(p-p) ) \\
-and	& \tt U = min ( (q-p)*(n-p), (q-p)*(q-p) ) \\
-\end{tabular} \\
-(If we do not round {\tt U-L} it can happen that {\tt U-L < 0}.)
-\end{enumerate}
-\end{lemma}
+\centerline{\tt min(s$_q$,s$_n$) - max(s$_p$,s$_m$)}
 
 
 Lastly we consider the problem of finding the distance between
@@ -2020,7 +1983,7 @@ the distance from {\tt q} to {\tt mn} \\
 
 This corollary gives an algorithm to compute the distance between
 two finite lines as follows.  Let A be the answer to the question:
-do the lines intersect.  Let D be the distance computed by the
+do the lines intersect?  Let D be the distance computed by the
 corollary if A is false.  Then if A is true, return 0, else return D.
 
 But now we have a difficulty: the algorithms we have developed
@@ -2057,7 +2020,8 @@ so infinite {\tt pq} $\longmapsto$ X-axis.
 
 Intersect the finite line {\tt MN} with the region
 \begin{center}
-$S = [0,L]\times(-\infty,+\infty) = \{(x,y):0\leq x\leq L\}$
+$S = [0,L]\times(-\infty,+\infty) =
+    \{(x,y):0\leq x\leq L,-\infty < y < +\infty\}$
 \end{center}
 
 If the intersection is empty, return false.
@@ -2100,7 +2064,7 @@ $D = 0$ on $B$.
 Since $D$ is continuous on $R$, this follows immediately from:
 \begin{lemma}
 For every $b\in B$ and every neighborhood $B_b$ of $b$ in $R$,
-there is a point $d\in B_b$ at with $D=0$.
+there is a point $d\in B_b$ with $D=0$.
 \end{lemma}
 
 \begin{indpar}{0.3in}
