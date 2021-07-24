@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jul 24 04:47:26 EDT 2021
+Date:         & Sat Jul 24 12:00:41 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -2044,6 +2044,7 @@ Algorithm~\ref{INTERSECTION-ALGORITHM} more precisely.
 Let
 \begin{center}
 $R=\{(m,n,p,q): m\neq n, p\neq q\} \subset {\cal R}^8$ \\
+$I=\{(m,n,p,q)\in R: MN \textrm{~intersects~} S\}$ \\
 $T=\{(m,n,p,q)\in R:
      \textrm{Algorithm~\ref{INTERSECTION-ALGORITHM} returns true}\}$ \\
 $B$ = boundary of $T$ in $R$ \\
@@ -2061,133 +2062,86 @@ Then we want to prove:
 $D = 0$ on $B$.
 \end{theorem}
 
-Since $D$ is continuous on $R$, this follows immediately from:
+In the proof of this theorem we will use the following:
 \begin{lemma}
-For every $b\in B$ and every neighborhood $B_b$ of $b$ in $R$,
-there is a point $d\in B_b$ with $D=0$.
+If $b\in I$ then {\tt M'($b$).y = 0} implies $D=0$ at $b$;
+and also {\tt N'($b$).y = 0} implies $D=0$ at $b$.
 \end{lemma}
 
 \begin{indpar}{0.3in}
-Proof:
+Proof of Lemma:
 
-Using the notation of the algorithm, if {\tt MN} intersects $S$,
-then if {\tt M'.y = 0}, either {\tt M' = M} and {\tt M} is on
+If {\tt M'($b$).y = 0}, either {\tt M' = M} and {\tt M} is on
 the line {\tt PQ}, or {\tt M'.x = P.x} or {\tt M'.x = Q.x} and
 {\tt P} or {\tt Q} is on the line {\tt MN}, so in either case
-$D=0$.  Similarly if {\tt N'.y = 0} then $D=0$.
-
-Since $R$ is open in ${\cal R}^8$, $B_b$ contains a
-convex neighborhood of $b$, so we will assume that $B_b$ is
-convex.  By definition of the boundary, $B_b$ contains a point
-$b_t\in T$ and a point $b_f\not\in T$, and by convexity contains
-all the points on the line $L$ between $b_t$ and $b_f$.
-We need merely show that $D=0$ for some point on $L$.
-
-Let us think of {\tt M}, {\tt N}, {\tt M'}, {\tt N'}, {\tt P}, {\tt Q}
-as functions on points of $L$.  These functions are continuous on $L$,
-though {\tt M'} and {\tt N'} may not exist for some points of $L$.
-We will use proof by contradiction, and therefore assume that $D\neq 0$
-for all points of $L$.  Then:
-
-\begin{center}
-\begin{tabular}{l}
-if {\tt M'} exists at $b\in L$, then {\tt M'($b$) $\neq$ 0} \\
-if {\tt N'} exists at $b\in L$, then {\tt N'($b$) $\neq$ 0} \\
-{\tt M'($b_t$)} and {\tt N'($b_t$)} exist \\
-either {\tt M'($b_t$).y > 0 > N'($b_t$).y}
-    or {\tt M'($b_t$).y < 0 < N'($b_t$).y} \\
-if {\tt MN} intersects $S$ at $b_f\in L$, then either \\
-~~~{\tt M'($b_f$).y > 0 < N'($b_f$).y}
-   or {\tt M'($b_f$).y < 0 > N'($b_f$).y} \\
-\end{tabular}
-\end{center}
-
-Case 1: {\tt MN} intersects $S$ for all points on $L$.
-
-Then {\tt M'} and {\tt N'} exist for all $b\in L$ and
-one of the following is true:
-\begin{center}
-\begin{tabular}{l}
-{\tt M'($b_t$).y > 0 > M'($b_f$).y} \\
-{\tt M'($b_t$).y < 0 < M'($b_f$).y} \\
-{\tt N'($b_t$).y > 0 > N'($b_f$).y} \\
-{\tt N'($b_t$).y < 0 < N'($b_f$).y} \\
-\end{tabular}
-\end{center}
-
-Which ever of these cases is true, by continuity of
-{\tt M'} and {\tt N'} we have that either {\tt M'($b$).y = 0}
-or {\tt N'($b$).y = 0} for some $b\in L$, a contradiction.
-
-Case 2: {\tt MN} does not intersect $S$ for some point of $L$.
-
-Let
-\begin{center}
-$I = \{ b_i\in R: {\tt MN} \textrm{~intersects~} S\}$
-\end{center}
-(Note that $S$ depends on {\tt p} and {\tt q}.)
-Then the complement of $I$ is open in $R$, so $I$ is closed, so
-$I\cap L$ is closed in $L$ and
-has a boundary point $b_j$ between $b_t$ and $b_f$ such that
-{\TT MN} intersects $S$ for all $b\in L$ that are between
-$b_t$ and $b_j$.  Let $L_j$ denote the line between $b_j$ and $b_t$,
-and note that since {\tt MN} intersects $S$ for $b\in L_j$, then
-{\tt M'($b$)} and {\tt N'($b$)} exist for all $b\in L_j$.
-
-As $b_j$
-(which is not to be confused with $b_b$)
-is a boundary point of $I\cap L$,
-one of the following is true at $b_j$:
-\begin{center}
-\begin{tabular}{l}
-{\tt M.x = Q.x $\leq$ N.x} \\
-{\tt N.x = Q.x $\leq$ M.x} \\
-{\tt M.x $\leq$ P.x = N.x} \\
-{\tt N.x $\leq$ P.x = M.x} \\
-\end{tabular}
-\end{center}
-For if not, there would be an open interval containing $b_j$ in $L$
-that would be in $I\cap L$ and $b_j$ would not be a boundary
-point of $I\cap L$ in $L$.
-
-We will prove that $D=0$ for some $b\in L_j$.  We give the proof
-for just the first of these four cases,
-as the proof for each of the other three cases is similar.
-	
-\begin{indpar}{0.3in}
-Case 2a: {\tt M.x = Q.x < N.x} at $b_j\in L_j$
-
-Then {\tt N' = M} at $b_j$ so the following are true:
-\begin{center}
-\begin{tabular}{l}
-{\tt M'($b_j$).y = N'($b_j$)}.y \\
-\begin{tabular}{@{}rl}
-either & {\tt M'($b_t$).y > 0 > N'($b_t$).y} \\
-    or & {\tt M'($b_t$).y < 0 < N'($b_t$).y} \\
-\end{tabular} \\
-\end{tabular}
-\end{center}
-
-Therefore by continuity of
-{\tt M'} and {\tt N'} on $L_j$,
-either {\tt M'($b$).y = 0}
-or {\tt N'($b$).y = 0} for some $b\in L_j\subset L$.
-
-
-Case 2b: {\tt M.x = Q.x = N.x} at $b_j\in L_j$
-
-Since $b_j\in L_j\subset T$,
-\begin{center}
-\begin{tabular}{l}
-\begin{tabular}{@{}rl}
-either & {\tt M'($b_j$).y > 0 > N'($b_j$).y} \\
-    or & {\tt M'($b_j$).y < 0 < N'($b_j$).y} \\
-\end{tabular} \\
-{\tt Q.y = 0} \\
-\end{tabular}
-\end{center}
-so {\tt Q} is on {\tt MN} at $b_j$ and therefore $D=0$ for $b_j\in L_j$.
+$D=0$.  Similarly if {\tt N'($b$).y = 0} then $D=0$.
 \end{indpar}
+
+\begin{indpar}{0.3in}
+Proof of Theorem:
+
+First note that since $R\setminus I$ and $R\setminus T$ are open,
+$I$ and $T$ are closed.  In addition, {\tt M}, {\tt N}, {\tt P},
+and {\tt Q} are continuous functions on $R$, and {\tt M'} and {\tt N'}
+are continuous functions on $I$.
+
+Let $b\in B$.  We need to show that $D=0$ at $b$.
+
+Since $T$ is closed and $B$ is the boundary of $T$, $B\subset T$,
+and $b\in T$.  Therefore one of the following is true:
+\begin{center}
+\begin{tabular}{ll}
+(a) & {\tt M'($b$).y = 0} (and therefore by the lemma $D=0$ at $b$) \\ 
+(b) & {\tt N'($b$).y = 0} (and therefore by the lemma $D=0$ at $b$) \\ 
+(c) & {\tt M'($b_t$).y > 0 > N'($b_t$).y} \\
+(d) & {\tt M'($b_t$).y < 0 < N'($b_t$).y} \\
+\end{tabular}
+\end{center}
+Note that {\tt M'($b_t$).y > 0 < N'($b_t$).y}
+is impossible as $b\in T$,
+and similarly {\tt M'($b_t$).y < 0 > N'($b_t$).y} is impossible.
+
+So we need only prove that (c) and (d) are impossible.  There are
+exactly two cases:
+
+Case 1: There is a sequence of points in $I\setminus T$ that
+converges to $b$.
+
+Then there is a subsequence $s$ of points such that either:
+\begin{center}
+\begin{tabular}{ll}
+(e) & if $b_s\in s$ then {\tt M'($b_s$).y > 0 < N'($b_s$).y}; \\
+    & therefore by continuity
+            {\tt M'($b$).y $geq$ 0 $leq$ N'($b$).y}; \\
+(f) & if $b_s\in s$ then {\tt M'($b_s$).y < 0 > N'($b_s$).y} \\
+    & therefore by continuity
+            {\tt M'($b$).y $leq$ 0 $geq$ N'($b$).y}; \\
+\end{tabular}
+\end{center}
+But (e) is incompatible with both (c) and (d), and similarly (f) is
+imcompatible with both (c) and (d).
+
+Case 2: There is a sequence of points in $R\setminus I$ that
+converges to $b$.
+
+Then there is a subsequence $s$ of points such that either:
+\begin{center}
+\begin{tabular}{ll}
+(g) & if $b_s\in s$ then {\tt M($b_s$).x < P.x > N($b_s$).x}; \\
+    & therefore by continuity
+            {\tt M($b$).x $leq$ P.x $geq$ N($b$).y}; \\
+    & therefore since $b\in T\subset I$,
+            {\tt M'($b$).x = P.x = N'($b$).x}; \\
+(h) & if $b_s\in s$ then {\tt M($b_s$).x > Q.x < N($b_s$).y} \\
+    & therefore by continuity
+            {\tt M($b$).x $geq$ Q.x $leq$ N($b$).x}; \\
+    & therefore since $b\in T\subset I$,
+            {\tt M'($b$).x = Q.x = N'($b$).x}; \\
+\end{tabular}
+\end{center}
+If {\tt M($b$).x $\neq$ N($b$).x} then either (g) or (h) imply
+{\tt M'($b$) = N'($b$)} which is incompatible with both (c) and (d).
+Otherwise TBD
 
 \end{indpar}
 
