@@ -2064,8 +2064,11 @@ $D = 0$ on $B$.
 
 In the proof of this theorem we will use the following:
 \begin{lemma}
-If $b\in I$ then {\tt M'($b$).y = 0} implies $D=0$ at $b$;
-and also {\tt N'($b$).y = 0} implies $D=0$ at $b$.
+If $b\in I$ then:
+\begin{indpar}{0.5in}
+{\tt M'($b$).y = 0} implies $D=0$ at $b$ \\
+{\tt N'($b$).y = 0} implies $D=0$ at $b$
+\end{indpar}
 \end{lemma}
 
 \begin{indpar}{0.3in}
@@ -2093,15 +2096,16 @@ and $b\in T$.  Therefore one of the following is true:
 \begin{tabular}{ll}
 (a) & {\tt M'($b$).y = 0} (and therefore by the lemma $D=0$ at $b$) \\ 
 (b) & {\tt N'($b$).y = 0} (and therefore by the lemma $D=0$ at $b$) \\ 
-(c) & {\tt M'($b_t$).y > 0 > N'($b_t$).y} \\
-(d) & {\tt M'($b_t$).y < 0 < N'($b_t$).y} \\
+(c) & {\tt M'($b$).y > 0 > N'($b$).y} \\
+(d) & {\tt M'($b$).y < 0 < N'($b$).y} \\
 \end{tabular}
 \end{center}
-Note that {\tt M'($b_t$).y > 0 < N'($b_t$).y}
+Note that {\tt M'($b$).y > 0 < N'($b$).y}
 is impossible as $b\in T$,
-and similarly {\tt M'($b_t$).y < 0 > N'($b_t$).y} is impossible.
+and similarly {\tt M'($b$).y < 0 > N'($b$).y} is impossible.
 
-So we need only prove that (c) and (d) are impossible.  There are
+So we need only prove that (c) and (d) are impossible or lead
+to the conclusion that $D=0$ at $b$.  There are
 exactly two cases:
 
 Case 1: There is a sequence of points in $I\setminus T$ that
@@ -2112,10 +2116,10 @@ Then there is a subsequence $s$ of points such that either:
 \begin{tabular}{ll}
 (e) & if $b_s\in s$ then {\tt M'($b_s$).y > 0 < N'($b_s$).y}; \\
     & therefore by continuity
-            {\tt M'($b$).y $geq$ 0 $leq$ N'($b$).y}; \\
+            {\tt M'($b$).y $\geq$ 0 $\leq$ N'($b$).y}; \\
 (f) & if $b_s\in s$ then {\tt M'($b_s$).y < 0 > N'($b_s$).y} \\
     & therefore by continuity
-            {\tt M'($b$).y $leq$ 0 $geq$ N'($b$).y}; \\
+            {\tt M'($b$).y $\leq$ 0 $\geq$ N'($b$).y}; \\
 \end{tabular}
 \end{center}
 But (e) is incompatible with both (c) and (d), and similarly (f) is
@@ -2129,19 +2133,26 @@ Then there is a subsequence $s$ of points such that either:
 \begin{tabular}{ll}
 (g) & if $b_s\in s$ then {\tt M($b_s$).x < P.x > N($b_s$).x}; \\
     & therefore by continuity
-            {\tt M($b$).x $leq$ P.x $geq$ N($b$).y}; \\
+            {\tt M($b$).x $\leq$ P.x $\geq$ N($b$).x}; \\
     & therefore since $b\in T\subset I$,
             {\tt M'($b$).x = P.x = N'($b$).x}; \\
-(h) & if $b_s\in s$ then {\tt M($b_s$).x > Q.x < N($b_s$).y} \\
+(h) & if $b_s\in s$ then {\tt M($b_s$).x > Q.x < N($b_s$).x} \\
     & therefore by continuity
-            {\tt M($b$).x $geq$ Q.x $leq$ N($b$).x}; \\
+            {\tt M($b$).x $\geq$ Q.x $\leq$ N($b$).x}; \\
     & therefore since $b\in T\subset I$,
             {\tt M'($b$).x = Q.x = N'($b$).x}; \\
 \end{tabular}
 \end{center}
 If {\tt M($b$).x $\neq$ N($b$).x} then either (g) or (h) imply
 {\tt M'($b$) = N'($b$)} which is incompatible with both (c) and (d).
-Otherwise TBD
+
+Otherwise (g) implies that {\tt M($b$).x = N($b$).x = P($b$).x} and
+either (c) or (d) then imply that {\tt P($b$)} is on the line
+{\tt MN} at $b$ and hence $D=0$ at $b$.
+
+Similarly (h) implies that {\tt M($b$).x = N($b$).x = Q($b$).x} and
+either (c) or (d) then imply that {\tt Q($b$)} is on the line
+{\tt MN} at $b$ and hence $D=0$ at $b$.
 
 \end{indpar}
 
