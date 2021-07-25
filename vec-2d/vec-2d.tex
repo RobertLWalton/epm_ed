@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Sat Jul 24 12:00:41 EDT 2021
+Date:         & Sun Jul 25 04:37:46 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -2074,10 +2074,12 @@ If $b\in I$ then:
 \begin{indpar}{0.3in}
 Proof of Lemma:
 
-If {\tt M'($b$).y = 0}, either {\tt M' = M} and {\tt M} is on
-the line {\tt PQ}, or {\tt M'.x = P.x} or {\tt M'.x = Q.x} and
-{\tt P} or {\tt Q} is on the line {\tt MN}, so in either case
-$D=0$.  Similarly if {\tt N'($b$).y = 0} then $D=0$.
+If {\tt M'($b$).y = 0}, either {\tt M' = M}, {\tt M} is on
+the line {\tt PQ}, and therefore $D=0$;
+or {\tt M'.x = P.x} or {\tt M'.x = Q.x},
+{\tt M' = P} or {\tt M' = Q}, the line {\tt MN}
+contains {\tt P} or {\tt Q}, and $D=0$.
+Similarly if {\tt N'($b$).y = 0} then $D=0$.
 \end{indpar}
 
 \begin{indpar}{0.3in}
@@ -2105,8 +2107,13 @@ is impossible as $b\in T$,
 and similarly {\tt M'($b$).y < 0 > N'($b$).y} is impossible.
 
 So we need only prove that (c) and (d) are impossible or lead
-to the conclusion that $D=0$ at $b$.  There are
-exactly two cases:
+to the conclusion that $D=0$ at $b$.
+
+Since $b$ is on the boundary of $T$ in $R$,
+there is an infinite sequence of points in $R\setminus T$
+converging to $b$.  Using the fact that $R\setminus T$ is the
+disjoint union of $R\setminus I$ and $I\setminus T$,
+we divide the argument into two cases:
 
 Case 1: There is a sequence of points in $I\setminus T$ that
 converges to $b$.
@@ -2117,7 +2124,7 @@ Then there is a subsequence $s$ of points such that either:
 (e) & if $b_s\in s$ then {\tt M'($b_s$).y > 0 < N'($b_s$).y}; \\
     & therefore by continuity
             {\tt M'($b$).y $\geq$ 0 $\leq$ N'($b$).y}; \\
-(f) & if $b_s\in s$ then {\tt M'($b_s$).y < 0 > N'($b_s$).y} \\
+(f) & if $b_s\in s$ then {\tt M'($b_s$).y < 0 > N'($b_s$).y}; \\
     & therefore by continuity
             {\tt M'($b$).y $\leq$ 0 $\geq$ N'($b$).y}; \\
 \end{tabular}
