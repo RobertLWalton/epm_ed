@@ -2,7 +2,7 @@
 //
 // File:	vec-2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Jul 20 15:51:51 EDT 2021
+// Date:	Fri Jul 30 16:07:51 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -1131,12 +1131,6 @@ bool compute_result ( void )
 	    assert ( OP2.t == SCALAR );
 	    RES.t = VECTOR;
 	    RES.v = new_vec ( OP1.s, OP2.s );
-	}
-	else if ( OP1.t == VECTOR )
-	{
-	    assert ( OP2.t == VECTOR );
-	    RES.t = LINEAR;
-	    RES.l = new_linear ( OP1.v, OP2.v );
 	}
 	else
 	    return false;

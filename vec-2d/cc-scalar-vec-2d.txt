@@ -3,7 +3,7 @@
 //
 // File:	cc-scalar-vec-2d.txt
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Sun Jun 20 03:06:55 EDT 2021
+// Date:	Fri Jul 30 15:58:47 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -48,9 +48,22 @@ var vars[128];
     // Implicitly initialized to
     // vars[...].t == 0 == NONE,
 
-double units[13] =  // units[d] = 10**(-d)
-    { 1e-0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6,
-      1e-7, 1e-8, 1e-9, 1e-10, 1e-11, 1e-12 };
+double units_data[61] =
+    { 1e30,  1e29,  1e28,  1e27,  1e26,
+      1e25,  1e24,  1e23,  1e22,  1e21,
+      1e20,  1e19,  1e18,  1e17,  1e16,
+      1e15,  1e14,  1e13,  1e12,  1e11,
+      1e10,  1e9,   1e8,   1e7,   1e6,
+      1e5,   1e4,   1e3,   1e2,   1e1,
+      1e0,
+      1e-1,  1e-2,  1e-3,  1e-4,  1e-5,
+      1e-6,  1e-7,  1e-8,  1e-9,  1e-10,
+      1e-11, 1e-12, 1e-13, 1e-14, 1e-15,
+      1e-16, 1e-17, 1e-18, 1e-19, 1e-20,
+      1e-21, 1e-22, 1e-23, 1e-24, 1e-25,
+      1e-26, 1e-27, 1e-28, 1e-29, 1e-30 };
+double * units = & units_data[30];
+    // units[d] = 10**(-d) for -30 <= d <= +30
 
 vec zerov = { 0, 0 };  // Zero vector
 vec uxv = { 1, 0 };    // Unit vector in X direction.
@@ -155,24 +168,28 @@ int main ( int argc, char * argv[] )
 	// characters deleted.
 	//
 	char * p = squashed, * q = line;
-	bool has_digit;
-	while ( true )
+	bool has_digit = false;
+	while ( * q != 0 )
 	{ 
-	    * p = * q ++;
-	    if ( * p  == 0 ) break;
-	    if ( ! isspace ( * p ) ) ++ p;
+	    if ( isspace ( * q ) )
+	    {
+	        ++ q;
+		continue;
+	    }
+	    else if ( isdigit ( * q ) )
+	        has_digit = true;
+
+	    * p ++ = * q ++;
 	}
+	* p = 0;
 
 	if ( squashed[0] == '#' )
 	{
+	    // Comment line.
+	    //
 	    cout << line << endl;
 	    continue;
 	}
-
-	p = squashed;
-	has_digit = false;
-	while ( * p && ! has_digit )
-	    has_digit = isdigit ( * p ++ );
 
 	if ( has_digit )
 	{
@@ -314,7 +331,8 @@ int main ( int argc, char * argv[] )
 	}
         else
 	{
-	    cerr << "ERROR: unrecognized operation in:"
+	    cerr << "ERROR: unrecognized operation in"
+	         << " line " << line_number << ":"
 	         << endl << "    " << line << endl;
 	    exit ( 1 );
 	}
@@ -326,29 +344,29 @@ int main ( int argc, char * argv[] )
 // Scalar Calculator Functions
 // ------ ---------- ---------
 
-bool lt ( double x, double y, double d )
+// The following allow -30 <= d <= 30.
+//
+bool lt ( double x, double y, int d )
 {
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return x < y - 0.5 * units[i];
+    return x < y - 0.5 * units[d];
 }
 
-bool le ( double x, double y, double d )
+bool le ( double x, double y, int d )
 {
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return x < y + 0.5 * units[i];
+    return x < y + 0.5 * units[d];
 }
 
-bool eq ( double x, double y, double d )
+bool eq ( double x, double y, int d )
 {
-    assert ( 0 <= d && d <= 12 );
-    int i = int ( d );
-    assert ( i == d );
-    return fabs ( x - y ) < 0.5 * units[i];
+    return fabs ( x - y ) < 0.5 * units[d];
 }
+
+double dround ( double s, int d )
+{
+    double i = round ( s / units[d] );
+    return i * units[d];
+}
+
 
 // C++ Compute Result Function
 // --- ------- ------ --------
@@ -392,6 +410,21 @@ bool compute_result ( void )
 	{
 	    RES.t = SCALAR;
 	    RES.s = OP1.s * OP2.s;
+	}
+	else
+	    return false;
+	return true;
+    }
+    if ( match ( "$=$:$" ) )
+    {
+        if ( OP2.t == SCALAR )
+	{
+	    int d = int ( OP2.s );
+	    if ( OP1.t == SCALAR )
+	        RES.s = dround ( OP1.s, d );
+	    else
+	        return false;
+	    RES.t = OP1.t;
 	}
 	else
 	    return false;
@@ -455,11 +488,12 @@ bool compute_result ( void )
     if ( match ( "$=$<$:$" ) )
     {
 	assert ( OP3.t == SCALAR );
+	int d = int ( OP3.s );
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
 	    RES.t = BOOLEAN;
-	    RES.b = lt ( OP1.s, OP2.s, OP3.s );
+	    RES.b = lt ( OP1.s, OP2.s, d );
 	}
 	else
 	    return false;
@@ -468,11 +502,12 @@ bool compute_result ( void )
     if ( match ( "$=$<=$:$" ) )
     {
 	assert ( OP3.t == SCALAR );
+	int d = int ( OP3.s );
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
 	    RES.t = BOOLEAN;
-	    RES.b = le ( OP1.s, OP2.s, OP3.s );
+	    RES.b = le ( OP1.s, OP2.s, d );
 	}
 	else
 	    return false;
@@ -481,11 +516,12 @@ bool compute_result ( void )
     if ( match ( "$=$==$:$" ) )
     {
 	assert ( OP3.t == SCALAR );
+	int d = int ( OP3.s );
 	if ( OP1.t == SCALAR )
 	{
 	    assert ( OP2.t == SCALAR );
 	    RES.t = BOOLEAN;
-	    RES.b = eq ( OP1.s, OP2.s, OP3.s );
+	    RES.b = eq ( OP1.s, OP2.s, d );
 	}
 	else
 	    return false;
@@ -494,4 +530,3 @@ bool compute_result ( void )
 
     return false;
 }
-
