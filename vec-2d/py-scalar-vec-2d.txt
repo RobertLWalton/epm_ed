@@ -1,0 +1,451 @@
+# Scalar Calculator Solution to the
+# Two Dimensional Geometry Problem
+#
+# File:         py-scalar-vec-2d.txt
+# Authors:      Bob Walton (walton@acm.org)
+# Date:         Sat Jul 31 06:34:10 EDT 2021
+#
+# The authors have placed this program in the public
+# domain; they make no warranty and accept no liability
+# for this program.
+
+import sys
+import math
+
+# Booleans are PYTHON booleans (True or False)
+# Scalars are PYTHON floats
+# Vectors are PYTHON 2-tuples of scalars
+# Linear Transforms are PYTHON 2-tuples of vectors
+# Lists are PYTHON lists of vectors
+
+# D[ord("X")] is value of variable "X"
+#
+D = [None for i in range(128)]
+
+def is_bool ( value ):
+    return type(value) == bool
+def is_scalar ( value ):
+    return type(value) == float
+def is_vector ( value ):
+    return type(value) == tuple \
+           and \
+           type(value[0]) == float
+def is_linear ( value ):
+    return type(value) == tuple \
+           and \
+           type(value[0]) == tuple
+def is_list ( value ):
+    return type(value) == list
+
+units_data = \
+    ( 1e30,  1e29,  1e28,  1e27,  1e26,
+      1e25,  1e24,  1e23,  1e22,  1e21,
+      1e20,  1e19,  1e18,  1e17,  1e16,
+      1e15,  1e14,  1e13,  1e12,  1e11,
+      1e10,  1e9,   1e8,   1e7,   1e6,
+      1e5,   1e4,   1e3,   1e2,   1e1,
+      1e0,
+      1e-1,  1e-2,  1e-3,  1e-4,  1e-5,
+      1e-6,  1e-7,  1e-8,  1e-9,  1e-10,
+      1e-11, 1e-12, 1e-13, 1e-14, 1e-15,
+      1e-16, 1e-17, 1e-18, 1e-19, 1e-20,
+      1e-21, 1e-22, 1e-23, 1e-24, 1e-25,
+      1e-26, 1e-27, 1e-28, 1e-29, 1e-30 )
+def units ( d ):
+    return units_data[d+30]
+
+zerov = ( 0, 0 )  # Zero vector
+uxv   = ( 1, 0 )  # Unit vector in X direction
+uyv   = ( 0, 1 )  # Unit vector in Y direction
+
+line_number = 0
+line = ""       # Input line.
+squashed = []   # Input line with whitespace removed
+                # as a list of characters.
+ndx = 0         # squashed[ndx:] is the yet unread
+                # portion of squashed
+V = []          # V[i] = ord("X") if the i+1'st
+                # in the command line is "X"
+
+# Define fail to print error and current line.
+#
+def Fail ( message ):
+    print ( 'FATAL ERROR: ' + message  + ' in line '
+                            + str ( line_number )
+                            + ":\n"
+                            + line,
+            file = sys.stderr )
+    sys.exit ( 1 )
+
+# Main Loop is at end of program, as in PYTHON
+# it must be after the compute_result function.
+
+# Scalar Calculator Functions
+# ------ ---------- ---------
+
+# The following allow -30 <= d <= 30.
+#
+def lt ( x, y, d ):
+    return x < y - 0.5 * units(d)
+
+def le ( x, y, d ):
+    return x < y + 0.5 * units(d)
+
+def eq ( x, y, d ):
+    return fabs ( x - y ) < 0.5 * units(d)
+
+def dround ( s, d ):
+    i = round ( s / units(d) )
+    return i * units(d)
+
+# Return v cast to an integer checking that v is in fact
+# a scalar integer in the range [-15,+15].
+#
+def dcheck ( v, name ):
+    if not is_scalar ( v ):
+        Fail ( name + " is not a scalar" )
+    d = int ( v )
+    if d != v:
+        Fail ( name + " is not an integer" )
+    if d < -15 or +15 < d:
+        Fail ( name + " is not in range [-15,+15]" )
+    return d
+
+
+# Compute Result Function
+# ------- ------ --------
+
+def compute_result():
+
+    if match ( "$=$" ):
+        D[V[0]] = D[V[1]]
+        return True
+
+    elif match ( "$=$+$" ):
+
+        if is_scalar ( D[V[1]] ) \
+           and \
+           is_scalar ( D[V[2]] ):
+            D[V[0]] = D[V[1]] + D[V[2]]
+        else:
+            return False
+        return True
+
+    elif match ( "$=$-$" ):
+
+        if is_scalar ( D[V[1]] ) \
+           and \
+           is_scalar ( D[V[2]] ):
+            D[V[0]] = D[V[1]] - D[V[2]]
+        else:
+            return False
+        return True
+
+    elif match ( "$=$*$" ):
+
+        if is_scalar ( D[V[1]] ) \
+           and \
+           is_scalar ( D[V[2]] ):
+            D[V[0]] = D[V[1]] * D[V[2]]
+        else:
+            return False
+        return True
+
+    elif match ( "$=$:$" ):
+
+        if is_scalar ( D[V[2]] ):
+            d = dcheck ( D[V[2]], "second operand" )
+
+            if is_scalar ( D[V[1]] ):
+                D[V[0]] = dround ( D[V[1]], d )
+            else:
+                return False
+        else:
+            return False
+        return True
+
+    elif match ( "$=$/$" ):
+
+        if is_scalar ( D[V[1]] ) \
+           and \
+           is_scalar ( D[V[2]] ):
+            D[V[0]] = D[V[1]] / D[V[2]]
+        else:
+            return False
+        return True
+
+    elif match ( "$=$%$" ):
+
+        if is_scalar ( D[V[1]] ) \
+           and \
+           is_scalar ( D[V[2]] ):
+            D[V[0]] = fmod ( D[V[1]], D[V[2]] )
+        else:
+            return False
+        return True
+
+    elif match ( "$=-$" ):
+
+        if is_scalar ( D[V[1]] ):
+            D[V[0]] = - D[V[1]]
+        else:
+            return False
+        return True
+
+    elif match ( "$=|$|" ):
+
+        if not is_scalar ( D[V[1]] ):
+            Fail ( "operand is not scalar" )
+        D[V[0]] = fabs ( D[V[1]] )
+        return True
+
+    elif match ( "$=sin$" ):
+
+        if not is_scalar ( D[V[1]] ):
+            Fail ( "operand is not scalar" )
+        D[V[0]] = math.sin \
+            ( ( math.pi / 180 ) * D[V[1]] )
+        return True
+
+    elif match ( "$=cos$" ):
+
+        if not is_scalar ( D[V[1]] ):
+            Fail ( "operand is not scalar" )
+        D[V[0]] = math.cos \
+            ( ( math.pi / 180 ) * D[V[1]] )
+        return True
+
+    elif match ( "$=tan$" ):
+
+        if not is_scalar ( D[V[1]] ):
+            Fail ( "operand is not scalar" )
+        D[V[0]] = math.tan \
+            ( ( math.pi / 180 ) * D[V[1]] )
+        return True
+
+    elif match ( "$=$<$:$" ):
+
+        d = dcheck ( D[V[3]], "third operand" )
+        if is_scalar ( D[V[1]] ):
+
+            if not is_scalar ( D[V[2]] ):
+                Fail ( "third operand is not a scalar" )
+            D[V[0]] = lt ( D[V[1]], D[V[2]], d )
+
+        else:
+            return False
+        return True
+
+    elif match ( "$=$<=$:$" ):
+
+        d = dcheck ( D[V[3]], "third operand" )
+        if is_scalar ( D[V[1]] ):
+
+            if not is_scalar ( D[V[2]] ):
+                Fail ( "third operand is not a scalar" )
+            D[V[0]] = le ( D[V[1]], D[V[2]], d )
+
+        else:
+            return False
+        return True
+
+    elif match ( "$=$==$:$" ):
+
+        d = dcheck ( D[V[3]], "third operand" )
+        if is_scalar ( D[V[1]] ):
+
+            if not is_scalar ( D[V[2]] ):
+                Fail ( "third operand is not a scalar" )
+            D[V[0]] = eq ( D[V[1]], D[V[2]], d )
+
+        else:
+            return False
+        return True
+
+    else:
+        return False
+
+# Main Program
+# ---- -------
+
+# The read routines read squashed[ndx..], update ndx,
+# and return the value read.
+
+# Read and return scalar at squashed[i...]; scalar
+# is ended by , ) or line-end.
+#
+def read_scalar():
+    global ndx
+    sub = squashed[ndx:]
+    i = sub.find ( "," )
+    if i == -1:
+        i = sub.find ( ")" )
+
+    if i == -1:
+        v = sub
+        ndx += len ( sub )
+    else:
+        v = sub[:i]
+        ndx += i
+    try:
+        return float(v)
+    except:
+        Fail ( "`" + v + "' is not a scalar" )
+
+# Read and return vector.
+#
+def read_vector():
+    global ndx
+    if squashed[ndx] != "(":
+        Fail ( "`(' not found where expected" )
+    ndx += 1
+    x = read_scalar(p)
+    if squashed[ndx] != ",":
+        Fail ( "`,' not found where expected" )
+    ndx += 1
+    y = read_scalar(p)
+    if squashed[ndx] != ")":
+        Fail ( "`)' not found where expected" )
+    ndx += 1
+    return (x,y)
+
+# Match a pattern to the squashed input line.  Returns
+# True iff successful.  Sets V[i] to ord("X") if the
+# i+1'st $ in the pattern matches the letter "X".
+#
+def match ( pattern ):
+
+    global V
+    V = []
+    j = len ( pattern )
+    if j != len ( squashed ):
+        return False
+    i = 0
+    while i < j:
+        c = pattern[i]
+        if c == "$":
+            c = squashed[i]
+            if not c.isalpha():
+                return False
+            V.append ( ord ( c ) )
+        else:
+            if c != squashed[i]:
+                return False
+
+        i += 1
+
+    return True
+
+
+# Main Loop
+#
+while True:
+    line = input()
+    if line == None: break
+    line_number += 1
+
+    squashed = "".join ( line.split() )
+
+    if squashed == "":
+        Fail ( "blank line" )
+    if squashed[0] == '#':
+        print ( line )
+        continue
+
+    has_digit = False
+    i = 0
+    j = len ( squashed )
+    while not has_digit and i < j:
+        has_digit = squashed[i].isdigit()
+        i += 1
+
+    if has_digit:
+
+        ndx = 0
+
+        v = squashed[ndx]
+        ndx += 1
+        if not v.isalpha():
+            Fail ( "line contains a digit" +
+                   " but with non-letter" )
+        V = [ ord ( v ) ]
+
+        if squashed[ndx] != '=':
+            Fail ( "`=' not found where expected" )
+        ndx += 1
+
+        c = squashed[ndx]
+        if c == '[':
+            ndx += 1
+            lx = read_vector()
+            if squashed[ndx] != ',':
+                Fail ( "`,' not found where expected" )
+            ndx += 1
+            ly = read_vector()
+            if squashed[ndx] != ']':
+                Fail ( "`]' not found where expected" )
+            ndx += 1
+            D[V[0]] = (lx,ly)
+
+        elif c == '(' and squashed[ndx+1] == '(':
+            ndx += 1
+            D[V[0]] = []
+            while True:
+                D[V[0]].append ( read_vector() )
+                if squashed[ndx] != ',': break
+                ndx += 1
+            if squashed[ndx] != ')':
+                Fail ( "`)' not found where expected" )
+            ndx += 1
+
+        elif c == '(':
+            D[V[0]] = read_vector()
+
+        else:
+            D[V[0]] = read_scalar()
+
+        if ndx != len ( squashed ):
+            Fail ( "extra stuff `" + squashed[ndx:] +
+                   "' at end of line" )
+        print ( line )
+        continue
+
+    # Has_digit is false from here on, and we
+    # use exclusively the `match' function to do
+    # the rest of the parsing.
+
+    if match ( "$=true" ):
+        D[V[0]] = True
+    elif match ( "$=false" ):
+        D[V[0]] = False
+    elif match ( "$=()" ):
+        D[V[0]] = []
+
+    # Compute_result() does the rest of the calls
+    # to match an result computation.  Returns true
+    # on success and false if operation not
+    # recognized.  Result is in D[V[0]].
+    #
+    if compute_result():
+
+        print ( line + " = ", end = '' )
+
+        r = D[V[0]]
+        if is_bool ( r ):
+            if r: print ( "true" )
+            else: print ( "false" )
+        elif is_scalar ( r ):
+            print ( r )
+        elif is_vector ( r ):
+            print ( r )
+        elif is_linear ( r ):
+            print ( "[" + r(0) + "," + r(1) + "]" )
+        elif is_list ( r ):
+            print ( "(" + r.join ( "," ) + ")" )
+        else:
+            Fail ( "BAD RESULT `" + r + "'" )
+
+    else:
+        Fail ( "unrecognized operation" )
+
+sys.exit ( 0 )
