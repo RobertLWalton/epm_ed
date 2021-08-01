@@ -1,7 +1,7 @@
 # Test Scalar Comparison Operators
 #
-x = 1.2345
-y = 1.2346
+x = 1.2343210
+y = 1.2345678
 d = 2
 t = x:d
 t = y:d

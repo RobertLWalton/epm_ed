@@ -1,7 +1,7 @@
 # Test Scalar Comparison Operators
 #
-x = 1.2345
-y = 1.2346
+x = 1.2343210
+y = 1.2345678
 d = 2
 t = x:d = 1.23
 t = y:d = 1.23
@@ -9,26 +9,26 @@ t = x  < y :d = false
 t = x <= y :d = true
 t = x == y :d = true
 d = 3
-t = x:d = 1.235
+t = x:d = 1.234
 t = y:d = 1.235
 t = x  < y :d = false
 t = x <= y :d = true
 t = x == y :d = true
 d = 4
-t = x:d = 1.2345
+t = x:d = 1.2343
 t = y:d = 1.2346
 t = x  < y :d = true
 t = x <= y :d = true
 t = x == y :d = false
 d = 5
-t = x:d = 1.2345
-t = y:d = 1.2346
+t = x:d = 1.23432
+t = y:d = 1.23457
 t = x  < y :d = true
 t = x <= y :d = true
 t = x == y :d = false
 d = 6
-t = x:d = 1.2345
-t = y:d = 1.2346
+t = x:d = 1.23432
+t = y:d = 1.23457
 t = x  < y :d = true
 t = x <= y :d = true
 t = x == y :d = false
