@@ -1,4 +1,4 @@
-# Test scalar and boolean input/output
+# Test Scalar and Boolean Input/Output
 #
 x=1
 o=x = 1

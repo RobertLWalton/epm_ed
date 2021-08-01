@@ -1,6 +1,6 @@
 // Solution Two Dimensional Geometry Problem
 //
-// File:	vec-2d.cc
+// File:	vec2d.cc
 // Authors:	Bob Walton (walton@acm.org)
 // Date:	Fri Jul 30 16:07:51 EDT 2021
 //
