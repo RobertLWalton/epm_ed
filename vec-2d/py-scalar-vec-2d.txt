@@ -3,7 +3,7 @@
 #
 # File:         py-scalar-vec-2d.txt
 # Authors:      Bob Walton (walton@acm.org)
-# Date:         Sat Jul 31 06:34:10 EDT 2021
+# Date:         Sun Aug  1 00:07:39 EDT 2021
 #
 # The authors have placed this program in the public
 # domain; they make no warranty and accept no liability
@@ -92,7 +92,7 @@ def le ( x, y, d ):
     return x < y + 0.5 * units(d)
 
 def eq ( x, y, d ):
-    return fabs ( x - y ) < 0.5 * units(d)
+    return math.fabs ( x - y ) < 0.5 * units(d)
 
 def dround ( s, d ):
     i = round ( s / units(d) )
@@ -179,7 +179,7 @@ def compute_result():
         if is_scalar ( D[V[1]] ) \
            and \
            is_scalar ( D[V[2]] ):
-            D[V[0]] = fmod ( D[V[1]], D[V[2]] )
+            D[V[0]] = math.fmod ( D[V[1]], D[V[2]] )
         else:
             return False
         return True
@@ -196,7 +196,7 @@ def compute_result():
 
         if not is_scalar ( D[V[1]] ):
             Fail ( "operand is not scalar" )
-        D[V[0]] = fabs ( D[V[1]] )
+        D[V[0]] = math.fabs ( D[V[1]] )
         return True
 
     elif match ( "$=sin$" ):
@@ -340,8 +340,10 @@ def match ( pattern ):
 # Main Loop
 #
 while True:
-    line = input()
-    if line == None: break
+    try:
+        line = input()
+    except:
+        break
     line_number += 1
 
     squashed = "".join ( line.split() )
@@ -416,17 +418,20 @@ while True:
 
     if match ( "$=true" ):
         D[V[0]] = True
+        print ( line )
     elif match ( "$=false" ):
         D[V[0]] = False
+        print ( line )
     elif match ( "$=()" ):
         D[V[0]] = []
+        print ( line )
 
     # Compute_result() does the rest of the calls
     # to match an result computation.  Returns true
     # on success and false if operation not
     # recognized.  Result is in D[V[0]].
     #
-    if compute_result():
+    elif compute_result():
 
         print ( line + " = ", end = '' )
 
