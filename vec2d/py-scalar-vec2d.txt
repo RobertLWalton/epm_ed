@@ -1,7 +1,7 @@
 # Scalar Calculator Solution to the
 # Two Dimensional Geometry Problem
 #
-# File:         py-scalar-vec-2d.txt
+# File:         py-scalar-vec2d.txt
 # Authors:      Bob Walton (walton@acm.org)
 # Date:         Sun Aug  1 00:07:39 EDT 2021
 #

@@ -1,7 +1,7 @@
 # Test Continuous
 # Line and Line Calculator Operations
 #
-# Same as 00-000-line-vec-2d.in but for scaling
+# Same as 00-000-line-vec2d.in but for scaling
 # transform: v --> s*v
 #
 s=1e-5

@@ -1,8 +1,8 @@
 // Two Dimensional Geometry Display Program
 //
-// File:	display-vec-2d.cc
+// File:	display-vec2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Wed Jul 21 14:53:08 EDT 2021
+// Date:	Mon Aug  2 03:29:08 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -95,7 +95,7 @@ void error ( const char * format... )
 }
 
 char documentation [] =
-"display-vec-2d [-doc] [title]\n"
+"display-vec2d [-doc] [title]\n"
 "\n"
 "    Copies standard input to standard output,\n"
 "    processing lines read.  Lines beginning with\n"
