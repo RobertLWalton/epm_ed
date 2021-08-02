@@ -1,10 +1,10 @@
 # Test Scalar Arithmetic Operators
 #
-x = +1
-y = -1
-o = x + y = 0
-o = x - y = 2
-o = x * y = -1
+x=+1
+y=-1
+o=x+y = 0
+o=x-y = 2
+o=x*y = -1
 #
 s = 17
 t = 8
