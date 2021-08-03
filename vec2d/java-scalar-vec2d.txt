@@ -1,0 +1,624 @@
+// Scalar Calculator Solution to the
+// Two Dimensional Geometry Problem
+//
+// File:	java-scalar-vec2d.txt
+// Authors:	Bob Walton (walton@acm.org)
+// Date:	Tue Aug  3 15:21:42 EDT 2021
+//
+// The authors have placed this program in the public
+// domain; they make no warranty and accept no liability
+// for this program.
+
+// Java Data Structures
+//
+import java.io.*;
+public class vec2d {
+
+    static class Boolean {
+        boolean b;
+	Boolean ( boolean bval )
+	{
+	    b = bval;
+	}
+	public String toString()
+	{
+	    if ( b ) return ( "true" );
+	    else return ( "false" );
+	}
+    }
+
+    static class Scalar {
+        double s;
+	Scalar ( double sval )
+	{
+	    s = sval;
+	}
+	public String toString()
+	{
+	    return Double.toString ( s );
+	}
+    }
+
+    static class Vector {
+        double x, y;
+	Vector ( double xval, double yval )
+	{
+	    x = xval; y = yval;
+	}
+	public String toString()
+	{
+	    return "(" + Double.toString ( x )
+	         + "," + Double.toString ( y )
+		 + ")";
+	}
+    }
+
+    static class Linear {
+        Vector lx, ly;
+	Linear ( Vector lxval, Vector lyval )
+	{
+	    lx = lxval; ly = lyval;
+	}
+	public String toString()
+	{
+	    return "[" + lx.toString()
+	         + "," + ly.toString()
+		 + "]";
+	}
+    }
+
+    static class List {
+        Vector v;
+	List next;
+	List ( Vector vval, List nval )
+	{
+	    v = vval; next = nval;
+	}
+	public String toString()
+	{
+	    String s = "(" + v.toString();
+	    List n = next;
+	    while ( n != null )
+	    {
+	        s = s + "," + n.v.toString();
+		n = n.next;
+	    }
+	    return s + ")";
+	}
+    }
+
+    static Object[] D = new Object[128];
+	// D['X'] is value of variable named X.
+	// Implicitly initialized to D[.] == null.
+
+    static double[] units_data = new double[]
+	{ 1e30,  1e29,  1e28,  1e27,  1e26,
+	  1e25,  1e24,  1e23,  1e22,  1e21,
+	  1e20,  1e19,  1e18,  1e17,  1e16,
+	  1e15,  1e14,  1e13,  1e12,  1e11,
+	  1e10,  1e9,   1e8,   1e7,   1e6,
+	  1e5,   1e4,   1e3,   1e2,   1e1,
+	  1e0,
+	  1e-1,  1e-2,  1e-3,  1e-4,  1e-5,
+	  1e-6,  1e-7,  1e-8,  1e-9,  1e-10,
+	  1e-11, 1e-12, 1e-13, 1e-14, 1e-15,
+	  1e-16, 1e-17, 1e-18, 1e-19, 1e-20,
+	  1e-21, 1e-22, 1e-23, 1e-24, 1e-25,
+	  1e-26, 1e-27, 1e-28, 1e-29, 1e-30 };
+
+    static double units ( int d )
+	// units(d) = 10**(-d) for -30 <= d <= +30
+    {
+	return units_data[d+30];
+    }
+
+    static Vector zerov = new Vector ( 0, 0 ); 
+	// Zero vector
+    static Vector uxv = new Vector ( 1, 0 );   
+	// Unit vector in X direction.
+    static Vector uyv = new Vector ( 0, 1 );   
+	// Unit vector in Y direction.
+
+    static BufferedReader in =
+        new BufferedReader
+	    ( new InputStreamReader ( System.in ) );
+    static int line_number = 0;
+    static String line = "";
+	// Input line.
+    static String squashed = "";
+	// Input line with whitespace removed.
+    static int ndx;
+        // Current reading position in squashed.
+    static int V[] = new int[10];
+        // V[i] is codepoint of the i+1's variable
+	// in squashed.  E.g., if it is 'X', then
+	// V[i] = 88 as the codepoint of 'X' is 88.
+
+
+    // Announce fatal error with message.
+    //
+    static void Fail ( String message )
+    {
+        System.err.println
+	    ( "FATAL ERROR: " + message +
+	      " in line " +
+	      Integer.toString ( line_number ) + ":" );
+        System.err.println ( line );
+	System.exit ( 1 );
+    }
+
+    // Main Program
+    // ---- -------
+
+    // Read and return scalar.
+    //
+    static double read_scalar()
+    {
+	int i = squashed.indexOf ( ',', ndx );
+	if ( i == -1 )
+	    i = squashed.indexOf ( ')', ndx );
+	if ( i == -1 )
+	    i = squashed.length();
+	String s = squashed.substring ( ndx, i );
+	ndx = i;
+	try { return Double.parseDouble ( s ); }
+	catch ( Exception e )
+	    { Fail ( "`" + s + "' is not a scalar" ); }
+	return 0;  // Just to keep compiler happy.
+    }
+
+    // Read and return vector.
+    //
+    static Vector read_vector()
+    {
+	if ( squashed.charAt(ndx++) != '(' );
+	    Fail ( "`(' expected and not found" );
+	double x = read_scalar();
+	if ( squashed.charAt(ndx++) != ',' );
+	    Fail ( "`,' expected and not found" );
+	double y = read_scalar();
+	if ( squashed.charAt(ndx++) != ')' );
+	    Fail ( "`)' expected and not found" );
+	return new Vector ( x, y );
+    }
+
+    static boolean match ( String pattern )
+    {
+        int i = 0;
+	ndx = 0;
+	int len = pattern.length();
+	if ( len != squashed.length() )
+	    return false;
+	while ( ndx < len )
+	{
+	    if ( pattern.charAt(ndx) == '$' )
+	    {
+	        int c = Character.codePointAt
+		    ( squashed, ndx );
+		if ( Character.isLetter ( c ) )
+		    V[i++] = c;
+		else
+		    return false;
+	    }
+	    else if (    pattern.charAt(ndx)
+	              != squashed.charAt(ndx) )
+	        return false;
+	    ++ ndx;
+	}
+	return true;
+    }
+
+
+    public static void main ( String[] args )
+    {
+        while ( true ) try
+	{
+	    line = in.readLine();
+	    if ( line == null ) break;
+
+	    ++ line_number;
+
+	    // Set squashed to line with whitespace
+	    // characters deleted.
+	    //
+	    int i = 0;
+	    int len = line.length();
+	    squashed = "";
+	    boolean has_digit = false;
+	    while ( i < len )
+	    { 
+	        char c = line.charAt(i++);
+		if ( Character.isWhitespace ( c ) )
+		    continue;
+		if ( Character.isDigit ( c ) )
+		    has_digit = true;
+		squashed = squashed.concat
+		    ( Character.toString ( c ) );
+	    }
+
+	    len = squashed.length();
+
+	    if ( squashed.charAt(0) == '#' )
+	    {
+		// Comment line.
+		//
+		System.out.println ( line );
+		continue;
+	    }
+
+	    if ( has_digit )
+	    {
+		ndx = 0;
+
+		if ( ! Character.isLetter
+		           ( squashed.charAt(0) ) )
+		    Fail ( "first character is" +
+		           " not a letter" );
+		if ( squashed.charAt(1) != '=' )
+		    Fail ( "second character is" +
+		           " not `='" );
+	    
+		V[0] = Character.codePointAt
+		    ( squashed, 0 );
+		ndx += 2;
+
+		if ( squashed.charAt(ndx) == '[' )
+		{
+		    ++ ndx;
+		    Vector lx = read_vector();
+		    if ( squashed.charAt(ndx++) != ',' )
+			Fail ( "`,' expected and" +
+			       " not found" );
+		    Vector ly = read_vector();
+		    if ( squashed.charAt(ndx++) != ']' )
+			Fail ( "`]' expected and" +
+			       " not found" );
+		    if ( ndx != len )
+			Fail ( "extra stuff at end" +
+			       " of line" );
+		    D[V[0]] = new Linear ( lx, ly );
+		    System.out.println ( line );
+		    continue;
+		}
+
+		else if ( squashed.charAt(ndx) == '('
+		          &&
+			     squashed.charAt(ndx+1)
+			  == '(' )
+		{
+		    List r = null;
+		    ndx += 1;
+		    while ( true )
+		    {
+		        Vector v = read_vector();
+			r = new List ( v, r );
+			if (    squashed.charAt(ndx)
+			     == ')' )
+			    break;
+			if (    squashed.charAt(ndx)
+			     != ',' )
+			    Fail ( "expected `,' or" +
+			           " `)' not found" );
+			ndx += 1;
+		    }
+		    if ( ndx != len )
+			Fail ( "extra stuff at end" +
+			       " of line" );
+		    D[V[0]] = r;
+		    System.out.println ( line );
+		    continue;
+		}
+
+		else if ( squashed.charAt(0) == '(' )
+		{
+		    ++ ndx;
+		    D[V[0]] = read_vector();
+		    if ( ndx != len )
+			Fail ( "extra stuff at end" +
+			       " of line" );
+		    System.out.println ( line );
+		    continue;
+		}
+
+		else
+		{
+		    double s = read_scalar();
+		    if ( ndx != len )
+			Fail ( "extra stuff at end" +
+			       " of line" );
+		    D[V[0]] = new Scalar ( s );
+		    System.out.println ( line );
+		    continue;
+		}
+	    }
+
+	    // Has_digit is false from here on, and we
+	    // use exclusively the `match' function to
+	    // do the rest of the parsing.
+
+	    if ( match ( "$=true" ) )
+	    {
+		D[V[0]] = new Boolean ( true );
+		System.out.println ( line );
+		continue;
+	    }
+	    if ( match ( "$=false" ) )
+	    {
+		D[V[0]] = new Boolean ( false );
+		System.out.println ( line );
+		continue;
+	    }
+	    if ( match ( "$=()" ) )
+	    {
+		D[V[0]] = null;
+		System.out.println ( line );
+		continue;
+	    }
+
+	    // Compute_result() does the rest of the
+	    // calls to match an result computation.
+	    // Returns true on success and false if
+	    // operation not recognized.
+	    //
+	    if ( compute_result() )
+	    {
+		System.out.print ( line + " = " );
+		if ( D[V[0]] == null )
+		    System.out.println ( "()" );
+		else
+		    System.out.println
+		        ( D[V[0]].toString() );
+	    }
+	    else
+	        Fail ( "unrecognize operation" );
+	}
+	catch ( Exception e )
+	{
+	    Fail ( "exception raised: " + e.toString() +
+	           "\nProbably bad syntax" );
+	}
+    }
+
+    // Scalar Calculator Functions
+    // ------ ---------- ---------
+
+    // The following allow -30 <= d <= 30.
+    //
+    static boolean lt ( double x, double y, int d )
+    {
+	return x < y - 0.5 * units ( d );
+    }
+
+    static boolean le ( double x, double y, int d )
+    {
+	return x < y + 0.5 * units ( d );
+    }
+
+    static boolean eq ( double x, double y, int d )
+    {
+	return Math.abs ( x - y ) < 0.5 * units ( d );
+    }
+
+    static double dround ( double s, int d )
+    {
+	double u = units ( d );
+	double i = Math.rint ( s / u );
+	return i * u;
+    }
+
+    static int dcheck ( double s )
+    {
+        int d = (int) s;
+	if ( d != s )
+	    Fail ( Double.toString ( s ) +
+	           " is not an integer" );
+	if ( d < -15 || d > +15 )
+	    Fail ( Integer.toString ( d ) +
+	           " is not in the range [-15,+15]" );
+	return d;
+    }
+
+    static int dcheck ( Object o )
+    {
+	if ( o instanceof Scalar )
+	    Fail ( o.toString() + " is not a scalar" );
+	Scalar s = (Scalar) o;
+	return dcheck ( s.s );
+    }
+
+    // Compute Result Function
+    // ------- ------ --------
+
+    static boolean compute_result()
+    {
+	if ( match ( "$=$" ) )
+	{
+	    D[V[0]] = D[V[1]];
+	    return true;
+	}
+	if ( match ( "$=$+$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		D[V[0]] = new Scalar ( s1.s + s2.s );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=$-$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		D[V[0]] = new Scalar ( s1.s - s2.s );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=$*$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		D[V[0]] = new Scalar ( s1.s * s2.s );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=$/$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		D[V[0]] = new Scalar ( s1.s / s2.s );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=$%$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		D[V[0]] = new Scalar ( s1.s % s2.s );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=$:$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		int d = dcheck ( s2.s );
+		D[V[0]] = new Scalar
+		    ( dround ( s1.s, d ) );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=-$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar )
+	    {
+		Scalar s = (Scalar) D[V[1]];
+		D[V[0]] = new Scalar ( - s.s );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=|$|" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar )
+	    {
+		Scalar s = (Scalar) D[V[1]];
+		D[V[0]] = new Scalar
+		    ( Math.abs ( s.s ) );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=sin$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar )
+	    {
+		Scalar s = (Scalar) D[V[1]];
+		D[V[0]] = new Scalar
+		    ( Math.sin
+		          ( ( Math.PI / 180 ) * s.s ) );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=cos$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar )
+	    {
+		Scalar s = (Scalar) D[V[1]];
+		D[V[0]] = new Scalar
+		    ( Math.cos
+		          ( ( Math.PI / 180 ) * s.s ) );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=tan$" ) )
+	{
+	    if ( D[V[1]] instanceof Scalar )
+	    {
+		Scalar s = (Scalar) D[V[1]];
+		D[V[0]] = new Scalar
+		    ( Math.tan
+		          ( ( Math.PI / 180 ) * s.s ) );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=$<$:$" ) )
+	{
+	    int d = dcheck ( D[V[3]] );
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		D[V[0]] = new Boolean
+		    ( lt ( s1.s, s2.s, d ) );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=$<=$:$" ) )
+	{
+	    int d = dcheck ( D[V[3]] );
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		D[V[0]] = new Boolean
+		    ( le ( s1.s, s2.s, d ) );
+	    }
+	    else
+		return false;
+	}
+	if ( match ( "$=$==$:$" ) )
+	{
+	    int d = dcheck ( D[V[3]] );
+	    if ( D[V[1]] instanceof Scalar
+	         &&
+		 D[V[2]] instanceof Scalar )
+	    {
+		Scalar s1 = (Scalar) D[V[1]];
+		Scalar s2 = (Scalar) D[V[2]];
+		D[V[0]] = new Boolean
+		    ( eq ( s1.s, s2.s, d ) );
+	    }
+	    else
+		return false;
+	}
+
+	return false;
+    }
+}
