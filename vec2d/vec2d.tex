@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Mon Aug  2 03:22:31 EDT 2021
+Date:         & Tue Aug  3 17:22:06 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -270,7 +270,7 @@ Special Input File: & \file{00-000-special-vec2d.in} \\
 \end{tabular}
 \end{center}
 which may be used to see the results of divide by zero
-and other anomolous scalar computations.
+and other anomalous scalar computations.
 The output of your program for this special input file will depend
 upon the programming language you use, so the output is
 not testable except by human inspection.  Therefore there is
@@ -572,7 +572,7 @@ display command.
 
 Circle and ellipse radii must be strictly positive.
 Spaces are as indicated, and must consist
-of at least one horizonal space character.
+of at least one horizontal space character.
 Coordinates are automatically scaled to fit the logical page.  Angles are
 in degrees.
 
@@ -643,6 +643,8 @@ of text placement is {\tt ($x$,$y$)}, is one or more of:
     \end{tabular}
 \end{minipage}
 
+Here `\key{em}' is the font size; capital letters are typically
+0.7em high and lower case letters are typically 0.5em high.
 
 \begin{minipage}{\textwidth}
 The page commands are:
@@ -655,16 +657,17 @@ The page commands are:
 			     & page with margins as given in pt (1/72") \\
 			     & (margin defaults to 18 or 0.25") \\
 \tt \#!newpage [pq] & Starts new logical page with opposite \\
-                    & corners optionally given by points p and q \\
-		    & (which are not themselves displayed) \\
+                    & corner coordinates optionally given by \\
+		    & points p and q (which are not themselves \\
+		    & displayed) \\
 \tt \#!header text... & Adds text line to current logical page header \\
 \end{tabular}
 \end{minipage}
 
 The output from a test case is one or more physical pages
 each containing one or more logical pages.  The physical
-pages are numbered and labelled with the test case name
-(e.g., {\tt 00-000-vec2d}).  Each `{\tt text...}' adds one
+pages are numbered and labeled with the test case name
+(e.g., {\tt 00-000-vec2d}).  Each `{\tt header text...}' adds one
 line to the logical page header.  If the first command is
 not a `{\tt \#!layout}' command, then `{\tt \#!layout 1 1}'
 is assumed.  A `{\tt \#!newpage}' command immediately after a
@@ -947,7 +950,7 @@ does \underline{not} change $R^\phi$.
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-A rotation perserves side-lengths and angles of a triangle.
+A rotation preserves side-lengths and angles of a triangle.
 Therefore, a rotation preserves vector addition, that is,
 $R^\phi(v+w)=R^\phi(v)+R^\phi(w)$, and thus
 satisfies Definition~\ref{LINEAR-TRANSFORMATION}
@@ -1046,7 +1049,7 @@ does \underline{not} change $F^\phi$.
 \end{scope}
 \end{tikzpicture}
 \end{wrapfigure}
-A reflection perserves side-lengths and negates angles of a triangle.
+A reflection preserves side-lengths and negates angles of a triangle.
 Therefore, a reflection preserves vector addition, that is,
 $F^\phi(v+w)=F^\phi(v)+F^\phi(w)$, and thus
 satisfies Definition~\ref{LINEAR-TRANSFORMATION}
@@ -1145,9 +1148,9 @@ then: \\[1ex]
 	& {\tt v} reflected across the line with direction
 	  {\tt p} degrees; \\
 	& undefined if {\tt ||v|| = 0} \\
-\tt \WH p & returns {\tt ($u_x$\WH p,$u_y$\WH p)}, \\
+\tt \WH p & returns {\tt [$u_x$\WH p,$u_y$\WH p]}, \\
           & the rotation $R^p$ with angle $p$ degrees \\
-\tt |p & returns {\tt ($u_x$|p,$u_y$|p)}, \\
+\tt |p & returns {\tt [$u_x$|p,$u_y$|p]}, \\
        & the reflection $F^p$ across the line with direction $p$ degrees \\
 \end{tabular}
 \end{center}
@@ -1283,7 +1286,7 @@ We can use the fact that $*$ and $\wh$ are invariant under
 rotations to give a geometric characterization
 of these two products.  Let $v$ and $w$ be two vectors, let
 $\theta=\mathrm{azm}~w - \mathrm{azm}~v$ be the direction angle of $w$
-relative to $v$, and let $\phi = \mathrm{azm}~v$ be the aszimuth of $v$
+relative to $v$, and let $\phi = \mathrm{azm}~v$ be the azimuth of $v$
 (see the picture).
 If we rotate both vectors by $R^{-\phi}$
 we line $v$ up with the positive X-axis, while not changing $\theta$,
@@ -1312,7 +1315,7 @@ which gives us a quick way to change coordinate systems
 by a rotation times scalar multiplication by $||v||$ so that
 $v$ has coordinates $(||v||^2,0)$ in the new coordinate system.
 Problems that might be hard to solve in the original
-coordinate system can be easly to solve in the new coordinate
+coordinate system can be easily solved in the new coordinate
 system.  For example, the end of $w$ is to the left of the infinite directed
 line extending $v$ if and only if $v\wh w>0$.  One can also solve
 distance problems in the original coordinate system by solving them
@@ -1432,7 +1435,7 @@ defined by directed lines passing through a common point?
 We begin with a line {\tt pq} from point {\tt p} to point {\tt q},
 {\tt p$\neq$q}.
 We may take this line to be either infinite, or to be a finite
-line seqment with ends {\tt p} and {\tt q}.  We may take the
+line segment with ends {\tt p} and {\tt q}.  We may take the
 line to be undirected, or to be directed from {\tt p} to {\tt q}.
 
 We then consider a third point {\tt r} and ask about its relation
@@ -1573,7 +1576,7 @@ if and only if {\tt Y==0:(2d)}.
 There is a difference in the treatment of {\tt X < 0} between
 the problem of computing a distance from {\tt r} to the finite
 line {\tt pq} and the problem of computing whether {\tt r} is
-on the finite line {\tt pq}.  In both cases the line {\tt X = 0} is
+on the finite line {\tt pq}.  In both problems the line {\tt X = 0} is
 a boundary between different cases.  In the distance case, the distance
 is continuous across this boundary, so the computed value, the distance,
 does not change much when {\tt (X,Y)} moves across the boundary.
@@ -1583,7 +1586,7 @@ to {\tt 0 <= X}, and thus the computed value is discontinuous.
 
 In the continuous case we need not concern ourselves with how many
 decimal places {\tt X} has, and we can use {\tt X < 0} instead of
-{\tt X<0:(2d)}.  In the discontinuout case we cannot get a meaningful
+{\tt X<0:(2d)}.  In the discontinuous case we cannot get a meaningful
 {\tt true/false} answer unless we restrict the number of decimal
 places in {\tt X}, though we could get a {\tt true/false/maybe}
 answer if we knew more about the potential error in our value for
@@ -1743,7 +1746,7 @@ which we can solve for {\tt s}.  Unless {\tt (n-m)\WH(q-p) = 0}.
 If {\tt (n-m)\WH(q-p) $\ne$ 0} then plugging {\tt s} into
 {\tt p + s*(q-p)} and using \\
 \centerline{\tt (n-m)\WH(q-p) - (n-m)\WH(m-p) = (n-m)\WH(q-m)}
-we get that the intesection point is: \\
+we get that the intersection point is: \\
 \centerline{\tt \begin{tabular}{c}
                 [(n-m)\WH(q-m)]*p + [(n-m)\WH(m-p)]*q
 		\\\hline
@@ -1923,7 +1926,7 @@ the distance from {\tt q} to {\tt mn} \\
 
 \begin{indpar}{0.3in}
 Proof: By the previous theorem, {\tt r$_{\tt mn}$} in {\tt mn} and
-{\tt r$_{\tt pq}$} in {\tt pq} can be choosen so that
+{\tt r$_{\tt pq}$} in {\tt pq} can be chosen so that
 {\tt ||r$_{\tt mn}$ - r$_{\tt pq}$||} is minimal.
 
 First assume that the infinite extensions of {\tt mn} and {\tt pq} are
@@ -2130,7 +2133,7 @@ Then there is a subsequence $s$ of points such that either:
 \end{tabular}
 \end{center}
 But (e) is incompatible with both (c) and (d), and similarly (f) is
-imcompatible with both (c) and (d).
+incompatible with both (c) and (d).
 
 Case 2: There is a sequence of points in $R\setminus I$ that
 converges to $b$.
