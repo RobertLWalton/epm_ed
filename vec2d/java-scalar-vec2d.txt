@@ -3,7 +3,7 @@
 //
 // File:	java-scalar-vec2d.txt
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Tue Aug  3 15:21:42 EDT 2021
+// Date:	Tue Aug  3 16:29:09 EDT 2021
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -420,7 +420,7 @@ public class vec2d {
 
     static int dcheck ( Object o )
     {
-	if ( o instanceof Scalar )
+	if ( ! ( o instanceof Scalar ) )
 	    Fail ( o.toString() + " is not a scalar" );
 	Scalar s = (Scalar) o;
 	return dcheck ( s.s );
@@ -445,6 +445,7 @@ public class vec2d {
 		Scalar s1 = (Scalar) D[V[1]];
 		Scalar s2 = (Scalar) D[V[2]];
 		D[V[0]] = new Scalar ( s1.s + s2.s );
+		return true;
 	    }
 	    else
 		return false;
@@ -458,6 +459,7 @@ public class vec2d {
 		Scalar s1 = (Scalar) D[V[1]];
 		Scalar s2 = (Scalar) D[V[2]];
 		D[V[0]] = new Scalar ( s1.s - s2.s );
+		return true;
 	    }
 	    else
 		return false;
@@ -471,6 +473,7 @@ public class vec2d {
 		Scalar s1 = (Scalar) D[V[1]];
 		Scalar s2 = (Scalar) D[V[2]];
 		D[V[0]] = new Scalar ( s1.s * s2.s );
+		return true;
 	    }
 	    else
 		return false;
@@ -484,6 +487,7 @@ public class vec2d {
 		Scalar s1 = (Scalar) D[V[1]];
 		Scalar s2 = (Scalar) D[V[2]];
 		D[V[0]] = new Scalar ( s1.s / s2.s );
+		return true;
 	    }
 	    else
 		return false;
@@ -497,6 +501,7 @@ public class vec2d {
 		Scalar s1 = (Scalar) D[V[1]];
 		Scalar s2 = (Scalar) D[V[2]];
 		D[V[0]] = new Scalar ( s1.s % s2.s );
+		return true;
 	    }
 	    else
 		return false;
@@ -512,6 +517,7 @@ public class vec2d {
 		int d = dcheck ( s2.s );
 		D[V[0]] = new Scalar
 		    ( dround ( s1.s, d ) );
+		return true;
 	    }
 	    else
 		return false;
@@ -522,6 +528,7 @@ public class vec2d {
 	    {
 		Scalar s = (Scalar) D[V[1]];
 		D[V[0]] = new Scalar ( - s.s );
+		return true;
 	    }
 	    else
 		return false;
@@ -533,6 +540,7 @@ public class vec2d {
 		Scalar s = (Scalar) D[V[1]];
 		D[V[0]] = new Scalar
 		    ( Math.abs ( s.s ) );
+		return true;
 	    }
 	    else
 		return false;
@@ -545,6 +553,7 @@ public class vec2d {
 		D[V[0]] = new Scalar
 		    ( Math.sin
 		          ( ( Math.PI / 180 ) * s.s ) );
+		return true;
 	    }
 	    else
 		return false;
@@ -557,6 +566,7 @@ public class vec2d {
 		D[V[0]] = new Scalar
 		    ( Math.cos
 		          ( ( Math.PI / 180 ) * s.s ) );
+		return true;
 	    }
 	    else
 		return false;
@@ -569,6 +579,7 @@ public class vec2d {
 		D[V[0]] = new Scalar
 		    ( Math.tan
 		          ( ( Math.PI / 180 ) * s.s ) );
+		return true;
 	    }
 	    else
 		return false;
@@ -584,6 +595,7 @@ public class vec2d {
 		Scalar s2 = (Scalar) D[V[2]];
 		D[V[0]] = new Boolean
 		    ( lt ( s1.s, s2.s, d ) );
+		return true;
 	    }
 	    else
 		return false;
@@ -599,6 +611,7 @@ public class vec2d {
 		Scalar s2 = (Scalar) D[V[2]];
 		D[V[0]] = new Boolean
 		    ( le ( s1.s, s2.s, d ) );
+		return true;
 	    }
 	    else
 		return false;
@@ -614,6 +627,7 @@ public class vec2d {
 		Scalar s2 = (Scalar) D[V[2]];
 		D[V[0]] = new Boolean
 		    ( eq ( s1.s, s2.s, d ) );
+		return true;
 	    }
 	    else
 		return false;
