@@ -3,7 +3,7 @@
 #
 # File:         py-scalar-vec2d.txt
 # Authors:      Bob Walton (walton@acm.org)
-# Date:         Tue Aug  3 18:09:41 EDT 2021
+# Date:         Tue Aug  3 18:30:30 EDT 2021
 #
 # The authors have placed this program in the public
 # domain; they make no warranty and accept no liability
@@ -77,8 +77,205 @@ def Fail ( message ):
             file = sys.stderr )
     sys.exit ( 1 )
 
-# Main Loop is at end of program, as in PYTHON
-# it must be after the compute_result function.
+
+# Main Program
+# ---- -------
+
+# The read routines read squashed[ndx..], update ndx,
+# and return the value read.
+
+# Read and return scalar at squashed[i...]; scalar
+# is ended by , ) or line-end.
+#
+def read_scalar():
+    global ndx
+    sub = squashed[ndx:]
+    i = sub.find ( "," )
+    if i == -1:
+        i = sub.find ( ")" )
+
+    if i == -1:
+        v = sub
+        ndx += len ( sub )
+    else:
+        v = sub[:i]
+        ndx += i
+    try:
+        return float(v)
+    except:
+        Fail ( "`" + v + "' is not a scalar" )
+
+# Read and return vector.
+#
+def read_vector():
+    global ndx
+    if squashed[ndx] != "(":
+        Fail ( "`(' not found where expected" )
+    ndx += 1
+    x = read_scalar(p)
+    if squashed[ndx] != ",":
+        Fail ( "`,' not found where expected" )
+    ndx += 1
+    y = read_scalar(p)
+    if squashed[ndx] != ")":
+        Fail ( "`)' not found where expected" )
+    ndx += 1
+    return (x,y)
+
+# Match a pattern to the squashed input line.  Returns
+# True iff successful.  Sets V[i] to ord("X") if the
+# i+1'st $ in the pattern matches the letter "X".
+#
+def match ( pattern ):
+
+    global V
+    V = []
+    j = len ( pattern )
+    if j != len ( squashed ):
+        return False
+    i = 0
+    while i < j:
+        c = pattern[i]
+        if c == "$":
+            c = squashed[i]
+            if not c.isalpha():
+                return False
+            V.append ( ord ( c ) )
+        else:
+            if c != squashed[i]:
+                return False
+
+        i += 1
+
+    return True
+
+
+# Main Loop
+#
+# This must be in a function because it calls the
+# compute_result function that is defined later.
+# Python requires functions to be defined before
+# they are CALLed, not before they are used in
+# another function definition.
+#
+def main():
+    global D, line_number, line, squashed, ndx, V
+    try:
+      while True:
+        line = input()
+        line_number += 1
+
+        squashed = "".join ( line.split() )
+
+        if squashed == "":
+            Fail ( "blank line" )
+        if squashed[0] == '#':
+            print ( line )
+            continue
+
+        has_digit = False
+        i = 0
+        j = len ( squashed )
+        while not has_digit and i < j:
+            has_digit = squashed[i].isdigit()
+            i += 1
+
+        if has_digit:
+
+            ndx = 0
+
+            v = squashed[ndx]
+            ndx += 1
+            if not v.isalpha():
+                Fail ( "line contains a digit" +
+                       " but begins with non-letter" )
+            V = [ ord ( v ) ]
+
+            if squashed[ndx] != '=':
+                Fail ( "`=' not found where expected" )
+            ndx += 1
+
+            c = squashed[ndx]
+            if c == '[':
+                ndx += 1
+                lx = read_vector()
+                if squashed[ndx] != ',':
+                    Fail ( "`,' not found where expected" )
+                ndx += 1
+                ly = read_vector()
+                if squashed[ndx] != ']':
+                    Fail ( "`]' not found where expected" )
+                ndx += 1
+                D[V[0]] = (lx,ly)
+
+            elif c == '(' and squashed[ndx+1] == '(':
+                ndx += 1
+                D[V[0]] = []
+                while True:
+                    D[V[0]].append ( read_vector() )
+                    if squashed[ndx] != ',': break
+                    ndx += 1
+                if squashed[ndx] != ')':
+                    Fail ( "`)' not found where expected" )
+                ndx += 1
+
+            elif c == '(':
+                D[V[0]] = read_vector()
+
+            else:
+                D[V[0]] = read_scalar()
+
+            if ndx != len ( squashed ):
+                Fail ( "extra stuff `" + squashed[ndx:] +
+                       "' at end of line" )
+            print ( line )
+            continue
+
+        # Has_digit is false from here on, and we
+        # use exclusively the `match' function to do
+        # the rest of the parsing.
+
+        if match ( "$=true" ):
+            D[V[0]] = True
+            print ( line )
+        elif match ( "$=false" ):
+            D[V[0]] = False
+            print ( line )
+        elif match ( "$=()" ):
+            D[V[0]] = []
+            print ( line )
+
+        # Compute_result() does the rest of the calls
+        # to match an result computation.  Returns true
+        # on success and false if operation not
+        # recognized.  Result is in D[V[0]].
+        #
+        elif compute_result():
+
+            print ( line + " = ", end = '' )
+
+            r = D[V[0]]
+            if is_bool ( r ):
+                if r: print ( "true" )
+                else: print ( "false" )
+            elif is_scalar ( r ):
+                print ( r )
+            elif is_vector ( r ):
+                print ( r )
+            elif is_linear ( r ):
+                print ( "[" + r(0) + "," + r(1) + "]" )
+            elif is_list ( r ):
+                print ( "(" + r.join ( "," ) + ")" )
+            else:
+                Fail ( "BAD RESULT `" + r + "'" )
+
+        else:
+            Fail ( "unrecognized operation" )
+
+    except (EOFError):
+        sys.exit ( 0 )
+    except ():
+        Fail ( "exception raised" )
 
 # Scalar Calculator Functions
 # ------ ---------- ---------
@@ -264,198 +461,7 @@ def compute_result():
 
     else:
         return False
-
-# Main Program
-# ---- -------
 
-# The read routines read squashed[ndx..], update ndx,
-# and return the value read.
-
-# Read and return scalar at squashed[i...]; scalar
-# is ended by , ) or line-end.
+# Top Level Execution
 #
-def read_scalar():
-    global ndx
-    sub = squashed[ndx:]
-    i = sub.find ( "," )
-    if i == -1:
-        i = sub.find ( ")" )
-
-    if i == -1:
-        v = sub
-        ndx += len ( sub )
-    else:
-        v = sub[:i]
-        ndx += i
-    try:
-        return float(v)
-    except:
-        Fail ( "`" + v + "' is not a scalar" )
-
-# Read and return vector.
-#
-def read_vector():
-    global ndx
-    if squashed[ndx] != "(":
-        Fail ( "`(' not found where expected" )
-    ndx += 1
-    x = read_scalar(p)
-    if squashed[ndx] != ",":
-        Fail ( "`,' not found where expected" )
-    ndx += 1
-    y = read_scalar(p)
-    if squashed[ndx] != ")":
-        Fail ( "`)' not found where expected" )
-    ndx += 1
-    return (x,y)
-
-# Match a pattern to the squashed input line.  Returns
-# True iff successful.  Sets V[i] to ord("X") if the
-# i+1'st $ in the pattern matches the letter "X".
-#
-def match ( pattern ):
-
-    global V
-    V = []
-    j = len ( pattern )
-    if j != len ( squashed ):
-        return False
-    i = 0
-    while i < j:
-        c = pattern[i]
-        if c == "$":
-            c = squashed[i]
-            if not c.isalpha():
-                return False
-            V.append ( ord ( c ) )
-        else:
-            if c != squashed[i]:
-                return False
-
-        i += 1
-
-    return True
-
-
-# Main Loop
-#
-def main():
-    global D, line_number, line, squashed, ndx, V
-    try:
-      while True:
-        line = input()
-        line_number += 1
-
-        squashed = "".join ( line.split() )
-
-        if squashed == "":
-            Fail ( "blank line" )
-        if squashed[0] == '#':
-            print ( line )
-            continue
-
-        has_digit = False
-        i = 0
-        j = len ( squashed )
-        while not has_digit and i < j:
-            has_digit = squashed[i].isdigit()
-            i += 1
-
-        if has_digit:
-
-            ndx = 0
-
-            v = squashed[ndx]
-            ndx += 1
-            if not v.isalpha():
-                Fail ( "line contains a digit" +
-                       " but begins with non-letter" )
-            V = [ ord ( v ) ]
-
-            if squashed[ndx] != '=':
-                Fail ( "`=' not found where expected" )
-            ndx += 1
-
-            c = squashed[ndx]
-            if c == '[':
-                ndx += 1
-                lx = read_vector()
-                if squashed[ndx] != ',':
-                    Fail ( "`,' not found where expected" )
-                ndx += 1
-                ly = read_vector()
-                if squashed[ndx] != ']':
-                    Fail ( "`]' not found where expected" )
-                ndx += 1
-                D[V[0]] = (lx,ly)
-
-            elif c == '(' and squashed[ndx+1] == '(':
-                ndx += 1
-                D[V[0]] = []
-                while True:
-                    D[V[0]].append ( read_vector() )
-                    if squashed[ndx] != ',': break
-                    ndx += 1
-                if squashed[ndx] != ')':
-                    Fail ( "`)' not found where expected" )
-                ndx += 1
-
-            elif c == '(':
-                D[V[0]] = read_vector()
-
-            else:
-                D[V[0]] = read_scalar()
-
-            if ndx != len ( squashed ):
-                Fail ( "extra stuff `" + squashed[ndx:] +
-                       "' at end of line" )
-            print ( line )
-            continue
-
-        # Has_digit is false from here on, and we
-        # use exclusively the `match' function to do
-        # the rest of the parsing.
-
-        if match ( "$=true" ):
-            D[V[0]] = True
-            print ( line )
-        elif match ( "$=false" ):
-            D[V[0]] = False
-            print ( line )
-        elif match ( "$=()" ):
-            D[V[0]] = []
-            print ( line )
-
-        # Compute_result() does the rest of the calls
-        # to match an result computation.  Returns true
-        # on success and false if operation not
-        # recognized.  Result is in D[V[0]].
-        #
-        elif compute_result():
-
-            print ( line + " = ", end = '' )
-
-            r = D[V[0]]
-            if is_bool ( r ):
-                if r: print ( "true" )
-                else: print ( "false" )
-            elif is_scalar ( r ):
-                print ( r )
-            elif is_vector ( r ):
-                print ( r )
-            elif is_linear ( r ):
-                print ( "[" + r(0) + "," + r(1) + "]" )
-            elif is_list ( r ):
-                print ( "(" + r.join ( "," ) + ")" )
-            else:
-                Fail ( "BAD RESULT `" + r + "'" )
-
-        else:
-            Fail ( "unrecognized operation" )
-
-    except (EOFError):
-        sys.exit ( 0 )
-    except ():
-        Fail ( "exception raised" )
-
 main()
