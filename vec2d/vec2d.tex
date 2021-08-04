@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Tue Aug  3 17:22:06 EDT 2021
+Date:         & Wed Aug  4 10:37:01 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -1766,6 +1766,7 @@ so      & {\tt nm} and {\tt pq} are parallel \\
 The converse is also true.  If {\tt mn} and {\tt pq} are parallel, \\
 \hspace*{0.3in}\begin{tabular}{r@{~~}l}
 then    & {\tt azm (n-m) = azm (q-p)} \\
+or      & {\tt azm (n-m) = azm (q-p) $\pm$ 180} \\
 and     & \tt ||n-m|| $\neq$ 0 $\neq$ ||q-p|| \\
 so      & {\tt n-m = s*(q-p)} for some scalar {\tt s} \\
 so      & \tt (n-m)\WH(q-p) = s*((q-p)\WH(q-p)) = 0 \\
@@ -1798,13 +1799,13 @@ If the coordinates of {\tt m},
 {\tt n}, {\tt p}, and {\tt q} have at most {\tt d} decimal places,
 finite {\tt mn} intersects infinite {\tt pq} if and only if:
 \begin{center}
-{\tt M.y > 0:d} and {\tt N.y < 0:d} \\
+{\tt M.y > 0:(2d)} and {\tt N.y < 0:(2d)} \\
 or \\
-{\tt M.y < 0:d} and {\tt N.y > 0:d} \\
+{\tt M.y < 0:(2d)} and {\tt N.y > 0:(2d)} \\
 or \\
-{\tt M.y == 0:d} \\
+{\tt M.y == 0:(2d)} \\
 or \\
-{\tt N.y == 0:d}
+{\tt N.y == 0:(2d)}
 \end{center}
 where {\tt M.y == (q-p)\WH(m-p)} and {\tt N.y == (q-p)\WH(n-p)}.
 \end{theorem}
@@ -1868,25 +1869,61 @@ If the two infinite extensions of the two finite lines {\tt pq} and
 infinite line, we need a new approach.  We need to establish a coordinate
 system on this infinite line.
 
-If {\tt r} is a point on this infinite line then
-{\tt r = p + s$_r$ * <q-p>} for some scalar {\tt s$_r$}.  Then
-{\tt s$_r$ = <q-p>*(r-p)} (because {\tt ||<q-p>|| = 1}).
-We can use the map {\tt r $\mapsto$ s$_r$} as a distance-preserving
-system of coordinates
-on the infinite line.
+If {\tt r} is a point on this infinite line then we can map
+\begin{center}
+{\tt r $\mapsto$ R = ( (q-p)*(r-p), (q-p)\WH(r-p) ) = (R.x,0)}
+\end{center}
+and use the map
+\begin{center}
+{\tt r $\mapsto$ R.x = (q-p)*(r-p)}
+\end{center}
+as coordinates on this line.  In this system of coordinates distances
+are {\tt ||q-p||} times distances in the original system of coordinates.
 
-Using this coordinate system, the finite line {\tt pq} is represented
-as the coordinate interval {\tt [s$_p$,s$_q$]}, where
-{\tt s$_p$ = <q-p>*(p-p) = 0} and
-{\tt s$_q$ = <q-p>*(q-p) = ||q-p|| > 0 }.
-To simplify
-the situation, switch {\tt m} and {\tt n} if necessary so that
-{\tt s$_m$ < s$_n$} and {\tt mn} is represented by the coordinate
-interval {\tt [s$_m$,s$_n$]}.  Then the overlap of the two intervals
-is empty if {\tt s$_n$ < s$_p$} or {\tt s$_q$ < s$_m$}, and is
-otherwise \\
-\centerline{\tt min(s$_q$,s$_n$) - max(s$_p$,s$_m$)}
+In this coordinate system,
+\begin{center}
+\begin{tabular}{l@{~~~~~}l}
+\tt P.x = (q-p)*(p-p) = 0 &
+\tt Q.x = (q-p)*(q-p) > 0 \\
+\tt M.x = (q-p)*(m-p) &
+\tt N.x = (q-p)*(n-p) \\
+\end{tabular}
+\end{center}
+We will switch m and n if necessary so that {\tt M.x < N.x}.
+Then the two finite lines are {\tt pq} represented by the
+interval {\tt [P.x,Q.x]} and {\tt mn} represented by the
+interval {\tt [M.x,N.x]}.  Therefore {\tt pq} and {\tt mn}
+\begin{center}
+\begin{tabular}{l}
+do \underline{not} intersect if {\tt N.x < P.x:(2d)} or {\tt Q.x < M.x:(2d)} \\
+\underline{do} intersect
+  if {\tt N.x $\ge$ P.x:(2d)} and {\tt Q.x $\ge$ M.x:(2d)} \\
+\end{tabular}
+\end{center}
 
+Deciding whether or not {\tt pq} and {\tt mn} intersect is a discontinuous
+problem.  However finding the length of the intersection under the
+assumption that both lines have the same infinite extension is
+a continuous problem.  The intersection of {\tt pq} and {\tt mn},
+expressed using our line coordinates, is:
+\begin{center}
+\tt [P.x,Q.x]$\cap$[M.x,N.x] = [max(P.x,M.x),min(Q.x,N.x)]
+\end{center}
+so the length of the intersection is
+\begin{center}
+\begin{tabular}{c}
+\tt min(Q.x,N.x) - max(P.x,M.x)
+\\\hline
+\tt ||q-p||
+\end{tabular} if this is $\ge$ 0
+\\[3ex]
+or 0 otherwise
+\end{center}
+
+This length is continuous across the boundary
+\begin{center}
+\tt min(Q.x,N.x) = max(P.x,M.x)
+\end{center}
 
 Lastly we consider the problem of finding the distance between
 the finite line {\tt mn} and the finite line {\tt pq}.  We assume:
