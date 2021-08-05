@@ -41,7 +41,7 @@
 
 \begin{tabular}{ll}
 Author:	      & Robert L.~Walton $<$walton@acm.org$>$ \\
-Date:         & Wed Aug  4 10:37:01 EDT 2021
+Date:         & Wed Aug  4 22:08:37 EDT 2021
 \end{tabular}
 \\[2ex]
 \begin{tabular}{p{5in}}
@@ -2000,7 +2000,7 @@ that is not an endpoint can be translated right or left to decrease
 {\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$||}.  If on the other hand
 {\tt ||r'$_{\tt mn}$ - r'$_{\tt pq}$|| = 0} and
 {\tt r$_{\tt mn}$ = r$_{\tt pq}$} is not an endpoint, it can be
-translated right or left until it becomes and endpoint.
+translated right or left until it becomes an endpoint.
 \end{indpar}
 
 The translation argument just given is an example of a
@@ -2033,7 +2033,7 @@ to compute A,
 or more specifically, an algorithm that makes errors only if D = 0
 to within computational accuracy.  Then if A is erroneously
 false, D will be returned, which is the same value that would be
-returned if A is true, to within computational accuracy.  Or if
+returned if A is true, to within computational accuracy.  And if
 A is erroneously true, 0 would be returned, which is the same as
 D to within computation accuracy.  Then
 our distance algorithm will be continuous and \underline{not} impose
@@ -2114,12 +2114,19 @@ If $b\in I$ then:
 \begin{indpar}{0.3in}
 Proof of Lemma:
 
-If {\tt M'($b$).y = 0}, either {\tt M' = M}, {\tt M} is on
-the line {\tt PQ}, and therefore $D=0$;
-or {\tt M'.x = P.x} or {\tt M'.x = Q.x},
-{\tt M' = P} or {\tt M' = Q}, the line {\tt MN}
-contains {\tt P} or {\tt Q}, and $D=0$.
-Similarly if {\tt N'($b$).y = 0} then $D=0$.
+Let {\tt M'.y = 0}, so {\tt M'} is on the line {\tt PQ}
+and also on the line {\tt MN}.
+The cases are:
+\begin{indpar}{0.5in}
+\begin{itemize}
+\item[(a)] {\tt M' = M} so {\tt M} is on the line {\tt PQ} and $D=0$.
+\item[(b)] {\tt M'.x = P.x} in which case {\tt M' = P}
+(as {\tt M'.y = 0 = P.y}), so {\tt P} is on {\tt MN} and $D=0$.
+\item[(c)] {\tt M'.x = Q.x} in which case {\tt M' = Q}
+(as {\tt M'.y = 0 = Q.y}), so {\tt Q} is on {\tt MN} and $D=0$.
+\end{itemize}
+\end{indpar}
+Similarly for {\tt N'.y = 0}.
 \end{indpar}
 
 \begin{indpar}{0.3in}
@@ -2133,7 +2140,8 @@ are continuous functions on $I$.
 Let $b\in B$.  We need to show that $D=0$ at $b$.
 
 Since $T$ is closed and $B$ is the boundary of $T$, $B\subset T$,
-and $b\in T$.  Therefore one of the following is true:
+and $b\in T\subset I$.  Therefore {\tt M'($b$)} and {\tt N'($b$)}
+exist and one of the following is true:
 \begin{center}
 \begin{tabular}{ll}
 (a) & {\tt M'($b$).y = 0} (and therefore by the lemma $D=0$ at $b$) \\ 
