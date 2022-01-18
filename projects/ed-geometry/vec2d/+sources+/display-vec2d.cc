@@ -2,7 +2,7 @@
 //
 // File:	display-vec2d.cc
 // Authors:	Bob Walton (walton@acm.org)
-// Date:	Mon Aug  2 03:29:08 EDT 2021
+// Date:	Tue Jan 18 05:55:21 EST 2022
 //
 // The authors have placed this program in the public
 // domain; they make no warranty and accept no liability
@@ -13,6 +13,7 @@
 #include <string>
 #include <algorithm>
 #include <cstring>
+#include <cstdio>
 #include <cstdlib>
 #include <cstdarg>
 #include <cmath>
